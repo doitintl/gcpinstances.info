@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>GCP Compute Engine Instance Comparison</title>
+    <link rel="stylesheet" href="default.css" media="screen">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="screen">
+    <link rel="icon" type="image/png" href="favicon.png">
+  </head>
+
+  <body class="ec2instances">
+    <div class="page-header">
+
+      <span class="pull-right">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-via="powdahound"></a>
+        <iframe src="https://ghbtns.com/github-btn.html?user=powdahound&repo=ec2instances.info&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+      </span>
+
+      
+    <h1>GCPinstances.info <small>Easy GCP <b>Compute Engine</b> Instance Comparison</small></h1>
+    
+
+      <p class="pull-right label label-info">Last Update: 2019-12-18 14:21:00 UTC</p>
+      <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="/">Compute Engine</a></li>
+        <!-- li role="presentation" class=""><a href="/rds/">RDS</a></li -->
+      </ul>
+    </div>
+
+    <div class="clear-fix"></div>
+
+    
+
+
+    
+
+    <div class="row" id="menu">
+      <div class="col-sm-12">
+        <div class="btn-group" id='region-dropdown'>
+          <a class="btn dropdown-toggle btn-primary" data-toggle="dropdown" href="#">
+            <i class="icon-globe icon-white"></i>
+            Region: <span class="text">europe</span>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu" id="region-menu">
+            <!-- li><a href="javascript:;" data-region='ap-east-1'>Asia-Pacific (Hong Kong)</a></li>
+            <li><a href="javascript:;" data-region='ap-south-1'>Asia-Pacific (Mumbai)</a></li>
+            <li><a href="javascript:;" data-region='ap-northeast-3'>Asia Pacific (Osaka-Local)</a></li>
+            <li><a href="javascript:;" data-region='ap-northeast-2'>Asia-Pacific (Seoul)</a></li>
+            <li><a href="javascript:;" data-region='ap-southeast-1'>Asia-Pacific (Singapore)</a></li>
+            <li><a href="javascript:;" data-region='ap-southeast-2'>Asia-Pacific (Sydney)</a></li>
+            <li><a href="javascript:;" data-region='ap-northeast-1'>Asia-Pacific (Tokyo)</a></li>
+            <li><a href="javascript:;" data-region='ca-central-1'>Canada (Central)</a></li>
+            <li><a href="javascript:;" data-region='eu-central-1'>EU (Frankfurt)</a></li>
+            <li><a href="javascript:;" data-region='eu-west-1'>EU (Ireland)</a></li>
+            <li><a href="javascript:;" data-region='eu-west-2'>EU (London)</a></li>
+            <li><a href="javascript:;" data-region='eu-west-3'>EU (Paris)</a></li>
+            <li><a href="javascript:;" data-region='eu-north-1'>EU (Stockholm)</a></li>
+            <li><a href="javascript:;" data-region='me-south-1'>Middle East (Bahrain)</a></li>
+            <li><a href="javascript:;" data-region='sa-east-1'>South America (S&atilde;o Paulo)</a></li>
+            <li><a href="javascript:;" data-region='us-east-1'>US East (N. Virginia)</a></li>
+            <li><a href="javascript:;" data-region='us-east-2'>US East (Ohio)</a></li>
+            <li><a href="javascript:;" data-region='us-west-1'>US West (Northern California)</a></li>
+            <li><a href="javascript:;" data-region='us-west-2'>US West (Oregon)</a></li>
+            <li><a href="javascript:;" data-region='us-gov-west-1'>AWS GovCloud (US-West)</a></li>
+            <li><a href="javascript:;" data-region='us-gov-east-1'>AWS GovCloud (US-East)</a></li -->
+          </ul>
+        </div>
+
+        <div class="btn-group" id="cost-dropdown">
+          <a class="btn dropdown-toggle btn-primary" data-toggle="dropdown" href="#">
+            <i class="icon-shopping-cart icon-white"></i>
+            Cost: <span class="text"></span>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="javascript:;" duration="secondly">Secondly</a></li>
+            <li><a href="javascript:;" duration="hourly">Hourly</a></li>
+            <li><a href="javascript:;" duration="daily">Daily</a></li>
+            <li><a href="javascript:;" duration="weekly">Weekly</a></li>
+            <li><a href="javascript:;" duration="monthly">Monthly</a></li>
+            <li><a href="javascript:;" duration="annually">Annually</a></li>
+          </ul>
+        </div>
+
+        <!-- div class="btn-group" id='reserved-term-dropdown'>
+          <a class="btn dropdown-toggle btn-primary" data-toggle="dropdown" href="#">
+            <i class="icon-globe icon-white"></i>
+            Committed  use discount: <span class="text">1 year</span>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="javascript:;" data-reserved-term='cud-1y'>1 year</a></li>
+            <li><a href="javascript:;" data-reserved-term='cud-3y'>3 years</a></li>
+          </ul>
+        </div -->
+
+        <div class="btn-group" id="filter-dropdown">
+          <a class="btn dropdown-toggle btn-primary" data-toggle="dropdown" href="#">
+            <i class="icon-filter icon-white"></i>
+            Columns
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <!-- table header elements inserted by js -->
+          </ul>
+        </div>
+
+        <button class="btn btn-primary btn-compare"
+          data-text-on="End Compare"
+          data-text-off="Compare Selected">
+          Compare Selected
+        </button>
+
+        <button class="btn btn-primary btn-clear">
+          Clear Filters
+        </button>
+      </div>
+    </div>
+
+    <div class="form-inline" id="filters">
+      <strong> Filter:</strong>
+      Min Memory (GiB): <input data-action="datafilter" data-type="memory" class="form-control" />
+      Min vCPUs: <input data-action="datafilter" data-type="vcpus" class="form-control" />
+      <!-- Min Storage (GiB): <input data-action="datafilter" data-type="storage" class="form-control" /> -->
+    </div>
+
+    <table cellspacing="0" class="table table-bordered table-hover table-condensed" id="data">
+      <thead>
+        <tr>
+          <th class="machinetype">Machine type</th>
+          <th class="vcpus">vCPUs</th>
+          <th class="memory">Memory</th>
+          <th class="ssdsupport">Local SSD support</th>
+          <th class="network">Network performance</th>
+          <th class="gpu">GPU support</th>
+          <th class="tenant">Sole tenant support</th>
+          <th class="virtualization">Nested virtualization support</th>
+          <th class="lnondemand">Linux On Demand cost</th>
+          <th class="lnsudc">Linux Sustained usage discount cost</th>
+          <th class="lnpc">Linux Preemptible cost</th>
+          <th class="ln1cud">Linux 1 year CUD cost</th>
+          <th class="ln3cud">Linux 3 year CUD cost</th>
+          <th class="wnondemand">Windows On Demand cost</th>
+          <th class="wnsudc">Windows Sustained usage discount cost</th>
+          <th class="wnpc">Windows Preemptible cost</th>
+          <th class="wn1cud">Windows 1 year CUD cost</th>
+          <th class="wn3cud">Windows 3 year CUD cost</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+
+
+    <div class="well">
+      <p>
+        <strong>Why?</strong>
+        Because it's frustrating to compare instances using Amazon's own <a href="http://aws.amazon.com/ec2/instance-types/" target="_blank">instance type</a>, <a href="http://aws.amazon.com/ec2/pricing/" target="_blank">pricing</a>, and other pages.
+      </p>
+      <p>
+        <strong>Who?</strong>
+        It was started by <a href="http://twitter.com/powdahound" target="_blank">@powdahound</a>, contributed to by <a href="https://github.com/powdahound/ec2instances.info/contributors" target="_blank">many</a>, and awaits your improvements <a href="https://github.com/powdahound/ec2instances.info" target="_blank">on GitHub</a>.
+      </p>
+      <p>
+        <strong>How?</strong>
+        Data is scraped from multiple pages on the AWS site. This was last done at 2019-12-18 14:21:00 UTC.
+      </p>
+
+      <p class="bg-warning">
+        <strong>Warning:</strong> This site is not maintained by or affiliated with Amazon. The data shown is not guaranteed to be accurate or current. Please <a href="http://github.com/powdahound/ec2instances.info/issues">report issues</a> you see.
+      </p>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="bootstrap/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
+    <script src="store/store.js" type="text/javascript" charset="utf-8"></script>
+
+    <script src="default.js" type="text/javascript" charset="utf-8"></script>
+
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </body>
+</html>

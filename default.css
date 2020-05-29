@@ -1,0 +1,152 @@
+body {
+  padding: 5px 20px;
+}
+
+.ec2instances .page-header {
+  margin-top: 0;
+  border-bottom: 0;
+}
+
+.dataTables_filter {
+  float: right;
+}
+
+#menu {
+  margin-bottom: 10px;
+}
+
+#filters {
+  margin-bottom: 10px;
+  /* float so that the search input from the data table below can share the same 'row' as the filters */
+  float: left !important;
+  min-width: 600px;
+}
+
+  #filters input {
+    width: 5rem;
+  }
+
+#data {
+  margin-top: 10px;
+  clear: both;
+}
+
+#data a {
+  color: #333;
+  text-decoration: underline;
+}
+
+#data tr {
+  background-color: white;
+  cursor: pointer;
+}
+
+#data tr.highlight, #data tr.highlight:hover {
+  background-color: #D3FFFF;
+}
+
+#data th, #data td {
+  white-space: nowrap;
+}
+
+#data th {
+  background-color: #eee;
+}
+
+#data th input[type="text"] {
+  width: 100%;
+}
+
+#data td {
+  font-size: 13px;
+}
+
+#data td.name {
+  text-align: left;
+}
+
+#data td.memory {
+  text-align: right;
+}
+
+#data td.computeunits {
+  text-align: left;
+}
+
+#data td.storage {
+  text-align: right;
+}
+
+#data td.architecture {
+  text-align: right;
+}
+
+#data td.ioperf {
+  text-align: left;
+}
+
+#data td.maxips {
+  text-align: right;
+}
+
+#data td.maxenis {
+  text-align: right;
+}
+
+#data td.apiname {
+  text-align: left;
+}
+
+/* Bootstrap overrides */
+.dropdown-menu .active a {
+  color: #fff !important;
+}
+
+.dropdown-menu li > a:hover {
+  background: #0044cc !important;
+}
+
+.share-url {
+  text-align: left;
+  margin-left: 5px;
+  margin-bottom: 0px !important;
+}
+
+.btn-sm {
+  height: 26px;
+  padding: 3px 0px;
+}
+
+.well p:last-child {
+  margin-bottom: 0;
+}
+
+/* DataTables: http://datatables.net/blog/Twitter_Bootstrap_2 */
+table.table thead .sorting,
+table.table thead .sorting_asc,
+table.table thead .sorting_desc,
+table.table thead .sorting_asc_disabled,
+table.table thead .sorting_desc_disabled {
+  cursor: pointer;
+  *cursor: hand;
+}
+
+table.table thead .sorting { background: url('datatables/images/sort_both.png') no-repeat center right; }
+table.table thead .sorting_asc { background: url('datatables/images/sort_asc.png') no-repeat center right; }
+table.table thead .sorting_desc { background: url('datatables/images/sort_desc.png') no-repeat center right; }
+
+table.table thead .sorting_asc_disabled { background: url('datatables/images/sort_asc_disabled.png') no-repeat center right; }
+table.table thead .sorting_desc_disabled { background: url('datatables/images/sort_desc_disabled.png') no-repeat center right; }
+
+/* This class is applied to the DataTables search box by our own code once it renders */
+input.search {
+  margin-left: 5px;
+  width: 150px;
+  display: inline;
+}
+
+/* Bootstrap overrides *******************************************************/
+.tooltip-inner {
+  /* let text wrap in tooltips */
+  white-space: pre-wrap;
+}
