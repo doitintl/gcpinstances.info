@@ -8,7 +8,7 @@ var g_settings = {};
 
 var g_settings_defaults = {
   cost_duration: 'hourly',
-  region: 'europe',
+  region: 'us-central1',
   reserved_term: 'cud-1y',
   min_memory: 0,
   min_vcpus: 0,
@@ -140,7 +140,7 @@ $(document).ready(function () {
 
         for (var region in typeRegions) {
           //if (!/^australia/.test(region) && !/^asia/.test(region)) {
-          if (region !== 'australia' && region !== 'asia' && region !== 'us') {
+          if (region !== 'australia' && region !== 'asia' && region !== 'us' && region !== 'asia' && region !== 'europe') {
             if (allRegions.indexOf(region) === -1) {
               allRegions.push(region);
             }
