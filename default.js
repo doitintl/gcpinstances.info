@@ -244,7 +244,7 @@ function generate_data_table(region, multiplier = 1, per_time = 'hourly') {
       for (var k = 8; k < 18; k++) {
         if (row[k]) {
           row[k] *= multiplier;
-          row[k] = row[k].toFixed(5).replace(/(0)*$/, '');
+          row[k] = row[k].toFixed(per_time=='secondly' ? 8 : 5).replace(/(0)*$/, '');
           row[k] += ' ' + per_time;
           row[k] = '$' + row[k];
         }
