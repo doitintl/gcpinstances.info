@@ -74,6 +74,7 @@ function init_data_table() {
           "wnondemand",
           "wnpc",
           "wn3cud",
+          "cputype",
         ],
         "bVisible": false
       }
@@ -130,7 +131,6 @@ $(document).ready(function () {
   }).done(function(res) {
     loaded_data = res;
     var allRegions = [];
-    
     for (var type in res) {
       var typeSize = res[type];
       
@@ -186,7 +186,7 @@ function generate_data_table(region, multiplier = 1, per_time = 'hourly') {
     var typeSize = res[type];
     
     for (var typeInfo in typeSize) {
-      var row = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      var row = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
       row[0] = typeInfo;
       
@@ -234,6 +234,8 @@ function generate_data_table(region, multiplier = 1, per_time = 'hourly') {
       row[15] = Number(curRegion ? getParam(curRegion, 'preemptible') : 0) + cores * license_cost;
       row[16] = Number(curRegion ? getParam(curRegion, 'cud-1y') : 0) + cores * license_cost;
       row[17] = Number(curRegion ? getParam(curRegion, 'cud-3y') : 0) + cores * license_cost;
+      
+      row[18] = getParam(typeSpecs, 'cpu').join(', ');
 
       if (row[1] !== 'shared') {
         row[1] += ' vCPUs';
