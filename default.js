@@ -74,6 +74,7 @@ function init_data_table() {
           "wnondemand",
           "wnpc",
           "wn3cud",
+          "cputype",
         ],
         "bVisible": false
       }
@@ -130,7 +131,6 @@ $(document).ready(function () {
   }).done(function(res) {
     loaded_data = res;
     var allRegions = [];
-    
     for (var type in res) {
       var typeSize = res[type];
       
@@ -186,7 +186,7 @@ function generate_data_table(region, multiplier = 1, per_time = 'hourly') {
     var typeSize = res[type];
     
     for (var typeInfo in typeSize) {
-      var row = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      var row = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
       row[0] = typeInfo;
       
@@ -213,36 +213,37 @@ function generate_data_table(region, multiplier = 1, per_time = 'hourly') {
       row[3] = getSupportedStr(getParam(typeSpecs, 'local_ssd'));
       row[4] = getParam(typeSpecs, 'network_egress');
       row[4] = (row[4]) ? row[4] + ' Gigabit' : 'Unknown';
-      row[5] = getSupportedStr(getParam(typeSpecs, 'gpu'));
-      row[6] = getSupportedStr(getParam(typeSpecs, 'sole_tenant'));
-      row[7] = getSupportedStr(getParam(typeSpecs, 'nested_virtualization'));
+      row[5] = getParam(typeSpecs, 'cpu').join(', ');
+      row[6] = getSupportedStr(getParam(typeSpecs, 'gpu'));
+      row[7] = getSupportedStr(getParam(typeSpecs, 'sole_tenant'));
+      row[8] = getSupportedStr(getParam(typeSpecs, 'nested_virtualization'));
 
       var curRegion = getParam(typeRegions, region);
       
       // Linux on demand
-      row[8] = curRegion ? getParam(curRegion, 'ondemand') : null;
-      row[9] = curRegion ? getParam(curRegion, 'sud') : null;
-      row[10] = curRegion ? getParam(curRegion, 'preemptible') : null;
-      row[11] = curRegion ? getParam(curRegion, 'cud-1y') : null;
-      row[12] = curRegion ? getParam(curRegion, 'cud-3y') : null;
+      row[9] = curRegion ? getParam(curRegion, 'ondemand') : null;
+      row[10] = curRegion ? getParam(curRegion, 'sud') : null;
+      row[11] = curRegion ? getParam(curRegion, 'preemptible') : null;
+      row[12] = curRegion ? getParam(curRegion, 'cud-1y') : null;
+      row[13] = curRegion ? getParam(curRegion, 'cud-3y') : null;
 
       // Windows on demand
       var cores = (row[1] === 'shared') ? 0 : Number(row[1]);
       var license_cost = (type === 'f1-small' || type === 'g1-small') ? Number(res['license']['win']['low']) : Number(res['license']['win']['high']);
-      row[13] = Number(curRegion ? getParam(curRegion, 'ondemand') : 0) + cores * license_cost;
-      row[14] = Number(curRegion ? getParam(curRegion, 'sud') : 0) + cores * license_cost;
-      row[15] = Number(curRegion ? getParam(curRegion, 'preemptible') : 0) + cores * license_cost;
-      row[16] = Number(curRegion ? getParam(curRegion, 'cud-1y') : 0) + cores * license_cost;
-      row[17] = Number(curRegion ? getParam(curRegion, 'cud-3y') : 0) + cores * license_cost;
-
+      row[14] = Number(curRegion ? getParam(curRegion, 'ondemand') : 0) + cores * license_cost;
+      row[15] = Number(curRegion ? getParam(curRegion, 'sud') : 0) + cores * license_cost;
+      row[16] = Number(curRegion ? getParam(curRegion, 'preemptible') : 0) + cores * license_cost;
+      row[17] = Number(curRegion ? getParam(curRegion, 'cud-1y') : 0) + cores * license_cost;
+      row[18] = Number(curRegion ? getParam(curRegion, 'cud-3y') : 0) + cores * license_cost;
+      
       if (row[1] !== 'shared') {
         row[1] += ' vCPUs';
       }
 
-      for (var k = 8; k < 18; k++) {
+      for (var k = 9; k < 19; k++) {
         if (row[k]) {
           row[k] *= multiplier;
-          row[k] = row[k].toFixed(5).replace(/(0)*$/, '');
+          row[k] = row[k].toFixed(per_time=='secondly' ? 8 : 5).replace(/(0)*$/, '');
           row[k] += ' ' + per_time;
           row[k] = '$' + row[k];
         }
