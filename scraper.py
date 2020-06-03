@@ -925,7 +925,7 @@ if __name__ == '__main__':
     m2_cpu = data['CP-COMPUTEENGINE-M2-PREDEFINED-VM-CORE']
     for k, v in m2_instance_types.items():
         output['m2'][k]['specs'].update({'cores': v['cpu'], 'memory': v['memory'], 'local_ssd': v['local_ssd'],
-                                         'network_egress': v['network_egress'], 'cpu': [], 'gpu': -1,
+                                         'network_egress': v['network_egress'], 'cpu': ['Cascade Lake'], 'gpu': -1,
                                          'sole_tenant': -1, 'nested_virtualization': -1, 'regional_disk': 1})
         for reg, m2_cpu_region_cost in m2_cpu.items():
             for reg2, m2_ram_region_cost in m2_ram.items():

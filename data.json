@@ -23082,7 +23082,9 @@
                 "gpu": -1,
                 "sole_tenant": -1,
                 "nested_virtualization": -1,
-                "cpu": [],
+                "cpu": [
+                    "Cascade Lake"
+                ],
                 "network_egress": 32,
                 "regional_disk": 1
             }
@@ -23277,7 +23279,9 @@
                 "gpu": -1,
                 "sole_tenant": -1,
                 "nested_virtualization": -1,
-                "cpu": [],
+                "cpu": [
+                    "Cascade Lake"
+                ],
                 "network_egress": 32,
                 "regional_disk": 1
             }
