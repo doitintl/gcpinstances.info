@@ -23289,8 +23289,8 @@
     },
     "license": {
         "win": {
-            "low": 0.02,
-            "high": 0.04,
+            "low": 0.023,
+            "high": 0.046,
             "cores": "shared",
             "percore": true
         },
