@@ -24061,27 +24061,27 @@
             "percore": false
         },
         "sles-sap-12-cud-1-year": {
-            "low": 0.068494,
-            "high": 0.136987,
-            "highest": 0.164384,
+            "low": 0.0685,
+            "high": 0.137,
+            "highest": 0.1643,
             "percore": false
         },
         "sles-sap-12-cud-3-year": {
-            "low": 0.0612634,
-            "high": 0.122527,
-            "highest": 0.147641,
+            "low": 0.06126,
+            "high": 0.1225,
+            "highest": 0.1476,
             "percore": false
         },
         "sles-sap-15-cud-1-year": {
-            "low": 0.068494,
-            "high": 0.136987,
-            "highest": 0.164384,
+            "low": 0.0685,
+            "high": 0.137,
+            "highest": 0.1643,
             "percore": false
         },
         "sles-sap-15-cud-3-year": {
-            "low": 0.0612634,
-            "high": 0.122527,
-            "highest": 0.147641,
+            "low": 0.06126,
+            "high": 0.1225,
+            "highest": 0.1476,
             "percore": false
         },
         "sql-standard": {
