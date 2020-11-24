@@ -22876,11 +22876,11 @@
                     "cud-3y": 2.16976
                 },
                 "asia-southeast2": {
-                    "ondemand": 8.08055,
-                    "sud": 5.65638,
-                    "preemptible": 1.61407,
-                    "cud-1y": 4.77197,
-                    "cud-3y": 2.42089
+                    "ondemand": 0,
+                    "sud": 0.0,
+                    "preemptible": 0,
+                    "cud-1y": 0,
+                    "cud-3y": 0
                 }
             },
             "specs": {
@@ -23108,11 +23108,11 @@
                     "cud-3y": 4.33952
                 },
                 "asia-southeast2": {
-                    "ondemand": 16.16109,
-                    "sud": 11.31277,
-                    "preemptible": 3.22814,
-                    "cud-1y": 9.54393,
-                    "cud-3y": 4.84178
+                    "ondemand": 0,
+                    "sud": 0.0,
+                    "preemptible": 0,
+                    "cud-1y": 0,
+                    "cud-3y": 0
                 }
             },
             "specs": {
@@ -23340,11 +23340,11 @@
                     "cud-3y": 8.67904
                 },
                 "asia-southeast2": {
-                    "ondemand": 32.32219,
-                    "sud": 22.62553,
-                    "preemptible": 6.45629,
-                    "cud-1y": 19.08786,
-                    "cud-3y": 9.68356
+                    "ondemand": 0,
+                    "sud": 0.0,
+                    "preemptible": 0,
+                    "cud-1y": 0,
+                    "cud-3y": 0
                 }
             },
             "specs": {
@@ -23572,11 +23572,11 @@
                     "cud-3y": 3.6713
                 },
                 "asia-southeast2": {
-                    "ondemand": 13.67578,
-                    "sud": 9.57305,
-                    "preemptible": 2.73215,
-                    "cud-1y": 8.07542,
-                    "cud-3y": 4.0977
+                    "ondemand": 0.0,
+                    "sud": 0.0,
+                    "preemptible": 0.0,
+                    "cud-1y": 0.0,
+                    "cud-3y": 0.0
                 }
             },
             "specs": {
@@ -23779,10 +23779,10 @@
                     "cud-3y": 16.7404
                 },
                 "asia-southeast2": {
-                    "ondemand": 54.07535,
-                    "sud": 37.85274,
-                    "cud-1y": 32.61655,
-                    "cud-3y": 18.69176
+                    "ondemand": 0,
+                    "sud": 0.0,
+                    "cud-1y": 0,
+                    "cud-3y": 0
                 }
             },
             "specs": {
@@ -23982,10 +23982,10 @@
                     "cud-3y": 33.4808
                 },
                 "asia-southeast2": {
-                    "ondemand": 108.15069,
-                    "sud": 75.70549,
-                    "cud-1y": 65.23311,
-                    "cud-3y": 37.38352
+                    "ondemand": 0,
+                    "sud": 0.0,
+                    "cud-1y": 0,
+                    "cud-3y": 0
                 }
             },
             "specs": {
