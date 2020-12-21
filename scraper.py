@@ -16,6 +16,7 @@ if __name__ == '__main__':
     n2d_sud_discount = 0.8
     c2_sud_discount = 0.8
     e2_sud_discount = 1
+    a2_sud_discount = 1
     regions = ['us', 'us-central1', 'us-east1', 'us-east4', 'us-west4', 'us-west1', 'us-west2', 'us-west3', 'europe',
                'europe-west1', 'europe-west2', 'europe-west3', 'europe-west4', 'europe-west6', 'europe-north1',
                'northamerica-northeast1', 'asia', 'asia-east', 'asia-east1', 'asia-east2', 'asia-northeast',
@@ -23,8 +24,8 @@ if __name__ == '__main__':
                'australia-southeast1', 'australia', 'southamerica-east1', 'asia-south1', 'asia-southeast2']
 
     specs_params = ['cores', 'memory', 'local_ssd', 'gpu', 'sole_tenant', 'nested_virtualization', 'cpu']
-    generations = ['f1', 'g1', 'n1', 'n2', 'n2d', 'e2', 'c2', 'm1', 'm2']
-    # the following variables scraped from https://cloud.google.com/compute/docs/machine-types#e2_shared-core_machine_types
+    generations = ['f1', 'g1', 'n1', 'n2', 'n2d', 'e2', 'c2', 'm1', 'm2', 'a2']
+    # the following variables scraped from https://cloud.google.com/compute/docs/machine-types
     instance_types = ['e2-highcpu-16', 'e2-highcpu-2', 'e2-highcpu-4', 'e2-highcpu-8', 'e2-highmem-16', 'e2-highmem-2',
                       'e2-highmem-4', 'e2-highmem-8', 'e2-medium', 'e2-micro', 'e2-small', 'e2-standard-16',
                       'e2-standard-2', 'e2-standard-4', 'e2-standard-8', 'f1-micro', 'g1-small', 'n1-highcpu-16',
@@ -45,7 +46,8 @@ if __name__ == '__main__':
                       'n2d-highmem-4', 'n2d-highmem-8', 'n2d-highmem-16', 'n2d-highmem-32', 'n2d-highmem-48',
                       'n2d-highmem-64', 'n2d-highmem-80', 'n2d-highmem-96', 'n2d-highcpu-2', 'n2d-highcpu-4',
                       'n2d-highcpu-8', 'n2d-highcpu-16', 'n2d-highcpu-32', 'n2d-highcpu-48', 'n2d-highcpu-64',
-                      'n2d-highcpu-80', 'n2d-highcpu-96', 'n2d-highcpu-128', 'n2d-highcpu-224'
+                      'n2d-highcpu-80', 'n2d-highcpu-96', 'n2d-highcpu-128', 'n2d-highcpu-224', 'a2-highgpu-1g', 
+                      'a2-highgpu-2g', 'a2-highgpu-4g', 'a2-highgpu-8g', 'a2-megagpu-16g'
                       ]
     c2_instance_types = {"c2-standard-4": {"cpu": 4, "memory": 16, "local_ssd": 1, "network_egress": 10},
                          "c2-standard-8": {"cpu": 8, "memory": 32, "local_ssd": 1, "network_egress": 16},
@@ -147,6 +149,11 @@ if __name__ == '__main__':
                          "n1-highcpu-32": {"cpu": 32, "memory": 28.8, "local_ssd": 1, "network_egress": 32},
                          "n1-highcpu-64": {"cpu": 64, "memory": 57.6, "local_ssd": 1, "network_egress": 32},
                          "n1-highcpu-96": {"cpu": 96, "memory": 86.4, "local_ssd": 1, "network_egress": 32}}
+    a2_instance_types = {"a2-highgpu-1g": {"cpu": 12, "memory": 85, "local_ssd": 1, "network_egress": 24},
+                         "a2-highgpu-2g": {"cpu": 24, "memory": 170, "local_ssd": 1, "network_egress": 32},
+                         "a2-highgpu-4g": {"cpu": 48, "memory": 340, "local_ssd": 1, "network_egress": 50},
+                         "a2-highgpu-8g": {"cpu": 96, "memory": 680, "local_ssd": 1, "network_egress": 100},
+                         "a2-megagpu-16g": {"cpu": 96, "memory": 1360, "local_ssd": 1, "network_egress": 100}}
 
     for gen in generations:
         output[gen] = {}
@@ -868,6 +875,51 @@ if __name__ == '__main__':
                     output['c2'][k]['regions'][reg]['cud-3y'] = nice(v['cpu'] * c2_cpu_region_cost + v[
                         'memory'] * c2_ram_region_cost)
 
+    # A2
+    # On Demand, SUD and specs
+    a2_ram = data['CP-COMPUTEENGINE-A2-PREDEFINED-VM-RAM']
+    a2_cpu = data['CP-COMPUTEENGINE-A2-PREDEFINED-VM-CORE']
+    for k, v in a2_instance_types.items():
+        output['a2'][k]['specs'].update({'cores': v['cpu'], 'memory': v['memory'], 'local_ssd': v['local_ssd'],
+                                         'network_egress': v['network_egress'], 'cpu': ['Cascade Lake'],
+                                         'regional_disk': 1, 'gpu': 1, 'sole_tenant': -1,
+                                         'nested_virtualization': -1})
+        for reg, a2_cpu_region_cost in a2_cpu.items():
+            for reg2, a2_ram_region_cost in a2_ram.items():
+                if reg == reg2:
+                    output['a2'][k]['regions'][reg]['ondemand'] = nice(v['cpu'] * a2_cpu_region_cost + v[
+                    'memory'] * a2_ram_region_cost)
+                    output['a2'][k]['regions'][reg]['sud'] = nice(
+                        a2_sud_discount * (v['cpu'] * a2_cpu_region_cost + v[
+                            'memory'] * a2_ram_region_cost))
+    # Preemptible
+    a2_ram = data['CP-COMPUTEENGINE-A2-PREDEFINED-VM-RAM-PREEMPTIBLE']
+    a2_cpu = data['CP-COMPUTEENGINE-A2-PREDEFINED-VM-CORE-PREEMPTIBLE']
+    for k, v in a2_instance_types.items():
+        for reg, a2_cpu_region_cost in a2_cpu.items():
+            for reg2, a2_ram_region_cost in a2_ram.items():
+                if reg == reg2:
+                    output['a2'][k]['regions'][reg]['preemptible'] = nice(v['cpu'] * a2_cpu_region_cost + v[
+                        'memory'] * a2_ram_region_cost)
+    # CUD - 1 year
+    a2_ram = data['CP-COMPUTEENGINE-A2-CUD-1-YEAR-RAM']
+    a2_cpu = data['CP-COMPUTEENGINE-A2-CUD-1-YEAR-CPU']
+    for k, v in a2_instance_types.items():
+        for reg, a2_cpu_region_cost in a2_cpu.items():
+            for reg2, a2_ram_region_cost in a2_ram.items():
+                if reg == reg2:
+                    output['a2'][k]['regions'][reg]['cud-1y'] = nice(v['cpu'] * a2_cpu_region_cost + v[
+                        'memory'] * a2_ram_region_cost)
+    # CUD - 3 year
+    a2_ram = data['CP-COMPUTEENGINE-A2-CUD-3-YEAR-RAM']
+    a2_cpu = data['CP-COMPUTEENGINE-A2-CUD-3-YEAR-CPU']
+    for k, v in a2_instance_types.items():
+        for reg, a2_cpu_region_cost in a2_cpu.items():
+            for reg2, a2_ram_region_cost in a2_ram.items():
+                if reg == reg2:
+                    output['a2'][k]['regions'][reg]['cud-3y'] = nice(v['cpu'] * a2_cpu_region_cost + v[
+                        'memory'] * a2_ram_region_cost)
+
     # M1
     # On Demand and SUD
     m1_ram = data['CP-COMPUTEENGINE-M1-PREDEFINED-VM-RAM']
@@ -1107,4 +1159,4 @@ if __name__ == '__main__':
                         'memory'] * e2_ram_region_cost)
 
     # print json output
-    print(json.dumps(output, indent=4))
+    print(json.dumps(output))
