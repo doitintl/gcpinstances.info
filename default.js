@@ -14,10 +14,7 @@ var g_settings_defaults = {
   min_vcpus: 0,
   min_storage: 0,
   selected: '',
-  compare_on: false,
-  currency: 'USD',
-  price: '1',
-  symbol: '',
+  compare_on: false
 };
 
 function init_data_table() {
@@ -39,7 +36,6 @@ function init_data_table() {
     "bInfo": false,
     "bStateSave": true,
     "orderCellsTop": true,
-    "fixedHeader": true,
     "oSearch": {
       "bRegex": true,
       "bSmart": false
@@ -130,14 +126,9 @@ function getParam(obj, key) {
 }
 
 $(document).ready(function () {
-  $.when($.ajax({
+  $.ajax({
     url: "data.json",
-  }), $.ajax({
-    url: "currency.json",
-  })).then(function(instancesData, currenciesData) {
-    var res = instancesData[0];
-    var currencies = currenciesData[0];
-
+  }).done(function(res) {
     loaded_data = res;
     var allRegions = [];
     for (var type in res) {
@@ -161,11 +152,6 @@ $(document).ready(function () {
     allRegions.forEach(function(val) {
       $('#region-menu').append('<li><a href="javascript:;" data-region="' + val + '">' + val + '</a></li>');
     });
-
-    $('#currency-menu').append('<li><a href="javascript:;" data-currency="USD" data-price="1" data-symbol="$">' + 'USD' + '</a></li>');
-    for (var val in currencies) {
-      $('#currency-menu').append('<li><a href="javascript:;" data-currency="' + val + '" data-price="' + currencies[val]['price'] + '" data-symbol="' + currencies[val]['symbol'] + '">' + val + '</a></li>');
-    }
 
     //fillCostColumns('europe');
     generate_data_table(g_settings.region);
@@ -259,7 +245,7 @@ function generate_data_table(region, multiplier = 1, per_time = 'hourly') {
           row[k] *= multiplier;
           row[k] = row[k].toFixed(per_time=='secondly' ? 8 : 5).replace(/(0)*$/, '');
           row[k] += ' ' + per_time;
-          row[k] = g_settings.symbol + ' ' + row[k];
+          row[k] = '$' + row[k];
         }
         else {
           row[k] = 'Unavailable';
@@ -296,7 +282,6 @@ function change_cost(duration) {
     "annually": (365 * 24)
   };
   var multiplier = hour_multipliers[duration];
-  multiplier = multiplier * g_settings.price;
   var per_time;
 
   generate_data_table(g_settings.region, multiplier, duration);
@@ -320,25 +305,6 @@ function change_cost(duration) {
 
   g_settings.cost_duration = duration;
   maybe_update_url();
-}
-
-function change_currency(currency, price, symbol) {
-  g_settings.currency = currency;
-  g_settings.price = Number(price);
-  g_settings.symbol = symbol;
-
-  var currency_name = null;
-  $('#currency-dropdown li a').each(function (i, e) {
-    e = $(e);
-    if (e.data('currency') === currency) {
-      e.parent().addClass('active');
-      currency_name = e.data('symbol') + ' (' + e.data('currency') + ')';
-    } else {
-      e.parent().removeClass('active');
-    }
-  });
-  $("#currency-dropdown .dropdown-toggle .text").text(currency_name);
-  change_cost(g_settings.cost_duration);
 }
 
 function change_region(region) {
@@ -569,12 +535,6 @@ function on_data_table_initialized() {
   $("#region-dropdown li").bind("click", function (e) {
     change_region($(e.target).data('region'));
   });
-
-  $("#currency-dropdown li").bind("click", function (e) {
-    change_currency($(e.target).data('currency'), $(e.target).data('price'), $(e.target).data('symbol'));
-  });
-
-  change_currency(g_settings.currency, g_settings.price, g_settings.symbol);
 
   $("#reserved-term-dropdown li").bind("click", function (e) {
     change_reserved_term($(e.target).data('reservedTerm'));
