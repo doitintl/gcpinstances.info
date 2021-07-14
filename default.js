@@ -32,6 +32,7 @@ function init_data_table() {
   });
   g_data_table = $('#data').DataTable({
     "data": instances_data,
+    "rowId": 0,
     "bPaginate": false,
     "bInfo": false,
     "bStateSave": true,
