@@ -208,7 +208,7 @@ function generate_data_table(region, multiplier = 1, per_time = 'hourly') {
         continue;
       }
 
-      row[2] = row[2] + ' Gib';
+      row[2] = row[2] + ' GiB';
 
       row[3] = getSupportedStr(getParam(typeSpecs, 'local_ssd'));
       row[4] = getParam(typeSpecs, 'network_egress');
