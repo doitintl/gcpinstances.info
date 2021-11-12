@@ -14,7 +14,10 @@ var g_settings_defaults = {
   min_vcpus: 0,
   min_storage: 0,
   selected: '',
-  compare_on: false
+  compare_on: false,
+  currency: 'USD',
+  symbol: '$',
+  price: '1',
 };
 
 function init_data_table() {
@@ -37,6 +40,7 @@ function init_data_table() {
     "bInfo": false,
     "bStateSave": true,
     "orderCellsTop": true,
+    "fixedHeader": true,
     "oSearch": {
       "bRegex": true,
       "bSmart": false
@@ -69,6 +73,7 @@ function init_data_table() {
           "gpu",
           "tenant",
           "virtualization",
+          "benchmark",
           "lnondemand",
           "lnpc",
           "ln3cud",
@@ -82,7 +87,7 @@ function init_data_table() {
     ],
     // default sort by linux cost
     "aaSorting": [
-      [9, "asc"]
+      [10, "asc"]
     ],
     'initComplete': function () {
       // fire event in separate context so that calls to get_data_table()
@@ -129,34 +134,41 @@ function getParam(obj, key) {
 $(document).ready(function () {
   $.ajax({
     url: "data.json",
-  }).done(function(res) {
-    loaded_data = res;
-    var allRegions = [];
-    for (var type in res) {
-      var typeSize = res[type];
-      
-      for (var typeInfo in typeSize) {
-        var typeSpecs = (res[type][typeInfo] && typeof res[type][typeInfo].specs !== 'undefined') ? res[type][typeInfo].specs : {};
-        var typeRegions = (res[type][typeInfo] && typeof res[type][typeInfo].regions !== 'undefined') ? res[type][typeInfo].regions : {};
+  }).then(function(res) {
+    $.ajax({
+      url: "currency.json",
+    }).then(function(currencies) {
+      loaded_data = res;
+      var allRegions = [];
+      for (var type in res) {
+        var typeSize = res[type];
 
-        for (var region in typeRegions) {
-          //if (!/^australia/.test(region) && !/^asia/.test(region)) {
-          if (region !== 'australia' && region !== 'asia' && region !== 'us' && region !== 'asia' && region !== 'europe') {
-            if (allRegions.indexOf(region) === -1) {
-              allRegions.push(region);
+        for (var typeInfo in typeSize) {
+          var typeSpecs = (res[type][typeInfo] && typeof res[type][typeInfo].specs !== 'undefined') ? res[type][typeInfo].specs : {};
+          var typeRegions = (res[type][typeInfo] && typeof res[type][typeInfo].regions !== 'undefined') ? res[type][typeInfo].regions : {};
+
+          for (var region in typeRegions) {
+            if (region !== 'australia' && region !== 'asia' && region !== 'us' && region !== 'asia' && region !== 'europe') {
+              if (allRegions.indexOf(region) === -1) {
+                allRegions.push(region);
+              }
             }
           }
         }
       }
-    }
   
-    allRegions.forEach(function(val) {
-      $('#region-menu').append('<li><a href="javascript:;" data-region="' + val + '">' + val + '</a></li>');
-    });
+      allRegions.sort(function(a, b) { return a.localeCompare(b); }).forEach(function(val) {
+        $('#region-menu').append('<li><a href="javascript:;" data-region="' + val + '">' + val + '</a></li>');
+      });
 
-    //fillCostColumns('europe');
-    generate_data_table(g_settings.region);
-    init_data_table(instances_data);
+      $('#currency-menu').append('<li><a href="javascript:;" data-currency="USD" data-price="1" data-symbol="$">' + 'USD' + '</a></li>');
+      for (var val in currencies) {
+        $('#currency-menu').append('<li><a href="javascript:;" data-currency="' + val + '" data-price="' + currencies[val]['price'] + '" data-symbol="' + currencies[val]['symbol'] + '">' + val + '</a></li>');
+      }
+
+      generate_data_table(g_settings.region);
+        init_data_table(instances_data);
+      });
   });
 });
 
@@ -187,7 +199,7 @@ function generate_data_table(region, multiplier = 1, per_time = 'hourly') {
     var typeSize = res[type];
     
     for (var typeInfo in typeSize) {
-      var row = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      var row = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
       row[0] = typeInfo;
       
@@ -218,35 +230,36 @@ function generate_data_table(region, multiplier = 1, per_time = 'hourly') {
       row[6] = getSupportedStr(getParam(typeSpecs, 'gpu'));
       row[7] = getSupportedStr(getParam(typeSpecs, 'sole_tenant'));
       row[8] = getSupportedStr(getParam(typeSpecs, 'nested_virtualization'));
+      row[9] = getParam(typeSpecs, 'benchmark');
 
       var curRegion = getParam(typeRegions, region);
       
       // Linux on demand
-      row[9] = curRegion ? getParam(curRegion, 'ondemand') : null;
-      row[10] = curRegion ? getParam(curRegion, 'sud') : null;
-      row[11] = curRegion ? getParam(curRegion, 'preemptible') : null;
-      row[12] = curRegion ? getParam(curRegion, 'cud-1y') : null;
-      row[13] = curRegion ? getParam(curRegion, 'cud-3y') : null;
+      row[10] = curRegion ? getParam(curRegion, 'ondemand') : null;
+      row[11] = curRegion ? getParam(curRegion, 'sud') : null;
+      row[12] = curRegion ? getParam(curRegion, 'preemptible') : null;
+      row[13] = curRegion ? getParam(curRegion, 'cud-1y') : null;
+      row[14] = curRegion ? getParam(curRegion, 'cud-3y') : null;
 
       // Windows on demand
       var cores = (row[1] === 'shared') ? 0 : Number(row[1]);
       var license_cost = (type === 'f1-small' || type === 'g1-small') ? Number(res['license']['win']['low']) : Number(res['license']['win']['high']);
-      row[14] = Number(curRegion ? getParam(curRegion, 'ondemand') : 0) + cores * license_cost;
-      row[15] = Number(curRegion ? getParam(curRegion, 'sud') : 0) + cores * license_cost;
-      row[16] = Number(curRegion ? getParam(curRegion, 'preemptible') : 0) + cores * license_cost;
-      row[17] = Number(curRegion ? getParam(curRegion, 'cud-1y') : 0) + cores * license_cost;
-      row[18] = Number(curRegion ? getParam(curRegion, 'cud-3y') : 0) + cores * license_cost;
+      row[15] = Number(curRegion ? getParam(curRegion, 'ondemand') : 0) + cores * license_cost;
+      row[16] = Number(curRegion ? getParam(curRegion, 'sud') : 0) + cores * license_cost;
+      row[17] = Number(curRegion ? getParam(curRegion, 'preemptible') : 0) + cores * license_cost;
+      row[18] = Number(curRegion ? getParam(curRegion, 'cud-1y') : 0) + cores * license_cost;
+      row[19] = Number(curRegion ? getParam(curRegion, 'cud-3y') : 0) + cores * license_cost;
       
       if (row[1] !== 'shared') {
         row[1] += ' vCPUs';
       }
 
-      for (var k = 9; k < 19; k++) {
+      for (var k = 10; k < 20; k++) {
         if (row[k]) {
           row[k] *= multiplier;
           row[k] = row[k].toFixed(per_time=='secondly' ? 8 : 5).replace(/(0)*$/, '');
           row[k] += ' ' + per_time;
-          row[k] = '$' + row[k];
+          row[k] = g_settings.symbol + row[k];
         }
         else {
           row[k] = 'Unavailable';
@@ -283,6 +296,7 @@ function change_cost(duration) {
     "annually": (365 * 24)
   };
   var multiplier = hour_multipliers[duration];
+  multiplier = multiplier * g_settings.price;
   var per_time;
 
   generate_data_table(g_settings.region, multiplier, duration);
@@ -306,6 +320,25 @@ function change_cost(duration) {
 
   g_settings.cost_duration = duration;
   maybe_update_url();
+}
+
+function change_currency(currency, price, symbol) {
+  g_settings.currency = currency;
+  g_settings.price = Number(price);
+  g_settings.symbol = symbol;
+
+  var currency_name = null;
+  $('#currency-dropdown li a').each(function (i, e) {
+    e = $(e);
+    if (e.data('currency') === currency) {
+      e.parent().addClass('active');
+      currency_name = e.data('symbol') + ' (' + e.data('currency') + ')';
+    } else {
+      e.parent().removeClass('active');
+    }
+  });
+  $("#currency-dropdown .dropdown-toggle .text").text(currency_name);
+  change_cost(g_settings.cost_duration);
 }
 
 function change_region(region) {
@@ -536,6 +569,12 @@ function on_data_table_initialized() {
   $("#region-dropdown li").bind("click", function (e) {
     change_region($(e.target).data('region'));
   });
+
+  $("#currency-dropdown li").bind("click", function (e) {
+    change_currency($(e.target).data('currency'), $(e.target).data('price'), $(e.target).data('symbol'));
+  });
+
+  change_currency(g_settings.currency, g_settings.price, g_settings.symbol);
 
   $("#reserved-term-dropdown li").bind("click", function (e) {
     change_reserved_term($(e.target).data('reservedTerm'));

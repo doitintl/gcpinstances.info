@@ -22,15 +22,28 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.7"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+
+
+
       # Runs a single command using the runners shell
       - name: Check repo data.json md5 hash
-        run: export datamd5=$(md5 $GITHUB_WORKSPACE/data.json)
+        run: echo "::set-env name=datamd5::$(python $GITHUB_WORKSPACE/data.json | md5sum)"
 
       # Runs a single command using the runners shell
       - name: Check gcpinstances.info data.json md5 hash
-        run: export sitemd5=$(curl -s https://gcpinstances.info/data.json | md5)
+        run: echo "::set-env name=sitemd5::$(curl -s https://gcpinstances.info/data.json | md5sum)"
+
 
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
-        run: if ! cmp "$datamd5" "$sitemd5"; then echo "They don't match."; fi
+        run: if ! "$datamd5" "$sitemd5"; then echo "They don't match."; fi
+      - name: aaa
+        run: export
