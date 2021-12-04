@@ -662,7 +662,7 @@ if __name__ == '__main__':
                 if kk in specs_params:
                     output['e2']['e2-small']['specs'].update(
                         {kk: vv, 'cpu': ['N/A'], 'gpu': 0, 'local_ssd': 0, 'nested_virtualization': 0,
-                         'sole_tenant': 0, 'benchmark': 6700})
+                         'sole_tenant': 0, 'benchmark': 6700, 'network_egress': 1})
         if k == 'CP-COMPUTEENGINE-VMIMAGE-E2-STANDARD-8':
             for kk, vv in v.items():
                 if kk in regions:
@@ -761,7 +761,7 @@ if __name__ == '__main__':
                 if kk in specs_params:
                     output['e2']['e2-micro']['specs'].update(
                         {kk: vv, 'cpu': ['N/A'], 'gpu': 0, 'local_ssd': 0, 'nested_virtualization': 0,
-                         'sole_tenant': 0, 'benchmark': 3333})
+                         'sole_tenant': 0, 'benchmark': 3333, 'network_egress': 1})
 
         if k == 'CP-COMPUTEENGINE-VMIMAGE-E2-HIGHCPU-4':
             for kk, vv in v.items():
@@ -798,7 +798,7 @@ if __name__ == '__main__':
                 if kk in specs_params:
                     output['e2']['e2-medium']['specs'].update(
                         {kk: vv, 'cpu': ['N/A'], 'gpu': 0, 'local_ssd': 0, 'nested_virtualization': 0,
-                         'sole_tenant': 0, 'benchmark': 13663})
+                         'sole_tenant': 0, 'benchmark': 13663, 'network_egress': 2})
 
         if k == 'CP-COMPUTEENGINE-VMIMAGE-E2-HIGHCPU-2':
             for kk, vv in v.items():
