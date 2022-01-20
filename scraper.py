@@ -15,6 +15,7 @@ if __name__ == '__main__':
     n2_sud_discount = 0.8
     n2d_sud_discount = 0.8
     c2_sud_discount = 0.8
+    c2d_sud_discount = 0.8
     e2_sud_discount = 1
     a2_sud_discount = 1
     t2d_sud_discount = 1
@@ -29,7 +30,7 @@ if __name__ == '__main__':
                'asia-southeast2', 'asia-south2', 'southamerica-west1']
 
     specs_params = ['cores', 'memory', 'local_ssd', 'gpu', 'sole_tenant', 'nested_virtualization', 'cpu', 'benchmark']
-    generations = ['f1', 'g1', 'n1', 'n2', 'n2d', 'e2', 'c2', 'm1', 'm2', 'a2', 't2d']
+    generations = ['f1', 'g1', 'n1', 'n2', 'n2d', 'e2', 'c2', 'c2d', 'm1', 'm2', 'a2', 't2d']
     # the following variables scraped from https://cloud.google.com/compute/docs/machine-types
     instance_types = ['e2-highcpu-32', 'e2-highcpu-16', 'e2-highcpu-2', 'e2-highcpu-4', 'e2-highcpu-8', 'e2-highmem-16',
                       'e2-highmem-2',
@@ -40,7 +41,11 @@ if __name__ == '__main__':
                       'n1-highmem-16', 'n1-highmem-2', 'n1-highmem-32', 'n1-highmem-4', 'n1-highmem-64', 'n1-highmem-8',
                       'n1-highmem-96', 'n1-standard-1', 'n1-standard-16', 'n1-standard-2',
                       'n1-standard-32', 'n1-standard-4', 'n1-standard-64', 'n1-standard-8', 'n1-standard-96',
-                      'c2-standard-4', 'c2-standard-8',
+                      'c2-standard-4', 'c2-standard-8', 'c2d-standard-2', 'c2d-standard-4', 'c2d-standard-8', 
+                      'c2d-standard-16', 'c2d-standard-32', 'c2d-standard-56', 'c2d-standard-112', 'c2d-highcpu-2', 
+                      'c2d-highcpu-4', 'c2d-highcpu-8', 'c2d-highcpu-16', 'c2d-highcpu-32', 'c2d-highcpu-56', 
+                      'c2d-highcpu-112', 'c2d-highmem-2', 'c2d-highmem-4', 'c2d-highmem-8', 
+                      'c2d-highmem-16', 'c2d-highmem-32', 'c2d-highmem-56', 'c2d-highmem-112',
                       'c2-standard-16', 'm1-ultramem-40', 'm1-ultramem-80', 'm1-ultramem-160',
                       'm1-megamem-96', 'c2-standard-30', 'c2-standard-60', 'm2-ultramem-208', 'm2-ultramem-416',
                       'n2-standard-2', 'n2-standard-4', 'n2-standard-8', 'n2-standard-16', 'n2-standard-32',
@@ -67,6 +72,29 @@ if __name__ == '__main__':
         "c2-standard-16": {"cpu": 16, "memory": 64, "local_ssd": 1, "network_egress": 32, "benchmark": 313768},
         "c2-standard-30": {"cpu": 30, "memory": 120, "local_ssd": 1, "network_egress": 32, "benchmark": 571147},
         "c2-standard-60": {"cpu": 60, "memory": 240, "local_ssd": 1, "network_egress": 32, "benchmark": 1142234}}
+
+    c2d_instance_types = {
+        "c2d-standard-2": {"cpu": 2, "memory": 8, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "c2d-standard-4": {"cpu": 4, "memory": 16, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "c2d-standard-8": {"cpu": 8, "memory": 32, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "c2d-standard-16": {"cpu": 16, "memory": 64, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "c2d-standard-32": {"cpu": 32, "memory": 128, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "c2d-standard-56": {"cpu": 56, "memory": 224, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "c2d-standard-112": {"cpu": 112, "memory": 448, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "c2d-highcpu-2": {"cpu": 2, "memory": 4, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "c2d-highcpu-4": {"cpu": 4, "memory": 8, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "c2d-highcpu-8": {"cpu": 8, "memory": 16, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "c2d-highcpu-16": {"cpu": 16, "memory": 32, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "c2d-highcpu-32": {"cpu": 32, "memory": 64, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "c2d-highcpu-56": {"cpu": 56, "memory": 112, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "c2d-highcpu-112": {"cpu": 112, "memory": 224, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "c2d-highmem-2": {"cpu": 2, "memory": 16, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "c2d-highmem-4": {"cpu": 4, "memory": 32, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "c2d-highmem-8": {"cpu": 8, "memory": 64, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "c2d-highmem-16": {"cpu": 16, "memory": 128, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "c2d-highmem-32": {"cpu": 32, "memory": 256, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "c2d-highmem-56": {"cpu": 56, "memory": 448, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "c2d-highmem-112": {"cpu": 112, "memory": 896, "local_ssd": 1, "network_egress": 32, "benchmark": 0}}
 
     m1_instance_types = {
         "m1-ultramem-40": {"cpu": 40, "memory": 961, "local_ssd": 0, "network_egress": 32, "benchmark": 498947},
@@ -913,6 +941,53 @@ if __name__ == '__main__':
                                          'network_egress': v['network_egress'], 'benchmark': v['benchmark'],
                                          'cpu': ['Skylake', 'Broadwell', 'Haswell', 'Sandy Bridge', 'Ivy Bridge'],
                                          'gpu': 1, 'nested_virtualization': 1, 'sole_tenant': 1, 'regional_disk': 1})
+    # C2D
+    # On Demand, SUD and specs
+    c2d_ram = data['CP-COMPUTEENGINE-C2D-PREDEFINED-VM-RAM']
+    c2d_cpu = data['CP-COMPUTEENGINE-C2D-PREDEFINED-VM-CORE']
+    for k, v in c2d_instance_types.items():
+        output['c2d'][k]['specs'].update({'cores': v['cpu'], 'memory': v['memory'], 'local_ssd': v['local_ssd'],
+                                         'network_egress': v['network_egress'], 'benchmark': v['benchmark'],
+                                         'cpu': ['AMD EPYC Milan 3rd Generation'],
+                                         'regional_disk': 0, 'gpu': 0, 'sole_tenant': -1,
+                                         'nested_virtualization': -1})
+        for reg, c2d_cpu_region_cost in c2d_cpu.items():
+            for reg2, c2d_ram_region_cost in c2d_ram.items():
+                if reg == reg2:
+                    output['c2d'][k]['regions'][reg]['ondemand'] = nice(v['cpu'] * c2d_cpu_region_cost + v[
+                        'memory'] * c2d_ram_region_cost)
+                    output['c2d'][k]['regions'][reg]['sud'] = nice(
+                        c2d_sud_discount * (v['cpu'] * c2d_cpu_region_cost + v[
+                            'memory'] * c2d_ram_region_cost))
+    # Preemptible
+    c2d_ram = data['CP-COMPUTEENGINE-C2D-PREDEFINED-VM-RAM-PREEMPTIBLE']
+    c2d_cpu = data['CP-COMPUTEENGINE-C2D-PREDEFINED-VM-CORE-PREEMPTIBLE']
+    for k, v in c2d_instance_types.items():
+        for reg, c2d_cpu_region_cost in c2d_cpu.items():
+            for reg2, c2d_ram_region_cost in c2d_ram.items():
+                if reg == reg2:
+                    output['c2d'][k]['regions'][reg]['preemptible'] = nice(v['cpu'] * c2d_cpu_region_cost + v[
+                        'memory'] * c2d_ram_region_cost)
+    # CUD - 1 year
+    c2d_ram = data['CP-COMPUTEENGINE-C2D-CUD-1-YEAR-RAM']
+    c2d_cpu = data['CP-COMPUTEENGINE-C2D-CUD-1-YEAR-CPU']
+    for k, v in c2d_instance_types.items():
+        for reg, c2d_cpu_region_cost in c2d_cpu.items():
+            for reg2, c2d_ram_region_cost in c2d_ram.items():
+                if reg == reg2:
+                    output['c2d'][k]['regions'][reg]['cud-1y'] = nice(v['cpu'] * c2d_cpu_region_cost + v[
+                        'memory'] * c2d_ram_region_cost)
+    # CUD - 3 year
+    c2d_ram = data['CP-COMPUTEENGINE-C2D-CUD-3-YEAR-RAM']
+    c2d_cpu = data['CP-COMPUTEENGINE-C2D-CUD-3-YEAR-CPU']
+    for k, v in c2d_instance_types.items():
+        for reg, c2d_cpu_region_cost in c2d_cpu.items():
+            for reg2, c2d_ram_region_cost in c2d_ram.items():
+                if reg == reg2:
+                    output['c2d'][k]['regions'][reg]['cud-3y'] = nice(v['cpu'] * c2d_cpu_region_cost + v[
+                        'memory'] * c2d_ram_region_cost)
+
+
     # C2
     # On Demand, SUD and specs
     c2_ram = data['CP-COMPUTEENGINE-C2-PREDEFINED-VM-RAM']
