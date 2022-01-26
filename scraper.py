@@ -1,4 +1,3 @@
-import csv
 import json
 import requests
 
@@ -1176,17 +1175,12 @@ if __name__ == '__main__':
                                          'network_egress': v['network_egress'], 'benchmark': v['benchmark'],
                                          'cpu': ['Cascade Lake'], 'gpu': 0,
                                          'sole_tenant': 1, 'nested_virtualization': 1, 'regional_disk': 1})
-    # N2 VM shapes that are larger than 80 vCPUs use the Intel Ice Lake CPU
-    for n2_80coresplus in ['n2-highmem-96', 'n2-highmem-128', 'n2-highcpu-96', 'n2-standard-96', 'n2-standard-128']:
-        output['n2'][n2_80coresplus]['specs']['cpu'] = ['Ice Lake']
-    for reg, n2_cpu_region_cost in n2_cpu.items():
-        for reg2, n2_ram_region_cost in n2_ram.items():
-            if reg == reg2:
-                output['n2'][k]['regions'][reg]['ondemand'] = nice(v['cpu'] * n2_cpu_region_cost + v[
-                    'memory'] * n2_ram_region_cost)
-                output['n2'][k]['regions'][reg]['sud'] = nice(
-                    n2_sud_discount * (v['cpu'] * n2_cpu_region_cost + v[
-                        'memory'] * n2_ram_region_cost))
+        for reg, n2_cpu_region_cost in n2_cpu.items():
+            for reg2, n2_ram_region_cost in n2_ram.items():
+                if reg == reg2:
+                    output['n2'][k]['regions'][reg]['ondemand'] = nice(v['cpu'] * n2_cpu_region_cost + v['memory'] * n2_ram_region_cost)
+                    output['n2'][k]['regions'][reg]['sud'] =      nice(n2_sud_discount * (v['cpu'] * n2_cpu_region_cost + v['memory'] * n2_ram_region_cost))
+
     # Preemptible
     n2_ram = data['CP-COMPUTEENGINE-N2-PREDEFINED-VM-RAM-PREEMPTIBLE']
     n2_cpu = data['CP-COMPUTEENGINE-N2-PREDEFINED-VM-CORE-PREEMPTIBLE']
@@ -1214,6 +1208,11 @@ if __name__ == '__main__':
                 if reg == reg2:
                     output['n2'][k]['regions'][reg]['cud-3y'] = nice(v['cpu'] * n2_cpu_region_cost + v[
                         'memory'] * n2_ram_region_cost)
+
+    # N2 VM shapes that are larger than 80 vCPUs use the Intel Ice Lake CPU
+    for n2_80coresplus in ['n2-highmem-96', 'n2-highmem-128', 'n2-highcpu-96', 'n2-standard-96', 'n2-standard-128']:
+        output['n2'][n2_80coresplus]['specs']['cpu'] = ['Ice Lake']
+
     # N1 CUDS
     # CUD - 1 year
     n1_ram = data['CP-COMPUTEENGINE-N1-CUD-1-YEAR-RAM']
