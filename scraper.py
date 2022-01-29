@@ -1173,7 +1173,7 @@ if __name__ == '__main__':
     for k, v in n2_instance_types.items():
         output['n2'][k]['specs'].update({'cores': v['cpu'], 'memory': v['memory'], 'local_ssd': v['local_ssd'],
                                          'network_egress': v['network_egress'], 'benchmark': v['benchmark'],
-                                         'cpu': ['Cascade Lake'], 'gpu': 0,
+                                         'cpu': ['Cascade Lake', 'Ice Lake'], 'gpu': 0,
                                          'sole_tenant': 1, 'nested_virtualization': 1, 'regional_disk': 1})
         for reg, n2_cpu_region_cost in n2_cpu.items():
             for reg2, n2_ram_region_cost in n2_ram.items():
@@ -1240,7 +1240,7 @@ if __name__ == '__main__':
     for k, v in n2d_instance_types.items():
         output['n2d'][k]['specs'].update({'cores': v['cpu'], 'memory': v['memory'], 'local_ssd': v['local_ssd'],
                                           'network_egress': v['network_egress'], 'benchmark': v['benchmark'],
-                                          'cpu': ['AMD EPYC Rome'], 'gpu': 0,
+                                          'cpu': ['AMD EPYC Rome', 'AMD EPYC Milan'], 'gpu': 0,
                                           'sole_tenant': 0, 'nested_virtualization': 0, 'regional_disk': 1})
         for reg, n2d_cpu_region_cost in n2d_cpu.items():
             for reg2, n2d_ram_region_cost in n2d_ram.items():
@@ -1285,7 +1285,7 @@ if __name__ == '__main__':
     for k, v in e2_instance_types.items():
         output['e2'][k]['specs'].update({'cores': v['cpu'], 'memory': v['memory'], 'local_ssd': v['local_ssd'],
                                          'network_egress': v['network_egress'], 'benchmark': v['benchmark'],
-                                         'cpu': ['Skylake', 'Broadwell', 'Haswell', 'AMD EPYC Rome (coming soon)'],
+                                         'cpu': ['Skylake', 'Broadwell', 'Haswell', 'AMD EPYC Rome'],
                                          'gpu': 0, 'sole_tenant': 0, 'nested_virtualization': 0, 'regional_disk': 1})
         for reg, e2_cpu_region_cost in e2_cpu.items():
             for reg2, e2_ram_region_cost in e2_ram.items():
