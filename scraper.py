@@ -253,16 +253,18 @@ if __name__ == '__main__':
                 if kk in regions:
                     output['f1']['f1-micro']['regions'][kk] = {'ondemand': vv}
                 if kk in specs_params:
+                    # CPU type pulled from /proc/cpuinfo
                     output['f1']['f1-micro']['specs'].update(
-                        {kk: vv, 'cpu': ['N/A'], 'gpu': 0, 'local_ssd': 0, 'nested_virtualization': 0,
+                        {kk: vv, 'cpu': ['Intel Xeon @ 2.30GHz'], 'gpu': 0, 'local_ssd': 0, 'nested_virtualization': 0,
                          'sole_tenant': 0, 'benchmark': 4111})
         if k == 'CP-COMPUTEENGINE-VMIMAGE-G1-SMALL':
             for kk, vv in v.items():
                 if kk in regions:
                     output['g1']['g1-small']['regions'][kk] = {'ondemand': vv}
                 if kk in specs_params:
+                    # CPU type pulled from /proc/cpuinfo
                     output['g1']['g1-small']['specs'].update(
-                        {kk: vv, 'cpu': ['N/A'], 'gpu': 0, 'local_ssd': 0, 'nested_virtualization': 0,
+                        {kk: vv, 'cpu': ['Intel Xeon @ 2.30GHz'], 'gpu': 0, 'local_ssd': 0, 'nested_virtualization': 0,
                          'sole_tenant': 0, 'benchmark': 10657})
 
         if k == 'CP-COMPUTEENGINE-VMIMAGE-N1-STANDARD-1':
@@ -787,7 +789,7 @@ if __name__ == '__main__':
                     output['e2']['e2-micro']['regions'][kk] = {'ondemand': vv}
                 if kk in specs_params:
                     output['e2']['e2-micro']['specs'].update(
-                        {kk: vv, 'cpu': ['N/A'], 'gpu': 0, 'local_ssd': 0, 'nested_virtualization': 0,
+                        {kk: vv, 'cpu': ['Skylake', 'Broadwell', 'Haswell', 'AMD EPYC Rome'], 'gpu': 0, 'local_ssd': 0, 'nested_virtualization': 0,
                          'sole_tenant': 0, 'benchmark': 3333, 'network_egress': 1})
 
         if k == 'CP-COMPUTEENGINE-VMIMAGE-E2-HIGHCPU-4':
@@ -824,7 +826,7 @@ if __name__ == '__main__':
                     output['e2']['e2-medium']['regions'][kk] = {'ondemand': vv}
                 if kk in specs_params:
                     output['e2']['e2-medium']['specs'].update(
-                        {kk: vv, 'cpu': ['N/A'], 'gpu': 0, 'local_ssd': 0, 'nested_virtualization': 0,
+                        {kk: vv, 'cpu': ['Skylake', 'Broadwell', 'Haswell', 'AMD EPYC Rome'], 'gpu': 0, 'local_ssd': 0, 'nested_virtualization': 0,
                          'sole_tenant': 0, 'benchmark': 13663, 'network_egress': 2})
 
         if k == 'CP-COMPUTEENGINE-VMIMAGE-E2-HIGHCPU-2':
@@ -1368,5 +1370,4 @@ if __name__ == '__main__':
                     output['t2d'][k]['regions'][reg]['cud-3y'] = nice(v['cpu'] * t2d_cpu_region_cost + v[
                         'memory'] * t2d_ram_region_cost)
 
-    # print json output
     print(json.dumps(output))
