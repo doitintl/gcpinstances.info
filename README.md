@@ -1,4 +1,4 @@
-# GCPinstances.info (by DoiT International)
+# GCPinstances.info(https://gcpinstances.doit-intl.com) (by DoiT International)
 
 Easy GCP Compute Engine Instance Comparison
 
