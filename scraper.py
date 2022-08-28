@@ -18,6 +18,7 @@ if __name__ == '__main__':
     e2_sud_discount = 1
     a2_sud_discount = 1
     t2d_sud_discount = 1
+    t2a_sud_discount = 0.7
 
     regions = ['us', 'us-central1', 'us-east1', 'us-east4', 'us-east5', 'us-west4', 'us-west1', 'us-west2', 'us-west3', 'us-south1', 
                'europe', 'europe-central2', 'europe-west1', 'europe-west2', 'europe-west3', 'europe-west4',
@@ -29,7 +30,7 @@ if __name__ == '__main__':
                'asia-southeast2', 'asia-south2', 'southamerica-west1']
 
     specs_params = ['cores', 'memory', 'local_ssd', 'gpu', 'sole_tenant', 'nested_virtualization', 'cpu', 'benchmark']
-    generations = ['f1', 'g1', 'n1', 'n2', 'n2d', 'e2', 'c2', 'c2d', 'm1', 'm2', 'a2', 't2d']
+    generations = ['f1', 'g1', 'n1', 'n2', 'n2d', 'e2', 'c2', 'c2d', 'm1', 'm2', 'a2', 't2d', 't2a']
     # the following variables scraped from https://cloud.google.com/compute/docs/machine-types
     instance_types = ['e2-highcpu-32', 'e2-highcpu-16', 'e2-highcpu-2', 'e2-highcpu-4', 'e2-highcpu-8', 'e2-highmem-16',
                       'e2-highmem-2',
@@ -62,7 +63,8 @@ if __name__ == '__main__':
                       'n2d-highcpu-80', 'n2d-highcpu-96', 'n2d-highcpu-128', 'n2d-highcpu-224', 'a2-highgpu-1g',
                       'a2-highgpu-2g', 'a2-highgpu-4g', 'a2-highgpu-8g', 'a2-megagpu-16g', 't2d-standard-1',
                       't2d-standard-2', 't2d-standard-4', 't2d-standard-8', 't2d-standard-16', 't2d-standard-32',
-                      't2d-standard-48', 't2d-standard-60'
+                      't2d-standard-48', 't2d-standard-60', 't2a-standard-1', 't2a-standard-2', 't2a-standard-4', 't2a-standard-8', 
+                      't2a-standard-16', 't2a-standard-32', 't2a-standard-48'
                       ]
 
     c2_instance_types = {
@@ -226,6 +228,15 @@ if __name__ == '__main__':
         "t2d-standard-32": {"cpu": 32, "memory": 128, "local_ssd": 0, "network_egress": 32, "benchmark": 886865},
         "t2d-standard-48": {"cpu": 48, "memory": 192, "local_ssd": 0, "network_egress": 32, "benchmark": 1305259},
         "t2d-standard-60": {"cpu": 60, "memory": 240, "local_ssd": 0, "network_egress": 32, "benchmark": 1588850}}
+
+    t2a_instance_types = {
+        "t2a-standard-1": {"cpu": 1, "memory": 4, "local_ssd": 0, "network_egress": 10, "benchmark": 0},
+        "t2a-standard-2": {"cpu": 2, "memory": 8, "local_ssd": 0, "network_egress": 10, "benchmark": 0},
+        "t2a-standard-4": {"cpu": 4, "memory": 16, "local_ssd": 0, "network_egress": 10, "benchmark": 0},
+        "t2a-standard-8": {"cpu": 8, "memory": 32, "local_ssd": 0, "network_egress": 16, "benchmark": 0},
+        "t2a-standard-16": {"cpu": 16, "memory": 64, "local_ssd": 0, "network_egress": 32, "benchmark": 0},
+        "t2a-standard-32": {"cpu": 32, "memory": 128, "local_ssd": 0, "network_egress": 32, "benchmark": 0},
+        "t2a-standard-48": {"cpu": 48, "memory": 192, "local_ssd": 0, "network_egress": 32, "benchmark": 0}}
 
     for gen in generations:
         output[gen] = {}
@@ -1371,4 +1382,30 @@ if __name__ == '__main__':
                     output['t2d'][k]['regions'][reg]['cud-3y'] = nice(v['cpu'] * t2d_cpu_region_cost + v[
                         'memory'] * t2d_ram_region_cost)
 
+    # T2A
+    # On Demand and SUD
+    t2a_ram = data['CP-COMPUTEENGINE-T2A-PREDEFINED-VM-RAM']
+    t2a_cpu = data['CP-COMPUTEENGINE-T2A-PREDEFINED-VM-CORE']
+    for k, v in t2a_instance_types.items():
+        output['t2a'][k]['specs'].update({'cores': v['cpu'], 'memory': v['memory'], 'local_ssd': v['local_ssd'],
+                                          'network_egress': v['network_egress'], 'benchmark': v['benchmark'],
+                                          'cpu': ['Ampere Altra'], 'gpu': 0,
+                                          'sole_tenant': 0, 'nested_virtualization': 0, 'regional_disk': 1})
+        for reg, t2a_cpu_region_cost in t2a_cpu.items():
+            for reg2, t2a_ram_region_cost in t2a_ram.items():
+                if reg == reg2:
+                    output['t2a'][k]['regions'][reg]['ondemand'] = nice(v['cpu'] * t2a_cpu_region_cost + v[
+                        'memory'] * t2a_ram_region_cost)
+                    output['t2a'][k]['regions'][reg]['sud'] = nice(
+                        t2a_sud_discount * (v['cpu'] * t2a_cpu_region_cost + v[
+                            'memory'] * t2a_ram_region_cost))
+    # Preemptible
+    t2a_ram = data['CP-COMPUTEENGINE-T2A-PREDEFINED-VM-RAM-PREEMPTIBLE']
+    t2a_cpu = data['CP-COMPUTEENGINE-T2A-PREDEFINED-VM-CORE-PREEMPTIBLE']
+    for k, v in t2a_instance_types.items():
+        for reg, t2a_cpu_region_cost in t2a_cpu.items():
+            for reg2, t2a_ram_region_cost in t2a_ram.items():
+                if reg == reg2:
+                    output['t2a'][k]['regions'][reg]['preemptible'] = nice(v['cpu'] * t2a_cpu_region_cost + v[
+                        'memory'] * t2a_ram_region_cost)
     print(json.dumps(output))
