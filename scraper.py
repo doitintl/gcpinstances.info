@@ -140,6 +140,9 @@ if __name__ == '__main__':
         "n2-highcpu-96": {"cpu": 96, "memory": 96, "local_ssd": 1, "network_egress": 32, "benchmark": 0}}
 
     e2_instance_types = {
+        "e2-micro": {"cpu": 2, "memory": 1, "local_ssd": 0, "network_egress": 1, "benchmark": 3238},
+        "e2-small": {"cpu": 2, "memory": 2, "local_ssd": 0, "network_egress": 1, "benchmark": 6745},
+        "e2-medium": {"cpu": 2, "memory": 4, "local_ssd": 0, "network_egress": 2, "benchmark": 14529},
         "e2-standard-2": {"cpu": 2, "memory": 8, "local_ssd": 0, "network_egress": 4, "benchmark": 26471},
         "e2-standard-4": {"cpu": 4, "memory": 16, "local_ssd": 0, "network_egress": 8, "benchmark": 54585},
         "e2-standard-8": {"cpu": 8, "memory": 32, "local_ssd": 0, "network_egress": 16, "benchmark": 104906},
