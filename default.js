@@ -7,9 +7,9 @@ var g_data_table = null;
 var g_settings = {};
 
 var g_settings_defaults = {
-  cost_duration: 'hourly',
-  region: 'us-central1',
-  reserved_term: 'cud-1y',
+  cost_duration: "hourly",
+  region: "us-central1",
+  reserved_term: "cud-1y",
   min_memory: 0,
   min_vcpus: 0,
   min_storage: 0,
@@ -591,12 +591,13 @@ function on_data_table_initialized() {
   load_settings();
 
   // populate filter inputs
-  $('[data-action="datafilter"][data-type="memory"]').val(
-    g_settings["min_memory"]
-  );
-  $('[data-action="datafilter"][data-type="vcpus"]').val(
-    g_settings["min_vcpus"]
-  );
+  // $('[data-action="datafilter"][data-type="memory"]').val(
+  //   g_settings["min_memory"]
+  // );
+  // $('[data-action="datafilter"][data-type="vcpus"]').val(
+  //   g_settings["min_vcpus"]
+  // );
+
   $('[data-action="datafilter"][data-type="storage"]').val(
     g_settings["min_storage"]
   );
@@ -790,9 +791,20 @@ function update_compare_button() {
   if (!g_settings.compare_on) {
     $compareBtn
       .text($compareBtn.data("textOff"))
-      .removeClass("btn-success")
+      .removeClass("end-compare")
       .prop("disabled", !$rows.is(".highlight"));
   } else {
-    $compareBtn.text($compareBtn.data("textOn")).addClass("btn-success");
+    $compareBtn.text($compareBtn.data("textOn")).addClass("end-compare");
   }
 }
+
+$(document).ready(function () {
+  // Get height of sticky div
+  const stickyHeight = $(".sticky").outerHeight();
+  const outerHeight = $(".outer").outerHeight();
+
+  // const menuHeight = $("#menu").outerHeight();
+
+  // Set top value of thead-sticky to the height of sticky div
+  $(".thead-sticky").css("top", stickyHeight + outerHeight - 3 + "px");
+});

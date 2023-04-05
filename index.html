@@ -29,6 +29,10 @@
       href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link
       rel="stylesheet"
@@ -38,36 +42,45 @@
 
   <body class="ec2instances">
     <div class="header sticky">
-      <div>
-        <h1 class="headline">
-          GCP Instances
-          <span class="sub-headline">powered by</span>
-          <img src="./DoitLogo.svg" alt="doit-logo" class="logo" />
-        </h1>
-      </div>
-      <div class="flexsave">
-        <div class="flexsave-text">
-          Want to save on your on-demand cloud spend?
-          <span class="flexsave-subtext"> Check out Flexsave </span>
-          <img src="./Group 396.svg" alt="flexsave" class="flexsave-logo" />
+      <div class="main-header">
+        <div class="total-headline">
+          <h1 class="headline">
+            GCP Instances
+            <span class="sub-headline">powered by</span>
+            <img src="./DoitLogo.svg" alt="doit-logo" class="logo" />
+          </h1>
+        </div>
+        <div class="flexsave">
+          <a
+            href="https://www.doit.com/flexsave/"
+            target="_blank"
+            class="flexsave-link"
+          >
+            <div class="flexsave-text">
+              Want to save on your on-demand cloud spend?
+              <span class="flexsave-subtext"> Check out Flexsave </span>
+              <img src="./Group 396.svg" alt="flexsave" class="flexsave-logo" />
+            </div>
+          </a>
         </div>
       </div>
       <div id="menu">
-        <div class="sticky">
-          <div class="col-sm-8">
-            <div class="selectors">
-              <label class="dropdown-label">Region</label>
-              <div class="btn-group dropdown-box" id="region-dropdown">
-                <a
-                  class="dropdown-toggle dropdown-select"
-                  data-toggle="dropdown"
-                  href="#"
-                >
-                  <span class="text"></span>
-                  <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu" role="menu" id="region-menu">
-                  <!-- li><a href="javascript:;" data-region='ap-east-1'>Asia-Pacific (Hong Kong)</a></li>
+        <div>
+          <div class="col-sm-12 outer">
+            <div class="left">
+              <div class="selectors">
+                <label class="dropdown-label">Region</label>
+                <div class="buttons-group dropdown-box" id="region-dropdown">
+                  <a
+                    class="dropdown-toggle dropdown-select"
+                    data-toggle="dropdown"
+                    href="#"
+                  >
+                    <span class="text"></span>
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu" id="region-menu">
+                    <!-- li><a href="javascript:;" data-region='ap-east-1'>Asia-Pacific (Hong Kong)</a></li>
                 <li><a href="javascript:;" data-region='ap-south-1'>Asia-Pacific (Mumbai)</a></li>
                 <li><a href="javascript:;" data-region='ap-northeast-3'>Asia Pacific (Osaka-Local)</a></li>
                 <li><a href="javascript:;" data-region='ap-northeast-2'>Asia-Pacific (Seoul)</a></li>
@@ -88,111 +101,110 @@
                 <li><a href="javascript:;" data-region='us-west-2'>US West (Oregon)</a></li>
                 <li><a href="javascript:;" data-region='us-gov-west-1'>AWS GovCloud (US-West)</a></li>
                 <li><a href="javascript:;" data-region='us-gov-east-1'>AWS GovCloud (US-East)</a></li -->
-                </ul>
-              </div>
-            </div>
-            <div class="selectors">
-              <label class="dropdown-label">Cost</label>
-              <div class="btn-group dropdown-box" id="cost-dropdown">
-                <a
-                  class="dropdown-toggle dropdown-select"
-                  data-toggle="dropdown"
-                  href="#"
-                >
-                  <span class="text"></span>
-                  <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu" role="menu">
-                  <li>
-                    <a href="javascript:;" duration="secondly">Secondly</a>
-                  </li>
-                  <li><a href="javascript:;" duration="hourly">Hourly</a></li>
-                  <li><a href="javascript:;" duration="daily">Daily</a></li>
-                  <li><a href="javascript:;" duration="weekly">Weekly</a></li>
-                  <li><a href="javascript:;" duration="monthly">Monthly</a></li>
-                  <li>
-                    <a href="javascript:;" duration="annually">Annually</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="selectors">
-              <label class="dropdown-label">Currency</label>
-              <div class="btn-group dropdown-box" id="currency-dropdown">
-                <a
-                  class="dropdown-toggle dropdown-select"
-                  data-toggle="dropdown"
-                  href="#"
-                >
-                  <span class="text">$ (USD)</span>
-                  <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu" role="menu" id="currency-menu"></ul>
-              </div>
-            </div>
-
-            <div class="selectors">
-              <label class="dropdown-label"> Min Memory</label>
-              <input
-                data-action="datafilter"
-                data-type="memory"
-                class="dropdown-box"
-                placeholder="0"
-              />
-            </div>
-
-            <div class="selectors">
-              <label class="dropdown-label"> Min vCPUs</label>
-              <input
-                data-action="datafilter"
-                data-type="vcpus"
-                class="dropdown-box"
-                placeholder="0"
-              />
-              <!-- Min Storage (GiB): <input data-action="datafilter" data-type="storage" class="form-control" /> -->
-            </div>
-
-            <div class="selectors">
-              <div class="btn-group dropdown-box" id="filter-dropdown">
-                <a
-                  class="dropdown-toggle dropdown-select"
-                  data-toggle="dropdown"
-                  href="#"
-                >
-                  <span class="text">Columns</span>
-                  <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu" role="menu">
-                  <!-- table header elements inserted by js -->
-                </ul>
-              </div>
-            </div>
-            <div class="selectors">
-              <button class="btn-clear">
-                <i class="fa fa-close"></i>
-                <span class="clear-span"> Clear Filters </span>
-              </button>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="nested-div">
-              <div class="right-selectors">
-                <div id="main-search" class="main-search selectors"></div>
-
-                <div class="selectors">
-                  <button
-                    class="btn-compare right-buttons"
-                    data-text-on="End Compare"
-                    data-text-off="Compare"
-                  >
-                    Compare
-                  </button>
+                  </ul>
                 </div>
-
-                <div id="csv" class="selectors"></div>
               </div>
+              <div class="selectors">
+                <label class="dropdown-label">Cost</label>
+                <div class="buttons-group dropdown-box" id="cost-dropdown">
+                  <a
+                    class="dropdown-toggle dropdown-select"
+                    data-toggle="dropdown"
+                    href="#"
+                  >
+                    <span class="text"></span>
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                      <a href="javascript:;" duration="secondly">Secondly</a>
+                    </li>
+                    <li><a href="javascript:;" duration="hourly">Hourly</a></li>
+                    <li><a href="javascript:;" duration="daily">Daily</a></li>
+                    <li><a href="javascript:;" duration="weekly">Weekly</a></li>
+                    <li>
+                      <a href="javascript:;" duration="monthly">Monthly</a>
+                    </li>
+                    <li>
+                      <a href="javascript:;" duration="annually">Annually</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="selectors">
+                <label class="dropdown-label">Currency</label>
+                <div class="buttons-group dropdown-box" id="currency-dropdown">
+                  <a
+                    class="dropdown-toggle dropdown-select"
+                    data-toggle="dropdown"
+                    href="#"
+                  >
+                    <span class="text">$ (USD)</span>
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu" id="currency-menu"></ul>
+                </div>
+              </div>
+
+              <div class="selectors">
+                <label class="dropdown-label"> Min memory</label>
+
+                <input
+                  data-action="datafilter"
+                  data-type="memory"
+                  class="dropdown-box buttons-group"
+                  placeholder="0"
+                />
+              </div>
+
+              <div class="selectors">
+                <label class="dropdown-label"> Min vCPUs</label>
+                <input
+                  data-action="datafilter"
+                  data-type="vcpus"
+                  class="dropdown-box buttons-group"
+                  placeholder="0"
+                />
+              </div>
+
+              <div class="selectors">
+                <div class="buttons-group dropdown-box" id="filter-dropdown">
+                  <a
+                    class="dropdown-toggle dropdown-select"
+                    data-toggle="dropdown"
+                    href="#"
+                  >
+                    <span class="text">Columns</span>
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <!-- table header elements inserted by js -->
+                  </ul>
+                </div>
+              </div>
+              <div class="selectors">
+                <button class="btn-clear">
+                  <i class="fa fa-close"></i>
+                  <span class="clear-span"> Clear filters </span>
+                </button>
+              </div>
+            </div>
+
+            <div class="right-selectors">
+              <div id="main-search" class="main-search selectors"></div>
+
+              <div class="selectors">
+                <button
+                  class="btn-compare right-buttons"
+                  data-text-on="End Compare"
+                  data-text-off="Compare"
+                >
+                  Compare
+                </button>
+              </div>
+
+              <div id="csv" class="selectors"></div>
             </div>
           </div>
         </div>
@@ -205,7 +217,7 @@
         class="table table-hover table-condensed"
         id="data"
       >
-        <thead>
+        <thead id="thead-sticky" class="thead-sticky">
           <tr>
             <th class="machinetype">Machine type</th>
             <th class="vcpus">vCPUs</th>
@@ -273,7 +285,7 @@
     </div>
 
     <div class="last-update">
-      <p class="pull-right last-update-text">Last Update: 2023-03-26 05:00</p>
+      <p class="pull-right last-update-text">Last Update: 26 Mar 2023, 5:00</p>
     </div>
 
     <script

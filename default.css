@@ -1,8 +1,14 @@
+* {
+  font-family: "Roboto";
+}
+
 .sticky {
   position: sticky;
   top: 0;
-  background-color: white;
+  background: #ffffff;
   margin-bottom: 10px;
+  z-index: 3;
+  padding-bottom: 8px;
 }
 
 .last-update {
@@ -17,12 +23,12 @@
 }
 
 .last-update-text {
-  font-family: "Roboto";
   margin: 5px;
   color: #000000;
 }
 
 .header {
+  height: 64px;
   background: #010431;
 }
 
@@ -30,20 +36,45 @@
   position: absolute;
   padding-left: 15px;
   font-family: "Montserrat";
+  font-weight: 700;
   font-size: 24px;
   color: #ffffff;
+  letter-spacing: 0.25px;
 }
 .selectors {
   display: inline-block;
 }
-.sub-headline {
-  font-size: 14px;
+
+.outer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+  background: #ffffff;
 }
 
+.right-selectors {
+  padding-top: 20px;
+  float: right;
+}
+
+.sub-headline {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.1px;
+}
+
+.main-header {
+  display: flex;
+}
+.total-headline {
+  flex: 1;
+}
 .flexsave {
   background: #cad2ff;
   border-radius: 32px 0px 0px 0px;
-  margin-left: 65vw;
+  flex: 1;
+  max-width: max-content;
 }
 .flexsave-subtext {
   font-weight: bold;
@@ -51,7 +82,6 @@
   margin-left: 5px;
 }
 .flexsave-text {
-  font-family: "Roboto";
   text-align: center;
   height: 64px;
   font-size: 18px;
@@ -61,22 +91,26 @@
   color: rgba(0, 0, 0, 0.87);
 }
 .flexsave-logo {
-  padding-left: 10px;
+  padding: 0 15px;
   height: 24px;
   align-items: center;
 }
 
+.flexsave-link:hover,
+.flexsave-link:active,
+.flexsave-link {
+  text-decoration: none !important;
+}
 .dropdown-box {
   width: 120px;
   height: 36px;
   padding-left: 5px;
-  display: flex;
-  align-items: center;
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 4px;
+  position: relative;
+  z-index: inherit;
 }
 .dropdown-label {
-  font-family: "Roboto";
   font-size: 12px;
   display: block;
   letter-spacing: 0.4px;
@@ -84,25 +118,31 @@
 }
 
 .dropdown-select {
-  padding: 0px 5px;
-  font-family: "Roboto";
   font-size: 18px;
   text-decoration: none !important;
-  letter-spacing: 0.15px;
-
   color: #000000;
+
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
+.dropdown-select:active {
+  text-decoration: none;
+}
+
+.buttons-group {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
 .text {
-  font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 22px;
-  /* identical to box height, or 157% */
-
   letter-spacing: 0.15px;
-
   color: #000000;
 }
 
@@ -114,7 +154,6 @@
   width: 121px;
   height: 36px;
 
-  font-family: "Roboto";
   font-weight: 500;
   border: none;
   background-color: transparent;
@@ -125,14 +164,22 @@
 }
 .right-buttons,
 #csv {
-  font-family: "Roboto";
   letter-spacing: 0.4px;
   color: #3b40b5;
   background-color: transparent;
-  width: 150px;
+  width: 110px;
   height: 36px;
   border: 1px solid rgba(59, 64, 181, 0.5);
   border-radius: 4px;
+}
+
+.end-compare {
+  color: #d32f2f;
+  border-color: #d32f2f;
+}
+
+#csv {
+  width: 150px;
 }
 
 .pull-right {
@@ -159,7 +206,7 @@
 }
 
 .visit-doit {
-  color: #ffffff;
+  color: #ffffff !important;
   font-size: 16px;
   padding-left: 20px;
   text-decoration-line: underline;
@@ -172,9 +219,6 @@
 .divider {
   width: 35px;
   height: 0px;
-  /* left: 228px; */
-  /* top: 1700px; */
-
   opacity: 0.5;
   border: 1px solid #ffffff;
   transform: rotate(90deg);
@@ -205,7 +249,6 @@
 }
 
 .details-links {
-  font-family: "Roboto";
   font-weight: 400;
 
   font-size: 16px;
@@ -218,7 +261,6 @@
   color: initial;
 }
 .disclaimer {
-  font-family: "Roboto";
   font-size: 16px;
   color: #ffffff;
   opacity: 0.5;
@@ -262,6 +304,7 @@
 #menu {
   padding-top: 10px;
   background-color: #ffffff;
+  height: 64px;
 }
 
 #data {
@@ -279,9 +322,8 @@
   cursor: pointer;
 }
 
-#data tr.highlight,
-#data tr.highlight:hover {
-  background-color: #d3ffff;
+#data tr.highlight {
+  background-color: #f4f6ff;
 }
 
 #data th,
@@ -291,8 +333,8 @@
 
 #data th,
 .sorting th {
-  padding-left: 15px;
-  padding-right: 15px;
+  /* padding: 4px 15px; */
+  padding: 4px 15px 0 15px;
 
   background-color: #fafafa;
   border-bottom: none;
@@ -304,17 +346,16 @@
   height: 30px;
   background: #ffffff;
   padding-left: 5px;
-  font-family: "Roboto";
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 4px;
+  margin-bottom: 8px;
 }
 #data th input[type="text"]::placeholder {
   color: rgba(0, 0, 0, 0.3);
 }
 #data td {
   font-size: 13px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 8px 15px;
 }
 
 #data td.name {
@@ -378,14 +419,18 @@
 }
 .table-container {
   width: 100%;
-  overflow-x: auto;
+  overflow: visible;
+  background: #ffffff;
 }
 
 table {
-  border-collapse: collapse;
-  /* margin: 0 15px; */
-  width: 100%;
+  border-collapse: separate;
+
+  /* border-spacing: 0; */
+  /* width: 100%; */
   border-top: 1px solid rgba(0, 0, 0, 0.12);
+
+  /* overflow: scroll; */
 }
 
 thead th {
@@ -435,12 +480,27 @@ table.table thead .sorting_desc_disabled {
 /* This class is applied to the DataTables search box by our own code once it renders */
 input.search {
   margin-left: 5px;
-  width: 150px;
+  width: 200px;
   display: inline;
+  height: 36px;
 }
 
 /* Bootstrap overrides *******************************************************/
 .tooltip-inner {
   /* let text wrap in tooltips */
   white-space: pre-wrap;
+}
+
+.thead-sticky {
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  margin-bottom: 10px;
+  z-index: 2;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-collapse: separate;
+}
+
+.thead-sticky th table {
+  border: 1px solid rgba(0, 0, 0, 0.12);
 }
