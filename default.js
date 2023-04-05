@@ -340,9 +340,9 @@ function change_cost(duration) {
   $("#cost-dropdown li a").each(function (i, e) {
     e = $(e);
     if (e.attr("duration") == duration) {
-      e.parent().addClass("active");
+      e.parent().addClass("active-line");
     } else {
-      e.parent().removeClass("active");
+      e.parent().removeClass("active-line");
     }
   });
 
@@ -390,10 +390,10 @@ function change_currency(currency, price, symbol) {
   $("#currency-dropdown li a").each(function (i, e) {
     e = $(e);
     if (e.data("currency") === currency) {
-      e.parent().addClass("active");
+      e.parent().addClass("active-line");
       currency_name = e.data("symbol") + " (" + e.data("currency") + ")";
     } else {
-      e.parent().removeClass("active");
+      e.parent().removeClass("active-line");
     }
   });
   $("#currency-dropdown .dropdown-toggle .text").text(currency_name);
@@ -406,10 +406,10 @@ function change_region(region) {
   $("#region-dropdown li a").each(function (i, e) {
     e = $(e);
     if (e.data("region") === region) {
-      e.parent().addClass("active");
+      e.parent().addClass("active-line");
       region_name = e.text();
     } else {
-      e.parent().removeClass("active");
+      e.parent().removeClass("active-line");
     }
   });
   $("#region-dropdown .dropdown-toggle .text").text(region_name);
@@ -440,8 +440,8 @@ function change_reserved_term(term) {
     $activeLink = $dropdown.find('li a[data-reserved-term="' + term + '"]'),
     term_name = $activeLink.text();
 
-  $dropdown.find("li").removeClass("active");
-  $activeLink.closest("li").addClass("active");
+  $dropdown.find("li").removeClass("active-line");
+  $activeLink.closest("li").addClass("active-line");
 
   $dropdown.find(".dropdown-toggle .text").text(term_name);
   // 1change_cost(g_settings.cost_duration);
@@ -458,13 +458,13 @@ function setup_column_toggle() {
     var column = g_data_table.column(idx);
     $("#filter-dropdown ul").append(
       $("<li>")
-        .toggleClass("active", column.visible())
+        .toggleClass("active-line", column.visible())
         .append(
           $("<a>", { href: "javascript:;" })
             .text($(column.header()).text())
             .click(function (e) {
               toggle_column(i);
-              $(this).parent().toggleClass("active");
+              $(this).parent().toggleClass("active-line");
               $(this).blur(); // prevent focus style from sticking in Firefox
               e.stopPropagation(); // keep dropdown menu open
             })
@@ -797,14 +797,3 @@ function update_compare_button() {
     $compareBtn.text($compareBtn.data("textOn")).addClass("end-compare");
   }
 }
-
-$(document).ready(function () {
-  // Get height of sticky div
-  const stickyHeight = $(".sticky").outerHeight();
-  const outerHeight = $(".outer").outerHeight();
-
-  // const menuHeight = $("#menu").outerHeight();
-
-  // Set top value of thead-sticky to the height of sticky div
-  $(".thead-sticky").css("top", stickyHeight + outerHeight - 3 + "px");
-});
