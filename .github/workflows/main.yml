@@ -1,49 +1,67 @@
-# This is a basic workflow to help you get started with Actions
+name: Scrape and publish
 
-name: CI
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
+  schedule:
+    # every day after midnight, UTC
+    - cron:  '1 * * * *'
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  scrape-and-publish:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v3
         with:
-          python-version: "3.7"
+          python-version: "3.11"
+
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          sudo apt-get install -y jq
 
+      - name: Remember current time
+        id: time
+        run: echo "DATE=$(date --utc)" >> $GITHUB_OUTPUT
 
+      - name: Remember checksum of the data before update
+        id: data-before
+        run: echo "MD5=$(md5sum data.json)" >> $GITHUB_OUTPUT
 
-      # Runs a single command using the runners shell
-      - name: Check repo data.json md5 hash
-        run: echo "::set-env name=datamd5::$(python $GITHUB_WORKSPACE/data.json | md5sum)"
+      - name: Scrape data
+        run: ./scraper.py > data.raw
 
-      # Runs a single command using the runners shell
-      - name: Check gcpinstances.info data.json md5 hash
-        run: echo "::set-env name=sitemd5::$(curl -s https://gcpinstances.info/data.json | md5sum)"
+      - name: Prettify JSON
+        run: jq --sort-keys . data.raw > data.json
 
+      - name: Get checksum of the data after update
+        id: data-after
+        run: echo "MD5=$(md5sum data.json)" >> $GITHUB_OUTPUT
 
+      - name: Update checking timestamp
+        run: sed -i 's/id="last_check">.*</id="last_check">${{ steps.time.outputs.DATE }}</g' index.html
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: if ! "$datamd5" "$sitemd5"; then echo "They don't match."; fi
-      - name: aaa
-        run: export
+      - name: Update update timestamp, if updated
+        run: sed -i 's/id="last_update">.*</id="last_update">${{ steps.time.outputs.DATE }}</g' index.html
+        if: steps.data-before.outputs.MD5 != steps.data-after.outputs.MD5
+
+      - name: Prepare to publish
+        run: |
+          mkdir publish
+          cp index.html publish/
+          cp data.json publish/
+
+      - uses: shallwefootball/s3-upload-action@master
+        with:
+          aws_key_id: ${{ secrets.AWS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: gcpinstances.info
+          source_dir: publish
+
+      - uses: EndBug/add-and-commit@v9
+        with:
+          add: 'index.html data.json'
