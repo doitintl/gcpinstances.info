@@ -54,12 +54,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 8px;
+  padding-bottom: 16px;
   background: #ffffff;
 }
 
 .right-selectors {
-  padding-top: 20px;
   float: right;
 }
 
@@ -108,7 +107,7 @@ body {
   text-decoration: none !important;
 }
 .dropdown-box {
-  width: 120px;
+  width: 125px;
   height: 36px;
   padding-left: 5px;
   border: 1px solid rgba(0, 0, 0, 0.12);
@@ -212,7 +211,7 @@ body {
 }
 .table-filters {
   background: #fafafa;
-  border-radius: 0px;
+  /* border-radius: 0px; */
 }
 
 .visit-doit {
@@ -250,6 +249,9 @@ body {
   background: #010431;
   display: flex;
   min-width: max-content;
+  /* margin-bottom: 40px; */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .fa-twitter {
@@ -332,15 +334,20 @@ body {
 #data td {
   white-space: nowrap;
 }
-
+.sorting {
+  /* border-bottom: none; */
+  /* border-collapse: separate !important; */
+}
 #data th,
 .sorting th {
   /* padding: 4px 15px; */
   padding: 4px 15px 0 15px;
 
   background-color: #fafafa;
-  border-bottom: none;
-  border-top: none;
+
+  /* border top and bottom */
+  /* border-bottom: none;
+  border-top: none; */
 }
 
 #data th input[type="text"] {
@@ -411,6 +418,9 @@ input[type="text"]:focus,
   /* background: #0044cc !important; */
 }
 
+.sorting th {
+  /* border-bottom: none; */
+}
 .share-url {
   text-align: left;
   margin-left: 5px;
@@ -433,26 +443,29 @@ input[type="text"]:focus,
 }
 
 table {
-  /* border-collapse: separate; */
-
   /* border-spacing: 0; */
   /* width: 100%; */
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  border-collapse: separate !important;
+  /* border-top: 1px solid rgba(0, 0, 0, 0.12); */
 
   overflow: scroll;
   /* overflow: visible; */
 }
 
+thead {
+  background-color: #000000;
+}
+
 thead th {
   border: 1px solid rgba(0, 0, 0, 0.12);
 }
-table td {
+/* table td {
   text-align: right;
 }
 
 table tr td:nth-child(-n + 2) {
   text-align: left;
-}
+} */
 
 .colum-filter {
   padding-left: 5px;
@@ -489,7 +502,6 @@ table.table thead .sorting_desc_disabled {
 
 /* This class is applied to the DataTables search box by our own code once it renders */
 input.search {
-  margin-left: 5px;
   width: 200px;
   display: inline;
   height: 36px;
@@ -502,13 +514,21 @@ input.search {
 }
 
 .thead-sticky {
-  position: sticky;
+  /* position: sticky;
   top: 0;
   background: #ffffff;
   margin-bottom: 10px;
   z-index: 2;
   border: 1px solid rgba(0, 0, 0, 0.12);
-  border-collapse: separate;
+  border-collapse: separate; */
+  position: sticky;
+  top: 0;
+  z-index: 2;
+
+  background: #ffffff;
+  margin-bottom: 10px;
+  /* border: 1px solid rgba(0, 0, 0, 0.12); */
+  /* border-collapse: separate !important; */
 }
 
 .active-line {
@@ -525,16 +545,15 @@ a:hover {
   overflow-y: auto;
   width: 100%;
   padding-top: 0;
-}
-
-.table-container {
   max-height: calc(100vh - 100px);
   overflow: auto;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .table {
   width: 100%;
-  border-collapse: collapse;
+  /* border-collapse: separate !important; */
+  /* border-spacing: 0; */
 }
 
 .table thead th {
@@ -545,13 +564,46 @@ a:hover {
   padding: 8px;
 }
 
-.thead-sticky {
+/* .thead-sticky {
   position: sticky;
   top: -10;
-  z-index: 1;
+  z-index: 999;
 
   background: #ffffff;
   margin-bottom: 10px;
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-collapse: separate;
+} */
+
+thead th[class*="sorting"]:not(:last-child),
+thead th[class*="sorting"]:last-child {
+  border-bottom: none;
+  border-top: none;
+}
+
+thead th:not([class*="sorting"]):not(:last-child),
+thead th:not([class*="sorting"]):last-child {
+  border-top: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+thead th {
+  border-left: none;
+}
+
+table tr:first-child td:last-child,
+table tr:first-child td:not(:last-child) {
+  border-top: none;
+}
+
+@media screen and (min-width: 973px) {
+  /* Styles for screens under 960 pixels wide */
+  /* For example, you could set the font size to 16px */
+  .right-selectors {
+    padding-top: 20px;
+  }
+}
+
+table.dataTable {
+  /* border-collapse: separate !important; */
 }
