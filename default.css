@@ -7,7 +7,7 @@ body {
 }
 
 .sticky {
-  position: sticky;
+  position: fixed;
   top: 0;
   background: #ffffff;
   margin-bottom: 10px;
@@ -54,7 +54,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 16px;
+  margin-bottom: 16px;
   background: #ffffff;
 }
 
@@ -544,8 +544,10 @@ a:hover {
   overflow-x: auto;
   overflow-y: auto;
   width: 100%;
-  padding-top: 0;
-  max-height: calc(100vh - 100px);
+  /* margin-top: 16px; */
+  /* margin-top: 16px; */
+
+  max-height: 100vh;
   overflow: auto;
   border-top: 1px solid rgba(0, 0, 0, 0.12);
 }
@@ -589,6 +591,7 @@ thead th:not([class*="sorting"]):last-child {
 
 thead th {
   border-left: none;
+  /* margin-top: 16px; */
 }
 
 table tr:first-child td:last-child,
