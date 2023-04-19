@@ -249,9 +249,11 @@ body {
   background: #010431;
   display: flex;
   min-width: max-content;
-  /* margin-bottom: 40px; */
+  margin-bottom: 140px;
   width: 100%;
   box-sizing: border-box;
+  position: sticky;
+  left: 0;
 }
 
 .fa-twitter {
@@ -308,7 +310,7 @@ body {
 #menu {
   padding-top: 10px;
   background-color: #ffffff;
-  height: 64px;
+  height: 80px;
 }
 
 #data {
@@ -334,20 +336,11 @@ body {
 #data td {
   white-space: nowrap;
 }
-.sorting {
-  /* border-bottom: none; */
-  /* border-collapse: separate !important; */
-}
+
 #data th,
 .sorting th {
-  /* padding: 4px 15px; */
   padding: 4px 15px 0 15px;
-
   background-color: #fafafa;
-
-  /* border top and bottom */
-  /* border-bottom: none;
-  border-top: none; */
 }
 
 #data th input[type="text"] {
@@ -414,13 +407,6 @@ input[type="text"]:focus,
   color: #fff !important;
 }
 
-.dropdown-menu li > a:hover {
-  /* background: #0044cc !important; */
-}
-
-.sorting th {
-  /* border-bottom: none; */
-}
 .share-url {
   text-align: left;
   margin-left: 5px;
@@ -435,21 +421,11 @@ input[type="text"]:focus,
 .well p:last-child {
   margin-bottom: 0;
 }
-.table-container {
-  /* width: 100%; */
-  /* overflow: visible; */
-  /* background: #ffffff; */
-  /* overflow-x: auto; */
-}
 
 table {
-  /* border-spacing: 0; */
-  /* width: 100%; */
   border-collapse: separate !important;
-  /* border-top: 1px solid rgba(0, 0, 0, 0.12); */
-
   overflow: scroll;
-  /* overflow: visible; */
+  width: 100% !important;
 }
 
 thead {
@@ -459,13 +435,6 @@ thead {
 thead th {
   border: 1px solid rgba(0, 0, 0, 0.12);
 }
-/* table td {
-  text-align: right;
-}
-
-table tr td:nth-child(-n + 2) {
-  text-align: left;
-} */
 
 .colum-filter {
   padding-left: 5px;
@@ -514,21 +483,11 @@ input.search {
 }
 
 .thead-sticky {
-  /* position: sticky;
-  top: 0;
-  background: #ffffff;
-  margin-bottom: 10px;
-  z-index: 2;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  border-collapse: separate; */
   position: sticky;
   top: 0;
   z-index: 2;
-
   background: #ffffff;
   margin-bottom: 10px;
-  /* border: 1px solid rgba(0, 0, 0, 0.12); */
-  /* border-collapse: separate !important; */
 }
 
 .active-line {
@@ -544,18 +503,19 @@ a:hover {
   overflow-x: auto;
   overflow-y: auto;
   width: 100%;
-  /* margin-top: 16px; */
-  /* margin-top: 16px; */
-
   max-height: 100vh;
   overflow: auto;
   border-top: 1px solid rgba(0, 0, 0, 0.12);
 }
 
+.table-with-filters {
+  display: flex;
+  flex-direction: column;
+  padding-top: 64px;
+}
+
 .table {
-  width: 100%;
-  /* border-collapse: separate !important; */
-  /* border-spacing: 0; */
+  width: 100% !important;
 }
 
 .table thead th {
@@ -565,17 +525,6 @@ a:hover {
 .table tbody td {
   padding: 8px;
 }
-
-/* .thead-sticky {
-  position: sticky;
-  top: -10;
-  z-index: 999;
-
-  background: #ffffff;
-  margin-bottom: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  border-collapse: separate;
-} */
 
 thead th[class*="sorting"]:not(:last-child),
 thead th[class*="sorting"]:last-child {
@@ -607,6 +556,56 @@ table tr:first-child td:not(:last-child) {
   }
 }
 
-table.dataTable {
-  /* border-collapse: separate !important; */
+@media screen and (max-width: 1390px) and (min-width: 1004px) {
+  #menu {
+    height: 115px;
+  }
+
+  .details {
+    margin-bottom: 175px;
+  }
+}
+
+/* add right selctoprs padding/margin top */
+@media screen and (max-width: 1003px) and (min-width: 802px) {
+  #menu {
+    height: 140px;
+  }
+
+  .details {
+    margin-bottom: 200px;
+  }
+
+  .right-selectors {
+    padding-top: 0;
+  }
+}
+
+@media screen and (max-width: 801px) and (min-width: 612px) {
+  #menu {
+    height: 165px;
+  }
+  .details {
+    margin-bottom: 225px;
+  }
+}
+
+@media screen and (max-width: 611px) and (min-width: 484px) {
+  #menu {
+    height: 225px;
+  }
+
+  .details {
+    margin-bottom: 285px;
+  }
+}
+
+@media screen and (max-width: 483px) and (min-width: 0px) {
+  #menu {
+    height: 375px;
+  }
+
+  .details {
+    margin-bottom: 435px;
+  }
 }

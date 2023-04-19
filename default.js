@@ -797,17 +797,3 @@ function update_compare_button() {
     $compareBtn.text($compareBtn.data("textOn")).addClass("end-compare");
   }
 }
-function adjustTablePadding() {
-  var headerHeight = $(".outer").height();
-  var headerHeight2 = $(".main-header").height();
-
-  $(".table-container").css("padding-top", headerHeight + headerHeight2 + "px");
-}
-
-$(document).ready(function () {
-  adjustTablePadding();
-
-  $(window).on("resize", function () {
-    adjustTablePadding();
-  });
-});
