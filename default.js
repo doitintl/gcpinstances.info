@@ -48,6 +48,28 @@ function init_data_table() {
       bRegex: true,
       bSmart: false,
     },
+    columns: [
+      { className: "" },
+      { className: "" },
+      { className: "numeric" },
+      { className: "" },
+      { className: "numeric" },
+      { className: "" },
+      { className: "" },
+      { className: "" },
+      { className: "" },
+      { className: "numeric" },
+      { className: "numeric" },
+      { className: "numeric" },
+      { className: "numeric" },
+      { className: "numeric" },
+      { className: "numeric" },
+      { className: "numeric" },
+      { className: "numeric" },
+      { className: "numeric" },
+      { className: "numeric" },
+      { className: "numeric" },
+    ],
     aoColumnDefs: [
       {
         // The columns below are sorted according to the sort attr of the <span> tag within their data cells

@@ -356,50 +356,18 @@ body {
   color: rgba(0, 0, 0, 0.3);
 }
 input[type="text"]:focus,
+input[type="search"]:focus,
 .form-control:focus {
   -webkit-box-shadow: none;
   box-shadow: none;
   outline: none;
 }
+input[type="search"]:focus {
+  border: 1px solid #ccc;
+}
 #data td {
   font-size: 13px;
   padding: 8px 15px;
-}
-
-#data td.name {
-  text-align: left;
-}
-
-#data td.memory {
-  text-align: right;
-}
-
-#data td.computeunits {
-  text-align: left;
-}
-
-#data td.storage {
-  text-align: right;
-}
-
-#data td.architecture {
-  text-align: right;
-}
-
-#data td.ioperf {
-  text-align: left;
-}
-
-#data td.maxips {
-  text-align: right;
-}
-
-#data td.maxenis {
-  text-align: right;
-}
-
-#data td.apiname {
-  text-align: left;
 }
 
 /* Bootstrap overrides */
@@ -608,4 +576,8 @@ table tr:first-child td:not(:last-child) {
   .details {
     margin-bottom: 435px;
   }
+}
+
+table.table td.numeric {
+  text-align: right;
 }
