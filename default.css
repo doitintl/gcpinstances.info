@@ -223,6 +223,7 @@ body {
 
 .visit-doit:hover {
   color: #ffffff;
+  background-color: transparent;
 }
 
 .divider {
@@ -555,6 +556,27 @@ table tr:first-child td:not(:last-child) {
   }
   .details {
     margin-bottom: 225px;
+  }
+}
+
+@media screen and (max-width: 801px) {
+  .headline {
+    font-size: 20px;
+  }
+
+  .sub-headline {
+    font-size: 12px;
+  }
+
+  .logo {
+    width: 70px;
+  }
+
+  .flexsave-text {
+    font-size: 15px;
+  }
+  .flexsave {
+    max-width: max-content;
   }
 }
 
