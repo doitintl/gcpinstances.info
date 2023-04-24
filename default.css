@@ -483,10 +483,6 @@ a:hover {
   padding-top: 64px;
 }
 
-.table {
-  width: 100% !important;
-}
-
 .table thead th {
   font-weight: bold;
 }
