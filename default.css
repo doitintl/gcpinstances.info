@@ -1,10 +1,307 @@
-body {
-  padding: 5px 20px;
+* {
+  font-family: "Roboto";
 }
 
-.ec2instances .page-header {
-  margin-top: 0;
-  border-bottom: 0;
+body {
+  overflow-y: hidden;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  background: #ffffff;
+  margin-bottom: 10px;
+  z-index: 3;
+  padding-bottom: 8px;
+  width: 100%;
+}
+
+.last-update {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  margin: 4px 8px;
+  background: rgba(255, 153, 0, 0.5);
+  border-radius: 16px;
+}
+
+.last-update-text {
+  margin: 5px;
+  color: #000000;
+}
+
+.total-header {
+  height: 64px;
+  background: #010431;
+}
+
+.headline {
+  position: absolute;
+  padding-left: 15px;
+  font-family: "Montserrat";
+  font-weight: 700;
+  font-size: 24px;
+  color: #ffffff;
+  letter-spacing: 0.25px;
+}
+.selectors {
+  display: inline-block;
+}
+
+.outer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  background: #ffffff;
+}
+
+.right-selectors {
+  float: right;
+}
+
+.sub-headline {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.1px;
+}
+
+.main-header {
+  display: flex;
+}
+.total-headline {
+  flex: 1;
+}
+
+.flexsave {
+  background: #cad2ff;
+  border-radius: 32px 0px 0px 0px;
+  flex: 1;
+  max-width: max-content;
+}
+.flexsave-subtext {
+  font-weight: bold;
+  color: black;
+  margin-left: 5px;
+}
+.flexsave-text {
+  text-align: center;
+  height: 64px;
+  font-size: 18px;
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.87);
+}
+.flexsave-logo {
+  padding: 0 15px;
+  height: 24px;
+  align-items: center;
+}
+
+.flexsave-link:hover,
+.flexsave-link:active,
+.flexsave-link {
+  text-decoration: none !important;
+}
+.dropdown-box {
+  width: 125px;
+  height: 36px;
+  padding-left: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  position: relative;
+  z-index: inherit;
+}
+.dropdown-label {
+  font-size: 12px;
+  display: block;
+  letter-spacing: 0.4px;
+  color: #000000;
+}
+
+.dropdown-select {
+  font-size: 18px;
+  text-decoration: none !important;
+  color: #000000;
+
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.dropdown-select:active {
+  text-decoration: none;
+}
+
+.dropdown-select:hover {
+  background-color: #fff;
+}
+
+.buttons-group {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+.text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0.15px;
+  color: #000000;
+}
+
+.btn-clear {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 121px;
+  height: 36px;
+
+  font-weight: 500;
+  border: none;
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.26);
+}
+.clear-span {
+  padding-left: 10px;
+}
+.right-buttons,
+#csv {
+  letter-spacing: 0.4px;
+  color: #3b40b5;
+  background-color: transparent;
+  width: 110px;
+  height: 36px;
+  border: 1px solid rgba(59, 64, 181, 0.5);
+  border-radius: 4px;
+}
+
+.end-compare {
+  color: #d32f2f;
+  border-color: #d32f2f;
+}
+
+#csv {
+  width: 150px;
+}
+
+.pull-right {
+  margin-right: 5px;
+}
+
+#csv {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.csv-button {
+  color: #3b40b5;
+  background-color: transparent;
+}
+.csv-button:hover {
+  text-decoration: none;
+  color: #3b40b5;
+}
+.table-filters {
+  background: #fafafa;
+  /* border-radius: 0px; */
+}
+
+.visit-doit {
+  color: #ffffff !important;
+  font-size: 16px;
+  padding-left: 20px;
+  text-decoration-line: underline;
+}
+
+.visit-doit:hover {
+  color: #ffffff;
+  background-color: transparent;
+}
+
+.divider {
+  width: 35px;
+  height: 0px;
+  opacity: 0.5;
+  border: 1px solid #ffffff;
+  transform: rotate(90deg);
+}
+
+.in {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.links {
+  display: flex;
+
+  align-items: center;
+}
+.details {
+  padding-left: 20px;
+  height: 15vh;
+  background: #010431;
+  display: flex;
+  min-width: max-content;
+  margin-bottom: 140px;
+  width: 100%;
+  box-sizing: border-box;
+  position: sticky;
+  left: 0;
+}
+
+.fa-twitter {
+  color: #1da1f2;
+}
+
+.details-links {
+  font-weight: 400;
+
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #000000;
+}
+.details-links:hover {
+  text-decoration: none;
+  color: initial;
+}
+.disclaimer {
+  font-size: 16px;
+  color: #ffffff;
+  opacity: 0.5;
+}
+
+.share {
+  width: 177px;
+  height: 35px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #ffffff;
+  border-radius: 355px;
+}
+
+.share-github {
+  margin-left: 20px;
+}
+.details-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.space {
+  margin-left: 5px;
 }
 
 .dataTables_filter {
@@ -12,19 +309,10 @@ body {
 }
 
 #menu {
-  margin-bottom: 10px;
+  padding-top: 10px;
+  background-color: #ffffff;
+  height: 80px;
 }
-
-#filters {
-  margin-bottom: 10px;
-  /* float so that the search input from the data table below can share the same 'row' as the filters */
-  float: left !important;
-  min-width: 600px;
-}
-
-  #filters input {
-    width: 5rem;
-  }
 
 #data {
   margin-top: 10px;
@@ -41,69 +329,51 @@ body {
   cursor: pointer;
 }
 
-#data tr.highlight, #data tr.highlight:hover {
-  background-color: #D3FFFF;
+#data tr.highlight {
+  background-color: #f4f6ff;
 }
 
-#data th, #data td {
+#data th,
+#data td {
   white-space: nowrap;
 }
 
-#data th {
-  background-color: #eee;
+#data th,
+.sorting th {
+  padding: 4px 15px 0 15px;
+  background-color: #fafafa;
 }
 
 #data th input[type="text"] {
   width: 100%;
+  height: 30px;
+  background: #ffffff;
+  padding-left: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  margin-bottom: 8px;
 }
-
+#data th input[type="text"]::placeholder {
+  color: rgba(0, 0, 0, 0.3);
+}
+input[type="text"]:focus,
+input[type="search"]:focus,
+.form-control:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  outline: none;
+}
+input[type="search"]:focus {
+  border: 1px solid #ccc;
+}
 #data td {
   font-size: 13px;
-}
-
-#data td.name {
-  text-align: left;
-}
-
-#data td.memory {
-  text-align: right;
-}
-
-#data td.computeunits {
-  text-align: left;
-}
-
-#data td.storage {
-  text-align: right;
-}
-
-#data td.architecture {
-  text-align: right;
-}
-
-#data td.ioperf {
-  text-align: left;
-}
-
-#data td.maxips {
-  text-align: right;
-}
-
-#data td.maxenis {
-  text-align: right;
-}
-
-#data td.apiname {
-  text-align: left;
+  padding: 8px 15px;
 }
 
 /* Bootstrap overrides */
 .dropdown-menu .active a {
   color: #fff !important;
-}
-
-.dropdown-menu li > a:hover {
-  background: #0044cc !important;
 }
 
 .share-url {
@@ -121,6 +391,24 @@ body {
   margin-bottom: 0;
 }
 
+table {
+  border-collapse: separate !important;
+  overflow: scroll;
+  width: 100% !important;
+}
+
+thead {
+  background-color: #000000;
+}
+
+thead th {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.colum-filter {
+  padding-left: 5px;
+}
+
 /* DataTables: http://datatables.net/blog/Twitter_Bootstrap_2 */
 table.table thead .sorting,
 table.table thead .sorting_asc,
@@ -131,22 +419,188 @@ table.table thead .sorting_desc_disabled {
   *cursor: hand;
 }
 
-table.table thead .sorting { background: url('datatables/images/sort_both.png') no-repeat center right; }
-table.table thead .sorting_asc { background: url('datatables/images/sort_asc.png') no-repeat center right; }
-table.table thead .sorting_desc { background: url('datatables/images/sort_desc.png') no-repeat center right; }
+button[disabled] {
+  color: #b6b6b6;
+  border: 1px solid #d7d7d7;
+}
 
-table.table thead .sorting_asc_disabled { background: url('datatables/images/sort_asc_disabled.png') no-repeat center right; }
-table.table thead .sorting_desc_disabled { background: url('datatables/images/sort_desc_disabled.png') no-repeat center right; }
+table.table thead .sorting {
+  background: url("datatables/images/sort_both.png") no-repeat center right;
+}
+table.table thead .sorting_asc {
+  background: url("datatables/images/sort_asc.png") no-repeat center right;
+}
+table.table thead .sorting_desc {
+  background: url("datatables/images/sort_desc.png") no-repeat center right;
+}
+
+table.table thead .sorting_asc_disabled {
+  background: url("datatables/images/sort_asc_disabled.png") no-repeat center
+    right;
+}
+table.table thead .sorting_desc_disabled {
+  background: url("datatables/images/sort_desc_disabled.png") no-repeat center
+    right;
+}
 
 /* This class is applied to the DataTables search box by our own code once it renders */
 input.search {
-  margin-left: 5px;
-  width: 150px;
+  width: 200px;
   display: inline;
+  height: 36px;
 }
 
 /* Bootstrap overrides *******************************************************/
 .tooltip-inner {
   /* let text wrap in tooltips */
   white-space: pre-wrap;
+}
+
+.thead-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #ffffff;
+  margin-bottom: 10px;
+}
+
+.active-line {
+  background-color: #f4f6ff;
+  color: #000000;
+}
+
+a:hover {
+  background-color: #fafafa;
+}
+
+.table-container {
+  overflow-x: auto;
+  overflow-y: auto;
+  width: 100%;
+  max-height: 100vh;
+  overflow: auto;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.table-with-filters {
+  display: flex;
+  flex-direction: column;
+  padding-top: 64px;
+}
+
+.table thead th {
+  font-weight: bold;
+}
+
+.table tbody td {
+  padding: 8px;
+}
+
+thead th[class*="sorting"]:not(:last-child),
+thead th[class*="sorting"]:last-child {
+  border-bottom: none;
+  border-top: none;
+}
+
+thead th:not([class*="sorting"]):not(:last-child),
+thead th:not([class*="sorting"]):last-child {
+  border-top: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+thead th {
+  border-left: none;
+  /* margin-top: 16px; */
+}
+
+table tr:first-child td:last-child,
+table tr:first-child td:not(:last-child) {
+  border-top: none;
+}
+
+@media screen and (min-width: 973px) {
+  /* Styles for screens under 960 pixels wide */
+  /* For example, you could set the font size to 16px */
+  .right-selectors {
+    padding-top: 20px;
+  }
+}
+
+@media screen and (max-width: 1390px) and (min-width: 1004px) {
+  #menu {
+    height: 115px;
+  }
+
+  .details {
+    margin-bottom: 175px;
+  }
+}
+
+/* add right selctoprs padding/margin top */
+@media screen and (max-width: 1003px) and (min-width: 802px) {
+  #menu {
+    height: 140px;
+  }
+
+  .details {
+    margin-bottom: 200px;
+  }
+
+  .right-selectors {
+    padding-top: 0;
+  }
+}
+
+@media screen and (max-width: 801px) and (min-width: 612px) {
+  #menu {
+    height: 165px;
+  }
+  .details {
+    margin-bottom: 225px;
+  }
+}
+
+@media screen and (max-width: 801px) {
+  .headline {
+    font-size: 20px;
+  }
+
+  .sub-headline {
+    font-size: 12px;
+  }
+
+  .logo {
+    width: 70px;
+  }
+
+  .flexsave-text {
+    font-size: 15px;
+  }
+  .flexsave {
+    max-width: max-content;
+  }
+}
+
+@media screen and (max-width: 611px) and (min-width: 484px) {
+  #menu {
+    height: 225px;
+  }
+
+  .details {
+    margin-bottom: 285px;
+  }
+}
+
+@media screen and (max-width: 483px) and (min-width: 0px) {
+  #menu {
+    height: 375px;
+  }
+
+  .details {
+    margin-bottom: 435px;
+  }
+}
+
+table.table td.numeric {
+  text-align: right;
 }
