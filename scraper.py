@@ -1095,7 +1095,7 @@ if __name__ == '__main__':
     for k, v in c3_instance_types.items():
         output['c3'][k]['specs'].update({'cores': v['cpu'], 'memory': v['memory'], 'local_ssd': v['local_ssd'],
                                          'network_egress': v['network_egress'], 'benchmark': v['benchmark'],
-                                         'cpu': ['Intel Sapphire Rapids	'],
+                                         'cpu': ['Intel Sapphire Rapids'],
                                          'regional_disk': 0, 'gpu': 0, 'sole_tenant': 1,
                                          'nested_virtualization': 1})
         for reg, c3_cpu_region_cost in c3_cpu.items():
