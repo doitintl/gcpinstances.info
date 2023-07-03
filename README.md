@@ -1,4 +1,4 @@
-# [GCPinstances.info](https://gcpinstances.doit-intl.com) (by DoiT International)
+# [GCPinstances.info](https://gcpinstances.doit.com) (by DoiT International)
 
 Easy GCP Compute Engine Instance Comparison
 
@@ -9,7 +9,7 @@ Because it's frustrating to compare instances using GCP's own machine type, pric
 ## Who? 
 It was started by [@powdahound](https://twitter.com/powdahound) who created the AWS version (ec2instances.info), 
 
-rewritten to Google Cloud by Avi Keinan from DoIT International, and awaits your improvements on GitHub.
+rewritten to Google Cloud by Avi Keinan from [DoIT International](https://doit.com), and awaits your improvements on GitHub.
 
 ## How? 
 Data is scraped from multiple pages on the GCP site. 
