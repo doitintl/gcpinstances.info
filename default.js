@@ -720,7 +720,14 @@ jQuery.extend(jQuery.fn.dataTableExt.oSort, {
       return 1e6;
     }
 
-    var res = parts[0].replace("$", "");
+    let res;
+    if (parts[0][0] === "C") {
+      res = parts[0].replace("CHF", "");
+    } else if (parts[0][0] === "k") {
+      res = parts[0].replace("kr", "");
+    } else {
+      res = parts[0].replace(parts[0][0], "");
+    }
 
     return Number(res);
   },
