@@ -246,7 +246,7 @@ body {
 }
 .details {
   padding-left: 20px;
-  height: 15vh;
+  height: 30vh;
   background: #010431;
   display: flex;
   min-width: max-content;
