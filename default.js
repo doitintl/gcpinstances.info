@@ -725,6 +725,12 @@ jQuery.extend(jQuery.fn.dataTableExt.oSort, {
       res = parts[0].replace("CHF", "");
     } else if (parts[0][0] === "k") {
       res = parts[0].replace("kr", "");
+    } else if (parts[1] === "vCPUs") {
+      res = parts[0];
+    } else if (parts[1] === "GiB") {
+      res = parts[0];
+    } else if (parts[1] === "Gigabit") {
+      res = parts[0];
     } else {
       res = parts[0].replace(parts[0][0], "");
     }
