@@ -498,7 +498,7 @@ a:hover {
 }
 
 .scrollable-menu {
-  max-height: 600px;
+  max-height: 400px;
   overflow-y: auto;
 }
 thead th[class*="sorting"]:not(:last-child),
