@@ -36,6 +36,10 @@ function init_data_table() {
         g_data_table.column(i).search(this.value).draw();
       }
     });
+
+    $('#table-search-box').keyup(function() {
+      g_data_table.search($(this).val()).draw();
+    });
   });
   g_data_table = $("#data").DataTable({
     data: instances_data,
@@ -44,6 +48,7 @@ function init_data_table() {
     bInfo: false,
     bStateSave: true,
     orderCellsTop: true,
+    // searching: true,
     oSearch: {
       bRegex: true,
       bSmart: false,
@@ -136,14 +141,6 @@ function init_data_table() {
     buttons: ["csv"],
   });
 
-  g_data_table
-    .buttons()
-    .container()
-    .find("a")
-    .addClass("csv-button")
-    .appendTo($("#csv"))
-    .find("span")
-    .text("Export to CSV");
   return g_data_table;
 }
 
@@ -678,21 +675,10 @@ function on_data_table_initialized() {
     change_reserved_term($(e.target).data("reservedTerm"));
   });
 
-  // apply classes to search box
-  $("div.dataTables_filter input").addClass("form-control search");
-
-  var searchInput = $("div.dataTables_filter input ");
-
-  var searchLabel = $("div.dataTables_filter label ");
-
-  // Move search input field to div with ID of "overall"
-  searchInput.detach();
-  searchLabel.detach();
-  $("#main-search").append(searchInput);
-
-  // Add "form-control" and "search" classes to search input field
-  searchInput.addClass("form-control search");
-  searchInput.attr("placeholder", "Search...");
+  $('#csv').bind('click', function (e) {
+    e.preventDefault();
+    g_data_table.button('.buttons-csv').trigger();
+  });
 }
 
 // sorting for colums with more complex data
