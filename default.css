@@ -155,17 +155,17 @@ a:hover {
   transform: translateY(-50%);
 }
 
-.dropdown-menu {
-  max-height: 50vh;
-  overflow-y: scroll;
-}
-
 .dropdown-select:active {
   text-decoration: none;
 }
 
 .dropdown-select:hover {
   background-color: #fff;
+}
+
+.dropdown-menu {
+  max-height: 50vh;
+  overflow-y: scroll;
 }
 
 .buttons-group {
