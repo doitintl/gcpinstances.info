@@ -100,7 +100,7 @@ a:hover {
   align-items: baseline;
   width: 100%;
   max-width: 100vw;
-  max-height: 48vh;
+  max-height: 40vh;
 }
 
 .sticky {
@@ -477,7 +477,6 @@ input.search {
   height: 36px;
 }
 
-
 .table-container {
   overflow: auto;
   width: 100%;
@@ -558,29 +557,9 @@ table tr:first-child td:not(:last-child) {
   }
 }
 
-@media screen and (min-width: 1012px) {
-  .flexsave {
-    display: block;
-  }
-}
-
-@media screen and (min-width: 1029px) {
-  #menu {
-    grid-template-columns: 0.725fr 0.275fr;
-    grid-template-rows: 1fr;
-    justify-content: space-between;
-  }
-}
-
-@media screen and (min-width: 802px) {
-  .links {
-    flex-direction: row;
-  }
-}
-
 @media screen and (min-width: 398px) {
   #menu {
-    max-height: 37.5vh;
+    max-height: 30vh;
     gap: 5px;
   }
 }
@@ -595,6 +574,30 @@ table tr:first-child td:not(:last-child) {
   }
 
   #menu {
-    max-height: 30vh;
+    max-height: 25vh;
+  }
+}
+
+@media screen and (min-width: 802px) {
+  .links {
+    flex-direction: row;
+  }
+
+  #menu {
+    margin-top: 16px;
+  }
+}
+
+@media screen and (min-width: 1012px) {
+  .flexsave {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 1029px) {
+  #menu {
+    grid-template-columns: 0.725fr 0.275fr;
+    grid-template-rows: 1fr;
+    justify-content: space-between;
   }
 }
