@@ -48,7 +48,6 @@ function init_data_table() {
     bInfo: false,
     bStateSave: true,
     orderCellsTop: true,
-    // searching: true,
     oSearch: {
       bRegex: true,
       bSmart: false,
