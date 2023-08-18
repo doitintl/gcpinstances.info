@@ -13,7 +13,7 @@ a:hover {
   background-color: #fafafa;
 }
 
-/* Bootstrap overrides *******************************************************/
+/* Bootstrap overrides */
 .tooltip-inner {
   /* let text wrap in tooltips */
   white-space: pre-wrap;
@@ -153,6 +153,11 @@ a:hover {
   top: 50%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+}
+
+.dropdown-menu {
+  max-height: 50vh;
+  overflow-y: scroll;
 }
 
 .dropdown-select:active {
