@@ -1,420 +1,471 @@
 <!DOCTYPE html>
 
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>
-      GCPinstances - GCP Compute Engine Instance Comparison (by DoiT International)
-    </title>
-    <link rel="stylesheet" href="default.css" media="screen" />
-    <link
-      rel="stylesheet"
-      href="bootstrap/css/bootstrap.min.css"
-      media="screen"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.datatables.net/fixedheader/3.1.8/css/fixedHeader.dataTables.min.css"
-      media="screen"
-    />
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>
+    GCPinstances - GCP Compute Engine Instance Comparison (by DoiT International)
+  </title>
+  <link rel="stylesheet" href="default.css" media="screen" />
+  <link
+    rel="stylesheet"
+    href="bootstrap/css/bootstrap.min.css"
+    media="screen"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.datatables.net/fixedheader/3.1.8/css/fixedHeader.dataTables.min.css"
+    media="screen"
+  />
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="icon" type="image/png" href="favicon.png" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-  </head>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+</head>
 
-  <body>
-    <div class="total-header sticky">
-      <div class="main-header">
-        <div class="total-headline">
-          <h1 class="headline">
-            GCP Instances
-            <span class="sub-headline">powered by</span>
-            <img src="./DoitLogo.svg" alt="doit-logo" class="logo" />
-          </h1>
+<body>
+<div class="total-header sticky">
+  <div class="main-header">
+    <h1 class="headline">
+        GCP Instances
+        <span class="sub-headline">powered by</span>
+        <a
+          class="doit-link"
+          tabindex="-1"
+          href="https://www.doit.com"
+          target="_blank"
+        >
+          <img src="./DoitLogo.svg" alt="doit-logo" class="doit-logo" />
+        </a>
+      </h1>
+
+    <div class="flexsave">
+      <a
+        href="https://www.doit.com/cloud-analytics/"
+        target="_blank"
+        class="flexsave-link"
+      >
+        <div class="flexsave-text">
+          Want to better understand your cloud spend?
+          <span class="flexsave-subtext"><b> Check out DoiT Cloud Analytics</b></span>
+          <!--              <img src="./flexsave-logo.svg" alt="flexsave" class="flexsave-logo" />-->
         </div>
-        <div class="flexsave">
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="table-with-filters">
+  <div id="menu">
+    <div>
+      <div class="selectors">
+        <label class="dropdown-label">Region</label>
+        <div class="buttons-group dropdown-box" id="region-dropdown">
           <a
-            href="https://www.doit.com/cloud-analytics/"
-            target="_blank"
-            class="flexsave-link"
+            class="dropdown-toggle dropdown-select"
+            data-toggle="dropdown"
+            href="#"
           >
-            <div class="flexsave-text">
-              Want to better understand your cloud spend?
-              <span class="flexsave-subtext"><b> Check out DoiT Cloud Analytics</b></span>
-<!--              <img src="./flexsave-logo.svg" alt="flexsave" class="flexsave-logo" />-->
-            </div>
+            <span class="text"></span>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu" id="region-menu">
+            <!-- li><a href="javascript:;" data-region='ap-east-1'>Asia-Pacific (Hong Kong)</a></li>
+        <li><a href="javascript:;" data-region='ap-south-1'>Asia-Pacific (Mumbai)</a></li>
+        <li><a href="javascript:;" data-region='ap-northeast-3'>Asia Pacific (Osaka-Local)</a></li>
+        <li><a href="javascript:;" data-region='ap-northeast-2'>Asia-Pacific (Seoul)</a></li>
+        <li><a href="javascript:;" data-region='ap-southeast-1'>Asia-Pacific (Singapore)</a></li>
+        <li><a href="javascript:;" data-region='ap-southeast-2'>Asia-Pacific (Sydney)</a></li>
+        <li><a href="javascript:;" data-region='ap-northeast-1'>Asia-Pacific (Tokyo)</a></li>
+        <li><a href="javascript:;" data-region='ca-central-1'>Canada (Central)</a></li>
+        <li><a href="javascript:;" data-region='eu-central-1'>EU (Frankfurt)</a></li>
+        <li><a href="javascript:;" data-region='eu-west-1'>EU (Ireland)</a></li>
+        <li><a href="javascript:;" data-region='eu-west-2'>EU (London)</a></li>
+        <li><a href="javascript:;" data-region='eu-west-3'>EU (Paris)</a></li>
+        <li><a href="javascript:;" data-region='eu-north-1'>EU (Stockholm)</a></li>
+        <li><a href="javascript:;" data-region='me-south-1'>Middle East (Bahrain)</a></li>
+        <li><a href="javascript:;" data-region='sa-east-1'>South America (S&atilde;o Paulo)</a></li>
+        <li><a href="javascript:;" data-region='us-east-1'>US East (N. Virginia)</a></li>
+        <li><a href="javascript:;" data-region='us-east-2'>US East (Ohio)</a></li>
+        <li><a href="javascript:;" data-region='us-west-1'>US West (Northern California)</a></li>
+        <li><a href="javascript:;" data-region='us-west-2'>US West (Oregon)</a></li>
+        <li><a href="javascript:;" data-region='us-gov-west-1'>AWS GovCloud (US-West)</a></li>
+        <li><a href="javascript:;" data-region='us-gov-east-1'>AWS GovCloud (US-East)</a></li -->
+          </ul>
+        </div>
+      </div>
+
+      <div class="selectors">
+        <label class="dropdown-label">Cost</label>
+        <div class="buttons-group dropdown-box" id="cost-dropdown">
+          <a
+            class="dropdown-toggle dropdown-select"
+            data-toggle="dropdown"
+            href="#"
+          >
+            <span class="text"></span>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <a href="javascript:;" duration="secondly">Secondly</a>
+            </li>
+            <li><a href="javascript:;" duration="hourly">Hourly</a></li>
+            <li><a href="javascript:;" duration="daily">Daily</a></li>
+            <li><a href="javascript:;" duration="weekly">Weekly</a></li>
+            <li>
+              <a href="javascript:;" duration="monthly">Monthly</a>
+            </li>
+            <li>
+              <a href="javascript:;" duration="annually">Annually</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="selectors">
+        <label class="dropdown-label">Currency</label>
+        <div class="buttons-group dropdown-box" id="currency-dropdown">
+          <a
+            class="dropdown-toggle dropdown-select"
+            data-toggle="dropdown"
+            href="#"
+          >
+            <span class="text">$ (USD)</span>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu" id="currency-menu"></ul>
+        </div>
+      </div>
+
+      <div class="selectors">
+        <label class="dropdown-label"> Min memory</label>
+
+        <input
+          data-action="datafilter"
+          data-type="memory"
+          class="dropdown-box buttons-group"
+          placeholder="0"
+        />
+      </div>
+
+      <div class="selectors">
+        <label class="dropdown-label"> Min vCPUs</label>
+        <input
+          data-action="datafilter"
+          data-type="vcpus"
+          class="dropdown-box buttons-group"
+          placeholder="0"
+        />
+      </div>
+
+      <div class="selectors">
+        <div class="buttons-group dropdown-box" id="filter-dropdown">
+          <a
+            class="dropdown-toggle dropdown-select"
+            data-toggle="dropdown"
+            href="#"
+          >
+            <span class="text">Columns</span>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <!-- table header elements inserted by js -->
+          </ul>
+        </div>
+      </div>
+
+      <div class="selectors">
+        <button class="btn-clear">
+          <i class="fa fa-close"></i>
+          <span class="clear-span"> Clear filters </span>
+        </button>
+      </div>
+    </div>
+
+    <div class="right-selectors">
+      <input
+        id="table-search-box"
+        aria-label="Search"
+        placeholder="Search..."
+        type="search"
+        class="form-control search"
+      />
+
+      <button
+        class="btn-compare right-buttons"
+        data-text-on="End Compare"
+        data-text-off="Compare"
+        disabled
+      >
+        Compare
+      </button>
+
+      <button id="csv" class="dt-button buttons-csv right-buttons">
+        Export to CSV
+      </button>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table
+      cellspacing="0"
+      class="table table-hover table-condensed"
+      id="data"
+    >
+      <thead id="thead-sticky" class="thead-sticky">
+      <tr>
+        <th class="machinetype">Machine type</th>
+        <th class="vcpus">vCPUs</th>
+        <th class="memory">Memory</th>
+        <th class="ssdsupport">Local SSD support</th>
+        <th class="network">Network performance</th>
+        <th class="cputype">CPU Type</th>
+        <th class="gpu">GPU support</th>
+        <th class="tenant">Sole tenant support</th>
+        <th class="virtualization">Nested virtualization support</th>
+        <th class="benchmark">Linux Coremark benchmark</th>
+        <th class="lnondemand">Linux On Demand cost</th>
+        <th class="lnsudc">Linux SUD cost</th>
+        <th class="lnpc">Linux Preemptible cost</th>
+        <th class="ln1cud">Linux 1 year CUD cost</th>
+        <th class="ln3cud">Linux 3 year CUD cost</th>
+        <th class="wnondemand">Windows On Demand cost</th>
+        <th class="wnsudc">Windows SUD cost</th>
+        <th class="wnpc">Windows Preemptible cost</th>
+        <th class="wn1cud">Windows 1 year CUD cost</th>
+        <th class="wn3cud">Windows 3 year CUD cost</th>
+      </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="details">
+  <div class="in">
+    <div class="links">
+      <a class="visit-doit" href="https://www.doit.com/" target="_blank">Visit doit.com</a>
+
+      <div class="divider"></div>
+
+      <div id="share-links">
+        <div class="share">
+          <a
+            href="https://twitter.com/share"
+            data-via="powdahound"
+            class="twitter details-links"
+            target="_blank"
+          >
+            <i class="fa fa-twitter fa-lg pic"></i>
+            <span class="space"> Share on twitter </span>
+          </a>
+        </div>
+        <div class="share share-github">
+          <a
+            href="https://github.com/doitintl/gcpinstances.info"
+            class="details-links"
+            target="_blank"
+          >
+            <i class="fa fa-github fa-lg"></i>
+            <span class="space"> Star on GitHub </span>
           </a>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="table-with-filters">
-      <div id="menu">
-        <div>
-          <div class="col-sm-12 outer">
-            <div class="left">
-              <div class="selectors">
-                <label class="dropdown-label">Region</label>
-                <div class="buttons-group dropdown-box" id="region-dropdown">
-                  <a
-                    class="dropdown-toggle dropdown-select"
-                    data-toggle="dropdown"
-                    href="#"
-                  >
-                    <span class="text"></span>
-                    <span class="caret"></span>
-                  </a>
-                  <ul class="dropdown-menu" role="menu" id="region-menu">
-                    <!-- li><a href="javascript:;" data-region='ap-east-1'>Asia-Pacific (Hong Kong)</a></li>
-                <li><a href="javascript:;" data-region='ap-south-1'>Asia-Pacific (Mumbai)</a></li>
-                <li><a href="javascript:;" data-region='ap-northeast-3'>Asia Pacific (Osaka-Local)</a></li>
-                <li><a href="javascript:;" data-region='ap-northeast-2'>Asia-Pacific (Seoul)</a></li>
-                <li><a href="javascript:;" data-region='ap-southeast-1'>Asia-Pacific (Singapore)</a></li>
-                <li><a href="javascript:;" data-region='ap-southeast-2'>Asia-Pacific (Sydney)</a></li>
-                <li><a href="javascript:;" data-region='ap-northeast-1'>Asia-Pacific (Tokyo)</a></li>
-                <li><a href="javascript:;" data-region='ca-central-1'>Canada (Central)</a></li>
-                <li><a href="javascript:;" data-region='eu-central-1'>EU (Frankfurt)</a></li>
-                <li><a href="javascript:;" data-region='eu-west-1'>EU (Ireland)</a></li>
-                <li><a href="javascript:;" data-region='eu-west-2'>EU (London)</a></li>
-                <li><a href="javascript:;" data-region='eu-west-3'>EU (Paris)</a></li>
-                <li><a href="javascript:;" data-region='eu-north-1'>EU (Stockholm)</a></li>
-                <li><a href="javascript:;" data-region='me-south-1'>Middle East (Bahrain)</a></li>
-                <li><a href="javascript:;" data-region='sa-east-1'>South America (S&atilde;o Paulo)</a></li>
-                <li><a href="javascript:;" data-region='us-east-1'>US East (N. Virginia)</a></li>
-                <li><a href="javascript:;" data-region='us-east-2'>US East (Ohio)</a></li>
-                <li><a href="javascript:;" data-region='us-west-1'>US West (Northern California)</a></li>
-                <li><a href="javascript:;" data-region='us-west-2'>US West (Oregon)</a></li>
-                <li><a href="javascript:;" data-region='us-gov-west-1'>AWS GovCloud (US-West)</a></li>
-                <li><a href="javascript:;" data-region='us-gov-east-1'>AWS GovCloud (US-East)</a></li -->
-                  </ul>
-                </div>
-              </div>
-              <div class="selectors">
-                <label class="dropdown-label">Cost</label>
-                <div class="buttons-group dropdown-box" id="cost-dropdown">
-                  <a
-                    class="dropdown-toggle dropdown-select"
-                    data-toggle="dropdown"
-                    href="#"
-                  >
-                    <span class="text"></span>
-                    <span class="caret"></span>
-                  </a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li>
-                      <a href="javascript:;" duration="secondly">Secondly</a>
-                    </li>
-                    <li><a href="javascript:;" duration="hourly">Hourly</a></li>
-                    <li><a href="javascript:;" duration="daily">Daily</a></li>
-                    <li><a href="javascript:;" duration="weekly">Weekly</a></li>
-                    <li>
-                      <a href="javascript:;" duration="monthly">Monthly</a>
-                    </li>
-                    <li>
-                      <a href="javascript:;" duration="annually">Annually</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+  <div class="divider"></div>
 
-              <div class="selectors">
-                <label class="dropdown-label">Currency</label>
-                <div class="buttons-group dropdown-box" id="currency-dropdown">
-                  <a
-                    class="dropdown-toggle dropdown-select"
-                    data-toggle="dropdown"
-                    href="#"
-                  >
-                    <span class="text">$ (USD)</span>
-                    <span class="caret"></span>
-                  </a>
-                  <ul class="dropdown-menu" role="menu" id="currency-menu"></ul>
-                </div>
-              </div>
+  <button
+    data-toggle="modal"
+    data-target="#about-modal"
+    type="button"
+    class="btn btn-link text-decoration-underline"
+    style="color: white; text-decoration: underline"
+  >
+    About
+  </button>
+</div>
 
-              <div class="selectors">
-                <label class="dropdown-label"> Min memory</label>
 
-                <input
-                  data-action="datafilter"
-                  data-type="memory"
-                  class="dropdown-box buttons-group"
-                  placeholder="0"
-                />
-              </div>
-
-              <div class="selectors">
-                <label class="dropdown-label"> Min vCPUs</label>
-                <input
-                  data-action="datafilter"
-                  data-type="vcpus"
-                  class="dropdown-box buttons-group"
-                  placeholder="0"
-                />
-              </div>
-
-              <div class="selectors">
-                <div class="buttons-group dropdown-box" id="filter-dropdown">
-                  <a
-                    class="dropdown-toggle dropdown-select"
-                    data-toggle="dropdown"
-                    href="#"
-                  >
-                    <span class="text">Columns</span>
-                    <span class="caret"></span>
-                  </a>
-                  <ul class="dropdown-menu" role="menu">
-                    <!-- table header elements inserted by js -->
-                  </ul>
-                </div>
-              </div>
-              <div class="selectors">
-                <button class="btn-clear">
-                  <i class="fa fa-close"></i>
-                  <span class="clear-span"> Clear filters </span>
-                </button>
-              </div>
-            </div>
-
-            <div class="right-selectors">
-              <div id="main-search" class="main-search selectors"></div>
-
-              <div class="selectors">
-                <button
-                  class="btn-compare right-buttons"
-                  data-text-on="End Compare"
-                  data-text-off="Compare"
-                >
-                  Compare
-                </button>
-              </div>
-
-              <div id="csv" class="selectors"></div>
-            </div>
-          </div>
-        </div>
+<div
+  class="modal fade"
+  id="about-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="about-modal-label"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="about-modalLabel">About GCPinstances.info</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+      <div class="modal-body">
+        <div class="disclaimer">
+          Disclaimer: This site is not maintained by or affiliated with
+          Google. The data shown is not guaranteed to be accurate or
+          current.
+          <br />
+          <p>
+            Why? Because it's frustrating to compare instances using GCP's
+            own
+            <a
+              href="https://cloud.google.com/compute/docs/machine-types"
+              target="_blank"
+            >machine type</a
+            >,
+            <a
+              href="https://cloud.google.com/compute/all-pricing"
+              target="_blank"
+            >pricing</a
+            >, and other pages.
+          </p>
+          <p>
+            Who? It was started by
+            <a
+              href="http://twitter.com/powdahound" target="_blank"
+            >@powdahound</a
+            >
+            who created the AWS version (ec2instances.info),
+          </p>
+          <p>
+            rewritten to Google Cloud by
+            <a
+              href="https://www.linkedin.com/in/avi-keinan-14828738/"
+              target="_blank"
+            >Avi Keinan</a
+            >
+            from
+            <a
+              href="https://www.doit.com/" target="_blank"
+            >DoIT International</a
+            >, and awaits your improvements
+            <a
+              href="https://github.com/doitintl/gcpinstances.info"
+              target="_blank"
+            >on GitHub</a
+            >.
+          </p>
+          <p>How? Data is scraped from multiple pages on the GCP site.</p>
 
-      <div class="table-container">
-        <table
-          cellspacing="0"
-          class="table table-hover table-condensed"
-          id="data"
-        >
-          <thead id="thead-sticky" class="thead-sticky">
-            <tr>
-              <th class="machinetype">Machine type</th>
-              <th class="vcpus">vCPUs</th>
-              <th class="memory">Memory</th>
-              <th class="ssdsupport">Local SSD support</th>
-              <th class="network">Network performance</th>
-              <th class="cputype">CPU Type</th>
-              <th class="gpu">GPU support</th>
-              <th class="tenant">Sole tenant support</th>
-              <th class="virtualization">Nested virtualization support</th>
-              <th class="benchmark">Linux Coremark benchmark</th>
-              <th class="lnondemand">Linux On Demand cost</th>
-              <th class="lnsudc">Linux SUD cost</th>
-              <th class="lnpc">Linux Preemptible cost</th>
-              <th class="ln1cud">Linux 1 year CUD cost</th>
-              <th class="ln3cud">Linux 3 year CUD cost</th>
-              <th class="wnondemand">Windows On Demand cost</th>
-              <th class="wnsudc">Windows SUD cost</th>
-              <th class="wnpc">Windows Preemptible cost</th>
-              <th class="wn1cud">Windows 1 year CUD cost</th>
-              <th class="wn3cud">Windows 3 year CUD cost</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+          <p>
+            Please
+            <a
+              href="http://github.com/doitintl/gcpinstances.info/issues"
+            >report issues</a
+            >
+            you see.
+          </p>
 
-        <div class="details">
-          <div class="in">
-            <div class="links">
-              <img src="./DoitLogo.svg" alt="doit-logo" class="doit-logo" />
-              <a class="visit-doit" href="https://www.doit.com/" target="_blank"
-                >Visit doit.com</a
-              >
-              <div class="divider"></div>
-              >
-              <div class="share">
-                <a
-                  href="https://twitter.com/share"
-                  data-via="powdahound"
-                  class="twitter details-links"
-                  target="_blank"
-                >
-                  <i class="fa fa-twitter fa-lg pic"></i>
-                  <span class="space"> Share on twitter </span>
-                </a>
-              </div>
-              <div class="share share-github">
-                <a
-                  href="https://github.com/doitintl/gcpinstances.info"
-                  class="details-links"
-                  target="_blank"
-                >
-                  <i class="fa fa-github fa-lg"></i>
-                  <span class="space"> Star on GitHub </span>
-                </a>
-              </div>
-            </div>
-            <br />
-            <div class="disclaimer">
-              Disclaimer: This site is not maintained by or affiliated with
-              Google. The data shown is not guaranteed to be accurate or
-              current.
-              <br />
-              <p>
-                Why? Because it's frustrating to compare instances using GCP's
-                own
-                <a
-                  href="https://cloud.google.com/compute/docs/machine-types"
-                  target="_blank"
-                  >machine type</a
-                >,
-                <a
-                  href="https://cloud.google.com/compute/all-pricing"
-                  target="_blank"
-                  >pricing</a
-                >, and other pages.
-              </p>
-              <p>
-                Who? It was started by
-                <a href="http://twitter.com/powdahound" target="_blank"
-                  >@powdahound</a
-                >
-                who created the AWS version (ec2instances.info),
-              </p>
-              <p>
-                rewritten to Google Cloud by
-                <a
-                  href="https://www.linkedin.com/in/avi-keinan-14828738/"
-                  target="_blank"
-                  >Avi Keinan</a
-                >
-                from
-                <a href="https://www.doit.com/" target="_blank"
-                  >DoIT International</a
-                >, and awaits your improvements
-                <a
-                  href="https://github.com/doitintl/gcpinstances.info"
-                  target="_blank"
-                  >on GitHub</a
-                >.
-              </p>
-              <p>How? Data is scraped from multiple pages on the GCP site.</p>
+          <br />
 
-              <p>
-                Please
-                <a href="http://github.com/doitintl/gcpinstances.info/issues"
-                  >report issues</a
-                >
-                you see.
-              </p>
-            </div>
-          </div>
+          <p>
+            Last updated: 26 June 2023, 14:00 UTC
+          </p>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
-    <div class="last-update">
-      <p class="pull-right last-update-text">
-        Last updated: 26 June 2023, 14:00 UTC
-      </p>
-    </div>
+<script
+  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"
+  type="text/javascript"
+  charset="utf-8"
+></script>
+<script
+  type="text/javascript"
+  charset="utf8"
+  src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"
+></script>
+<script
+  src="bootstrap/js/bootstrap.min.js"
+  type="text/javascript"
+  charset="utf-8"
+></script>
+<script
+  type="text/javascript"
+  charset="utf8"
+  src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"
+></script>
+<script
+  type="text/javascript"
+  charset="utf8"
+  src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js"
+></script>
+<script
+  type="text/javascript"
+  charset="utf8"
+  src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"
+></script>
+<script
+  type="text/javascript"
+  charset="utf8"
+  src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"
+></script>
+<script
+  type="text/javascript"
+  charset="utf8"
+  src="https://cdn.datatables.net/fixedheader/3.1.8/js/dataTables.fixedHeader.min.js"
+></script>
+<script
+  src="store/store.js"
+  type="text/javascript"
+  charset="utf-8"
+></script>
 
-    <script
-      src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"
-      type="text/javascript"
-      charset="utf-8"
-    ></script>
-    <script
-      type="text/javascript"
-      charset="utf8"
-      src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"
-    ></script>
-    <script
-      src="bootstrap/js/bootstrap.min.js"
-      type="text/javascript"
-      charset="utf-8"
-    ></script>
-    <script
-      type="text/javascript"
-      charset="utf8"
-      src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"
-    ></script>
-    <script
-      type="text/javascript"
-      charset="utf8"
-      src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js"
-    ></script>
-    <script
-      type="text/javascript"
-      charset="utf8"
-      src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"
-    ></script>
-    <script
-      type="text/javascript"
-      charset="utf8"
-      src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"
-    ></script>
-    <script
-      type="text/javascript"
-      charset="utf8"
-      src="https://cdn.datatables.net/fixedheader/3.1.8/js/dataTables.fixedHeader.min.js"
-    ></script>
-    <script
-      src="store/store.js"
-      type="text/javascript"
-      charset="utf-8"
-    ></script>
+<script src="default.js" type="text/javascript" charset="utf-8"></script>
 
-    <script src="default.js" type="text/javascript" charset="utf-8"></script>
+<script>
+  !(function (d, s, id) {
+    var js,
+      fjs = d.getElementsByTagName(s)[0],
+      p = /^http:/.test(d.location) ? 'http' : 'https';
+    if (!d.getElementById(id)) {
+      js = d.createElement(s);
+      js.id = id;
+      js.src = p + '://platform.twitter.com/widgets.js';
+      fjs.parentNode.insertBefore(js, fjs);
+    }
+  })(document, 'script', 'twitter-wjs');
+</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=UA-39701609-7"
+></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
 
-    <script>
-      !(function (d, s, id) {
-        var js,
-          fjs = d.getElementsByTagName(s)[0],
-          p = /^http:/.test(d.location) ? "http" : "https";
-        if (!d.getElementById(id)) {
-          js = d.createElement(s);
-          js.id = id;
-          js.src = p + "://platform.twitter.com/widgets.js";
-          fjs.parentNode.insertBefore(js, fjs);
-        }
-      })(document, "script", "twitter-wjs");
-    </script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-39701609-7"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
+  function gtag() {
+    dataLayer.push(arguments);
+  }
 
-      gtag("config", "UA-39701609-7");
-    </script>
-  </body>
+  gtag('js', new Date());
+
+  gtag('config', 'UA-39701609-7');
+</script>
+</body>
 </html>
