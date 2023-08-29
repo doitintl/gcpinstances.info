@@ -25,9 +25,9 @@ if __name__ == '__main__':
     regions = ['us', 'us-central1', 'us-east1', 'us-east4', 'us-east5', 'us-west4', 'us-west1', 'us-west2',
                'us-west3', 'us-south1', 'europe', 'europe-central2', 'europe-west1', 'europe-west2',
                'europe-west3', 'europe-west4', 'europe-west6', 'europe-west8', 'europe-west9',
-               'europe-west12', 'europe-north1', 'europe-southwest1', 'northamerica-northeast1',
-               'northamerica-northeast2', 'asia', 'asia-east', 'asia-east1', 'asia-east2',
-               'asia-northeast', 'me-west1', 'me-central1', 'asia-northeast1', 'asia-northeast2', 'asia-northeast3',
+               'europe-west10', 'europe-west12', 'europe-north1', 'europe-southwest1', 'northamerica-northeast1',
+               'northamerica-northeast2', 'africa-south1', 'asia', 'asia-east', 'asia-east1', 'asia-east2',
+               'asia-northeast', 'me-west1', 'me-central1', 'me-central2', 'asia-northeast1', 'asia-northeast2', 'asia-northeast3',
                'asia-southeast', 'asia-southeast1', 'australia-southeast1', 'australia-southeast2',
                'australia', 'southamerica-east1', 'asia-south1', 'asia-southeast2', 'asia-south2', 'southamerica-west1']
 
