@@ -32,7 +32,7 @@ if __name__ == '__main__':
                'australia', 'southamerica-east1', 'asia-south1', 'asia-southeast2', 'asia-south2', 'southamerica-west1']
 
     specs_params = ['cores', 'memory', 'local_ssd', 'gpu', 'sole_tenant', 'nested_virtualization', 'cpu', 'benchmark']
-    generations = ['f1', 'g1', 'n1', 'n2', 'n2d', 'e2', 'c2', 'c2d', 'c3', 'm1', 'm2', 'm3', 'a2', 't2d', 't2a']
+    generations = ['f1', 'g1', 'n1', 'n2', 'n2d', 'e2', 'c2', 'c2d', 'c3', 'c3d', 'm1', 'm2', 'm3', 'a2', 't2d', 't2a']
     # the following variables scraped from https://cloud.google.com/compute/docs/machine-types
     instance_types = ['e2-highcpu-32', 'e2-highcpu-16', 'e2-highcpu-2', 'e2-highcpu-4', 'e2-highcpu-8', 'e2-highmem-16',
                       'e2-highmem-2', 'e2-highmem-4', 'e2-highmem-8', 'e2-medium', 'e2-micro', 'e2-small',
@@ -73,7 +73,14 @@ if __name__ == '__main__':
                       't2a-standard-16', 't2a-standard-32', 't2a-standard-48', 'c3-standard-4', 'c3-standard-8',
                       'c3-standard-22', 'c3-standard-44', 'c3-standard-88', 'c3-standard-176', 'c3-highmem-4',
                       'c3-highmem-8', 'c3-highmem-22', 'c3-highmem-44', 'c3-highmem-88', 'c3-highmem-176', 'c3-highcpu-4',
-                      'c3-highcpu-8', 'c3-highcpu-22', 'c3-highcpu-44', 'c3-highcpu-88', 'c3-highcpu-176'
+                      'c3-highcpu-8', 'c3-highcpu-22', 'c3-highcpu-44', 'c3-highcpu-88', 'c3-highcpu-176',
+                      'c3d-standard-4', 'c3d-standard-8', 'c3d-standard-16', 'c3d-standard-30', 'c3d-standard-60',
+                      'c3d-standard-90', 'c3d-standard-180', 'c3d-standard-360', 'c3d-highcpu-4', 'c3d-highcpu-8',
+                      'c3d-highcpu-16', 'c3d-highcpu-30', 'c3d-highcpu-60', 'c3d-highcpu-90', 'c3d-highcpu-180',
+                      'c3d-highcpu-360', 'c3d-highmem-4', 'c3d-highmem-8', 'c3d-highmem-16', 'c3d-highmem-30',
+                      'c3d-highmem-60', 'c3d-highmem-90', 'c3d-highmem-180', 'c3d-highmem-360', 'c3d-standard-8-lssd',
+                      'c3d-standard-16-lssd', 'c3d-standard-30-lssd', 'c3d-standard-60-lssd', 'c3d-standard-90-lssd',
+                      'c3d-standard-180-lssd', 'c3d-standard-360-lssd'
                       ]
 
     c2_instance_types = {
@@ -119,12 +126,45 @@ if __name__ == '__main__':
         "c3-highmem-44": {"cpu":44, "memory": 352, "local_ssd": 0, "network_egress": 32, "benchmark": 0},
         "c3-highmem-88": {"cpu":88, "memory": 704, "local_ssd": 0, "network_egress": 62, "benchmark": 0},
         "c3-highmem-176": {"cpu":176, "memory": 1408, "local_ssd": 0, "network_egress": 100, "benchmark": 0},
-        "c3-highcpu-4": {"cpu":4, "memory": 8, "local_ssd": 0, "network_egress": 23, "benchmark": 0},
-        "c3-highcpu-8": {"cpu":8, "memory": 16, "local_ssd": 0, "network_egress": 23, "benchmark": 0},
-        "c3-highcpu-22": {"cpu":22, "memory": 44, "local_ssd": 0, "network_egress": 23, "benchmark": 0},
-        "c3-highcpu-44": {"cpu":44, "memory": 88, "local_ssd": 0, "network_egress": 32, "benchmark": 0},
-        "c3-highcpu-88": {"cpu":88, "memory": 176, "local_ssd": 0, "network_egress": 62, "benchmark": 0},
-        "c3-highcpu-176": {"cpu":176, "memory": 352, "local_ssd": 0, "network_egress": 100, "benchmark": 0}}
+        "c3-highcpu-4": {"cpu":4, "memory": 8, "local_ssd": 0, "network_egress": 23, "benchmark": 80791},
+        "c3-highcpu-8": {"cpu":8, "memory": 16, "local_ssd": 0, "network_egress": 23, "benchmark": 160579},
+        "c3-highcpu-22": {"cpu":22, "memory": 44, "local_ssd": 0, "network_egress": 23, "benchmark": 441256},
+        "c3-highcpu-44": {"cpu":44, "memory": 88, "local_ssd": 0, "network_egress": 32, "benchmark": 881707},
+        "c3-highcpu-88": {"cpu":88, "memory": 176, "local_ssd": 0, "network_egress": 62, "benchmark": 1687311},
+        "c3-highcpu-176": {"cpu":176, "memory": 352, "local_ssd": 0, "network_egress": 100, "benchmark": 3399913}}
+
+    c3d_instance_types = {
+        "c3d-standard-4": {"cpu": 4, "memory": 16, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
+        "c3d-standard-8": {"cpu": 8, "memory": 32, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
+        "c3d-standard-16": {"cpu": 16, "memory": 64, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
+        "c3d-standard-30": {"cpu": 30, "memory": 120, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
+        "c3d-standard-60": {"cpu": 60, "memory": 240, "local_ssd": 0, "network_egress": 40, "benchmark": 0},
+        "c3d-standard-90": {"cpu": 90, "memory": 360, "local_ssd": 0, "network_egress": 60, "benchmark": 0},
+        "c3d-standard-180": {"cpu": 180, "memory": 720, "local_ssd": 0, "network_egress": 100, "benchmark": 0},
+        "c3d-standard-360": {"cpu": 360, "memory": 1440, "local_ssd": 0, "network_egress": 100, "benchmark": 0},
+        "c3d-highcpu-4": {"cpu": 4, "memory": 8, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
+        "c3d-highcpu-8": {"cpu": 8, "memory": 16, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
+        "c3d-highcpu-16": {"cpu": 16, "memory": 32, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
+        "c3d-highcpu-30": {"cpu": 30, "memory": 59, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
+        "c3d-highcpu-60": {"cpu": 60, "memory": 118, "local_ssd": 0, "network_egress": 40, "benchmark": 0},
+        "c3d-highcpu-90": {"cpu": 90, "memory": 177, "local_ssd": 0, "network_egress": 60, "benchmark": 0},
+        "c3d-highcpu-180": {"cpu": 180, "memory": 354, "local_ssd": 0, "network_egress": 100, "benchmark": 0},
+        "c3d-highcpu-360": {"cpu": 360, "memory": 708, "local_ssd": 0, "network_egress": 100, "benchmark": 0},
+        "c3d-highmem-4": {"cpu": 4, "memory": 32, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
+        "c3d-highmem-8": {"cpu": 8, "memory": 64, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
+        "c3d-highmem-16": {"cpu": 16, "memory": 128, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
+        "c3d-highmem-30": {"cpu": 30, "memory": 240, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
+        "c3d-highmem-60": {"cpu": 60, "memory": 480, "local_ssd": 0, "network_egress": 40, "benchmark": 0},
+        "c3d-highmem-90": {"cpu": 90, "memory": 720, "local_ssd": 0, "network_egress": 60, "benchmark": 0},
+        "c3d-highmem-180": {"cpu": 180, "memory": 1440, "local_ssd": 0, "network_egress": 100, "benchmark": 0},
+        "c3d-highmem-360": {"cpu": 360, "memory": 2880, "local_ssd": 0, "network_egress": 100, "benchmark": 0},
+        "c3d-standard-8-lssd": {"cpu": 8, "memory": 32, "local_ssd": 1, "network_egress": 20, "benchmark": 0},
+        "c3d-standard-16-lssd": {"cpu": 16, "memory": 64, "local_ssd": 1, "network_egress": 20, "benchmark": 0},
+        "c3d-standard-30-lssd": {"cpu": 30, "memory": 120, "local_ssd": 1, "network_egress": 20, "benchmark": 0},
+        "c3d-standard-60-lssd": {"cpu": 60, "memory": 240, "local_ssd": 1, "network_egress": 40, "benchmark": 0},
+        "c3d-standard-90-lssd": {"cpu": 90, "memory": 360, "local_ssd": 1, "network_egress": 60, "benchmark": 0},
+        "c3d-standard-180-lssd": {"cpu": 180, "memory": 720, "local_ssd": 1, "network_egress": 100, "benchmark": 0},
+        "c3d-standard-360-lssd": {"cpu": 360, "memory": 708, "local_ssd": 1, "network_egress": 100, "benchmark": 0}}
 
     m1_instance_types = {
         "m1-ultramem-40": {"cpu": 40, "memory": 961, "local_ssd": 0, "network_egress": 32, "benchmark": 498947},
@@ -143,11 +183,11 @@ if __name__ == '__main__':
         "m2-megamem-416": {"cpu": 416, "memory": 5888, "local_ssd": 0, "network_egress": 32, "benchmark": 5365802}}
 
     m3_instance_types = {
-        "m3-ultramem-32": {"cpu": 32, "memory": 976, "local_ssd": 0, "network_egress": 32, "benchmark": 0},
-        "m3-ultramem-64": {"cpu": 64, "memory": 1952, "local_ssd": 0, "network_egress": 32, "benchmark": 0},
-        "m3-ultramem-128": {"cpu": 128, "memory": 3904, "local_ssd": 0, "network_egress": 32, "benchmark": 0},
-        "m3-megamem-64": {"cpu": 64, "memory": 976, "local_ssd": 0, "network_egress": 32, "benchmark": 0},
-        "m3-megamem-128": {"cpu": 128, "memory": 1952, "local_ssd": 0, "network_egress": 32, "benchmark": 0}}
+        "m3-ultramem-32": {"cpu": 32, "memory": 976, "local_ssd": 0, "network_egress": 32, "benchmark": 555979},
+        "m3-ultramem-64": {"cpu": 64, "memory": 1952, "local_ssd": 0, "network_egress": 32, "benchmark": 1093373},
+        "m3-ultramem-128": {"cpu": 128, "memory": 3904, "local_ssd": 0, "network_egress": 32, "benchmark": 2172624},
+        "m3-megamem-64": {"cpu": 64, "memory": 976, "local_ssd": 0, "network_egress": 32, "benchmark": 1096066},
+        "m3-megamem-128": {"cpu": 128, "memory": 1952, "local_ssd": 0, "network_egress": 32, "benchmark": 2181149}}
 
     n2_instance_types = {
         "n2-standard-2": {"cpu": 2, "memory": 8, "local_ssd": 1, "network_egress": 10, "benchmark": 33676},
@@ -254,11 +294,11 @@ if __name__ == '__main__':
         "n1-highcpu-96": {"cpu": 96, "memory": 86.4, "local_ssd": 1, "network_egress": 32, "benchmark": 1245251}}
 
     a2_instance_types = {
-        "a2-highgpu-1g": {"cpu": 12, "memory": 85, "local_ssd": 1, "network_egress": 24, "benchmark": 0},
-        "a2-highgpu-2g": {"cpu": 24, "memory": 170, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
-        "a2-highgpu-4g": {"cpu": 48, "memory": 340, "local_ssd": 1, "network_egress": 50, "benchmark": 0},
-        "a2-highgpu-8g": {"cpu": 96, "memory": 680, "local_ssd": 1, "network_egress": 100, "benchmark": 0},
-        "a2-megagpu-16g": {"cpu": 96, "memory": 1360, "local_ssd": 1, "network_egress": 100, "benchmark": 0}}
+        "a2-highgpu-1g": {"cpu": 12, "memory": 85, "local_ssd": 1, "network_egress": 24, "benchmark": 171520},
+        "a2-highgpu-2g": {"cpu": 24, "memory": 170, "local_ssd": 1, "network_egress": 32, "benchmark": 359881},
+        "a2-highgpu-4g": {"cpu": 48, "memory": 340, "local_ssd": 1, "network_egress": 50, "benchmark": 646934},
+        "a2-highgpu-8g": {"cpu": 96, "memory": 680, "local_ssd": 1, "network_egress": 100, "benchmark": 1287130},
+        "a2-megagpu-16g": {"cpu": 96, "memory": 1360, "local_ssd": 1, "network_egress": 100, "benchmark": 1293867}}
 
     t2d_instance_types = {
         "t2d-standard-1": {"cpu": 1, "memory": 4, "local_ssd": 0, "network_egress": 10, "benchmark": 28961},
@@ -1133,6 +1173,52 @@ if __name__ == '__main__':
                 if reg == reg2:
                     output['c3'][k]['regions'][reg]['cud-3y'] = nice(v['cpu'] * c3_cpu_region_cost + v[
                         'memory'] * c3_ram_region_cost)
+
+    # c3d
+    # On Demand, SUD and specs
+    c3d_ram = data['CP-COMPUTEENGINE-C3-PREDEFINED-VM-RAM']
+    c3d_cpu = data['CP-COMPUTEENGINE-C3D-PREDEFINED-VM-CORE']
+    for k, v in c3d_instance_types.items():
+        output['c3d'][k]['specs'].update({'cores': v['cpu'], 'memory': v['memory'], 'local_ssd': v['local_ssd'],
+                                         'network_egress': v['network_egress'], 'benchmark': v['benchmark'],
+                                         'cpu': ['AMD EPYC (Genoa)'],
+                                         'regional_disk': 0, 'gpu': 0, 'sole_tenant': 0,
+                                         'nested_virtualization': 0})
+        for reg, c3d_cpu_region_cost in c3d_cpu.items():
+            for reg2, c3d_ram_region_cost in c3d_ram.items():
+                if reg == reg2:
+                    output['c3d'][k]['regions'][reg]['ondemand'] = nice(v['cpu'] * c3d_cpu_region_cost + v[
+                        'memory'] * c3d_ram_region_cost)
+                    output['c3d'][k]['regions'][reg]['sud'] = nice(
+                        c3_sud_discount * (v['cpu'] * c3d_cpu_region_cost + v[
+                            'memory'] * c3d_ram_region_cost))
+    # Preemptible
+    c3_ram = data['CP-COMPUTEENGINE-C3D-PREDEFINED-VM-RAM-PREEMPTIBLE']
+    c3_cpu = data['CP-COMPUTEENGINE-C3D-PREDEFINED-VM-CORE-PREEMPTIBLE']
+    for k, v in c3d_instance_types.items():
+        for reg, c3d_cpu_region_cost in c3d_cpu.items():
+            for reg2, c3d_ram_region_cost in c3d_ram.items():
+                if reg == reg2:
+                    output['c3d'][k]['regions'][reg]['preemptible'] = nice(v['cpu'] * c3d_cpu_region_cost + v[
+                        'memory'] * c3d_ram_region_cost)
+    # CUD - 1 year
+    c3d_ram = {'us-central1': 0.002494, 'europe-west4': 0.002746, 'us-east4': 0.002494, 'us-east1': 0.002494, 'europe-west1': 0.002746, 'asia-southeast1': 0.003077, 'us-east5': 0, 'us-west4': 0, 'us-west1': 0, 'us-west2': 0, 'us-west3': 0, 'us-south1': 0, 'europe-central2': 0, 'europe-west2': 0, 'europe-west3': 0, 'europe-west6': 0, 'europe-west8': 0, 'europe-west9': 0, 'europe-west10': 0, 'europe-west12': 0, 'europe-north1': 0, 'europe-southwest1': 0, 'northamerica-northeast1': 0, 'northamerica-northeast2': 0, 'africa-south1': 0, 'asia': 0, 'asia-east': 0, 'asia-east1': 0, 'asia-east2': 0, 'asia-northeast': 0, 'me-west1': 0, 'me-central1': 0, 'me-central2': 0, 'asia-northeast1': 0, 'asia-northeast2': 0, 'asia-northeast3': 0, 'asia-southeast': 0, 'australia-southeast1': 0, 'australia-southeast2': 0, 'australia': 0, 'southamerica-east1': 0, 'asia-south1': 0, 'asia-southeast2': 0, 'asia-south2': 0, 'southamerica-west1': 0}
+    c3d_cpu = {'us-central1': 0.018624, 'europe-west4': 0.020507, 'us-east4': 0.018624, 'us-east1': 0.018624, 'europe-west1': 0.020507, 'asia-southeast1': 0.022977, 'us-east5': 0, 'us-west4': 0, 'us-west1': 0, 'us-west2': 0, 'us-west3': 0, 'us-south1': 0, 'europe-central2': 0, 'europe-west2': 0, 'europe-west3': 0, 'europe-west6': 0, 'europe-west8': 0, 'europe-west9': 0, 'europe-west10': 0, 'europe-west12': 0, 'europe-north1': 0, 'europe-southwest1': 0, 'northamerica-northeast1': 0, 'northamerica-northeast2': 0, 'africa-south1': 0, 'asia': 0, 'asia-east': 0, 'asia-east1': 0, 'asia-east2': 0, 'asia-northeast': 0, 'me-west1': 0, 'me-central1': 0, 'me-central2': 0, 'asia-northeast1': 0, 'asia-northeast2': 0, 'asia-northeast3': 0, 'asia-southeast': 0, 'australia-southeast1': 0, 'australia-southeast2': 0, 'australia': 0, 'southamerica-east1': 0, 'asia-south1': 0, 'asia-southeast2': 0, 'asia-south2': 0, 'southamerica-west1': 0}
+    for k, v in c3d_instance_types.items():
+        for reg, c3d_cpu_region_cost in c3d_cpu.items():
+            for reg2, c3d_ram_region_cost in c3d_ram.items():
+                if reg == reg2:
+                    output['c3d'][k]['regions'][reg]['cud-1y'] = nice(v['cpu'] * c3d_cpu_region_cost + v[
+                        'memory'] * c3d_ram_region_cost)
+    # CUD - 3 year
+    c3_ram = data['CP-COMPUTEENGINE-C3D-CUD-3-YEAR-RAM']
+    c3_cpu = data['CP-COMPUTEENGINE-C3D-CUD-3-YEAR-CPU']
+    for k, v in c3d_instance_types.items():
+        for reg, c3d_cpu_region_cost in c3d_cpu.items():
+            for reg2, c3_ram_region_cost in c3d_ram.items():
+                if reg == reg2:
+                    output['c3d'][k]['regions'][reg]['cud-3y'] = nice(v['cpu'] * c3d_cpu_region_cost + v[
+                        'memory'] * c3d_ram_region_cost)
 
     # A2
     # On Demand, SUD and specs
