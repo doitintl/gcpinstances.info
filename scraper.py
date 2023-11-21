@@ -1,9 +1,22 @@
-import json
+import pandas as pd
 import requests
+import json
+import csv
+import sys
 
 
 def nice(number: float):
     return round(number, 5)
+
+
+def html_table_to_dict(html_url: str):
+    tables = pd.read_html(html_url)
+    df = pd.concat(tables)
+    dict_data = df.to_dict('records')
+    benchmark = {}
+    for k in dict_data:
+        benchmark[k['Machine Type']] = k['Coremark Score']
+    return benchmark
 
 
 if __name__ == '__main__':
@@ -17,11 +30,13 @@ if __name__ == '__main__':
     c2_sud_discount = 0.8
     c2d_sud_discount = 0.8
     c3_sud_discount = 1
+    c3d_sud_discount = 1
     e2_sud_discount = 1
     a2_sud_discount = 1
     t2d_sud_discount = 1
     t2a_sud_discount = 0.7
-
+    g2_sud_discount = 1
+    instances_linux_coremark = html_table_to_dict('https://cloud.google.com/compute/docs/coremark-scores-of-vm-instances')
     regions = ['us', 'us-central1', 'us-east1', 'us-east4', 'us-east5', 'us-west4', 'us-west1', 'us-west2',
                'us-west3', 'us-south1', 'europe', 'europe-central2', 'europe-west1', 'europe-west2',
                'europe-west3', 'europe-west4', 'europe-west6', 'europe-west8', 'europe-west9',
@@ -32,7 +47,7 @@ if __name__ == '__main__':
                'australia', 'southamerica-east1', 'asia-south1', 'asia-southeast2', 'asia-south2', 'southamerica-west1']
 
     specs_params = ['cores', 'memory', 'local_ssd', 'gpu', 'sole_tenant', 'nested_virtualization', 'cpu', 'benchmark']
-    generations = ['f1', 'g1', 'n1', 'n2', 'n2d', 'e2', 'c2', 'c2d', 'c3', 'c3d', 'm1', 'm2', 'm3', 'a2', 't2d', 't2a']
+    generations = ['f1', 'g1', 'n1', 'n2', 'n2d', 'e2', 'c2', 'c2d', 'c3', 'c3d', 'm1', 'm2', 'm3', 'a2', 't2d', 't2a', 'g2']
     # the following variables scraped from https://cloud.google.com/compute/docs/machine-types
     instance_types = ['e2-highcpu-32', 'e2-highcpu-16', 'e2-highcpu-2', 'e2-highcpu-4', 'e2-highcpu-8', 'e2-highmem-16',
                       'e2-highmem-2', 'e2-highmem-4', 'e2-highmem-8', 'e2-medium', 'e2-micro', 'e2-small',
@@ -80,7 +95,8 @@ if __name__ == '__main__':
                       'c3d-highcpu-360', 'c3d-highmem-4', 'c3d-highmem-8', 'c3d-highmem-16', 'c3d-highmem-30',
                       'c3d-highmem-60', 'c3d-highmem-90', 'c3d-highmem-180', 'c3d-highmem-360', 'c3d-standard-8-lssd',
                       'c3d-standard-16-lssd', 'c3d-standard-30-lssd', 'c3d-standard-60-lssd', 'c3d-standard-90-lssd',
-                      'c3d-standard-180-lssd', 'c3d-standard-360-lssd'
+                      'c3d-standard-180-lssd', 'c3d-standard-360-lssd', 'g2-standard-4', 'g2-standard-8', 'g2-standard-12',
+                      'g2-standard-16', 'g2-standard-24', 'g2-standard-32', 'g2-standard-48', 'g2-standard-96'
                       ]
 
     c2_instance_types = {
@@ -318,6 +334,31 @@ if __name__ == '__main__':
         "t2a-standard-16": {"cpu": 16, "memory": 64, "local_ssd": 0, "network_egress": 32, "benchmark": 371142},
         "t2a-standard-32": {"cpu": 32, "memory": 128, "local_ssd": 0, "network_egress": 32, "benchmark": 736262},
         "t2a-standard-48": {"cpu": 48, "memory": 192, "local_ssd": 0, "network_egress": 32, "benchmark": 1102993}}
+
+    g2_instance_types = {
+        "g2-standard-4": {"cpu": 4, "memory": 16, "local_ssd": 1, "network_egress": 10, "benchmark": 0},
+        "g2-standard-8": {"cpu": 8, "memory": 32, "local_ssd": 1, "network_egress": 16, "benchmark": 0},
+        "g2-standard-12": {"cpu": 12, "memory": 48, "local_ssd": 1, "network_egress": 16, "benchmark": 0},
+        "g2-standard-16": {"cpu": 16, "memory": 64, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "g2-standard-24": {"cpu": 24, "memory": 96, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "g2-standard-32": {"cpu": 32, "memory": 128, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "g2-standard-48": {"cpu": 48, "memory": 192, "local_ssd": 1, "network_egress": 50, "benchmark": 0},
+        "g2-standard-96": {"cpu": 96, "memory": 384, "local_ssd": 1, "network_egress": 100, "benchmark": 0}
+    }
+
+
+    # Validate the benchmark score from GCP website, if there is a delta, print the delta to standard error (so it won't be extracted to the data.json file)
+    for _instance_family in [c2_instance_types, c2d_instance_types, c3_instance_types, c3d_instance_types, m1_instance_types, m2_instance_types, m2_instance_types,
+                            m3_instance_types, n2_instance_types, e2_instance_types, n2d_instance_types, n1_instance_types, a2_instance_types, t2d_instance_types, t2a_instance_types, g2_instance_types]:
+        for _instance_type in _instance_family:
+            instance_coremark_result = instances_linux_coremark.get(_instance_type)
+            if instance_coremark_result is None:
+               instance_coremark_result = 0
+            if not isinstance(instance_coremark_result, int):
+                instance_coremark_result = int(instance_coremark_result.replace(', ', ''))
+            if _instance_family[_instance_type]['benchmark'] != int(instance_coremark_result):
+                print('found delta for {}, benchmark result is {}, website is {}'.format(_instance_type, _instance_family[_instance_type]['benchmark'], instance_coremark_result), file=sys.stderr)
+                # _instance_family[_instance_type]['benchmark'] = instance_coremark_result
 
     for gen in generations:
         output[gen] = {}
@@ -1190,11 +1231,11 @@ if __name__ == '__main__':
                     output['c3d'][k]['regions'][reg]['ondemand'] = nice(v['cpu'] * c3d_cpu_region_cost + v[
                         'memory'] * c3d_ram_region_cost)
                     output['c3d'][k]['regions'][reg]['sud'] = nice(
-                        c3_sud_discount * (v['cpu'] * c3d_cpu_region_cost + v[
+                        c3d_sud_discount * (v['cpu'] * c3d_cpu_region_cost + v[
                             'memory'] * c3d_ram_region_cost))
     # Preemptible
-    c3_ram = data['CP-COMPUTEENGINE-C3D-PREDEFINED-VM-RAM-PREEMPTIBLE']
-    c3_cpu = data['CP-COMPUTEENGINE-C3D-PREDEFINED-VM-CORE-PREEMPTIBLE']
+    c3d_ram = data['CP-COMPUTEENGINE-C3D-PREDEFINED-VM-RAM-PREEMPTIBLE']
+    c3d_cpu = data['CP-COMPUTEENGINE-C3D-PREDEFINED-VM-CORE-PREEMPTIBLE']
     for k, v in c3d_instance_types.items():
         for reg, c3d_cpu_region_cost in c3d_cpu.items():
             for reg2, c3d_ram_region_cost in c3d_ram.items():
@@ -1211,11 +1252,11 @@ if __name__ == '__main__':
                     output['c3d'][k]['regions'][reg]['cud-1y'] = nice(v['cpu'] * c3d_cpu_region_cost + v[
                         'memory'] * c3d_ram_region_cost)
     # CUD - 3 year
-    c3_ram = data['CP-COMPUTEENGINE-C3D-CUD-3-YEAR-RAM']
-    c3_cpu = data['CP-COMPUTEENGINE-C3D-CUD-3-YEAR-CPU']
+    c3d_ram = data['CP-COMPUTEENGINE-C3D-CUD-3-YEAR-RAM']
+    c3d_cpu = data['CP-COMPUTEENGINE-C3D-CUD-3-YEAR-CPU']
     for k, v in c3d_instance_types.items():
         for reg, c3d_cpu_region_cost in c3d_cpu.items():
-            for reg2, c3_ram_region_cost in c3d_ram.items():
+            for reg2, c3d_ram_region_cost in c3d_ram.items():
                 if reg == reg2:
                     output['c3d'][k]['regions'][reg]['cud-3y'] = nice(v['cpu'] * c3d_cpu_region_cost + v[
                         'memory'] * c3d_ram_region_cost)
@@ -1619,4 +1660,51 @@ if __name__ == '__main__':
                 if reg == reg2:
                     output['t2a'][k]['regions'][reg]['preemptible'] = nice(v['cpu'] * t2a_cpu_region_cost + v[
                         'memory'] * t2a_ram_region_cost)
+
+    # g2
+    # On Demand and SUD
+    g2_ram = data['CP-COMPUTEENGINE-G2-PREDEFINED-VM-RAM']
+    g2_cpu = data['CP-COMPUTEENGINE-G2-PREDEFINED-VM-CORE']
+    for k, v in g2_instance_types.items():
+        output['g2'][k]['specs'].update({'cores': v['cpu'], 'memory': v['memory'], 'local_ssd': v['local_ssd'],
+                                         'network_egress': v['network_egress'], 'benchmark': v['benchmark'],
+                                         'cpu': ['Cascade Lake'],
+                                         'gpu': 1, 'sole_tenant': 1, 'nested_virtualization': 0, 'regional_disk': 0})
+        for reg, g2_cpu_region_cost in g2_cpu.items():
+            for reg2, g2_ram_region_cost in g2_ram.items():
+                if reg == reg2:
+                    output['g2'][k]['regions'][reg]['ondemand'] = nice(v['cpu'] * g2_cpu_region_cost + v[
+                        'memory'] * g2_ram_region_cost)
+                    output['g2'][k]['regions'][reg]['sud'] = nice(g2_sud_discount * (
+                            v['cpu'] * g2_cpu_region_cost + v[
+                        'memory'] * g2_ram_region_cost))
+    # Preemptible
+    g2_ram = data['CP-COMPUTEENGINE-G2-PREDEFINED-VM-RAM-PREEMPTIBLE']
+    g2_cpu = data['CP-COMPUTEENGINE-G2-PREDEFINED-VM-CORE-PREEMPTIBLE']
+    for k, v in g2_instance_types.items():
+        for reg, g2_cpu_region_cost in g2_cpu.items():
+            for reg2, g2_ram_region_cost in g2_ram.items():
+                if reg == reg2:
+                    output['g2'][k]['regions'][reg]['preemptible'] = nice(v['cpu'] * g2_cpu_region_cost + v[
+                        'memory'] * g2_ram_region_cost)
+    # CUD - 1 year
+    g2_ram = data['CP-COMPUTEENGINE-G2-CUD-1-YEAR-RAM']
+    g2_cpu = data['CP-COMPUTEENGINE-G2-CUD-1-YEAR-CPU']
+    for k, v in g2_instance_types.items():
+        for reg, g2_cpu_region_cost in g2_cpu.items():
+            for reg2, g2_ram_region_cost in g2_ram.items():
+                if reg == reg2:
+                    output['g2'][k]['regions'][reg]['cud-1y'] = nice(v['cpu'] * g2_cpu_region_cost + v[
+                        'memory'] * g2_ram_region_cost)
+    # CUD - 3 year
+    g2_ram = data['CP-COMPUTEENGINE-G2-CUD-3-YEAR-RAM']
+    g2_cpu = data['CP-COMPUTEENGINE-G2-CUD-3-YEAR-CPU']
+    for k, v in g2_instance_types.items():
+        for reg, g2_cpu_region_cost in g2_cpu.items():
+            for reg2, g2_ram_region_cost in g2_ram.items():
+                if reg == reg2:
+                    output['g2'][k]['regions'][reg]['cud-3y'] = nice(v['cpu'] * g2_cpu_region_cost + v[
+                        'memory'] * g2_ram_region_cost)
+
+
     print(json.dumps(output))
