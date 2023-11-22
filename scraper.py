@@ -81,7 +81,8 @@ if __name__ == '__main__':
                       'n2d-highmem-64', 'n2d-highmem-80', 'n2d-highmem-96', 'n2d-highcpu-2', 'n2d-highcpu-4',
                       'n2d-highcpu-8', 'n2d-highcpu-16', 'n2d-highcpu-32', 'n2d-highcpu-48', 'n2d-highcpu-64',
                       'n2d-highcpu-80', 'n2d-highcpu-96', 'n2d-highcpu-128', 'n2d-highcpu-224', 'a2-highgpu-1g',
-                      'a2-highgpu-2g', 'a2-highgpu-4g', 'a2-highgpu-8g', 'a2-megagpu-16g', 't2d-standard-1',
+                      'a2-highgpu-2g', 'a2-highgpu-4g', 'a2-highgpu-8g', 'a2-megagpu-16g', 'a2-ultragpu-1g',
+                      't2d-standard-1', 'a2-ultragpu-2g', 'a2-ultragpu-4g', 'a2-ultragpu-8g',
                       't2d-standard-2', 't2d-standard-4', 't2d-standard-8', 't2d-standard-16', 't2d-standard-32',
                       't2d-standard-48', 't2d-standard-60', 't2a-standard-1', 't2a-standard-2', 't2a-standard-4',
                       't2a-standard-8',
@@ -310,11 +311,17 @@ if __name__ == '__main__':
         "n1-highcpu-96": {"cpu": 96, "memory": 86.4, "local_ssd": 1, "network_egress": 32, "benchmark": 1245251}}
 
     a2_instance_types = {
-        "a2-highgpu-1g": {"cpu": 12, "memory": 85, "local_ssd": 1, "network_egress": 24, "benchmark": 171520},
-        "a2-highgpu-2g": {"cpu": 24, "memory": 170, "local_ssd": 1, "network_egress": 32, "benchmark": 359881},
-        "a2-highgpu-4g": {"cpu": 48, "memory": 340, "local_ssd": 1, "network_egress": 50, "benchmark": 646934},
-        "a2-highgpu-8g": {"cpu": 96, "memory": 680, "local_ssd": 1, "network_egress": 100, "benchmark": 1287130},
-        "a2-megagpu-16g": {"cpu": 96, "memory": 1360, "local_ssd": 1, "network_egress": 100, "benchmark": 1293867}}
+        "a2-highgpu-1g": {"cpu": 12, "memory": 85, "gpus": 1, "local_ssd": 1, "network_egress": 24, "benchmark": 171520},
+        "a2-highgpu-2g": {"cpu": 24, "memory": 170, "gpus": 2, "local_ssd": 1, "network_egress": 32, "benchmark": 359881},
+        "a2-highgpu-4g": {"cpu": 48, "memory": 340, "gpus": 4, "local_ssd": 1, "network_egress": 50, "benchmark": 646934},
+        "a2-highgpu-8g": {"cpu": 96, "memory": 680, "gpus": 8, "local_ssd": 1, "network_egress": 100, "benchmark": 1287130},
+        "a2-megagpu-16g": {"cpu": 96, "memory": 1360, "gpus": 16, "local_ssd": 1, "network_egress": 100, "benchmark": 0},
+        "a2-ultragpu-1g": {"cpu": 12, "memory": 170, "gpus": 1, "local_ssd": 1, "network_egress": 24, "benchmark": 0},
+        "a2-ultragpu-2g": {"cpu": 24, "memory": 340, "gpus": 2, "local_ssd": 1, "network_egress": 24, "benchmark": 0},
+        "a2-ultragpu-4g": {"cpu": 48, "memory": 680, "gpus": 4, "local_ssd": 1, "network_egress": 24, "benchmark": 0},
+        "a2-ultragpu-8g": {"cpu": 96, "memory": 1360, "gpus": 8, "local_ssd": 1, "network_egress": 24, "benchmark": 0}}
+
+
 
     t2d_instance_types = {
         "t2d-standard-1": {"cpu": 1, "memory": 4, "local_ssd": 0, "network_egress": 10, "benchmark": 28961},
@@ -336,14 +343,14 @@ if __name__ == '__main__':
         "t2a-standard-48": {"cpu": 48, "memory": 192, "local_ssd": 0, "network_egress": 32, "benchmark": 1102993}}
 
     g2_instance_types = {
-        "g2-standard-4": {"cpu": 4, "memory": 16, "local_ssd": 1, "network_egress": 10, "benchmark": 0},
-        "g2-standard-8": {"cpu": 8, "memory": 32, "local_ssd": 1, "network_egress": 16, "benchmark": 0},
-        "g2-standard-12": {"cpu": 12, "memory": 48, "local_ssd": 1, "network_egress": 16, "benchmark": 0},
-        "g2-standard-16": {"cpu": 16, "memory": 64, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
-        "g2-standard-24": {"cpu": 24, "memory": 96, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
-        "g2-standard-32": {"cpu": 32, "memory": 128, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
-        "g2-standard-48": {"cpu": 48, "memory": 192, "local_ssd": 1, "network_egress": 50, "benchmark": 0},
-        "g2-standard-96": {"cpu": 96, "memory": 384, "local_ssd": 1, "network_egress": 100, "benchmark": 0}
+        "g2-standard-4": {"cpu": 4, "memory": 16, "gpus": 1, "local_ssd": 1, "network_egress": 10, "benchmark": 0},
+        "g2-standard-8": {"cpu": 8, "memory": 32, "gpus": 1, "local_ssd": 1, "network_egress": 16, "benchmark": 0},
+        "g2-standard-12": {"cpu": 12, "memory": 48, "gpus": 1, "local_ssd": 1, "network_egress": 16, "benchmark": 0},
+        "g2-standard-16": {"cpu": 16, "memory": 64, "gpus": 1, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "g2-standard-24": {"cpu": 24, "memory": 96, "gpus": 2, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "g2-standard-32": {"cpu": 32, "memory": 128, "gpus": 1, "local_ssd": 1, "network_egress": 32, "benchmark": 0},
+        "g2-standard-48": {"cpu": 48, "memory": 192, "gpus": 4, "local_ssd": 1, "network_egress": 50, "benchmark": 0},
+        "g2-standard-96": {"cpu": 96, "memory": 384, "gpus": 8, "local_ssd": 1, "network_egress": 100, "benchmark": 0}
     }
 
 
@@ -1266,6 +1273,10 @@ if __name__ == '__main__':
     a2_ram = data['CP-COMPUTEENGINE-A2-PREDEFINED-VM-RAM']
     a2_cpu = data['CP-COMPUTEENGINE-A2-PREDEFINED-VM-CORE']
     for k, v in a2_instance_types.items():
+        if 'highgpu' in k or 'megagpu' in k:
+            a2_gpu = 'GPU_NVIDIA_TESLA_A100'
+        elif 'ultragpu' in k:
+            a2_gpu = 'GPU_NVIDIA_TESLA_A100-80GB'
         output['a2'][k]['specs'].update({'cores': v['cpu'], 'memory': v['memory'], 'local_ssd': v['local_ssd'],
                                          'network_egress': v['network_egress'], 'benchmark': v['benchmark'],
                                          'cpu': ['Cascade Lake'],
@@ -1273,39 +1284,45 @@ if __name__ == '__main__':
                                          'nested_virtualization': -1})
         for reg, a2_cpu_region_cost in a2_cpu.items():
             for reg2, a2_ram_region_cost in a2_ram.items():
-                if reg == reg2:
-                    output['a2'][k]['regions'][reg]['ondemand'] = nice(v['cpu'] * a2_cpu_region_cost + v[
-                        'memory'] * a2_ram_region_cost)
-                    output['a2'][k]['regions'][reg]['sud'] = nice(
-                        a2_sud_discount * (v['cpu'] * a2_cpu_region_cost + v[
-                            'memory'] * a2_ram_region_cost))
+                if reg == reg2 and data[a2_gpu].get(reg):
+                    output['a2'][k]['regions'][reg]['ondemand'] = nice(v['cpu'] * a2_cpu_region_cost + v['memory'] * a2_ram_region_cost + data[a2_gpu].get(reg) * v['gpus'])
+                    output['a2'][k]['regions'][reg]['sud'] = nice(a2_sud_discount * (v['cpu'] * a2_cpu_region_cost + v['memory'] * a2_ram_region_cost) + data[a2_gpu].get(reg) * v['gpus'])
     # Preemptible
     a2_ram = data['CP-COMPUTEENGINE-A2-PREDEFINED-VM-RAM-PREEMPTIBLE']
     a2_cpu = data['CP-COMPUTEENGINE-A2-PREDEFINED-VM-CORE-PREEMPTIBLE']
     for k, v in a2_instance_types.items():
+        if 'highgpu' in k or 'megagpu' in k:
+            a2_gpu = 'GPU_NVIDIA_TESLA_A100'
+        elif 'ultragpu' in k:
+            a2_gpu = 'GPU_NVIDIA_TESLA_A100-80GB'
         for reg, a2_cpu_region_cost in a2_cpu.items():
             for reg2, a2_ram_region_cost in a2_ram.items():
-                if reg == reg2:
-                    output['a2'][k]['regions'][reg]['preemptible'] = nice(v['cpu'] * a2_cpu_region_cost + v[
-                        'memory'] * a2_ram_region_cost)
+                if reg == reg2 and data[a2_gpu].get(reg):
+                    output['a2'][k]['regions'][reg]['preemptible'] = nice(v['cpu'] * a2_cpu_region_cost + v['memory'] * a2_ram_region_cost + data[a2_gpu + '-PREEMPTIBLE'].get(reg) * v['gpus'])
     # CUD - 1 year
     a2_ram = data['CP-COMPUTEENGINE-A2-CUD-1-YEAR-RAM']
     a2_cpu = data['CP-COMPUTEENGINE-A2-CUD-1-YEAR-CPU']
     for k, v in a2_instance_types.items():
+        if 'highgpu' in k or 'megagpu' in k:
+            a2_gpu = 'GPU_NVIDIA_TESLA_A100'
+        elif 'ultragpu' in k:
+            a2_gpu = 'GPU_NVIDIA_TESLA_A100-80GB'
         for reg, a2_cpu_region_cost in a2_cpu.items():
             for reg2, a2_ram_region_cost in a2_ram.items():
-                if reg == reg2:
-                    output['a2'][k]['regions'][reg]['cud-1y'] = nice(v['cpu'] * a2_cpu_region_cost + v[
-                        'memory'] * a2_ram_region_cost)
+                if reg == reg2 and data[a2_gpu].get(reg) and 'ultragpu' not in k:
+                    output['a2'][k]['regions'][reg]['cud-1y'] = nice(v['cpu'] * a2_cpu_region_cost + v['memory'] * a2_ram_region_cost + data[a2_gpu + '-CUD-1-YEAR'].get(reg) * v['gpus'])
     # CUD - 3 year
     a2_ram = data['CP-COMPUTEENGINE-A2-CUD-3-YEAR-RAM']
     a2_cpu = data['CP-COMPUTEENGINE-A2-CUD-3-YEAR-CPU']
     for k, v in a2_instance_types.items():
+        if 'highgpu' in k or 'megagpu' in k:
+            a2_gpu = 'GPU_NVIDIA_TESLA_A100'
+        elif 'ultragpu' in k:
+            a2_gpu = 'GPU_NVIDIA_TESLA_A100-80GB'
         for reg, a2_cpu_region_cost in a2_cpu.items():
             for reg2, a2_ram_region_cost in a2_ram.items():
-                if reg == reg2:
-                    output['a2'][k]['regions'][reg]['cud-3y'] = nice(v['cpu'] * a2_cpu_region_cost + v[
-                        'memory'] * a2_ram_region_cost)
+                if reg == reg2 and data[a2_gpu].get(reg) and 'ultragpu' not in k:
+                    output['a2'][k]['regions'][reg]['cud-3y'] = nice(v['cpu'] * a2_cpu_region_cost + v['memory'] * a2_ram_region_cost + data[a2_gpu + '-CUD-3-YEAR'].get(reg) * v['gpus'])
 
     # M1
     # On Demand and SUD
@@ -1672,39 +1689,33 @@ if __name__ == '__main__':
                                          'gpu': 1, 'sole_tenant': 1, 'nested_virtualization': 0, 'regional_disk': 0})
         for reg, g2_cpu_region_cost in g2_cpu.items():
             for reg2, g2_ram_region_cost in g2_ram.items():
-                if reg == reg2:
-                    output['g2'][k]['regions'][reg]['ondemand'] = nice(v['cpu'] * g2_cpu_region_cost + v[
-                        'memory'] * g2_ram_region_cost)
-                    output['g2'][k]['regions'][reg]['sud'] = nice(g2_sud_discount * (
-                            v['cpu'] * g2_cpu_region_cost + v[
-                        'memory'] * g2_ram_region_cost))
+                if reg == reg2 and data['GPU_NVIDIA_TESLA_L4'].get(reg):
+                    output['g2'][k]['regions'][reg]['ondemand'] = nice(v['cpu'] * g2_cpu_region_cost + v['memory'] * g2_ram_region_cost + v['gpus'] * data['GPU_NVIDIA_TESLA_L4'].get(reg))
+                    output['g2'][k]['regions'][reg]['sud'] = nice(g2_sud_discount * (v['cpu'] * g2_cpu_region_cost + v['memory'] * g2_ram_region_cost) + v['gpus'] * data['GPU_NVIDIA_TESLA_L4'].get(reg))
     # Preemptible
     g2_ram = data['CP-COMPUTEENGINE-G2-PREDEFINED-VM-RAM-PREEMPTIBLE']
     g2_cpu = data['CP-COMPUTEENGINE-G2-PREDEFINED-VM-CORE-PREEMPTIBLE']
     for k, v in g2_instance_types.items():
         for reg, g2_cpu_region_cost in g2_cpu.items():
             for reg2, g2_ram_region_cost in g2_ram.items():
-                if reg == reg2:
-                    output['g2'][k]['regions'][reg]['preemptible'] = nice(v['cpu'] * g2_cpu_region_cost + v[
-                        'memory'] * g2_ram_region_cost)
+                if reg == reg2 and data['GPU_NVIDIA_TESLA_L4-PREEMPTIBLE'].get(reg):
+                    output['g2'][k]['regions'][reg]['preemptible'] = nice(v['cpu'] * g2_cpu_region_cost + v['memory'] * g2_ram_region_cost + v['gpus'] * data['GPU_NVIDIA_TESLA_L4-PREEMPTIBLE'].get(reg))
     # CUD - 1 year
     g2_ram = data['CP-COMPUTEENGINE-G2-CUD-1-YEAR-RAM']
     g2_cpu = data['CP-COMPUTEENGINE-G2-CUD-1-YEAR-CPU']
     for k, v in g2_instance_types.items():
         for reg, g2_cpu_region_cost in g2_cpu.items():
             for reg2, g2_ram_region_cost in g2_ram.items():
-                if reg == reg2:
-                    output['g2'][k]['regions'][reg]['cud-1y'] = nice(v['cpu'] * g2_cpu_region_cost + v[
-                        'memory'] * g2_ram_region_cost)
+                if reg == reg2 and data['GPU_NVIDIA_TESLA_L4-CUD-1-YEAR'].get(reg):
+                    output['g2'][k]['regions'][reg]['cud-1y'] = nice(v['cpu'] * g2_cpu_region_cost + v['memory'] * g2_ram_region_cost + v['gpus'] * data['GPU_NVIDIA_TESLA_L4-CUD-1-YEAR'].get(reg))
     # CUD - 3 year
     g2_ram = data['CP-COMPUTEENGINE-G2-CUD-3-YEAR-RAM']
     g2_cpu = data['CP-COMPUTEENGINE-G2-CUD-3-YEAR-CPU']
     for k, v in g2_instance_types.items():
         for reg, g2_cpu_region_cost in g2_cpu.items():
             for reg2, g2_ram_region_cost in g2_ram.items():
-                if reg == reg2:
-                    output['g2'][k]['regions'][reg]['cud-3y'] = nice(v['cpu'] * g2_cpu_region_cost + v[
-                        'memory'] * g2_ram_region_cost)
+                if reg == reg2 and data['GPU_NVIDIA_TESLA_L4-CUD-3-YEAR'].get(reg):
+                    output['g2'][k]['regions'][reg]['cud-3y'] = nice(v['cpu'] * g2_cpu_region_cost + v['memory'] * g2_ram_region_cost + v['gpus'] * data['GPU_NVIDIA_TESLA_L4-CUD-3-YEAR'].get(reg))
 
 
     print(json.dumps(output))
