@@ -131,42 +131,42 @@ if __name__ == '__main__':
         "c2d-highmem-112": {"cpu": 112, "memory": 896, "local_ssd": 1, "network_egress": 32, "benchmark": 2374591}}
 
     c3_instance_types = {
-        "c3-standard-4": {"cpu":4, "memory": 16, "local_ssd": 0, "network_egress": 23, "benchmark": 0},
-        "c3-standard-8": {"cpu":8, "memory": 32, "local_ssd": 0, "network_egress": 23, "benchmark": 0},
-        "c3-standard-22": {"cpu":22, "memory": 88, "local_ssd": 0, "network_egress": 23, "benchmark": 0},
-        "c3-standard-44": {"cpu":44, "memory": 176, "local_ssd": 0, "network_egress": 32, "benchmark": 0},
-        "c3-standard-88": {"cpu":88, "memory": 352, "local_ssd": 0, "network_egress": 62, "benchmark": 0},
-        "c3-standard-176": {"cpu":176, "memory": 704, "local_ssd": 0, "network_egress": 100, "benchmark": 0},
-        "c3-highmem-4": {"cpu":4, "memory": 32, "local_ssd": 0, "network_egress": 23, "benchmark": 0},
-        "c3-highmem-8": {"cpu":8, "memory": 64, "local_ssd": 0, "network_egress": 23, "benchmark": 0},
-        "c3-highmem-22": {"cpu":22, "memory": 176, "local_ssd": 0, "network_egress": 23, "benchmark": 0},
-        "c3-highmem-44": {"cpu":44, "memory": 352, "local_ssd": 0, "network_egress": 32, "benchmark": 0},
-        "c3-highmem-88": {"cpu":88, "memory": 704, "local_ssd": 0, "network_egress": 62, "benchmark": 0},
-        "c3-highmem-176": {"cpu":176, "memory": 1408, "local_ssd": 0, "network_egress": 100, "benchmark": 0},
-        "c3-highcpu-4": {"cpu":4, "memory": 8, "local_ssd": 0, "network_egress": 23, "benchmark": 80791},
-        "c3-highcpu-8": {"cpu":8, "memory": 16, "local_ssd": 0, "network_egress": 23, "benchmark": 160579},
-        "c3-highcpu-22": {"cpu":22, "memory": 44, "local_ssd": 0, "network_egress": 23, "benchmark": 441256},
-        "c3-highcpu-44": {"cpu":44, "memory": 88, "local_ssd": 0, "network_egress": 32, "benchmark": 881707},
-        "c3-highcpu-88": {"cpu":88, "memory": 176, "local_ssd": 0, "network_egress": 62, "benchmark": 1687311},
-        "c3-highcpu-176": {"cpu":176, "memory": 352, "local_ssd": 0, "network_egress": 100, "benchmark": 3399913}}
+        "c3-standard-4": {"cpu":4, "memory": 16, "local_ssd": 0, "network_egress": 23, "benchmark": 80704.47},
+        "c3-standard-8": {"cpu":8, "memory": 32, "local_ssd": 0, "network_egress": 23, "benchmark": 160352.17},
+        "c3-standard-22": {"cpu":22, "memory": 88, "local_ssd": 0, "network_egress": 23, "benchmark": 440767.15},
+        "c3-standard-44": {"cpu":44, "memory": 176, "local_ssd": 0, "network_egress": 32, "benchmark": 878428.5},
+        "c3-standard-88": {"cpu":88, "memory": 352, "local_ssd": 0, "network_egress": 62, "benchmark": 1685129.45},
+        "c3-standard-176": {"cpu":176, "memory": 704, "local_ssd": 0, "network_egress": 100, "benchmark": 3379572.59},
+        "c3-highmem-4": {"cpu":4, "memory": 32, "local_ssd": 0, "network_egress": 23, "benchmark": 80740.08},
+        "c3-highmem-8": {"cpu":8, "memory": 64, "local_ssd": 0, "network_egress": 23, "benchmark": 160549.57},
+        "c3-highmem-22": {"cpu":22, "memory": 176, "local_ssd": 0, "network_egress": 23, "benchmark": 441183.22},
+        "c3-highmem-44": {"cpu":44, "memory": 352, "local_ssd": 0, "network_egress": 32, "benchmark": 879800.19},
+        "c3-highmem-88": {"cpu":88, "memory": 704, "local_ssd": 0, "network_egress": 62, "benchmark": 1689028.92},
+        "c3-highmem-176": {"cpu":176, "memory": 1408, "local_ssd": 0, "network_egress": 100, "benchmark": 3363424.48},
+        "c3-highcpu-4": {"cpu":4, "memory": 8, "local_ssd": 0, "network_egress": 23, "benchmark": 80681},
+        "c3-highcpu-8": {"cpu":8, "memory": 16, "local_ssd": 0, "network_egress": 23, "benchmark": 160554},
+        "c3-highcpu-22": {"cpu":22, "memory": 44, "local_ssd": 0, "network_egress": 23, "benchmark": 441328},
+        "c3-highcpu-44": {"cpu":44, "memory": 88, "local_ssd": 0, "network_egress": 32, "benchmark": 870621},
+        "c3-highcpu-88": {"cpu":88, "memory": 176, "local_ssd": 0, "network_egress": 62, "benchmark": 1702309},
+        "c3-highcpu-176": {"cpu":176, "memory": 352, "local_ssd": 0, "network_egress": 100, "benchmark": 3376449}}
 
     c3d_instance_types = {
-        "c3d-standard-4": {"cpu": 4, "memory": 16, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
-        "c3d-standard-8": {"cpu": 8, "memory": 32, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
-        "c3d-standard-16": {"cpu": 16, "memory": 64, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
-        "c3d-standard-30": {"cpu": 30, "memory": 120, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
-        "c3d-standard-60": {"cpu": 60, "memory": 240, "local_ssd": 0, "network_egress": 40, "benchmark": 0},
-        "c3d-standard-90": {"cpu": 90, "memory": 360, "local_ssd": 0, "network_egress": 60, "benchmark": 0},
-        "c3d-standard-180": {"cpu": 180, "memory": 720, "local_ssd": 0, "network_egress": 100, "benchmark": 0},
-        "c3d-standard-360": {"cpu": 360, "memory": 1440, "local_ssd": 0, "network_egress": 100, "benchmark": 0},
-        "c3d-highcpu-4": {"cpu": 4, "memory": 8, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
-        "c3d-highcpu-8": {"cpu": 8, "memory": 16, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
-        "c3d-highcpu-16": {"cpu": 16, "memory": 32, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
-        "c3d-highcpu-30": {"cpu": 30, "memory": 59, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
-        "c3d-highcpu-60": {"cpu": 60, "memory": 118, "local_ssd": 0, "network_egress": 40, "benchmark": 0},
-        "c3d-highcpu-90": {"cpu": 90, "memory": 177, "local_ssd": 0, "network_egress": 60, "benchmark": 0},
-        "c3d-highcpu-180": {"cpu": 180, "memory": 354, "local_ssd": 0, "network_egress": 100, "benchmark": 0},
-        "c3d-highcpu-360": {"cpu": 360, "memory": 708, "local_ssd": 0, "network_egress": 100, "benchmark": 0},
+        "c3d-standard-4": {"cpu": 4, "memory": 16, "local_ssd": 0, "network_egress": 20, "benchmark": 94482},
+        "c3d-standard-8": {"cpu": 8, "memory": 32, "local_ssd": 0, "network_egress": 20, "benchmark": 192999},
+        "c3d-standard-16": {"cpu": 16, "memory": 64, "local_ssd": 0, "network_egress": 20, "benchmark": 385802},
+        "c3d-standard-30": {"cpu": 30, "memory": 120, "local_ssd": 0, "network_egress": 20, "benchmark": 684306},
+        "c3d-standard-60": {"cpu": 60, "memory": 240, "local_ssd": 0, "network_egress": 40, "benchmark": 1366214},
+        "c3d-standard-90": {"cpu": 90, "memory": 360, "local_ssd": 0, "network_egress": 60, "benchmark": 2146127},
+        "c3d-standard-180": {"cpu": 180, "memory": 720, "local_ssd": 0, "network_egress": 100, "benchmark": 3918666},
+        "c3d-standard-360": {"cpu": 360, "memory": 1440, "local_ssd": 0, "network_egress": 100, "benchmark": 7903268},
+        "c3d-highcpu-4": {"cpu": 4, "memory": 8, "local_ssd": 0, "network_egress": 20, "benchmark": 94180},
+        "c3d-highcpu-8": {"cpu": 8, "memory": 16, "local_ssd": 0, "network_egress": 20, "benchmark": 192924},
+        "c3d-highcpu-16": {"cpu": 16, "memory": 32, "local_ssd": 0, "network_egress": 20, "benchmark": 385328},
+        "c3d-highcpu-30": {"cpu": 30, "memory": 59, "local_ssd": 0, "network_egress": 20, "benchmark": 683200},
+        "c3d-highcpu-60": {"cpu": 60, "memory": 118, "local_ssd": 0, "network_egress": 40, "benchmark": 1364473},
+        "c3d-highcpu-90": {"cpu": 90, "memory": 177, "local_ssd": 0, "network_egress": 60, "benchmark": 2148073},
+        "c3d-highcpu-180": {"cpu": 180, "memory": 354, "local_ssd": 0, "network_egress": 100, "benchmark": 3167230},
+        "c3d-highcpu-360": {"cpu": 360, "memory": 708, "local_ssd": 0, "network_egress": 100, "benchmark": 8126594},
         "c3d-highmem-4": {"cpu": 4, "memory": 32, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
         "c3d-highmem-8": {"cpu": 8, "memory": 64, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
         "c3d-highmem-16": {"cpu": 16, "memory": 128, "local_ssd": 0, "network_egress": 20, "benchmark": 0},
@@ -362,8 +362,8 @@ if __name__ == '__main__':
             if instance_coremark_result is None:
                instance_coremark_result = 0
             if not isinstance(instance_coremark_result, int):
-                instance_coremark_result = int(instance_coremark_result.replace(', ', ''))
-            if _instance_family[_instance_type]['benchmark'] != int(instance_coremark_result):
+                instance_coremark_result = str(instance_coremark_result).replace(', ', '')
+            if _instance_family[_instance_type]['benchmark'] != float(instance_coremark_result):
                 print('found delta for {}, benchmark result is {}, website is {}'.format(_instance_type, _instance_family[_instance_type]['benchmark'], instance_coremark_result), file=sys.stderr)
                 # _instance_family[_instance_type]['benchmark'] = instance_coremark_result
 
