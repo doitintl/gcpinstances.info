@@ -288,7 +288,7 @@ function generate_data_table(region, multiplier = 1, per_time = "hourly") {
 
       row[3] = getSupportedStr(getParam(typeSpecs, "local_ssd"));
       row[4] = getParam(typeSpecs, "network_egress");
-      row[4] = row[4] ? row[4] + " Gigabit" : "Unknown";
+      row[4] = row[4] ? row[4] + " Gbps" : "Unknown";
       row[5] = getParam(typeSpecs, "cpu").join(", ");
       row[6] = getSupportedStr(getParam(typeSpecs, "gpu"));
       row[7] = getSupportedStr(getParam(typeSpecs, "sole_tenant"));
