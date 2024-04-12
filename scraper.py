@@ -27,6 +27,7 @@ if __name__ == '__main__':
     m3_sud_discount = 1
     n2_sud_discount = 0.8
     n2d_sud_discount = 0.8
+    n4_sud_discount = 1
     c2_sud_discount = 0.8
     c2d_sud_discount = 0.8
     c3_sud_discount = 1
@@ -47,7 +48,7 @@ if __name__ == '__main__':
                'australia', 'southamerica-east1', 'asia-south1', 'asia-southeast2', 'asia-south2', 'southamerica-west1']
 
     specs_params = ['cores', 'memory', 'local_ssd', 'gpu', 'sole_tenant', 'nested_virtualization', 'cpu', 'benchmark']
-    generations = ['f1', 'g1', 'n1', 'n2', 'n2d', 'e2', 'c2', 'c2d', 'c3', 'c3d', 'm1', 'm2', 'm3', 'a2', 't2d', 't2a', 'g2']
+    generations = ['f1', 'g1', 'n1', 'n2', 'n2d', 'n4', 'e2', 'c2', 'c2d', 'c3', 'c3d', 'm1', 'm2', 'm3', 'a2', 't2d', 't2a', 'g2']
     # the following variables scraped from https://cloud.google.com/compute/docs/machine-types
     instance_types = ['e2-highcpu-32', 'e2-highcpu-16', 'e2-highcpu-2', 'e2-highcpu-4', 'e2-highcpu-8', 'e2-highmem-16',
                       'e2-highmem-2', 'e2-highmem-4', 'e2-highmem-8', 'e2-medium', 'e2-micro', 'e2-small',
@@ -80,7 +81,12 @@ if __name__ == '__main__':
                       'n2d-highmem-4', 'n2d-highmem-8', 'n2d-highmem-16', 'n2d-highmem-32', 'n2d-highmem-48',
                       'n2d-highmem-64', 'n2d-highmem-80', 'n2d-highmem-96', 'n2d-highcpu-2', 'n2d-highcpu-4',
                       'n2d-highcpu-8', 'n2d-highcpu-16', 'n2d-highcpu-32', 'n2d-highcpu-48', 'n2d-highcpu-64',
-                      'n2d-highcpu-80', 'n2d-highcpu-96', 'n2d-highcpu-128', 'n2d-highcpu-224', 'a2-highgpu-1g',
+                      'n2d-highcpu-80', 'n2d-highcpu-96', 'n2d-highcpu-128', 'n2d-highcpu-224','n4-standard-2',
+                      'n4-standard-4', 'n4-standard-8', 'n4-standard-16', 'n4-standard-32', 'n4-standard-48',
+                      'n4-standard-64', 'n4-standard-80', 'n4-highmem-2', 'n4-highmem-4', 'n4-highmem-8',
+                      'n4-highmem-16', 'n4-highmem-32', 'n4-highmem-48', 'n4-highmem-64', 'n4-highmem-80',
+                      'n4-highcpu-2', 'n4-highcpu-4', 'n4-highcpu-8', 'n4-highcpu-16', 'n4-highcpu-32',
+                      'n4-highcpu-48', 'n4-highcpu-64', 'n4-highcpu-80', 'a2-highgpu-1g',
                       'a2-highgpu-2g', 'a2-highgpu-4g', 'a2-highgpu-8g', 'a2-megagpu-16g', 'a2-ultragpu-1g',
                       't2d-standard-1', 'a2-ultragpu-2g', 'a2-ultragpu-4g', 'a2-ultragpu-8g',
                       't2d-standard-2', 't2d-standard-4', 't2d-standard-8', 't2d-standard-16', 't2d-standard-32',
@@ -129,6 +135,7 @@ if __name__ == '__main__':
         "c2d-highmem-32": {"cpu": 32, "memory": 256, "local_ssd": 1, "network_egress": 32, "benchmark": 655657},
         "c2d-highmem-56": {"cpu": 56, "memory": 448, "local_ssd": 1, "network_egress": 32, "benchmark": 1146835},
         "c2d-highmem-112": {"cpu": 112, "memory": 896, "local_ssd": 1, "network_egress": 32, "benchmark": 2374591}}
+
 
     c3_instance_types = {
         "c3-standard-4": {"cpu":4, "memory": 16, "local_ssd": 0, "network_egress": 23, "benchmark": 80704.47},
@@ -236,6 +243,32 @@ if __name__ == '__main__':
         "n2-highcpu-64": {"cpu": 64, "memory": 64, "local_ssd": 1, "network_egress": 32, "benchmark": 1070807},
         "n2-highcpu-80": {"cpu": 80, "memory": 80, "local_ssd": 1, "network_egress": 32, "benchmark": 1329120},
         "n2-highcpu-96": {"cpu": 96, "memory": 96, "local_ssd": 1, "network_egress": 32, "benchmark": 0}}
+
+    n4_instance_types = {
+        "n4-standard-2": {"cpu": 2, "memory": 8, "local_ssd": 0, "network_egress": 10, "benchmark": 0},
+        "n4-standard-4": {"cpu": 4, "memory": 16, "local_ssd": 0, "network_egress": 10, "benchmark": 0},
+        "n4-standard-8": {"cpu": 8, "memory": 32, "local_ssd": 0, "network_egress": 16, "benchmark": 0},
+        "n4-standard-16": {"cpu": 16, "memory": 64, "local_ssd": 0, "network_egress": 32, "benchmark": 0},
+        "n4-standard-32": {"cpu": 32, "memory": 128, "local_ssd": 0, "network_egress": 32, "benchmark": 0},
+        "n4-standard-48": {"cpu": 48, "memory": 192, "local_ssd": 0, "network_egress": 32, "benchmark": 0},
+        "n4-standard-64": {"cpu": 64, "memory": 256, "local_ssd": 0, "network_egress": 45, "benchmark": 0},
+        "n4-standard-80": {"cpu": 80, "memory": 320, "local_ssd": 0, "network_egress": 50, "benchmark": 0},
+        "n4-highcpu-2": {"cpu": 2, "memory": 4, "local_ssd": 0, "network_egress": 10, "benchmark": 0},
+        "n4-highcpu-4": {"cpu": 4, "memory": 8, "local_ssd": 0, "network_egress": 10, "benchmark": 0},
+        "n4-highcpu-8": {"cpu": 8, "memory": 16, "local_ssd": 0, "network_egress": 16, "benchmark": 0},
+        "n4-highcpu-16": {"cpu": 16, "memory": 32, "local_ssd": 0, "network_egress": 32, "benchmark": 0},
+        "n4-highcpu-32": {"cpu": 32, "memory": 64, "local_ssd": 0, "network_egress": 32, "benchmark": 0},
+        "n4-highcpu-48": {"cpu": 48, "memory": 96, "local_ssd": 0, "network_egress": 32, "benchmark": 0},
+        "n4-highcpu-64": {"cpu": 64, "memory": 128, "local_ssd": 0, "network_egress": 45, "benchmark": 0},
+        "n4-highcpu-80": {"cpu": 80, "memory": 160, "local_ssd": 0, "network_egress": 50, "benchmark": 0},
+        "n4-highmem-2": {"cpu": 2, "memory": 16, "local_ssd": 0, "network_egress": 10, "benchmark": 0},
+        "n4-highmem-4": {"cpu": 4, "memory": 32, "local_ssd": 0, "network_egress": 10, "benchmark": 0},
+        "n4-highmem-8": {"cpu": 8, "memory": 64, "local_ssd": 0, "network_egress": 16, "benchmark": 0},
+        "n4-highmem-16": {"cpu": 16, "memory": 128, "local_ssd": 0, "network_egress": 32, "benchmark": 0},
+        "n4-highmem-32": {"cpu": 32, "memory": 256, "local_ssd": 0, "network_egress": 32, "benchmark": 0},
+        "n4-highmem-48": {"cpu": 48, "memory": 384, "local_ssd": 0, "network_egress": 32, "benchmark": 0},
+        "n4-highmem-64": {"cpu": 64, "memory": 512, "local_ssd": 0, "network_egress": 45, "benchmark": 0},
+        "n4-highmem-80": {"cpu": 80, "memory": 640, "local_ssd": 0, "network_egress": 50, "benchmark": 0}}
 
     e2_instance_types = {
         "e2-standard-2": {"cpu": 2, "memory": 8, "local_ssd": 0, "network_egress": 4, "benchmark": 26471},
@@ -356,7 +389,7 @@ if __name__ == '__main__':
 
     # Validate the benchmark score from GCP website, if there is a delta, print the delta to standard error (so it won't be extracted to the data.json file)
     for _instance_family in [c2_instance_types, c2d_instance_types, c3_instance_types, c3d_instance_types, m1_instance_types, m2_instance_types, m2_instance_types,
-                            m3_instance_types, n2_instance_types, e2_instance_types, n2d_instance_types, n1_instance_types, a2_instance_types, t2d_instance_types, t2a_instance_types, g2_instance_types]:
+                            m3_instance_types, n2_instance_types, n4_instance_types, e2_instance_types, n2d_instance_types, n1_instance_types, a2_instance_types, t2d_instance_types, t2a_instance_types, g2_instance_types]:
         for _instance_type in _instance_family:
             instance_coremark_result = instances_linux_coremark.get(_instance_type)
             if instance_coremark_result is None:
@@ -1176,6 +1209,44 @@ if __name__ == '__main__':
                         'memory'] * c2_ram_region_cost)
 
 
+    # n4
+    # On Demand, SUD and specs
+    n4_cpu = {'us-central1': 0.032578, 'europe-west4': 0.034206900, 'us-east4': 0.032578, 'us-east1': 0.032578, 'europe-west1': 0.035871640, 'asia-southeast1': 0.040191480}
+    n4_ram = {'asia-southeast1': 0.004567157, 'europe-west1': 0.00407627, 'europe-west4': 0.0038871, 'us-central1': 0.003702, 'us-east1': 0.003702, 'us-east4': 0.003702}
+
+    cud_cpu_oneyear = {'us-central1': 0.02052414, 'europe-west4': 0.0215504, 'us-east4': 0.02052414, 'us-east1': 0.02052414, 'europe-west1': 0.02259913, 'asia-southeast1': 0.025320630}
+    cud_ram_oneyear = {'us-central1': 0.00233226, 'europe-west4': 0.0024489, 'us-east4': 0.00233226, 'us-east1': 0.00233226, 'europe-west1': 0.00256805, 'asias-outheast1': 0.002877309}
+
+    cud_cpu_threeyear = {'us-central1': 0.0146601, 'europe-west4': 0.0153931, 'us-east4': 0.0146601, 'us-east1': 0.0146601, 'europe-west1': 0.01614224, 'asia-southeast1': 0.018086170}
+    cud_ram_threeyear = {'us-central1': 0.0016659, 'europe-west4': 0.0017492, 'us-east4': 0.0016659, 'us-east1': 0.0016659, 'europe-west1': 0.00183432, 'asia-southeast1': 0.002055221}
+
+    for k, v in n4_instance_types.items():
+        output['n4'][k]['specs'].update({'cores': v['cpu'], 'memory': v['memory'], 'local_ssd': v['local_ssd'],
+                                         'network_egress': v['network_egress'], 'benchmark': v['benchmark'],
+                                         'cpu': ['Intel Emerald Rapids'],
+                                         'regional_disk': 0, 'gpu': 0, 'sole_tenant': 1,
+                                         'nested_virtualization': 1})
+    # extract the cost manually until GCP will add the cost to the calcualtor
+    for k, v in n4_instance_types.items():
+        for reg, n4_cpu_region_cost in n4_cpu.items():
+            for reg2, n4_ram_region_cost in n4_ram.items():
+                if reg == reg2:
+                    output['n4'][k]['regions'][reg]['ondemand'] = nice(v['cpu'] * n4_cpu_region_cost + v['memory'] * n4_ram_region_cost)
+                    output['n4'][k]['regions'][reg]['sud'] = nice(v['cpu'] * n4_cpu_region_cost + v['memory'] * n4_ram_region_cost) * n4_sud_discount
+
+    # CUD - 1 year
+    for k, v in n4_instance_types.items():
+        for reg, n4_cpu_region_cost in cud_cpu_oneyear.items():
+            for reg2, n4_ram_region_cost in cud_ram_oneyear.items():
+                if reg == reg2:
+                    output['n4'][k]['regions'][reg]['cud-1y'] = nice(v['cpu'] * n4_cpu_region_cost + v['memory'] * n4_ram_region_cost)
+    # CUD - 3 year
+    for k, v in n4_instance_types.items():
+        for reg, n4_cpu_region_cost in cud_cpu_threeyear.items():
+            for reg2, n4_ram_region_cost in cud_ram_threeyear.items():
+                if reg == reg2:
+                    output['n4'][k]['regions'][reg]['cud-3y'] = nice(v['cpu'] * n4_cpu_region_cost + v[
+                        'memory'] * n4_ram_region_cost)
     # c3
     # On Demand, SUD and specs
     c3_ram = data['CP-COMPUTEENGINE-C3-PREDEFINED-VM-RAM']
