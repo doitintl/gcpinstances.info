@@ -29,13 +29,13 @@ if __name__ == '__main__':
     n2d_sud_discount = 0.8
     n4_sud_discount = 1
     c2_sud_discount = 0.8
-    c2d_sud_discount = 0.8
+    c2d_sud_discount = 1
     c3_sud_discount = 1
     c3d_sud_discount = 1
     e2_sud_discount = 1
     a2_sud_discount = 1
     t2d_sud_discount = 1
-    t2a_sud_discount = 0.7
+    t2a_sud_discount = 1
     g2_sud_discount = 1
     instances_linux_coremark = html_table_to_dict(
         'https://cloud.google.com/compute/docs/coremark-scores-of-vm-instances')
