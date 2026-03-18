@@ -3,11 +3,20 @@ import type { PricingData, CostPeriod } from './lib/types'
 import { CURRENCIES, DEFAULT_VISIBLE_COLUMNS } from './lib/types'
 import { PricingTable } from './components/PricingTable'
 import { FiltersBar } from './components/FiltersBar'
-import { Cloud, ExternalLink, Github } from 'lucide-react'
+import { McpCliPage } from './components/McpCliPage'
+import { trackPageView } from './lib/analytics'
+import { Cloud, ExternalLink, Github, Terminal } from 'lucide-react'
+
+type Page = 'home' | 'mcp-cli'
+
+function getPage(): Page {
+  return location.hash === '#mcp-cli' ? 'mcp-cli' : 'home'
+}
 
 const CURRENCY_KEYS = Object.keys(CURRENCIES)
 
 export default function App() {
+  const [page, setPage] = useState<Page>(getPage)
   const [data, setData] = useState<PricingData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -20,6 +29,12 @@ export default function App() {
   const [minVCpus, setMinVCpus] = useState(0)
   const [globalSearch, setGlobalSearch] = useState('')
   const [visibleColumns, setVisibleColumns] = useState<Record<string, boolean>>(DEFAULT_VISIBLE_COLUMNS)
+
+  useEffect(() => {
+    const onHashChange = () => setPage(getPage())
+    window.addEventListener('hashchange', onHashChange)
+    return () => window.removeEventListener('hashchange', onHashChange)
+  }, [])
 
   useEffect(() => {
     fetch('/data/pricing.json')
@@ -91,8 +106,18 @@ export default function App() {
             <span className="text-gray-500 text-sm">powered by</span>
             <img src="/DoitLogo.svg" alt="DoiT" className="h-5" />
           </div>
-          <div className="text-xs text-gray-400">
-            Last updated: {formattedDate}
+          <div className="flex items-center gap-4">
+            <div className="text-xs text-gray-400">
+              Last updated: {formattedDate}
+            </div>
+            <a
+              href="#mcp-cli"
+              onClick={() => trackPageView('mcp-cli')}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-500 text-white hover:bg-blue-400 transition-colors shadow-sm shadow-blue-500/40"
+            >
+              <Terminal className="w-3 h-3" />
+              MCP &amp; CLI
+            </a>
           </div>
         </div>
       </header>
@@ -113,41 +138,47 @@ export default function App() {
         </div>
       </div>
 
-      {/* Filters */}
-      <div className="max-w-screen-2xl mx-auto px-4 pt-4 w-full">
-        <FiltersBar
-          regions={data.regions}
-          region={region}
-          setRegion={setRegion}
-          costPeriod={costPeriod}
-          setCostPeriod={setCostPeriod}
-          currency={currency}
-          setCurrency={setCurrency}
-          currencies={CURRENCY_KEYS}
-          minMemory={minMemory}
-          setMinMemory={setMinMemory}
-          minVCpus={minVCpus}
-          setMinVCpus={setMinVCpus}
-          globalSearch={globalSearch}
-          setGlobalSearch={setGlobalSearch}
-          visibleColumns={visibleColumns}
-          setVisibleColumns={setVisibleColumns}
-          onClearFilters={handleClearFilters}
-          instanceCount={filteredInstances.length}
-          totalCount={data.instances.length}
-        />
-      </div>
+      {page === 'mcp-cli' ? (
+        <McpCliPage />
+      ) : (
+        <>
+          {/* Filters */}
+          <div className="max-w-screen-2xl mx-auto px-4 pt-4 w-full">
+            <FiltersBar
+              regions={data.regions}
+              region={region}
+              setRegion={setRegion}
+              costPeriod={costPeriod}
+              setCostPeriod={setCostPeriod}
+              currency={currency}
+              setCurrency={setCurrency}
+              currencies={CURRENCY_KEYS}
+              minMemory={minMemory}
+              setMinMemory={setMinMemory}
+              minVCpus={minVCpus}
+              setMinVCpus={setMinVCpus}
+              globalSearch={globalSearch}
+              setGlobalSearch={setGlobalSearch}
+              visibleColumns={visibleColumns}
+              setVisibleColumns={setVisibleColumns}
+              onClearFilters={handleClearFilters}
+              instanceCount={filteredInstances.length}
+              totalCount={data.instances.length}
+            />
+          </div>
 
-      {/* Table */}
-      <div className="max-w-screen-2xl mx-auto px-4 pb-8 flex-1 w-full">
-        <PricingTable
-          instances={filteredInstances}
-          region={region}
-          costPeriod={costPeriod}
-          currency={currency}
-          visibleColumns={visibleColumns}
-        />
-      </div>
+          {/* Table */}
+          <div className="max-w-screen-2xl mx-auto px-4 pb-8 flex-1 w-full">
+            <PricingTable
+              instances={filteredInstances}
+              region={region}
+              costPeriod={costPeriod}
+              currency={currency}
+              visibleColumns={visibleColumns}
+            />
+          </div>
+        </>
+      )}
 
       {/* Footer */}
       <footer className="bg-gray-900 text-gray-400 border-t border-gray-800">
