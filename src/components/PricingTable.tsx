@@ -99,7 +99,7 @@ function VirtualTable({
       className="overflow-auto rounded-xl border border-gray-200 shadow-sm bg-white"
       style={{ maxHeight: 'calc(100vh - 280px)' }}
     >
-      <table className="w-full text-left border-collapse table-fixed">
+      <table className="min-w-full text-left border-collapse table-fixed">
         <thead className="sticky top-0 z-10">
           <tr className="bg-gray-50 border-b border-gray-200">
             {table.getFlatHeaders().map((header) => (
