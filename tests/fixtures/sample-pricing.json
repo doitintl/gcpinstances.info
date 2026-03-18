@@ -1,0 +1,158 @@
+{
+  "updatedAt": "2026-03-17T06:00:00Z",
+  "regions": ["us-central1", "europe-west1"],
+  "instances": [
+    {
+      "name": "n1-standard-1",
+      "series": "N1",
+      "family": "General purpose",
+      "vCpus": 1,
+      "memoryGb": 3.75,
+      "cpuType": "Intel Skylake or later",
+      "localSsd": true,
+      "networkPerformance": null,
+      "gpuSupport": true,
+      "soleTenantSupport": true,
+      "nestedVirtualizationSupport": true,
+      "coremarkScore": null,
+      "pricing": {
+        "us-central1": {
+          "linuxOnDemand": 0.0475,
+          "linuxSud": 0.03325,
+          "linuxPreemptible": 0.01,
+          "linuxCud1yr": 0.02992,
+          "linuxCud3yr": null,
+          "windowsOnDemand": 0.0935,
+          "windowsSud": 0.07925,
+          "windowsPreemptible": 0.056,
+          "windowsCud1yr": 0.07592,
+          "windowsCud3yr": null
+        },
+        "europe-west1": {
+          "linuxOnDemand": 0.0529,
+          "linuxSud": 0.03700,
+          "linuxPreemptible": 0.012,
+          "linuxCud1yr": 0.03300,
+          "linuxCud3yr": null,
+          "windowsOnDemand": 0.0989,
+          "windowsSud": 0.08300,
+          "windowsPreemptible": 0.058,
+          "windowsCud1yr": 0.07900,
+          "windowsCud3yr": null
+        }
+      }
+    },
+    {
+      "name": "n1-standard-4",
+      "series": "N1",
+      "family": "General purpose",
+      "vCpus": 4,
+      "memoryGb": 15,
+      "cpuType": "Intel Skylake or later",
+      "localSsd": true,
+      "networkPerformance": null,
+      "gpuSupport": true,
+      "soleTenantSupport": true,
+      "nestedVirtualizationSupport": true,
+      "coremarkScore": null,
+      "pricing": {
+        "us-central1": {
+          "linuxOnDemand": 0.19,
+          "linuxSud": 0.13300,
+          "linuxPreemptible": 0.04,
+          "linuxCud1yr": 0.11968,
+          "linuxCud3yr": null,
+          "windowsOnDemand": 0.374,
+          "windowsSud": 0.31700,
+          "windowsPreemptible": 0.224,
+          "windowsCud1yr": 0.30368,
+          "windowsCud3yr": null
+        }
+      }
+    },
+    {
+      "name": "e2-micro",
+      "series": "E2",
+      "family": "General purpose",
+      "vCpus": 2,
+      "memoryGb": 1,
+      "cpuType": "Intel/AMD (auto-selected)",
+      "localSsd": false,
+      "networkPerformance": null,
+      "gpuSupport": false,
+      "soleTenantSupport": false,
+      "nestedVirtualizationSupport": false,
+      "coremarkScore": null,
+      "pricing": {
+        "us-central1": {
+          "linuxOnDemand": null,
+          "linuxSud": null,
+          "linuxPreemptible": null,
+          "linuxCud1yr": null,
+          "linuxCud3yr": null,
+          "windowsOnDemand": 0.092,
+          "windowsSud": 0.092,
+          "windowsPreemptible": null,
+          "windowsCud1yr": 0.092,
+          "windowsCud3yr": null
+        }
+      }
+    },
+    {
+      "name": "e2-standard-4",
+      "series": "E2",
+      "family": "General purpose",
+      "vCpus": 4,
+      "memoryGb": 16,
+      "cpuType": "Intel/AMD (auto-selected)",
+      "localSsd": false,
+      "networkPerformance": null,
+      "gpuSupport": false,
+      "soleTenantSupport": false,
+      "nestedVirtualizationSupport": false,
+      "coremarkScore": null,
+      "pricing": {
+        "us-central1": {
+          "linuxOnDemand": 0.168,
+          "linuxSud": 0.13456,
+          "linuxPreemptible": 0.05,
+          "linuxCud1yr": 0.08486,
+          "linuxCud3yr": null,
+          "windowsOnDemand": 0.352,
+          "windowsSud": 0.31856,
+          "windowsPreemptible": 0.234,
+          "windowsCud1yr": 0.26886,
+          "windowsCud3yr": null
+        }
+      }
+    },
+    {
+      "name": "n2-standard-8",
+      "series": "N2",
+      "family": "General purpose",
+      "vCpus": 8,
+      "memoryGb": 32,
+      "cpuType": "Intel Cascade Lake",
+      "localSsd": true,
+      "networkPerformance": null,
+      "gpuSupport": false,
+      "soleTenantSupport": true,
+      "nestedVirtualizationSupport": true,
+      "coremarkScore": null,
+      "pricing": {
+        "us-central1": {
+          "linuxOnDemand": 0.484,
+          "linuxSud": 0.38720,
+          "linuxPreemptible": 0.1,
+          "linuxCud1yr": 0.23680,
+          "linuxCud3yr": null,
+          "windowsOnDemand": 0.852,
+          "windowsSud": 0.75520,
+          "windowsPreemptible": 0.468,
+          "windowsCud1yr": 0.60480,
+          "windowsCud3yr": null
+        }
+      }
+    }
+  ]
+}

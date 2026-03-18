@@ -1,0 +1,128 @@
+[
+  {
+    "name": "services/6F81-5844-456A/skus/0048-21CE-74E2",
+    "skuId": "0048-21CE-74E2",
+    "description": "N1 Predefined Instance Core running in Americas",
+    "category": {
+      "serviceDisplayName": "Compute Engine",
+      "resourceFamily": "Compute",
+      "resourceGroup": "CPU",
+      "usageType": "OnDemand"
+    },
+    "serviceRegions": ["us-central1", "us-east1", "us-west1"],
+    "pricingInfo": [{
+      "pricingExpression": {
+        "usageUnit": "h",
+        "tieredRates": [{ "startUsageAmount": 0, "unitPrice": { "currencyCode": "USD", "units": "0", "nanos": 31611000 } }]
+      }
+    }]
+  },
+  {
+    "name": "services/6F81-5844-456A/skus/0049-21CE-74E3",
+    "skuId": "0049-21CE-74E3",
+    "description": "N1 Predefined Instance Ram running in Americas",
+    "category": {
+      "serviceDisplayName": "Compute Engine",
+      "resourceFamily": "Compute",
+      "resourceGroup": "RAM",
+      "usageType": "OnDemand"
+    },
+    "serviceRegions": ["us-central1", "us-east1", "us-west1"],
+    "pricingInfo": [{
+      "pricingExpression": {
+        "usageUnit": "GiBy.h",
+        "tieredRates": [{ "startUsageAmount": 0, "unitPrice": { "currencyCode": "USD", "units": "0", "nanos": 4237000 } }]
+      }
+    }]
+  },
+  {
+    "name": "services/6F81-5844-456A/skus/0050-21CE-74E4",
+    "skuId": "0050-21CE-74E4",
+    "description": "Commitment v1: N1 Cpu in Iowa for 1 Year",
+    "category": {
+      "serviceDisplayName": "Compute Engine",
+      "resourceFamily": "Compute",
+      "resourceGroup": "CPU",
+      "usageType": "Commit1Yr"
+    },
+    "serviceRegions": ["us-central1"],
+    "pricingInfo": [{
+      "pricingExpression": {
+        "usageUnit": "h",
+        "tieredRates": [{ "startUsageAmount": 0, "unitPrice": { "currencyCode": "USD", "units": "0", "nanos": 22128000 } }]
+      }
+    }]
+  },
+  {
+    "name": "services/6F81-5844-456A/skus/0051-21CE-74E5",
+    "skuId": "0051-21CE-74E5",
+    "description": "Licensing Fee for Windows Server 2019 Standard Edition on VM",
+    "category": {
+      "serviceDisplayName": "Compute Engine",
+      "resourceFamily": "License",
+      "resourceGroup": "Google",
+      "usageType": "OnDemand"
+    },
+    "serviceRegions": ["global"],
+    "pricingInfo": [{
+      "pricingExpression": {
+        "usageUnit": "h",
+        "tieredRates": [{ "startUsageAmount": 0, "unitPrice": { "currencyCode": "USD", "units": "0", "nanos": 46000000 } }]
+      }
+    }]
+  },
+  {
+    "name": "services/6F81-5844-456A/skus/0052-21CE-74E6",
+    "skuId": "0052-21CE-74E6",
+    "description": "E2 Instance Core running in Americas",
+    "category": {
+      "serviceDisplayName": "Compute Engine",
+      "resourceFamily": "Compute",
+      "resourceGroup": "CPU",
+      "usageType": "OnDemand"
+    },
+    "serviceRegions": ["us-central1", "us-east1", "us-west1"],
+    "pricingInfo": [{
+      "pricingExpression": {
+        "usageUnit": "h",
+        "tieredRates": [{ "startUsageAmount": 0, "unitPrice": { "currencyCode": "USD", "units": "0", "nanos": 21811600 } }]
+      }
+    }]
+  },
+  {
+    "name": "services/6F81-5844-456A/skus/0053-21CE-74E7",
+    "skuId": "0053-21CE-74E7",
+    "description": "E2 Instance Ram running in Americas",
+    "category": {
+      "serviceDisplayName": "Compute Engine",
+      "resourceFamily": "Compute",
+      "resourceGroup": "RAM",
+      "usageType": "OnDemand"
+    },
+    "serviceRegions": ["us-central1", "us-east1", "us-west1"],
+    "pricingInfo": [{
+      "pricingExpression": {
+        "usageUnit": "GiBy.h",
+        "tieredRates": [{ "startUsageAmount": 0, "unitPrice": { "currencyCode": "USD", "units": "0", "nanos": 2923500 } }]
+      }
+    }]
+  },
+  {
+    "name": "services/6F81-5844-456A/skus/F1MICRO",
+    "skuId": "F1MICRO",
+    "description": "Micro instance with burstable CPU running in Americas",
+    "category": {
+      "serviceDisplayName": "Compute Engine",
+      "resourceFamily": "Compute",
+      "resourceGroup": "F1Micro",
+      "usageType": "OnDemand"
+    },
+    "serviceRegions": ["us-central1", "us-east1", "us-west1"],
+    "pricingInfo": [{
+      "pricingExpression": {
+        "usageUnit": "h",
+        "tieredRates": [{ "startUsageAmount": 0, "unitPrice": { "currencyCode": "USD", "units": "0", "nanos": 7600000 } }]
+      }
+    }]
+  }
+]
