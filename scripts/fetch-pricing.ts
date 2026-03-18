@@ -81,6 +81,8 @@ export interface InstancePricing {
   localSsd: boolean
   networkPerformance: string | null
   gpuSupport: boolean
+  gpuCount: number | null
+  gpuType: string | null
   soleTenantSupport: boolean
   nestedVirtualizationSupport: boolean
   coremarkScore: number | null
@@ -169,31 +171,71 @@ interface WindowsLicense {
 const CPU_RE = /\bcore\b|\bcpu\b/i
 const RAM_RE = /\bram\b|\bmemory\b/i
 const SKIP_KEYWORDS_RE = /custom|sole.?tenancy|extended|sole tenancy premium/i
+
+// Series detection patterns — more specific prefixes must come before broader ones.
+// C3D is handled separately before this list (see parseSkus) to avoid C3 matching first.
 const SERIES_PATTERNS: [RegExp, string][] = [
-  [/^C3\s+/i,             'C3'],
-  [/^C2D\s+/i,            'C2D'],
-  [/^C2\s+/i,             'C2'],
+  [/^A3Mega\s+/i,            'A3Mega'],
+  [/^A3\s+/i,               'A3'],
+  [/^A2\s+/i,               'A2'],
+  [/^G2\s+/i,               'G2'],
+  [/^C4\s+/i,               'C4'],
+  [/^C3\s+/i,               'C3'],
+  [/^C2D\s+/i,              'C2D'],
+  [/^C2\s+/i,               'C2'],
   [/^Compute[ -]optimized/i, 'C2'],
-  [/^N4\s+/i,             'N4'],
-  [/^N2D\s+/i,            'N2D'],
-  [/^N2\s+/i,             'N2'],
-  [/^N1\s+/i,             'N1'],
-  [/^E2\s+/i,             'E2'],
-  [/^T2D\s+/i,            'T2D'],
-  [/^T2A\s+/i,            'T2A'],
-  [/^M3\s+/i,             'M3'],
-  [/^M2\s+/i,             'M2'],
-  [/^M1\s+/i,             'M1'],
-  [/^Memory[ -]optimized/i, 'M1'],
+  [/^H3\s+/i,               'H3'],
+  [/^N4\s+/i,               'N4'],
+  [/^N2D\s+/i,              'N2D'],
+  [/^N2\s+/i,               'N2'],
+  [/^N1\s+/i,               'N1'],
+  [/^E2\s+/i,               'E2'],
+  [/^T2D\s+/i,              'T2D'],
+  [/^T2A\s+/i,              'T2A'],
+  [/^M3\s+/i,               'M3'],
+  [/^M2\s+/i,               'M2'],
+  [/^M1\s+/i,               'M1'],
+  [/^Memory[ -]optimized/i,  'M1'],
 ]
+
+// Maps GPU SKU description patterns to canonical GpuType keys (from machine-types.ts).
+// More specific patterns must come before broader ones (e.g. A100 80GB before A100, H100 Mega before H100).
+const GPU_TYPE_PATTERNS: [RegExp, string][] = [
+  [/A100 80GB/i,          'A100_80GB'],
+  [/A100 40GB/i,          'A100_40GB'],
+  [/A100/i,               'A100_40GB'],  // fallback for unqualified A100 (most are 40GB)
+  [/H100.*Mega|Mega.*H100/i, 'H100_MEGA_80GB'],
+  [/H100/i,               'H100_80GB'],
+  [/\bL4\b/i,             'L4'],
+  [/B200/i,               'B200'],
+]
+
+function matchGpuType(description: string): string | null {
+  for (const [pattern, gpuType] of GPU_TYPE_PATTERNS) {
+    if (pattern.test(description)) return gpuType
+  }
+  return null
+}
+
+// GPU rates keyed as `${gpuType}:${region}:${usageType}` → price per GPU-hour
+type GpuRateKey = string
+
+interface GpuRate {
+  gpuType: string
+  region: string
+  usageType: ResourceRate['usageType']
+  pricePerGpu: number
+}
 
 function parseSkus(skus: RawSku[]): {
   rates: Map<PriceKey, ResourceRate>
+  gpuRates: Map<GpuRateKey, GpuRate>
   windowsLicenses: WindowsLicense[]
   f1MicroRates: Map<string, { linux: number | null; cud1yr: number | null }>
   g1SmallRates: Map<string, { linux: number | null; cud1yr: number | null }>
 } {
   const rates = new Map<PriceKey, ResourceRate>()
+  const gpuRates = new Map<GpuRateKey, GpuRate>()
   const windowsLicenses: WindowsLicense[] = []
   const f1MicroRates = new Map<string, { linux: number | null; cud1yr: number | null }>()
   const g1SmallRates = new Map<string, { linux: number | null; cud1yr: number | null }>()
@@ -253,6 +295,30 @@ function parseSkus(skus: RawSku[]): {
         if (isCud) existing.cud1yr = price
         else existing.linux = price
         g1SmallRates.set(region, existing)
+      }
+      continue
+    }
+
+    // --- GPU SKUs (resourceGroup 'GPU') ---
+    // Price is per GPU-hour; keyed by gpu type + region + usage type
+    if (rg === 'GPU') {
+      const gpuType = matchGpuType(description)
+      if (!gpuType) continue
+
+      const regions = serviceRegions.filter(isSpecificRegion)
+      if (!regions.length) continue
+
+      let parsedUsageType: ResourceRate['usageType']
+      if (usageType === 'Preemptible') parsedUsageType = 'Preemptible'
+      else if (usageType === 'Commit1Yr') parsedUsageType = 'Cud1yr'
+      else if (usageType === 'Commit3Yr') parsedUsageType = 'Cud3yr'
+      else parsedUsageType = 'OnDemand'
+
+      for (const region of regions) {
+        const key: GpuRateKey = `${gpuType}:${region}:${parsedUsageType}`
+        if (!gpuRates.has(key)) {
+          gpuRates.set(key, { gpuType, region, usageType: parsedUsageType, pricePerGpu: price })
+        }
       }
       continue
     }
@@ -322,7 +388,7 @@ function parseSkus(skus: RawSku[]): {
     }
   }
 
-  return { rates, windowsLicenses, f1MicroRates, g1SmallRates }
+  return { rates, gpuRates, windowsLicenses, f1MicroRates, g1SmallRates }
 }
 
 // ----- Price calculation -----
@@ -343,8 +409,18 @@ function calcWindowsLicensePremium(vCpus: number, perVcpuRate: number): number {
   return perVcpuRate * vCpus
 }
 
+function getGpuRate(
+  gpuRates: Map<GpuRateKey, GpuRate>,
+  gpuType: string,
+  region: string,
+  usageType: ResourceRate['usageType'],
+): number | null {
+  return gpuRates.get(`${gpuType}:${region}:${usageType}`)?.pricePerGpu ?? null
+}
+
 function buildPricingTable(
   rates: Map<PriceKey, ResourceRate>,
+  gpuRates: Map<GpuRateKey, GpuRate>,
   windowsLicenses: WindowsLicense[],
   f1MicroRates: Map<string, { linux: number | null; cud1yr: number | null }>,
   g1SmallRates: Map<string, { linux: number | null; cud1yr: number | null }>,
@@ -400,28 +476,67 @@ function buildPricingTable(
       }
 
       const { series, vCpus, memoryGb } = spec
+      const gpuCount = spec.gpuCount ?? 0
+      const gpuType = spec.gpuType ?? null
 
+      // CPU and RAM on-demand rates are required — skip region if missing
       const linuxCpuOD = getRate(rates, series, 'cpu', region, 'OnDemand', 'linux')
       const linuxRamOD = getRate(rates, series, 'ram', region, 'OnDemand', 'linux')
       if (linuxCpuOD === null || linuxRamOD === null) continue
 
-      const linuxOD = round(vCpus * linuxCpuOD + memoryGb * linuxRamOD)
-      const linuxSud = round(getSudRate(series, linuxOD))
-      const linuxPreemptible = calcRate(
-        getRate(rates, series, 'cpu', region, 'Preemptible', 'linux'),
-        getRate(rates, series, 'ram', region, 'Preemptible', 'linux'),
-        vCpus, memoryGb,
-      )
-      const linuxCud1yr = calcRate(
-        getRate(rates, series, 'cpu', region, 'Cud1yr', 'linux'),
-        getRate(rates, series, 'ram', region, 'Cud1yr', 'linux'),
-        vCpus, memoryGb,
-      )
-      const linuxCud3yr = calcRate(
-        getRate(rates, series, 'cpu', region, 'Cud3yr', 'linux'),
-        getRate(rates, series, 'ram', region, 'Cud3yr', 'linux'),
-        vCpus, memoryGb,
-      )
+      // GPU on-demand rate is required for GPU instances — skip region if missing
+      const gpuOnDemandRate = gpuCount > 0 && gpuType
+        ? getGpuRate(gpuRates, gpuType, region, 'OnDemand')
+        : 0
+      if (gpuCount > 0 && gpuOnDemandRate === null) continue
+
+      // Returns the GPU add-on cost for a given usage tier.
+      // Falls back to null (not 0) if a GPU CUD rate doesn't exist — showing null pricing
+      // is more accurate than showing on-demand GPU cost inside a CUD price.
+      const gpuAddon = (usageType: ResourceRate['usageType']): number | null => {
+        if (gpuCount === 0 || gpuType === null) return 0
+        const rate = getGpuRate(gpuRates, gpuType, region, usageType)
+        return rate !== null ? gpuCount * rate : null
+      }
+
+      // Base compute price (CPU + RAM), before GPU add-on.
+      // SUD is computed on the base price only (GPU cost does not get SUD).
+      const baseLinuxOD = vCpus * linuxCpuOD + memoryGb * linuxRamOD
+      const linuxOD = round(baseLinuxOD + gpuCount * (gpuOnDemandRate as number))
+      const linuxSud = round(getSudRate(series, baseLinuxOD) + gpuCount * (gpuOnDemandRate as number))
+
+      const gpuPreemptible = gpuAddon('Preemptible')
+      const linuxPreemptible = (() => {
+        const base = calcRate(
+          getRate(rates, series, 'cpu', region, 'Preemptible', 'linux'),
+          getRate(rates, series, 'ram', region, 'Preemptible', 'linux'),
+          vCpus, memoryGb,
+        )
+        if (base === null || gpuPreemptible === null) return null
+        return round(base + gpuPreemptible)
+      })()
+
+      const gpuCud1yr = gpuAddon('Cud1yr')
+      const linuxCud1yr = (() => {
+        const base = calcRate(
+          getRate(rates, series, 'cpu', region, 'Cud1yr', 'linux'),
+          getRate(rates, series, 'ram', region, 'Cud1yr', 'linux'),
+          vCpus, memoryGb,
+        )
+        if (base === null || gpuCud1yr === null) return null
+        return round(base + gpuCud1yr)
+      })()
+
+      const gpuCud3yr = gpuAddon('Cud3yr')
+      const linuxCud3yr = (() => {
+        const base = calcRate(
+          getRate(rates, series, 'cpu', region, 'Cud3yr', 'linux'),
+          getRate(rates, series, 'ram', region, 'Cud3yr', 'linux'),
+          vCpus, memoryGb,
+        )
+        if (base === null || gpuCud3yr === null) return null
+        return round(base + gpuCud3yr)
+      })()
 
       const wp = calcWindowsLicensePremium(vCpus, windowsPerVcpuRate)
 
@@ -454,6 +569,8 @@ function buildPricingTable(
       localSsd: spec.localSsd ?? seriesDefaults.localSsd ?? false,
       networkPerformance: spec.networkBandwidth ?? seriesDefaults.networkBandwidth ?? null,
       gpuSupport: spec.gpuSupport ?? seriesDefaults.gpuSupport ?? false,
+      gpuCount: spec.gpuCount ?? null,
+      gpuType: spec.gpuType ?? null,
       soleTenantSupport: spec.soleTenantSupport ?? seriesDefaults.soleTenantSupport ?? false,
       nestedVirtualizationSupport: spec.nestedVirtualization ?? seriesDefaults.nestedVirtualization ?? false,
       coremarkScore: spec.coremarkScore ?? null,
@@ -472,12 +589,12 @@ async function main() {
   console.log(`Total SKUs fetched: ${skus.length}`)
 
   console.log('Parsing SKUs...')
-  const { rates, windowsLicenses, f1MicroRates, g1SmallRates } = parseSkus(skus)
-  console.log(`Parsed ${rates.size} resource rates`)
+  const { rates, gpuRates, windowsLicenses, f1MicroRates, g1SmallRates } = parseSkus(skus)
+  console.log(`Parsed ${rates.size} resource rates, ${gpuRates.size} GPU rates`)
   console.log(`Windows licenses: ${windowsLicenses.length}`)
 
   console.log('Building pricing table...')
-  const instances = buildPricingTable(rates, windowsLicenses, f1MicroRates, g1SmallRates)
+  const instances = buildPricingTable(rates, gpuRates, windowsLicenses, f1MicroRates, g1SmallRates)
   console.log(`Built pricing for ${instances.length} machine types`)
 
   // Collect regions from all instances

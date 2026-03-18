@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useRef } from 'react'
+import { useState, useMemo, useCallback, useRef, memo } from 'react'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import {
   useReactTable,
@@ -45,31 +45,23 @@ function PriceCell({ value }: { value: string }) {
   )
 }
 
-function RowCheckbox({ name, selectedRef, toggle }: {
+// Memoized so only the toggled row re-renders when selectedRows changes
+const RowCheckbox = memo(function RowCheckbox({ name, isSelected, toggle }: {
   name: string
-  selectedRef: React.RefObject<Set<string>>
+  isSelected: boolean
   toggle: (name: string) => void
 }) {
-  const [checked, setChecked] = useState(false)
-  const handleChange = useCallback(() => {
-    toggle(name)
-    setChecked((c) => !c)
-  }, [name, toggle])
-
-  // Sync with external state (e.g. after clear)
-  const isSelected = selectedRef.current?.has(name) ?? false
-  if (isSelected !== checked) setChecked(isSelected)
-
+  const handleChange = useCallback(() => toggle(name), [name, toggle])
   return (
     <input
       type="checkbox"
-      checked={checked}
+      checked={isSelected}
       onChange={handleChange}
       className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
       aria-label={`Select ${name}`}
     />
   )
-}
+})
 
 const ROW_HEIGHT = 41
 
@@ -197,9 +189,6 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
   const [compareOpen, setCompareOpen] = useState(false)
-  const selectedRef = useRef(selectedRows)
-  selectedRef.current = selectedRows
-
   const toggleRow = useCallback((name: string) => {
     setSelectedRows((prev) => {
       const next = new Set(prev)
@@ -215,7 +204,7 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
       id: 'select',
       header: () => null,
       cell: ({ row }) => (
-        <RowCheckbox name={row.original.name} selectedRef={selectedRef} toggle={toggleRow} />
+        <RowCheckbox name={row.original.name} isSelected={selectedRows.has(row.original.name)} toggle={toggleRow} />
       ),
       size: 36,
       enableSorting: false,
@@ -279,7 +268,7 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
         enableColumnFilter: false,
       }),
     ),
-  ], [region, currency, costPeriod, toggleRow])
+  ], [region, currency, costPeriod, toggleRow, selectedRows])
 
   const columnVisibility = useMemo(() => {
     const vis: Record<string, boolean> = {}

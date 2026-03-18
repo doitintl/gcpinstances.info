@@ -22,6 +22,8 @@ export interface Instance {
   localSsd: boolean
   networkPerformance: string | null
   gpuSupport: boolean
+  gpuCount: number | null   // number of GPUs attached (null for non-GPU instances)
+  gpuType: string | null    // canonical GPU model string (e.g. 'H100_80GB')
   soleTenantSupport: boolean
   nestedVirtualizationSupport: boolean
   coremarkScore: number | null

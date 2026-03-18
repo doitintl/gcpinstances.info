@@ -1,3 +1,7 @@
+// Canonical GPU type identifiers — used as keys in gpuRates lookup
+// Values must match the patterns in GPU_TYPE_PATTERNS in fetch-pricing.ts
+export type GpuType = 'A100_40GB' | 'A100_80GB' | 'H100_80GB' | 'H100_MEGA_80GB' | 'L4' | 'B200'
+
 export interface MachineTypeSpec {
   name: string
   series: string
@@ -9,6 +13,8 @@ export interface MachineTypeSpec {
   localSsd?: boolean
   networkBandwidth?: string  // e.g. "Up to 32 Gbps"
   gpuSupport?: boolean
+  gpuCount?: number        // number of GPUs attached to this machine type
+  gpuType?: GpuType        // canonical GPU type, must be set when gpuCount > 0
   soleTenantSupport?: boolean
   nestedVirtualization?: boolean
   coremarkScore?: number
@@ -28,6 +34,13 @@ export const SERIES_SPECS: Record<string, Partial<MachineTypeSpec>> = {
   C2:  { cpuType: 'Intel Cascade Lake', localSsd: true, gpuSupport: false, soleTenantSupport: true, nestedVirtualization: true },
   C2D: { cpuType: 'AMD EPYC Milan', localSsd: true, gpuSupport: false, soleTenantSupport: true, nestedVirtualization: true },
   C3:  { cpuType: 'Intel Sapphire Rapids', localSsd: true, gpuSupport: false, soleTenantSupport: true, nestedVirtualization: true },
+  C3D: { cpuType: 'AMD EPYC Genoa', localSsd: true, gpuSupport: false, soleTenantSupport: true, nestedVirtualization: true },
+  C4:  { cpuType: 'Intel Emerald Rapids', localSsd: true, gpuSupport: false, soleTenantSupport: true, nestedVirtualization: true },
+  H3:  { cpuType: 'Intel Sapphire Rapids (HBM2e)', localSsd: true, gpuSupport: false, soleTenantSupport: false, nestedVirtualization: false },
+  A2:  { cpuType: 'Intel Cascade Lake', localSsd: false, gpuSupport: true, soleTenantSupport: false, nestedVirtualization: false },
+  A3:     { cpuType: 'Intel Sapphire Rapids', localSsd: false, gpuSupport: true, soleTenantSupport: false, nestedVirtualization: false },
+  A3Mega: { cpuType: 'Intel Sapphire Rapids', localSsd: false, gpuSupport: true, soleTenantSupport: false, nestedVirtualization: false },
+  G2:  { cpuType: 'Intel Cascade Lake', localSsd: true, gpuSupport: true, soleTenantSupport: false, nestedVirtualization: false },
   M1:  { cpuType: 'Intel Skylake', localSsd: true, gpuSupport: false, soleTenantSupport: true, nestedVirtualization: false },
   M2:  { cpuType: 'Intel Cascade Lake', localSsd: false, gpuSupport: false, soleTenantSupport: true, nestedVirtualization: false },
   M3:  { cpuType: 'Intel Ice Lake', localSsd: true, gpuSupport: false, soleTenantSupport: true, nestedVirtualization: false },
@@ -260,6 +273,99 @@ export const MACHINE_TYPES: MachineTypeSpec[] = [
   { name: 'n4-highmem-48',  series: 'N4', family: 'General purpose', vCpus: 48, memoryGb: 384 },
   { name: 'n4-highmem-64',  series: 'N4', family: 'General purpose', vCpus: 64, memoryGb: 512 },
   { name: 'n4-highmem-80',  series: 'N4', family: 'General purpose', vCpus: 80, memoryGb: 640 },
+
+  // --- C3D (AMD EPYC Genoa) ---
+  // Standard: 4 GB/vCPU | Highcpu: 2 GB/vCPU | Highmem: 8 GB/vCPU
+  // Sizes: 4, 8, 16, 30, 60, 90, 180, 360 vCPUs
+  { name: 'c3d-standard-4',   series: 'C3D', family: 'Compute optimized', vCpus: 4,   memoryGb: 16 },
+  { name: 'c3d-standard-8',   series: 'C3D', family: 'Compute optimized', vCpus: 8,   memoryGb: 32 },
+  { name: 'c3d-standard-16',  series: 'C3D', family: 'Compute optimized', vCpus: 16,  memoryGb: 64 },
+  { name: 'c3d-standard-30',  series: 'C3D', family: 'Compute optimized', vCpus: 30,  memoryGb: 120 },
+  { name: 'c3d-standard-60',  series: 'C3D', family: 'Compute optimized', vCpus: 60,  memoryGb: 240 },
+  { name: 'c3d-standard-90',  series: 'C3D', family: 'Compute optimized', vCpus: 90,  memoryGb: 360 },
+  { name: 'c3d-standard-180', series: 'C3D', family: 'Compute optimized', vCpus: 180, memoryGb: 720 },
+  { name: 'c3d-standard-360', series: 'C3D', family: 'Compute optimized', vCpus: 360, memoryGb: 1440 },
+  { name: 'c3d-highcpu-4',    series: 'C3D', family: 'Compute optimized', vCpus: 4,   memoryGb: 8 },
+  { name: 'c3d-highcpu-8',    series: 'C3D', family: 'Compute optimized', vCpus: 8,   memoryGb: 16 },
+  { name: 'c3d-highcpu-16',   series: 'C3D', family: 'Compute optimized', vCpus: 16,  memoryGb: 32 },
+  { name: 'c3d-highcpu-30',   series: 'C3D', family: 'Compute optimized', vCpus: 30,  memoryGb: 60 },
+  { name: 'c3d-highcpu-60',   series: 'C3D', family: 'Compute optimized', vCpus: 60,  memoryGb: 120 },
+  { name: 'c3d-highcpu-90',   series: 'C3D', family: 'Compute optimized', vCpus: 90,  memoryGb: 180 },
+  { name: 'c3d-highcpu-180',  series: 'C3D', family: 'Compute optimized', vCpus: 180, memoryGb: 360 },
+  { name: 'c3d-highcpu-360',  series: 'C3D', family: 'Compute optimized', vCpus: 360, memoryGb: 720 },
+  { name: 'c3d-highmem-4',    series: 'C3D', family: 'Compute optimized', vCpus: 4,   memoryGb: 32 },
+  { name: 'c3d-highmem-8',    series: 'C3D', family: 'Compute optimized', vCpus: 8,   memoryGb: 64 },
+  { name: 'c3d-highmem-16',   series: 'C3D', family: 'Compute optimized', vCpus: 16,  memoryGb: 128 },
+  { name: 'c3d-highmem-30',   series: 'C3D', family: 'Compute optimized', vCpus: 30,  memoryGb: 240 },
+  { name: 'c3d-highmem-60',   series: 'C3D', family: 'Compute optimized', vCpus: 60,  memoryGb: 480 },
+  { name: 'c3d-highmem-90',   series: 'C3D', family: 'Compute optimized', vCpus: 90,  memoryGb: 720 },
+  { name: 'c3d-highmem-180',  series: 'C3D', family: 'Compute optimized', vCpus: 180, memoryGb: 1440 },
+  { name: 'c3d-highmem-360',  series: 'C3D', family: 'Compute optimized', vCpus: 360, memoryGb: 2880 },
+
+  // --- C4 (Intel Emerald Rapids) ---
+  // Standard: 4 GB/vCPU | Highcpu: 2 GB/vCPU | Highmem: 8 GB/vCPU
+  // Sizes: 2, 4, 8, 16, 32, 48, 96, 192 vCPUs
+  { name: 'c4-standard-2',   series: 'C4', family: 'Compute optimized', vCpus: 2,   memoryGb: 8 },
+  { name: 'c4-standard-4',   series: 'C4', family: 'Compute optimized', vCpus: 4,   memoryGb: 16 },
+  { name: 'c4-standard-8',   series: 'C4', family: 'Compute optimized', vCpus: 8,   memoryGb: 32 },
+  { name: 'c4-standard-16',  series: 'C4', family: 'Compute optimized', vCpus: 16,  memoryGb: 64 },
+  { name: 'c4-standard-32',  series: 'C4', family: 'Compute optimized', vCpus: 32,  memoryGb: 128 },
+  { name: 'c4-standard-48',  series: 'C4', family: 'Compute optimized', vCpus: 48,  memoryGb: 192 },
+  { name: 'c4-standard-96',  series: 'C4', family: 'Compute optimized', vCpus: 96,  memoryGb: 384 },
+  { name: 'c4-standard-192', series: 'C4', family: 'Compute optimized', vCpus: 192, memoryGb: 768 },
+  { name: 'c4-highcpu-2',    series: 'C4', family: 'Compute optimized', vCpus: 2,   memoryGb: 4 },
+  { name: 'c4-highcpu-4',    series: 'C4', family: 'Compute optimized', vCpus: 4,   memoryGb: 8 },
+  { name: 'c4-highcpu-8',    series: 'C4', family: 'Compute optimized', vCpus: 8,   memoryGb: 16 },
+  { name: 'c4-highcpu-16',   series: 'C4', family: 'Compute optimized', vCpus: 16,  memoryGb: 32 },
+  { name: 'c4-highcpu-32',   series: 'C4', family: 'Compute optimized', vCpus: 32,  memoryGb: 64 },
+  { name: 'c4-highcpu-48',   series: 'C4', family: 'Compute optimized', vCpus: 48,  memoryGb: 96 },
+  { name: 'c4-highcpu-96',   series: 'C4', family: 'Compute optimized', vCpus: 96,  memoryGb: 192 },
+  { name: 'c4-highcpu-192',  series: 'C4', family: 'Compute optimized', vCpus: 192, memoryGb: 384 },
+  { name: 'c4-highmem-2',    series: 'C4', family: 'Compute optimized', vCpus: 2,   memoryGb: 16 },
+  { name: 'c4-highmem-4',    series: 'C4', family: 'Compute optimized', vCpus: 4,   memoryGb: 32 },
+  { name: 'c4-highmem-8',    series: 'C4', family: 'Compute optimized', vCpus: 8,   memoryGb: 64 },
+  { name: 'c4-highmem-16',   series: 'C4', family: 'Compute optimized', vCpus: 16,  memoryGb: 128 },
+  { name: 'c4-highmem-32',   series: 'C4', family: 'Compute optimized', vCpus: 32,  memoryGb: 256 },
+  { name: 'c4-highmem-48',   series: 'C4', family: 'Compute optimized', vCpus: 48,  memoryGb: 384 },
+  { name: 'c4-highmem-96',   series: 'C4', family: 'Compute optimized', vCpus: 96,  memoryGb: 768 },
+  { name: 'c4-highmem-192',  series: 'C4', family: 'Compute optimized', vCpus: 192, memoryGb: 1536 },
+
+  // --- H3 (Intel Sapphire Rapids + HBM2e, HPC optimized) ---
+  { name: 'h3-standard-88', series: 'H3', family: 'High performance computing', vCpus: 88, memoryGb: 352 },
+
+  // --- A2 (Intel Cascade Lake + NVIDIA A100) ---
+  // Highgpu: A100 40GB GPUs | Ultragpu: A100 80GB GPUs | Megagpu: 16× A100 40GB
+  // Pricing = vCPU rate + RAM rate + GPU rate × gpuCount
+  { name: 'a2-highgpu-1g',   series: 'A2', family: 'Accelerator optimized', vCpus: 12, memoryGb: 85,   gpuCount: 1,  gpuType: 'A100_40GB' },
+  { name: 'a2-highgpu-2g',   series: 'A2', family: 'Accelerator optimized', vCpus: 24, memoryGb: 170,  gpuCount: 2,  gpuType: 'A100_40GB' },
+  { name: 'a2-highgpu-4g',   series: 'A2', family: 'Accelerator optimized', vCpus: 48, memoryGb: 340,  gpuCount: 4,  gpuType: 'A100_40GB' },
+  { name: 'a2-highgpu-8g',   series: 'A2', family: 'Accelerator optimized', vCpus: 96, memoryGb: 680,  gpuCount: 8,  gpuType: 'A100_40GB' },
+  { name: 'a2-megagpu-16g',  series: 'A2', family: 'Accelerator optimized', vCpus: 96, memoryGb: 1360, gpuCount: 16, gpuType: 'A100_40GB' },
+  { name: 'a2-ultragpu-1g',  series: 'A2', family: 'Accelerator optimized', vCpus: 12, memoryGb: 170,  gpuCount: 1,  gpuType: 'A100_80GB' },
+  { name: 'a2-ultragpu-2g',  series: 'A2', family: 'Accelerator optimized', vCpus: 24, memoryGb: 340,  gpuCount: 2,  gpuType: 'A100_80GB' },
+  { name: 'a2-ultragpu-4g',  series: 'A2', family: 'Accelerator optimized', vCpus: 48, memoryGb: 680,  gpuCount: 4,  gpuType: 'A100_80GB' },
+  { name: 'a2-ultragpu-8g',  series: 'A2', family: 'Accelerator optimized', vCpus: 96, memoryGb: 1360, gpuCount: 8,  gpuType: 'A100_80GB' },
+
+  // --- A3 (Intel Sapphire Rapids + NVIDIA H100) ---
+  // Highgpu: H100 80GB SXM | Megagpu: H100 80GB SXM5 (NVLink fabric — distinct billing SKU)
+  { name: 'a3-highgpu-1g',  series: 'A3', family: 'Accelerator optimized', vCpus: 26,  memoryGb: 234,  gpuCount: 1, gpuType: 'H100_80GB' },
+  { name: 'a3-highgpu-2g',  series: 'A3', family: 'Accelerator optimized', vCpus: 52,  memoryGb: 468,  gpuCount: 2, gpuType: 'H100_80GB' },
+  { name: 'a3-highgpu-4g',  series: 'A3', family: 'Accelerator optimized', vCpus: 104, memoryGb: 936,  gpuCount: 4, gpuType: 'H100_80GB' },
+  { name: 'a3-highgpu-8g',  series: 'A3', family: 'Accelerator optimized', vCpus: 208, memoryGb: 1872, gpuCount: 8, gpuType: 'H100_80GB' },
+  { name: 'a3-megagpu-8g',  series: 'A3Mega', family: 'Accelerator optimized', vCpus: 208, memoryGb: 1872, gpuCount: 8, gpuType: 'H100_MEGA_80GB' },
+
+  // --- G2 (Intel Cascade Lake + NVIDIA L4) ---
+  // GPU count scales with vCPU count: ≤16 vCPUs → 1×L4, 24 → 2×, 48 → 4×, 96 → 8×
+  { name: 'g2-standard-4',  series: 'G2', family: 'Accelerator optimized', vCpus: 4,  memoryGb: 16,  gpuCount: 1, gpuType: 'L4' },
+  { name: 'g2-standard-8',  series: 'G2', family: 'Accelerator optimized', vCpus: 8,  memoryGb: 32,  gpuCount: 1, gpuType: 'L4' },
+  { name: 'g2-standard-12', series: 'G2', family: 'Accelerator optimized', vCpus: 12, memoryGb: 48,  gpuCount: 1, gpuType: 'L4' },
+  { name: 'g2-standard-16', series: 'G2', family: 'Accelerator optimized', vCpus: 16, memoryGb: 64,  gpuCount: 1, gpuType: 'L4' },
+  { name: 'g2-standard-24', series: 'G2', family: 'Accelerator optimized', vCpus: 24, memoryGb: 96,  gpuCount: 2, gpuType: 'L4' },
+  { name: 'g2-standard-48', series: 'G2', family: 'Accelerator optimized', vCpus: 48, memoryGb: 192, gpuCount: 4, gpuType: 'L4' },
+  { name: 'g2-standard-96', series: 'G2', family: 'Accelerator optimized', vCpus: 96, memoryGb: 384, gpuCount: 8, gpuType: 'L4' },
+
+  // TODO: A4 (NVIDIA B200) — specs not yet confirmed, add once published
+  // TODO: Z3 (storage-optimized), X4 (memory-optimized) — specs to be added
 ]
 
 // Index by name for fast lookup
