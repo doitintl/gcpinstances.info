@@ -10,25 +10,30 @@ import {
   type SortingState,
   type ColumnFiltersState,
 } from '@tanstack/react-table'
-import type { Instance, CostPeriod, RegionPricing } from '../lib/types'
-import { ALL_COLUMNS } from '../lib/types'
+import type { CloudSqlInstance, CostPeriod, CloudSqlRegionPricing } from '../lib/types'
+import { CLOUDSQL_COLUMNS } from '../lib/types'
 import { formatPrice, formatMemory, formatVCpus, cn } from '../lib/utils'
 import { CompareDialog } from './CompareDialog'
+import type { AnyInstance } from './CompareDialog'
+
+const CLOUDSQL_BASE_ROWS: { label: string; get: (i: AnyInstance) => string }[] = [
+  { label: 'vCPUs', get: (i) => formatVCpus(i.vCpus) },
+  { label: 'Memory', get: (i) => formatMemory(i.memoryGb) },
+  { label: 'Series', get: (i) => i.series },
+  { label: 'Tier', get: (i) => (i as CloudSqlInstance).tier ?? '' },
+]
 import { ExportCsv } from './ExportCsv'
 import { ArrowUpDown, ArrowUp, ArrowDown, GitCompare } from 'lucide-react'
 
 interface Props {
-  instances: Instance[]
+  instances: CloudSqlInstance[]
   region: string
   costPeriod: CostPeriod
   currency: string
   visibleColumns: Record<string, boolean>
 }
 
-const columnHelper = createColumnHelper<Instance>()
-
-const PRICING_COLS = ALL_COLUMNS.filter((c) => c.group === 'linux' || c.group === 'windows')
-const SPEC_COLS = ALL_COLUMNS.filter((c) => c.group === 'spec')
+const columnHelper = createColumnHelper<CloudSqlInstance>()
 
 function SortIcon({ isSorted }: { isSorted: false | 'asc' | 'desc' }) {
   if (isSorted === 'asc') return <ArrowUp className="w-3 h-3 ml-1 inline-block" />
@@ -45,7 +50,6 @@ function PriceCell({ value }: { value: string }) {
   )
 }
 
-// Memoized so only the toggled row re-renders when selectedRows changes
 const RowCheckbox = memo(function RowCheckbox({ name, isSelected, toggle }: {
   name: string
   isSelected: boolean
@@ -71,8 +75,8 @@ function VirtualTable({
   selectedRows,
   toggleRow,
 }: {
-  table: ReturnType<typeof useReactTable<Instance>>
-  visibleRows: ReturnType<ReturnType<typeof useReactTable<Instance>>['getRowModel']>['rows']
+  table: ReturnType<typeof useReactTable<CloudSqlInstance>>
+  visibleRows: ReturnType<ReturnType<typeof useReactTable<CloudSqlInstance>>['getRowModel']>['rows']
   selectedRows: Set<string>
   toggleRow: (name: string) => void
 }) {
@@ -138,7 +142,6 @@ function VirtualTable({
             </tr>
           ) : (
             <>
-              {/* Spacer for virtual rows above viewport */}
               {virtualizer.getVirtualItems().length > 0 && virtualizer.getVirtualItems()[0].start > 0 && (
                 <tr><td colSpan={table.getFlatHeaders().length} style={{ height: virtualizer.getVirtualItems()[0].start, padding: 0 }} /></tr>
               )}
@@ -169,7 +172,6 @@ function VirtualTable({
                   </tr>
                 )
               })}
-              {/* Spacer for virtual rows below viewport */}
               {virtualizer.getVirtualItems().length > 0 && (
                 <tr><td colSpan={table.getFlatHeaders().length} style={{
                   height: virtualizer.getTotalSize() - (virtualizer.getVirtualItems().at(-1)?.start ?? 0) - (virtualizer.getVirtualItems().at(-1)?.size ?? 0),
@@ -184,11 +186,12 @@ function VirtualTable({
   )
 }
 
-export function PricingTable({ instances, region, costPeriod, currency, visibleColumns }: Props) {
+export function CloudSqlPricingTable({ instances, region, costPeriod, currency, visibleColumns }: Props) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
   const [compareOpen, setCompareOpen] = useState(false)
+
   const toggleRow = useCallback((name: string) => {
     setSelectedRows((prev) => {
       const next = new Set(prev)
@@ -198,7 +201,6 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
     })
   }, [])
 
-  // Columns no longer depend on selectedRows — checkbox state is local to RowCheckbox
   const columns = useMemo(() => [
     columnHelper.display({
       id: 'select',
@@ -210,12 +212,12 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
       enableSorting: false,
     }),
     columnHelper.accessor('name', {
-      header: 'Machine type',
+      header: 'Instance type',
       cell: (info) => (
         <span className="font-medium font-mono text-sm text-gray-900">{info.getValue()}</span>
       ),
       filterFn: 'includesString',
-      size: 180,
+      size: 200,
     }),
     columnHelper.accessor('vCpus', {
       header: 'vCPUs',
@@ -240,59 +242,29 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
       filterFn: (row, _colId, filterValue) => row.original.memoryGb >= Number(filterValue || 0),
       size: 110,
     }),
-    // Spec columns
-    ...SPEC_COLS.map((col) =>
-      columnHelper.accessor((inst) => (inst as unknown as Record<string, unknown>)[col.id] as string | number | boolean | null, {
-        id: col.id,
-        header: col.label,
-        cell: ({ getValue }) => {
-          const val = getValue()
-          if (typeof val === 'boolean') return <span className="text-sm text-gray-700">{val ? 'Yes' : 'No'}</span>
-          if (typeof val === 'number') return <span className="font-mono text-sm text-gray-700">{val.toLocaleString()}</span>
-          return <span className="text-sm text-gray-500">{val != null ? String(val) : 'N/A'}</span>
-        },
-        filterFn: (row, colId, filterValue) => {
-          if (!filterValue) return true
-          const val = (row.original as unknown as Record<string, unknown>)[colId]
-          let s: string
-          if (typeof val === 'boolean') s = val ? 'yes' : 'no'
-          else if (val == null) s = 'n/a'
-          else s = String(val).toLowerCase()
-          return s.includes(String(filterValue).toLowerCase())
-        },
-        sortingFn: (a, b, colId) => {
-          const av = (a.original as unknown as Record<string, unknown>)[colId]
-          const bv = (b.original as unknown as Record<string, unknown>)[colId]
-          if (typeof av === 'boolean' && typeof bv === 'boolean') return (av ? 1 : 0) - (bv ? 1 : 0)
-          return 0
-        },
-        sortUndefined: 'last',
-        size: 150,
-      }),
-    ),
     // Pricing columns
-    ...PRICING_COLS.map((col) =>
-      columnHelper.accessor((row) => row.pricing[region]?.[col.id as keyof RegionPricing] ?? undefined, {
+    ...CLOUDSQL_COLUMNS.map((col) =>
+      columnHelper.accessor((row) => row.pricing[region]?.[col.id as keyof CloudSqlRegionPricing] ?? undefined, {
         id: col.id,
         header: col.label,
         cell: ({ row }) => (
-          <PriceCell value={formatPrice(row.original.pricing[region]?.[col.id as keyof RegionPricing], currency, costPeriod)} />
+          <PriceCell value={formatPrice(row.original.pricing[region]?.[col.id as keyof CloudSqlRegionPricing], currency, costPeriod)} />
         ),
         filterFn: (row, _colId, filterValue) => {
           if (!filterValue) return true
-          const price = row.original.pricing[region]?.[col.id as keyof RegionPricing]
+          const price = row.original.pricing[region]?.[col.id as keyof CloudSqlRegionPricing]
           const s = price == null ? 'unavailable' : String(price)
           return s.includes(String(filterValue).toLowerCase())
         },
         sortUndefined: 'last',
-        size: 160,
+        size: 200,
       }),
     ),
   ], [region, currency, costPeriod, toggleRow, selectedRows])
 
   const columnVisibility = useMemo(() => {
     const vis: Record<string, boolean> = {}
-    for (const col of ALL_COLUMNS) {
+    for (const col of CLOUDSQL_COLUMNS) {
       vis[col.id] = visibleColumns[col.id] ?? col.defaultVisible
     }
     return vis
@@ -320,7 +292,19 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
     return visibleRows.map((r) => {
       const inst = r.original
       const p = inst.pricing[region] ?? {}
-      return [inst.name, inst.series, inst.family, inst.vCpus, inst.memoryGb, p.linuxSud ?? '', p.linuxCud1yr ?? '', p.windowsSud ?? '', p.windowsCud1yr ?? '']
+      return [
+        inst.name,
+        inst.series,
+        inst.tier,
+        inst.vCpus,
+        inst.memoryGb,
+        p.mysqlZonal ?? '',
+        p.mysqlRegional ?? '',
+        p.postgresZonal ?? '',
+        p.postgresRegional ?? '',
+        p.sqlServerZonal ?? '',
+        p.sqlServerRegional ?? '',
+      ]
     })
   }, [visibleRows, region])
 
@@ -349,14 +333,13 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
             Compare {selectedRows.size > 0 ? `(${selectedRows.size})` : ''}
           </button>
           <ExportCsv
-            filename={`gcp-instances-${region}.csv`}
-            headers={['Machine type', 'Series', 'Family', 'vCPUs', 'Memory (GiB)', 'Linux SUD ($/hr)', 'Linux CUD 1yr ($/hr)', 'Windows SUD ($/hr)', 'Windows CUD 1yr ($/hr)']}
+            filename={`gcp-cloudsql-${region}.csv`}
+            headers={['Instance type', 'Series', 'Tier', 'vCPUs', 'Memory (GiB)', 'MySQL Zonal ($/hr)', 'MySQL Regional ($/hr)', 'PostgreSQL Zonal ($/hr)', 'PostgreSQL Regional ($/hr)', 'SQL Server Zonal ($/hr)', 'SQL Server Regional ($/hr)']}
             getRows={getExportRows}
           />
         </div>
       </div>
 
-      {/* Table with virtual scrolling */}
       <VirtualTable
         table={table}
         visibleRows={visibleRows}
@@ -371,6 +354,8 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
         region={region}
         currency={currency}
         costPeriod={costPeriod}
+        columns={CLOUDSQL_COLUMNS}
+        baseRows={CLOUDSQL_BASE_ROWS}
       />
     </div>
   )

@@ -11,6 +11,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "fetch-pricing": "tsx scripts/fetch-pricing.ts",
+    "fetch-cloudsql-pricing": "tsx scripts/fetch-cloudsql-pricing.ts",
     "validate": "tsx scripts/validate-pricing.ts"
   },
   "dependencies": {

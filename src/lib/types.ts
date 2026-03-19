@@ -55,12 +55,38 @@ export const CURRENCIES: Record<string, { symbol: string; rate: number }> = {
   BRL: { symbol: 'R$', rate: 4.97 },
 }
 
+// ----- Cloud SQL types -----
+
+export interface CloudSqlRegionPricing {
+  mysqlZonal: number | null
+  mysqlRegional: number | null
+  postgresZonal: number | null
+  postgresRegional: number | null
+  sqlServerZonal: number | null
+  sqlServerRegional: number | null
+}
+
+export interface CloudSqlInstance {
+  name: string
+  series: string
+  tier: string
+  vCpus: number | 'shared'
+  memoryGb: number
+  pricing: Record<string, CloudSqlRegionPricing>
+}
+
+export interface CloudSqlPricingData {
+  updatedAt: string
+  regions: string[]
+  instances: CloudSqlInstance[]
+}
+
 // Column definitions shared across PricingTable, FiltersBar, CompareDialog
 export interface ColumnDef {
   id: string
   label: string
   defaultVisible: boolean
-  group: 'spec' | 'linux' | 'windows'
+  group: 'spec' | 'linux' | 'windows' | 'mysql' | 'postgresql' | 'sqlserver'
 }
 
 export const ALL_COLUMNS: ColumnDef[] = [
@@ -94,3 +120,18 @@ export const DEFAULT_VISIBLE_COLUMNS: Record<string, boolean> = Object.fromEntri
 export const PRICING_FIELD_IDS = ALL_COLUMNS
   .filter((c) => c.group === 'linux' || c.group === 'windows')
   .map((c) => c.id) as (keyof RegionPricing)[]
+
+// ----- Cloud SQL column definitions -----
+
+export const CLOUDSQL_COLUMNS: ColumnDef[] = [
+  { id: 'mysqlZonal',      label: 'MySQL Zonal cost',          defaultVisible: true,  group: 'mysql' },
+  { id: 'mysqlRegional',   label: 'MySQL Regional (HA) cost',  defaultVisible: false, group: 'mysql' },
+  { id: 'postgresZonal',   label: 'PostgreSQL Zonal cost',     defaultVisible: true,  group: 'postgresql' },
+  { id: 'postgresRegional',label: 'PostgreSQL Regional (HA) cost', defaultVisible: false, group: 'postgresql' },
+  { id: 'sqlServerZonal',  label: 'SQL Server Zonal cost',     defaultVisible: false, group: 'sqlserver' },
+  { id: 'sqlServerRegional',label: 'SQL Server Regional (HA) cost', defaultVisible: false, group: 'sqlserver' },
+]
+
+export const DEFAULT_VISIBLE_CLOUDSQL_COLUMNS: Record<string, boolean> = Object.fromEntries(
+  CLOUDSQL_COLUMNS.map((c) => [c.id, c.defaultVisible]),
+)

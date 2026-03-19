@@ -9,6 +9,7 @@ import { writeFileSync, mkdirSync } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 import { MACHINE_TYPES, MACHINE_TYPE_MAP, SERIES_SPECS } from './machine-types.js'
+import { type RawSku, fetchAllSkus, extractPrice, isSpecificRegion } from './billing-api.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
@@ -22,29 +23,6 @@ if (!API_KEY) {
 
 const COMPUTE_SERVICE_ID = '6F81-5844-456A'
 const BASE_URL = `https://cloudbilling.googleapis.com/v1/services/${COMPUTE_SERVICE_ID}/skus`
-
-// ----- Types -----
-
-interface RawSku {
-  name: string
-  skuId: string
-  description: string
-  category: {
-    serviceDisplayName: string
-    resourceFamily: string
-    resourceGroup: string
-    usageType: string
-  }
-  serviceRegions: string[]
-  pricingInfo: Array<{
-    pricingExpression: {
-      usageUnit: string
-      tieredRates: Array<{
-        unitPrice: { currencyCode: string; units: string; nanos: number }
-      }>
-    }
-  }>
-}
 
 // Keyed as `${series}:${resource}:${region}:${usageType}:${os}`
 type PriceKey = string
@@ -111,53 +89,7 @@ function getSudRate(series: string, onDemandRate: number): number {
   return onDemandRate * (1 - discount)
 }
 
-// ----- SKU fetching -----
-
-async function fetchAllSkus(): Promise<RawSku[]> {
-  const skus: RawSku[] = []
-  let pageToken: string | undefined
-
-  do {
-    const url = new URL(BASE_URL)
-    url.searchParams.set('key', API_KEY!)
-    url.searchParams.set('pageSize', '5000')
-    url.searchParams.set('currencyCode', 'USD')
-    if (pageToken) url.searchParams.set('pageToken', pageToken)
-
-    console.log(`Fetching SKUs page${pageToken ? ` (token: ${pageToken.slice(0, 20)}...)` : ''}...`)
-    const res = await fetch(url.toString())
-    if (!res.ok) {
-      const body = await res.text()
-      throw new Error(`API request failed: ${res.status} ${res.statusText}\n${body}`)
-    }
-
-    const data = await res.json() as { skus: RawSku[]; nextPageToken?: string }
-    skus.push(...(data.skus ?? []))
-    pageToken = data.nextPageToken
-    console.log(`  Got ${data.skus?.length ?? 0} SKUs (total: ${skus.length})`)
-  } while (pageToken)
-
-  return skus
-}
-
 // ----- SKU parsing -----
-
-function extractPrice(sku: RawSku): number | null {
-  const rates = sku.pricingInfo?.[0]?.pricingExpression?.tieredRates
-  if (!rates?.length) return null
-  // Use the last tiered rate (usually the catch-all rate)
-  const rate = rates[rates.length - 1]?.unitPrice
-  if (!rate) return null
-  return Number(rate.units || 0) + (rate.nanos || 0) / 1e9
-}
-
-// Map from Billing API region descriptions to GCP region names
-// The API returns regions like "us-central1", "europe-west1" etc. directly in serviceRegions
-// For some SKUs it's multi-regional like "us", "europe" — we skip those.
-const SPECIFIC_REGION_RE = /^[a-z]+-[a-z]+\d+$/
-function isSpecificRegion(region: string): boolean {
-  return SPECIFIC_REGION_RE.test(region)
-}
 
 // Windows license pricing is per-vCPU-hour with tiers:
 // tier1: 1-4 vCPUs (per-instance rate), tier2: 5+ vCPUs (per-vCPU rate)
@@ -585,7 +517,7 @@ function buildPricingTable(
 
 async function main() {
   console.log('Fetching GCP Compute Engine SKUs...')
-  const skus = await fetchAllSkus()
+  const skus = await fetchAllSkus(BASE_URL, API_KEY!)
   console.log(`Total SKUs fetched: ${skus.length}`)
 
   console.log('Parsing SKUs...')

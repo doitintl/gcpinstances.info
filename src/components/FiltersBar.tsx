@@ -1,5 +1,5 @@
 import { X, Search, Columns3 } from 'lucide-react'
-import type { CostPeriod } from '../lib/types'
+import type { CostPeriod, ColumnDef } from '../lib/types'
 import { ALL_COLUMNS } from '../lib/types'
 import { cn } from '../lib/utils'
 
@@ -23,6 +23,16 @@ interface Props {
   onClearFilters: () => void
   instanceCount: number
   totalCount: number
+  columns?: ColumnDef[]
+}
+
+const GROUP_LABELS: Record<string, string> = {
+  spec: 'Instance specs',
+  linux: 'Linux pricing',
+  windows: 'Windows pricing',
+  mysql: 'MySQL pricing',
+  postgresql: 'PostgreSQL pricing',
+  sqlserver: 'SQL Server pricing',
 }
 
 const COST_PERIODS: { value: CostPeriod; label: string }[] = [
@@ -30,9 +40,6 @@ const COST_PERIODS: { value: CostPeriod; label: string }[] = [
   { value: 'monthly', label: 'Monthly' },
   { value: 'yearly', label: 'Yearly' },
 ]
-
-// Use shared column definitions
-const COLUMN_OPTIONS = ALL_COLUMNS
 
 function Select({
   value,
@@ -115,7 +122,9 @@ export function FiltersBar({
   onClearFilters,
   instanceCount,
   totalCount,
+  columns = ALL_COLUMNS,
 }: Props) {
+  const groups = Array.from(new Set(columns.map((c) => c.group)))
   const hasFilters = minMemory > 0 || minVCpus > 0 || globalSearch.length > 0
 
   return (
@@ -169,12 +178,12 @@ export function FiltersBar({
               Columns
             </button>
             <div className="absolute top-full left-0 mt-1 z-50 bg-white border border-gray-200 rounded-xl shadow-lg p-3 min-w-[240px] max-h-[60vh] overflow-y-auto hidden group-focus-within:block group-hover:block">
-              {(['spec', 'linux', 'windows'] as const).map((group) => (
+              {groups.map((group) => (
                 <div key={group}>
                   <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide px-2 pt-2 pb-1">
-                    {group === 'spec' ? 'Instance specs' : group === 'linux' ? 'Linux pricing' : 'Windows pricing'}
+                    {GROUP_LABELS[group] ?? group}
                   </div>
-                  {COLUMN_OPTIONS.filter((c) => c.group === group).map((col) => (
+                  {columns.filter((c) => c.group === group).map((col) => (
                     <label key={col.id} className="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-50 px-2 rounded-md">
                       <input
                         type="checkbox"

@@ -1,39 +1,23 @@
 import { Download } from 'lucide-react'
-import type { Instance } from '../lib/types'
 
 interface Props {
-  instances: Instance[]
-  region: string
+  filename: string
+  headers: string[]
+  getRows: () => (string | number | null)[][]
 }
 
-export function ExportCsv({ instances, region }: Props) {
+export function ExportCsv({ filename, headers, getRows }: Props) {
   const handleExport = () => {
-    const headers = ['Machine type', 'Series', 'Family', 'vCPUs', 'Memory (GiB)', 'Linux SUD ($/hr)', 'Linux CUD 1yr ($/hr)', 'Windows SUD ($/hr)', 'Windows CUD 1yr ($/hr)']
-
-    const rows = instances.map((inst) => {
-      const p = inst.pricing[region] ?? {}
-      return [
-        inst.name,
-        inst.series,
-        inst.family,
-        inst.vCpus,
-        inst.memoryGb,
-        p.linuxSud ?? '',
-        p.linuxCud1yr ?? '',
-        p.windowsSud ?? '',
-        p.windowsCud1yr ?? '',
-      ]
-    })
-
+    const rows = getRows()
     const csv = [headers, ...rows]
-      .map((row) => row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(','))
+      .map((row) => row.map((cell) => `"${String(cell ?? '').replace(/"/g, '""')}"`).join(','))
       .join('\n')
 
     const blob = new Blob([csv], { type: 'text/csv' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `gcp-instances-${region}.csv`
+    a.download = filename
     a.click()
     setTimeout(() => URL.revokeObjectURL(url), 1000)
   }

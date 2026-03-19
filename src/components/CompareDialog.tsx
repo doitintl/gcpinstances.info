@@ -1,41 +1,58 @@
 import { X } from 'lucide-react'
-import type { Instance, CostPeriod, RegionPricing } from '../lib/types'
+import type { Instance, CostPeriod, RegionPricing, ColumnDef, CloudSqlInstance, CloudSqlRegionPricing } from '../lib/types'
 import { ALL_COLUMNS } from '../lib/types'
 import { formatPrice, formatMemory, formatVCpus } from '../lib/utils'
+
+export type AnyInstance = Instance | CloudSqlInstance
 
 interface Props {
   open: boolean
   onClose: () => void
-  instances: Instance[]
+  instances: AnyInstance[]
   region: string
   currency: string
   costPeriod: CostPeriod
+  columns?: ColumnDef[]
+  baseRows?: { label: string; get: (i: AnyInstance) => string }[]
 }
 
-type RowGetter = (i: Instance, r: string, c: string, p: CostPeriod) => string
-
-const BASE_ROWS: { label: string; get: RowGetter }[] = [
+const CE_BASE_ROWS: { label: string; get: (i: AnyInstance) => string }[] = [
   { label: 'vCPUs', get: (i) => formatVCpus(i.vCpus) },
   { label: 'Memory', get: (i) => formatMemory(i.memoryGb) },
   { label: 'Series', get: (i) => i.series },
-  { label: 'Family', get: (i) => i.family },
-  { label: 'CPU Type', get: (i) => i.cpuType ?? 'N/A' },
-  { label: 'Local SSD', get: (i) => i.localSsd ? 'Yes' : 'No' },
-  { label: 'GPU support', get: (i) => i.gpuSupport ? 'Yes' : 'No' },
+  { label: 'Family', get: (i) => (i as Instance).family ?? '' },
+  { label: 'CPU Type', get: (i) => (i as Instance).cpuType ?? 'N/A' },
+  { label: 'Local SSD', get: (i) => (i as Instance).localSsd ? 'Yes' : 'No' },
+  { label: 'GPU support', get: (i) => (i as Instance).gpuSupport ? 'Yes' : 'No' },
 ]
 
-const PRICING_ROWS: { label: string; get: RowGetter }[] = ALL_COLUMNS
-  .filter((c) => c.group === 'linux' || c.group === 'windows')
-  .map((col) => ({
+
+export function CompareDialog({
+  open,
+  onClose,
+  instances,
+  region,
+  currency,
+  costPeriod,
+  columns = ALL_COLUMNS,
+  baseRows = CE_BASE_ROWS,
+}: Props) {
+  if (!open) return null
+
+  const pricingCols = columns.filter(
+    (c) => c.group === 'linux' || c.group === 'windows' ||
+           c.group === 'mysql' || c.group === 'postgresql' || c.group === 'sqlserver',
+  )
+
+  const pricingRows = pricingCols.map((col) => ({
     label: col.label.replace(' cost', ''),
-    get: (i: Instance, r: string, c: string, p: CostPeriod) =>
-      formatPrice(i.pricing[r]?.[col.id as keyof RegionPricing], c, p),
+    get: (i: AnyInstance) => {
+      const regionPricing = i.pricing[region] as (RegionPricing & CloudSqlRegionPricing) | undefined
+      return formatPrice(regionPricing?.[col.id as keyof (RegionPricing & CloudSqlRegionPricing)], currency, costPeriod)
+    },
   }))
 
-const ROWS = [...BASE_ROWS, ...PRICING_ROWS]
-
-export function CompareDialog({ open, onClose, instances, region, currency, costPeriod }: Props) {
-  if (!open) return null
+  const rows = [...baseRows, ...pricingRows]
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -60,11 +77,11 @@ export function CompareDialog({ open, onClose, instances, region, currency, cost
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {ROWS.map((row) => (
+              {rows.map((row) => (
                 <tr key={row.label} className="hover:bg-gray-50">
                   <td className="py-2.5 pr-6 text-sm text-gray-500 font-medium">{row.label}</td>
                   {instances.map((inst) => {
-                    const val = row.get(inst, region, currency, costPeriod)
+                    const val = row.get(inst)
                     const isUnavailable = val === 'Unavailable'
                     return (
                       <td key={inst.name} className="py-2.5 px-4">
