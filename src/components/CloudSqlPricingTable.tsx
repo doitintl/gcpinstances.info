@@ -17,6 +17,7 @@ import { CompareDialog } from './CompareDialog'
 import type { AnyInstance } from './CompareDialog'
 
 const CLOUDSQL_BASE_ROWS: { label: string; get: (i: AnyInstance) => string }[] = [
+  { label: 'Edition', get: (i) => (i as CloudSqlInstance).edition ?? '' },
   { label: 'vCPUs', get: (i) => formatVCpus(i.vCpus) },
   { label: 'Memory', get: (i) => formatMemory(i.memoryGb) },
   { label: 'Series', get: (i) => i.series },
@@ -219,6 +220,26 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
       filterFn: 'includesString',
       size: 200,
     }),
+    columnHelper.accessor('edition', {
+      header: 'Edition',
+      cell: (info) => {
+        const edition = info.getValue()
+        const isPlus = edition === 'Enterprise Plus'
+        return (
+          <span className={cn(
+            'inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium whitespace-nowrap',
+            isPlus
+              ? 'bg-purple-100 text-purple-700'
+              : 'bg-gray-100 text-gray-600',
+          )}>
+            {edition}
+          </span>
+        )
+      },
+      filterFn: 'includesString',
+      enableSorting: false,
+      size: 140,
+    }),
     columnHelper.accessor('vCpus', {
       header: 'vCPUs',
       cell: (info) => (
@@ -294,6 +315,7 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
       const p = inst.pricing[region] ?? {}
       return [
         inst.name,
+        inst.edition,
         inst.series,
         inst.tier,
         inst.vCpus,
@@ -334,7 +356,7 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
           </button>
           <ExportCsv
             filename={`gcp-cloudsql-${region}.csv`}
-            headers={['Instance type', 'Series', 'Tier', 'vCPUs', 'Memory (GiB)', 'MySQL Zonal ($/hr)', 'MySQL Regional ($/hr)', 'PostgreSQL Zonal ($/hr)', 'PostgreSQL Regional ($/hr)', 'SQL Server Zonal ($/hr)', 'SQL Server Regional ($/hr)']}
+            headers={['Instance type', 'Edition', 'Series', 'Tier', 'vCPUs', 'Memory (GiB)', 'MySQL Zonal ($/hr)', 'MySQL Regional ($/hr)', 'PostgreSQL Zonal ($/hr)', 'PostgreSQL Regional ($/hr)', 'SQL Server Zonal ($/hr)', 'SQL Server Regional ($/hr)']}
             getRows={getExportRows}
           />
         </div>

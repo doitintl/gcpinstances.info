@@ -53,7 +53,7 @@ export default function App() {
   // Load Compute Engine pricing on mount
   useEffect(() => {
     fetch('/data/pricing.json')
-      .then((r) => r.json())
+      .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() })
       .then((d: PricingData) => {
         setData(d)
         if (d.regions.includes('us-central1')) setRegion('us-central1')
@@ -68,7 +68,7 @@ export default function App() {
     if (page !== 'cloudsql' || cloudSqlFetchRef.current) return
     cloudSqlFetchRef.current = true
     fetch('/data/cloudsql-pricing.json')
-      .then((r) => r.json())
+      .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() })
       .then((d: CloudSqlPricingData) => setCloudSqlData(d))
       .catch((e) => setCloudSqlError(String(e)))
   }, [page])

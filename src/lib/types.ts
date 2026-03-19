@@ -70,6 +70,7 @@ export interface CloudSqlInstance {
   name: string
   series: string
   tier: string
+  edition: string
   vCpus: number | 'shared'
   memoryGb: number
   pricing: Record<string, CloudSqlRegionPricing>

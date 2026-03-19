@@ -14,7 +14,10 @@ http('trackPageView', (req, res) => {
     return res.status(405).send('Method Not Allowed')
   }
 
-  const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body
+  let body = req.body
+  if (typeof body === 'string') {
+    try { body = JSON.parse(body) } catch { body = {} }
+  }
   const { page, ts } = body || {}
 
   console.log(JSON.stringify({

@@ -54,6 +54,7 @@ interface CloudSqlInstance {
   name: string
   series: string
   tier: string
+  edition: string
   vCpus: number | 'shared'
   memoryGb: number
   pricing: Record<string, CloudSqlRegionPricing>
@@ -337,6 +338,7 @@ function buildPricingTable(
       name: spec.name,
       series: spec.series,
       tier: spec.tier,
+      edition: spec.edition,
       vCpus: spec.vCpus,
       memoryGb: spec.memoryGb,
       pricing,
