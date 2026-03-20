@@ -32,6 +32,7 @@ interface Props {
   costPeriod: CostPeriod
   currency: string
   visibleColumns: Record<string, boolean>
+  exchangeRates: Record<string, number>
 }
 
 const columnHelper = createColumnHelper<CloudSqlInstance>()
@@ -187,7 +188,7 @@ function VirtualTable({
   )
 }
 
-export function CloudSqlPricingTable({ instances, region, costPeriod, currency, visibleColumns }: Props) {
+export function CloudSqlPricingTable({ instances, region, costPeriod, currency, visibleColumns, exchangeRates }: Props) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
@@ -269,7 +270,7 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
         id: col.id,
         header: col.label,
         cell: ({ row }) => (
-          <PriceCell value={formatPrice(row.original.pricing[region]?.[col.id as keyof CloudSqlRegionPricing], currency, costPeriod)} />
+          <PriceCell value={formatPrice(row.original.pricing[region]?.[col.id as keyof CloudSqlRegionPricing], currency, costPeriod, exchangeRates)} />
         ),
         filterFn: (row, _colId, filterValue) => {
           if (!filterValue) return true
@@ -281,7 +282,7 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
         size: 200,
       }),
     ),
-  ], [region, currency, costPeriod, toggleRow, selectedRows])
+  ], [region, currency, costPeriod, exchangeRates, toggleRow, selectedRows])
 
   const columnVisibility = useMemo(() => {
     const vis: Record<string, boolean> = {}
@@ -376,6 +377,7 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
         region={region}
         currency={currency}
         costPeriod={costPeriod}
+        exchangeRates={exchangeRates}
         columns={CLOUDSQL_COLUMNS}
         baseRows={CLOUDSQL_BASE_ROWS}
       />

@@ -28,6 +28,8 @@ const defaultVisibleColumns = {
   windowsCud1yr: true,
 }
 
+const defaultExchangeRates = { USD: 1, EUR: 0.92, GBP: 0.75, JPY: 149.5, AUD: 1.53, CAD: 1.36, DKK: 6.89, NOK: 10.55, SEK: 10.42, CHF: 0.90, ZAR: 18.63, ILS: 3.71 }
+
 describe('PricingTable', () => {
   const defaultProps = {
     instances,
@@ -35,6 +37,7 @@ describe('PricingTable', () => {
     costPeriod: 'hourly' as const,
     currency: 'USD',
     visibleColumns: defaultVisibleColumns,
+    exchangeRates: defaultExchangeRates,
   }
 
   it('renders all instance rows', () => {

@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { COST_MULTIPLIERS, CURRENCIES, type CostPeriod } from './types'
+import { COST_MULTIPLIERS, CURRENCY_META, type CostPeriod } from './types'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -10,9 +10,11 @@ export function formatPrice(
   value: number | null | undefined,
   currency: string,
   period: CostPeriod,
+  rates: Record<string, number>,
 ): string {
   if (value == null) return 'Unavailable'
-  const { symbol, rate } = CURRENCIES[currency] ?? CURRENCIES['USD']
+  const symbol = CURRENCY_META[currency]?.symbol ?? '$'
+  const rate = rates[currency] ?? 1
   const converted = value * rate * COST_MULTIPLIERS[period]
   if (converted === 0) return 'Free'
   if (converted < 0.01) return `${symbol}${converted.toFixed(6)}`

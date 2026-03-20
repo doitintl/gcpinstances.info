@@ -12,6 +12,7 @@ interface Props {
   region: string
   currency: string
   costPeriod: CostPeriod
+  exchangeRates: Record<string, number>
   columns?: ColumnDef[]
   baseRows?: { label: string; get: (i: AnyInstance) => string }[]
 }
@@ -34,6 +35,7 @@ export function CompareDialog({
   region,
   currency,
   costPeriod,
+  exchangeRates,
   columns = ALL_COLUMNS,
   baseRows = CE_BASE_ROWS,
 }: Props) {
@@ -48,7 +50,7 @@ export function CompareDialog({
     label: col.label.replace(' cost', ''),
     get: (i: AnyInstance) => {
       const regionPricing = i.pricing[region] as (RegionPricing & CloudSqlRegionPricing) | undefined
-      return formatPrice(regionPricing?.[col.id as keyof (RegionPricing & CloudSqlRegionPricing)], currency, costPeriod)
+      return formatPrice(regionPricing?.[col.id as keyof (RegionPricing & CloudSqlRegionPricing)], currency, costPeriod, exchangeRates)
     },
   }))
 

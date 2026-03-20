@@ -23,6 +23,7 @@ interface Props {
   costPeriod: CostPeriod
   currency: string
   visibleColumns: Record<string, boolean>
+  exchangeRates: Record<string, number>
 }
 
 const columnHelper = createColumnHelper<Instance>()
@@ -184,7 +185,7 @@ function VirtualTable({
   )
 }
 
-export function PricingTable({ instances, region, costPeriod, currency, visibleColumns }: Props) {
+export function PricingTable({ instances, region, costPeriod, currency, visibleColumns, exchangeRates }: Props) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
@@ -276,7 +277,7 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
         id: col.id,
         header: col.label,
         cell: ({ row }) => (
-          <PriceCell value={formatPrice(row.original.pricing[region]?.[col.id as keyof RegionPricing], currency, costPeriod)} />
+          <PriceCell value={formatPrice(row.original.pricing[region]?.[col.id as keyof RegionPricing], currency, costPeriod, exchangeRates)} />
         ),
         filterFn: (row, _colId, filterValue) => {
           if (!filterValue) return true
@@ -288,7 +289,7 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
         size: 160,
       }),
     ),
-  ], [region, currency, costPeriod, toggleRow, selectedRows])
+  ], [region, currency, costPeriod, exchangeRates, toggleRow, selectedRows])
 
   const columnVisibility = useMemo(() => {
     const vis: Record<string, boolean> = {}
@@ -371,6 +372,7 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
         region={region}
         currency={currency}
         costPeriod={costPeriod}
+        exchangeRates={exchangeRates}
       />
     </div>
   )

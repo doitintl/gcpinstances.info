@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
-import type { PricingData, CostPeriod, CloudSqlPricingData } from './lib/types'
-import { CURRENCIES, DEFAULT_VISIBLE_COLUMNS, DEFAULT_VISIBLE_CLOUDSQL_COLUMNS, CLOUDSQL_COLUMNS } from './lib/types'
+import type { PricingData, CostPeriod, CloudSqlPricingData, ExchangeRatesData } from './lib/types'
+import { CURRENCY_META, DEFAULT_VISIBLE_COLUMNS, DEFAULT_VISIBLE_CLOUDSQL_COLUMNS, CLOUDSQL_COLUMNS } from './lib/types'
 import { PricingTable } from './components/PricingTable'
 import { FiltersBar } from './components/FiltersBar'
 import { CloudSqlPricingTable } from './components/CloudSqlPricingTable'
@@ -17,13 +17,14 @@ function getPage(): Page {
   return 'home'
 }
 
-const CURRENCY_KEYS = Object.keys(CURRENCIES)
+const CURRENCY_KEYS = Object.keys(CURRENCY_META)
 
 export default function App() {
   const [page, setPage] = useState<Page>(getPage)
   const [data, setData] = useState<PricingData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [exchangeRates, setExchangeRates] = useState<Record<string, number>>({ USD: 1 })
 
   // Cloud SQL data (lazy loaded)
   const [cloudSqlData, setCloudSqlData] = useState<CloudSqlPricingData | null>(null)
@@ -50,15 +51,22 @@ export default function App() {
     return () => window.removeEventListener('hashchange', onHashChange)
   }, [])
 
-  // Load Compute Engine pricing on mount
+  // Load Compute Engine pricing and exchange rates on mount (parallel)
   useEffect(() => {
-    fetch('/data/pricing.json')
+    const pricingPromise = fetch('/data/pricing.json')
       .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() })
       .then((d: PricingData) => {
         setData(d)
         if (d.regions.includes('us-central1')) setRegion('us-central1')
         else if (d.regions.length) setRegion(d.regions[0])
       })
+
+    const ratesPromise = fetch('/data/exchange-rates.json')
+      .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() })
+      .then((d: ExchangeRatesData) => setExchangeRates(d.rates))
+      .catch(() => { /* keep default { USD: 1 } */ })
+
+    Promise.all([pricingPromise, ratesPromise])
       .catch((e) => setError(String(e)))
       .finally(() => setLoading(false))
   }, [])
@@ -264,6 +272,7 @@ export default function App() {
                 costPeriod={costPeriod}
                 currency={currency}
                 visibleColumns={visibleCloudSqlColumns}
+                exchangeRates={exchangeRates}
               />
             )}
           </div>
@@ -303,6 +312,7 @@ export default function App() {
               costPeriod={costPeriod}
               currency={currency}
               visibleColumns={visibleColumns}
+              exchangeRates={exchangeRates}
             />
           </div>
         </>

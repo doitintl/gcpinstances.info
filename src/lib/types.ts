@@ -44,15 +44,25 @@ export const COST_MULTIPLIERS: Record<CostPeriod, number> = {
   yearly: 8760,
 }
 
-export const CURRENCIES: Record<string, { symbol: string; rate: number }> = {
-  USD: { symbol: '$', rate: 1 },
-  EUR: { symbol: '\u20ac', rate: 0.92 },
-  GBP: { symbol: '\u00a3', rate: 0.79 },
-  JPY: { symbol: '\u00a5', rate: 149.5 },
-  CAD: { symbol: 'CA$', rate: 1.36 },
-  AUD: { symbol: 'A$', rate: 1.53 },
-  INR: { symbol: '\u20b9', rate: 83.5 },
-  BRL: { symbol: 'R$', rate: 4.97 },
+export const CURRENCY_META: Record<string, { symbol: string }> = {
+  USD: { symbol: '$' },
+  EUR: { symbol: '\u20ac' },
+  GBP: { symbol: '\u00a3' },
+  JPY: { symbol: '\u00a5' },
+  AUD: { symbol: 'A$' },
+  CAD: { symbol: 'CA$' },
+  DKK: { symbol: 'kr' },
+  NOK: { symbol: 'kr' },
+  SEK: { symbol: 'kr' },
+  CHF: { symbol: 'CHF' },
+  ZAR: { symbol: 'R' },
+  ILS: { symbol: '\u20aa' },
+}
+
+export interface ExchangeRatesData {
+  updatedAt: string
+  base: string
+  rates: Record<string, number>
 }
 
 // ----- Cloud SQL types -----
