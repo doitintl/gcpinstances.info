@@ -77,7 +77,13 @@ export default function App() {
     cloudSqlFetchRef.current = true
     fetch('/data/cloudsql-pricing.json')
       .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() })
-      .then((d: CloudSqlPricingData) => setCloudSqlData(d))
+      .then((d: CloudSqlPricingData) => {
+        setCloudSqlData(d)
+        setRegion((prev) => {
+          if (d.regions.includes(prev)) return prev
+          return d.regions.includes('us-central1') ? 'us-central1' : d.regions[0] ?? prev
+        })
+      })
       .catch((e) => setCloudSqlError(String(e)))
   }, [page])
 
@@ -113,9 +119,10 @@ export default function App() {
     })
   }, [cloudSqlData, minVCpus, minMemory, globalSearch])
 
-  const formattedDate = useMemo(() => data ? new Date(data.updatedAt).toLocaleDateString('en-US', {
+  const activeUpdatedAt = page === 'cloudsql' ? cloudSqlData?.updatedAt : data?.updatedAt
+  const formattedDate = useMemo(() => activeUpdatedAt ? new Date(activeUpdatedAt).toLocaleDateString('en-US', {
     year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',
-  }) : '', [data])
+  }) : '', [activeUpdatedAt])
 
   const handleClearFilters = useCallback(() => {
     setMinMemory(0)

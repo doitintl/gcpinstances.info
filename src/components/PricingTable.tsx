@@ -265,6 +265,8 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
           const av = (a.original as unknown as Record<string, unknown>)[colId]
           const bv = (b.original as unknown as Record<string, unknown>)[colId]
           if (typeof av === 'boolean' && typeof bv === 'boolean') return (av ? 1 : 0) - (bv ? 1 : 0)
+          if (typeof av === 'number' && typeof bv === 'number') return av - bv
+          if (typeof av === 'string' && typeof bv === 'string') return av.localeCompare(bv)
           return 0
         },
         sortUndefined: 'last',
@@ -282,7 +284,7 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
         filterFn: (row, _colId, filterValue) => {
           if (!filterValue) return true
           const price = row.original.pricing[region]?.[col.id as keyof RegionPricing]
-          const s = price == null ? 'unavailable' : String(price)
+          const s = formatPrice(price, currency, costPeriod, exchangeRates).toLowerCase()
           return s.includes(String(filterValue).toLowerCase())
         },
         sortUndefined: 'last',
