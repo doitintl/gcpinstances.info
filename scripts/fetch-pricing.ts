@@ -163,14 +163,10 @@ function parseSkus(skus: RawSku[]): {
   rates: Map<PriceKey, ResourceRate>
   gpuRates: Map<GpuRateKey, GpuRate>
   windowsLicenses: WindowsLicense[]
-  f1MicroRates: Map<string, { linux: number | null; cud1yr: number | null }>
-  g1SmallRates: Map<string, { linux: number | null; cud1yr: number | null }>
 } {
   const rates = new Map<PriceKey, ResourceRate>()
   const gpuRates = new Map<GpuRateKey, GpuRate>()
   const windowsLicenses: WindowsLicense[] = []
-  const f1MicroRates = new Map<string, { linux: number | null; cud1yr: number | null }>()
-  const g1SmallRates = new Map<string, { linux: number | null; cud1yr: number | null }>()
 
   for (const sku of skus) {
     const { category, description, serviceRegions } = sku
@@ -202,34 +198,6 @@ function parseSkus(skus: RawSku[]): {
 
     const rg = category.resourceGroup
     const usageType = category.usageType
-
-    // --- f1-micro ---
-    if (rg === 'F1Micro') {
-      const regions = serviceRegions.filter(isSpecificRegion)
-      if (!regions.length) continue
-      const isCud = description.toLowerCase().includes('commit')
-      for (const region of regions) {
-        const existing = f1MicroRates.get(region) ?? { linux: null, cud1yr: null }
-        if (isCud) existing.cud1yr = price
-        else existing.linux = price
-        f1MicroRates.set(region, existing)
-      }
-      continue
-    }
-
-    // --- g1-small ---
-    if (rg === 'G1Small') {
-      const regions = serviceRegions.filter(isSpecificRegion)
-      if (!regions.length) continue
-      const isCud = description.toLowerCase().includes('commit')
-      for (const region of regions) {
-        const existing = g1SmallRates.get(region) ?? { linux: null, cud1yr: null }
-        if (isCud) existing.cud1yr = price
-        else existing.linux = price
-        g1SmallRates.set(region, existing)
-      }
-      continue
-    }
 
     // --- GPU SKUs (resourceGroup 'GPU') ---
     // Price is per GPU-hour; keyed by gpu type + region + usage type
@@ -320,7 +288,7 @@ function parseSkus(skus: RawSku[]): {
     }
   }
 
-  return { rates, gpuRates, windowsLicenses, f1MicroRates, g1SmallRates }
+  return { rates, gpuRates, windowsLicenses }
 }
 
 // ----- Price calculation -----
@@ -354,14 +322,10 @@ function buildPricingTable(
   rates: Map<PriceKey, ResourceRate>,
   gpuRates: Map<GpuRateKey, GpuRate>,
   windowsLicenses: WindowsLicense[],
-  f1MicroRates: Map<string, { linux: number | null; cud1yr: number | null }>,
-  g1SmallRates: Map<string, { linux: number | null; cud1yr: number | null }>,
 ): InstancePricing[] {
   // Collect all regions from the rates map
   const allRegions = new Set<string>()
   for (const rate of rates.values()) allRegions.add(rate.region)
-  for (const region of f1MicroRates.keys()) allRegions.add(region)
-  for (const region of g1SmallRates.keys()) allRegions.add(region)
 
   // Resolve the global Windows license once, not per-instance
   const globalWindowsLicense = windowsLicenses.find((l) => l.region === '')
@@ -380,20 +344,6 @@ function buildPricingTable(
       const nullPricing: InstanceRegionPricing = {
         linuxOnDemand: null, linuxSud: null, linuxPreemptible: null, linuxCud1yr: null, linuxCud3yr: null,
         windowsOnDemand: null, windowsSud: null, windowsPreemptible: null, windowsCud1yr: null, windowsCud3yr: null,
-      }
-
-      // --- Special cases: f1-micro, g1-small ---
-      if (spec.name === 'f1-micro') {
-        const r = f1MicroRates.get(region)
-        if (!r) continue
-        pricing[region] = { ...nullPricing, linuxOnDemand: r.linux, linuxSud: r.linux, linuxCud1yr: r.cud1yr }
-        continue
-      }
-      if (spec.name === 'g1-small') {
-        const r = g1SmallRates.get(region)
-        if (!r) continue
-        pricing[region] = { ...nullPricing, linuxOnDemand: r.linux, linuxSud: r.linux, linuxCud1yr: r.cud1yr }
-        continue
       }
 
       if (spec.vCpus === 'shared') continue
@@ -521,12 +471,12 @@ async function main() {
   console.log(`Total SKUs fetched: ${skus.length}`)
 
   console.log('Parsing SKUs...')
-  const { rates, gpuRates, windowsLicenses, f1MicroRates, g1SmallRates } = parseSkus(skus)
+  const { rates, gpuRates, windowsLicenses } = parseSkus(skus)
   console.log(`Parsed ${rates.size} resource rates, ${gpuRates.size} GPU rates`)
   console.log(`Windows licenses: ${windowsLicenses.length}`)
 
   console.log('Building pricing table...')
-  const instances = buildPricingTable(rates, gpuRates, windowsLicenses, f1MicroRates, g1SmallRates)
+  const instances = buildPricingTable(rates, gpuRates, windowsLicenses)
   console.log(`Built pricing for ${instances.length} machine types`)
 
   // Collect regions from all instances

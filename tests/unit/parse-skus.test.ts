@@ -76,9 +76,4 @@ describe('SKU fixture data', () => {
     expect(extractPrice(windowsSku)).toBeCloseTo(0.046, 3)
   })
 
-  it('F1Micro SKU has correct resourceGroup', () => {
-    const f1sku = fixtureSkus.find((s: { category: { resourceGroup: string } }) => s.category.resourceGroup === 'F1Micro')
-    expect(f1sku).toBeDefined()
-    expect(extractPrice(f1sku)).toBeCloseTo(0.0076, 4)
-  })
 })

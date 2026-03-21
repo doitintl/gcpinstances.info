@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 import type { InstancePricing } from '../../scripts/fetch-pricing.js'
+import { formatPrice } from '../../src/lib/utils.js'
 
 // Load and validate the generated pricing.json (integration test of the pipeline)
 describe('pricing.json output', () => {
@@ -116,4 +117,51 @@ describe('pricing.json output', () => {
       }
     }
   })
+})
+
+// ── formatPrice unit tests ────────────────────────────────────────────────
+
+describe('formatPrice', () => {
+  const USD = { USD: 1 }
+  const EUR_RATES = { EUR: 0.92 }
+
+  it('returns "Unavailable" for null', () => {
+    expect(formatPrice(null, 'USD', 'hourly', USD)).toBe('Unavailable')
+  })
+
+  it('returns "Unavailable" for undefined', () => {
+    expect(formatPrice(undefined, 'USD', 'hourly', USD)).toBe('Unavailable')
+  })
+
+  it('formats hourly USD correctly — n1-standard-1 linuxSud', () => {
+    // 0.03325 < 0.01? No → toFixed(4)
+    expect(formatPrice(0.03325, 'USD', 'hourly', USD)).toBe('$0.0333')
+  })
+
+  it('formats monthly USD correctly — n1-standard-1 linuxSud × 730', () => {
+    // 0.03325 × 730 = 24.2725
+    expect(formatPrice(0.03325, 'USD', 'monthly', USD)).toBe('$24.2725')
+  })
+
+  it('formats yearly USD correctly — n1-standard-1 linuxSud × 8760', () => {
+    // 0.03325 × 8760 = 291.27
+    expect(formatPrice(0.03325, 'USD', 'yearly', USD)).toBe('$291.2700')
+  })
+
+  it('applies EUR conversion with € symbol', () => {
+    // 0.03325 × 0.92 = 0.030590 → toFixed(4)
+    expect(formatPrice(0.03325, 'EUR', 'hourly', EUR_RATES)).toBe('€0.0306')
+  })
+
+  it('formats very small values with 6 decimal places', () => {
+    // values < $0.01 use toFixed(6)
+    expect(formatPrice(0.000711, 'USD', 'hourly', USD)).toBe('$0.000711')
+  })
+
+  it('derived $/vCPU — n2-standard-8 linuxSud ÷ 8', () => {
+    // n2-standard-8 us-central1 linuxSud = 0.310778, vCpus = 8
+    const perVcpu = 0.310778 / 8  // 0.03884725
+    expect(formatPrice(perVcpu, 'USD', 'hourly', USD)).toBe('$0.0388')
+  })
+
 })

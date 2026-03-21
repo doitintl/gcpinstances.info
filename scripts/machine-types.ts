@@ -49,10 +49,6 @@ export const SERIES_SPECS: Record<string, Partial<MachineTypeSpec>> = {
 // Predefined GCP machine type specifications
 // vCPUs and memory sourced from https://cloud.google.com/compute/docs/machine-resource
 export const MACHINE_TYPES: MachineTypeSpec[] = [
-  // --- f1-micro / g1-small (shared-core, special pricing via dedicated SKUs) ---
-  { name: 'f1-micro',   series: 'F1',  family: 'Shared core', vCpus: 'shared', memoryGb: 0.6,  sharedCore: true },
-  { name: 'g1-small',   series: 'G1',  family: 'Shared core', vCpus: 'shared', memoryGb: 1.7,  sharedCore: true },
-
   // --- E2 General Purpose ---
   // e2-micro/small/medium are burstable shared-core; Linux SUD unavailable, Windows = license only
   { name: 'e2-micro',      series: 'E2', family: 'General purpose', vCpus: 2,  memoryGb: 1,  sharedCore: true },
