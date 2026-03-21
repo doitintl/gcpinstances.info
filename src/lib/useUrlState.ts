@@ -1,5 +1,5 @@
 import type { CostPeriod } from './types'
-import { ALL_COLUMNS, CLOUDSQL_COLUMNS, DEFAULT_VISIBLE_COLUMNS, DEFAULT_VISIBLE_CLOUDSQL_COLUMNS, CURRENCY_META } from './types'
+import { ALL_COLUMNS_WITH_DERIVED, CLOUDSQL_COLUMNS_WITH_DERIVED, DEFAULT_VISIBLE_COLUMNS, DEFAULT_VISIBLE_CLOUDSQL_COLUMNS, CURRENCY_META } from './types'
 
 export type Page = 'home' | 'cloudsql' | 'mcp-cli'
 
@@ -8,11 +8,11 @@ const VALID_PERIODS = new Set<CostPeriod>(['hourly', 'monthly', 'yearly'])
 const VALID_CURRENCIES = new Set(Object.keys(CURRENCY_META))
 
 // Columns that are visible by default (for omitting from URL)
-const DEFAULT_CE_COLS = ALL_COLUMNS.filter((c) => c.defaultVisible).map((c) => c.id)
-const DEFAULT_SQL_COLS = CLOUDSQL_COLUMNS.filter((c) => c.defaultVisible).map((c) => c.id)
+const DEFAULT_CE_COLS = ALL_COLUMNS_WITH_DERIVED.filter((c) => c.defaultVisible).map((c) => c.id)
+const DEFAULT_SQL_COLS = CLOUDSQL_COLUMNS_WITH_DERIVED.filter((c) => c.defaultVisible).map((c) => c.id)
 
-const ALL_CE_IDS = new Set(ALL_COLUMNS.map((c) => c.id))
-const ALL_SQL_IDS = new Set(CLOUDSQL_COLUMNS.map((c) => c.id))
+const ALL_CE_IDS = new Set(ALL_COLUMNS_WITH_DERIVED.map((c) => c.id))
+const ALL_SQL_IDS = new Set(CLOUDSQL_COLUMNS_WITH_DERIVED.map((c) => c.id))
 
 export interface UrlState {
   page: Page

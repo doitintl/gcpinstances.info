@@ -11,7 +11,7 @@ import {
   type ColumnFiltersState,
 } from '@tanstack/react-table'
 import type { Instance, CostPeriod, RegionPricing } from '../lib/types'
-import { ALL_COLUMNS } from '../lib/types'
+import { ALL_COLUMNS, ALL_COLUMNS_WITH_DERIVED, DERIVED_COLUMNS } from '../lib/types'
 import { formatPrice, formatMemory, formatVCpus, cn } from '../lib/utils'
 import { CompareDialog } from './CompareDialog'
 import { ExportCsv } from './ExportCsv'
@@ -31,6 +31,13 @@ const columnHelper = createColumnHelper<Instance>()
 
 const PRICING_COLS = ALL_COLUMNS.filter((c) => c.group === 'linux' || c.group === 'windows')
 const SPEC_COLS = ALL_COLUMNS.filter((c) => c.group === 'spec')
+
+// Parse derived column id: e.g. "linuxSud_perVcpu" -> { baseId: "linuxSud", metric: "perVcpu" }
+function parseDerivedId(id: string): { baseId: string; metric: 'perVcpu' | 'perGb' } | null {
+  if (id.endsWith('_perVcpu')) return { baseId: id.slice(0, -8), metric: 'perVcpu' }
+  if (id.endsWith('_perGb')) return { baseId: id.slice(0, -6), metric: 'perGb' }
+  return null
+}
 
 function SortIcon({ isSorted }: { isSorted: false | 'asc' | 'desc' }) {
   if (isSorted === 'asc') return <ArrowUp className="w-3 h-3 ml-1 inline-block" />
@@ -292,11 +299,45 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
         size: 160,
       }),
     ),
+    // Derived columns: $/vCPU and $/GB
+    ...DERIVED_COLUMNS.map((col) => {
+      const parsed = parseDerivedId(col.id)!
+      return columnHelper.accessor(
+        (row) => {
+          if (row.vCpus === 'shared') return undefined
+          const price = row.pricing[region]?.[parsed.baseId as keyof RegionPricing]
+          if (price == null) return undefined
+          const divisor = parsed.metric === 'perVcpu' ? row.vCpus : row.memoryGb
+          return divisor > 0 ? price / divisor : undefined
+        },
+        {
+          id: col.id,
+          header: col.tooltip ? () => <>{col.label}<TooltipIcon text={col.tooltip!} /></> : col.label,
+          cell: ({ getValue }) => {
+            const v = getValue()
+            return <PriceCell value={v == null ? 'Unavailable' : formatPrice(v, currency, costPeriod, exchangeRates)} />
+          },
+          filterFn: (row, _colId, filterValue) => {
+            if (!filterValue) return true
+            const v = (row.original.vCpus === 'shared') ? undefined : (() => {
+              const price = row.original.pricing[region]?.[parsed.baseId as keyof RegionPricing]
+              if (price == null) return undefined
+              const d = parsed.metric === 'perVcpu' ? row.original.vCpus as number : row.original.memoryGb
+              return d > 0 ? price / d : undefined
+            })()
+            const s = v == null ? 'unavailable' : formatPrice(v, currency, costPeriod, exchangeRates).toLowerCase()
+            return s.includes(String(filterValue).toLowerCase())
+          },
+          sortUndefined: 'last',
+          size: 180,
+        },
+      )
+    }),
   ], [region, currency, costPeriod, exchangeRates, toggleRow, selectedRows])
 
   const columnVisibility = useMemo(() => {
     const vis: Record<string, boolean> = {}
-    for (const col of ALL_COLUMNS) {
+    for (const col of ALL_COLUMNS_WITH_DERIVED) {
       vis[col.id] = visibleColumns[col.id] ?? col.defaultVisible
     }
     return vis

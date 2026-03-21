@@ -1,7 +1,7 @@
 import { X, Search, Columns3 } from 'lucide-react'
 import type { RefObject } from 'react'
 import type { CostPeriod, ColumnDef } from '../lib/types'
-import { ALL_COLUMNS } from '../lib/types'
+import { ALL_COLUMNS_WITH_DERIVED } from '../lib/types'
 import { cn } from '../lib/utils'
 
 interface Props {
@@ -35,6 +35,7 @@ const GROUP_LABELS: Record<string, string> = {
   mysql: 'MySQL pricing',
   postgresql: 'PostgreSQL pricing',
   sqlserver: 'SQL Server pricing',
+  derived: 'Cost efficiency',
 }
 
 const COST_PERIODS: { value: CostPeriod; label: string }[] = [
@@ -124,7 +125,7 @@ export function FiltersBar({
   onClearFilters,
   instanceCount,
   totalCount,
-  columns = ALL_COLUMNS,
+  columns = ALL_COLUMNS_WITH_DERIVED,
   searchInputRef,
 }: Props) {
   const groups = Array.from(new Set(columns.map((c) => c.group)))

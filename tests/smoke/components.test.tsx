@@ -151,7 +151,7 @@ describe('FiltersBar', () => {
     expect(screen.getByLabelText('Currency')).toBeTruthy()
     expect(screen.getByLabelText('Min memory (GiB)')).toBeTruthy()
     expect(screen.getByLabelText('Min vCPUs')).toBeTruthy()
-    expect(screen.getByPlaceholderText('Search instances...')).toBeTruthy()
+    expect(screen.getByPlaceholderText('Search instances... (/)')).toBeTruthy()
   })
 
   it('calls setRegion when region changes', () => {
@@ -163,7 +163,7 @@ describe('FiltersBar', () => {
 
   it('calls setGlobalSearch on input', () => {
     render(<FiltersBar {...defaultProps} />)
-    const input = screen.getByPlaceholderText('Search instances...')
+    const input = screen.getByPlaceholderText('Search instances... (/)')
     fireEvent.change(input, { target: { value: 'n2' } })
     expect(defaultProps.setGlobalSearch).toHaveBeenCalledWith('n2')
   })
