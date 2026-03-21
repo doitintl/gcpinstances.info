@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, v3-rewrite]
   pull_request:
     branches: [main]
 
@@ -31,9 +31,15 @@ jobs:
         run: npm test
 
   build:
-    name: Build
+    name: Build and deploy
     runs-on: ubuntu-latest
     needs: test
+    environment: prod
+    env:
+      BASE_PATH: /newversion/
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
       - name: Checkout
@@ -52,3 +58,17 @@ jobs:
         env:
           VITE_ANALYTICS_ENDPOINT: ${{ secrets.VITE_ANALYTICS_ENDPOINT }}
         run: npm run build
+
+      - name: Show build output
+        run: ls -lah ./dist
+
+      - name: Configure AWS credentials
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/v3-rewrite')
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.IAM_ROLE }}
+          aws-region: us-east-1
+
+      - name: Deploy to S3
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/v3-rewrite')
+        run: aws s3 sync ./dist s3://gcpinstances.doit.com/newversion/ --delete
