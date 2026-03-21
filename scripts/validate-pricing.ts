@@ -171,13 +171,15 @@ function buildRatesMap(skus: RawSku[]): ParsedRates {
     if (price === null || price === 0) continue
 
     // Windows license (global, per-vCPU standard rate)
+    // Prefer the Standard edition SKU; fall back to first seen — mirrors fetch-pricing.ts logic.
     if (
       category.resourceFamily === 'License' &&
       description.toLowerCase().includes('licensing fee for windows') &&
-      /\bon\s+vm\b/i.test(description) &&
-      windowsPerVcpuRate === 0
+      /\bon\s+vm\b/i.test(description)
     ) {
-      windowsPerVcpuRate = price
+      if (windowsPerVcpuRate === 0 || description.toLowerCase().includes('standard')) {
+        windowsPerVcpuRate = price
+      }
       continue
     }
 
@@ -193,7 +195,7 @@ function buildRatesMap(skus: RawSku[]): ParsedRates {
       }
       if (!gpuType) continue
 
-      const usageType = mapUsageType(category.usageType)
+      const usageType = mapUsageType(category.usageType, description)
       for (const region of serviceRegions.filter(isSpecificRegion)) {
         const key = `${gpuType}:${region}:${usageType}`
         if (!gpuRates.has(key)) gpuRates.set(key, price)
@@ -203,7 +205,7 @@ function buildRatesMap(skus: RawSku[]): ParsedRates {
 
     if (rg !== 'CPU' && rg !== 'RAM' && rg !== 'N1Standard') continue
 
-    const usageType = mapUsageType(category.usageType)
+    const usageType = mapUsageType(category.usageType, description)
     const os: 'linux' | 'windows' = description.toLowerCase().includes('windows') ? 'windows' : 'linux'
 
     // Strip per-type prefixes before series matching (same as fetch-pricing.ts)
@@ -240,10 +242,11 @@ function buildRatesMap(skus: RawSku[]): ParsedRates {
   return { rates, gpuRates, windowsPerVcpuRate }
 }
 
-function mapUsageType(raw: string): UsageType {
+function mapUsageType(raw: string, description = ''): UsageType {
   if (raw === 'Preemptible') return 'Preemptible'
-  if (raw === 'Commit1Yr')   return 'Cud1yr'
-  if (raw === 'Commit3Yr')   return 'Cud3yr'
+  const desc = description.toLowerCase()
+  if (raw === 'Commit1Yr' || desc.includes('commit1yr')) return 'Cud1yr'
+  if (raw === 'Commit3Yr' || desc.includes('commit3yr')) return 'Cud3yr'
   return 'OnDemand'
 }
 
