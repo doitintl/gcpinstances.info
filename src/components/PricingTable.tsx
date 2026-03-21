@@ -14,9 +14,10 @@ import type { Instance, CostPeriod, RegionPricing } from '../lib/types'
 import { ALL_COLUMNS, ALL_COLUMNS_WITH_DERIVED, DERIVED_COLUMNS } from '../lib/types'
 import { formatPrice, formatMemory, formatVCpus, cn } from '../lib/utils'
 import { CompareDialog } from './CompareDialog'
+import { RegionCompareDialog } from './RegionCompareDialog'
 import { ExportCsv } from './ExportCsv'
 import { TooltipIcon } from './TooltipIcon'
-import { ArrowUpDown, ArrowUp, ArrowDown, GitCompare } from 'lucide-react'
+import { ArrowUpDown, ArrowUp, ArrowDown, GitCompare, MapPin } from 'lucide-react'
 
 interface Props {
   instances: Instance[]
@@ -25,6 +26,7 @@ interface Props {
   currency: string
   visibleColumns: Record<string, boolean>
   exchangeRates: Record<string, number>
+  allRegions?: string[]
 }
 
 const columnHelper = createColumnHelper<Instance>()
@@ -193,11 +195,12 @@ function VirtualTable({
   )
 }
 
-export function PricingTable({ instances, region, costPeriod, currency, visibleColumns, exchangeRates }: Props) {
+export function PricingTable({ instances, region, costPeriod, currency, visibleColumns, exchangeRates, allRegions = [] }: Props) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
   const [compareOpen, setCompareOpen] = useState(false)
+  const [regionCompareOpen, setRegionCompareOpen] = useState(false)
   const toggleRow = useCallback((name: string) => {
     setSelectedRows((prev) => {
       const next = new Set(prev)
@@ -393,6 +396,20 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
             <GitCompare className="w-4 h-4" />
             Compare {selectedRows.size > 0 ? `(${selectedRows.size})` : ''}
           </button>
+          <button
+            onClick={() => setRegionCompareOpen(true)}
+            disabled={selectedRows.size < 1}
+            title="Compare selected instances across regions"
+            className={cn(
+              'flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-md border transition-colors',
+              selectedRows.size >= 1
+                ? 'border-green-600 text-green-600 hover:bg-green-50'
+                : 'border-gray-200 text-gray-400 cursor-not-allowed',
+            )}
+          >
+            <MapPin className="w-4 h-4" />
+            Compare Regions {selectedRows.size > 0 ? `(${selectedRows.size})` : ''}
+          </button>
           <ExportCsv
             filename={`gcp-instances-${region}.csv`}
             headers={['Machine type', 'Series', 'Family', 'vCPUs', 'Memory (GiB)', 'Linux SUD ($/hr)', 'Linux CUD 1yr ($/hr)', 'Windows SUD ($/hr)', 'Windows CUD 1yr ($/hr)']}
@@ -417,6 +434,18 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
         currency={currency}
         costPeriod={costPeriod}
         exchangeRates={exchangeRates}
+      />
+
+      <RegionCompareDialog
+        open={regionCompareOpen}
+        onClose={() => setRegionCompareOpen(false)}
+        instances={selectedInstances}
+        allRegions={allRegions}
+        initialRegion={region}
+        currency={currency}
+        costPeriod={costPeriod}
+        exchangeRates={exchangeRates}
+        columns={ALL_COLUMNS}
       />
     </div>
   )

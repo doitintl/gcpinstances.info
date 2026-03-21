@@ -14,6 +14,7 @@ import type { CloudSqlInstance, CostPeriod, CloudSqlRegionPricing } from '../lib
 import { CLOUDSQL_COLUMNS, CLOUDSQL_COLUMNS_WITH_DERIVED, CLOUDSQL_DERIVED_COLUMNS } from '../lib/types'
 import { formatPrice, formatMemory, formatVCpus, cn } from '../lib/utils'
 import { CompareDialog } from './CompareDialog'
+import { RegionCompareDialog } from './RegionCompareDialog'
 import type { AnyInstance } from './CompareDialog'
 
 const CLOUDSQL_BASE_ROWS: { label: string; get: (i: AnyInstance) => string }[] = [
@@ -25,7 +26,7 @@ const CLOUDSQL_BASE_ROWS: { label: string; get: (i: AnyInstance) => string }[] =
 ]
 import { ExportCsv } from './ExportCsv'
 import { TooltipIcon } from './TooltipIcon'
-import { ArrowUpDown, ArrowUp, ArrowDown, GitCompare } from 'lucide-react'
+import { ArrowUpDown, ArrowUp, ArrowDown, GitCompare, MapPin } from 'lucide-react'
 
 interface Props {
   instances: CloudSqlInstance[]
@@ -34,6 +35,7 @@ interface Props {
   currency: string
   visibleColumns: Record<string, boolean>
   exchangeRates: Record<string, number>
+  allRegions?: string[]
 }
 
 const columnHelper = createColumnHelper<CloudSqlInstance>()
@@ -189,11 +191,12 @@ function VirtualTable({
   )
 }
 
-export function CloudSqlPricingTable({ instances, region, costPeriod, currency, visibleColumns, exchangeRates }: Props) {
+export function CloudSqlPricingTable({ instances, region, costPeriod, currency, visibleColumns, exchangeRates, allRegions = [] }: Props) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
   const [compareOpen, setCompareOpen] = useState(false)
+  const [regionCompareOpen, setRegionCompareOpen] = useState(false)
 
   const toggleRow = useCallback((name: string) => {
     setSelectedRows((prev) => {
@@ -391,6 +394,20 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
             <GitCompare className="w-4 h-4" />
             Compare {selectedRows.size > 0 ? `(${selectedRows.size})` : ''}
           </button>
+          <button
+            onClick={() => setRegionCompareOpen(true)}
+            disabled={selectedRows.size < 1}
+            title="Compare selected instances across regions"
+            className={cn(
+              'flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-md border transition-colors',
+              selectedRows.size >= 1
+                ? 'border-green-600 text-green-600 hover:bg-green-50'
+                : 'border-gray-200 text-gray-400 cursor-not-allowed',
+            )}
+          >
+            <MapPin className="w-4 h-4" />
+            Compare Regions {selectedRows.size > 0 ? `(${selectedRows.size})` : ''}
+          </button>
           <ExportCsv
             filename={`gcp-cloudsql-${region}.csv`}
             headers={['Instance type', 'Edition', 'Series', 'Tier', 'vCPUs', 'Memory (GiB)', 'MySQL Zonal ($/hr)', 'MySQL Regional ($/hr)', 'PostgreSQL Zonal ($/hr)', 'PostgreSQL Regional ($/hr)', 'SQL Server Zonal ($/hr)', 'SQL Server Regional ($/hr)']}
@@ -416,6 +433,18 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
         exchangeRates={exchangeRates}
         columns={CLOUDSQL_COLUMNS}
         baseRows={CLOUDSQL_BASE_ROWS}
+      />
+
+      <RegionCompareDialog
+        open={regionCompareOpen}
+        onClose={() => setRegionCompareOpen(false)}
+        instances={selectedInstances}
+        allRegions={allRegions}
+        initialRegion={region}
+        currency={currency}
+        costPeriod={costPeriod}
+        exchangeRates={exchangeRates}
+        columns={CLOUDSQL_COLUMNS}
       />
     </div>
   )

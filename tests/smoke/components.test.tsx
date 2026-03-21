@@ -99,7 +99,10 @@ describe('PricingTable', () => {
 
   it('enables compare button when 2+ rows selected', () => {
     render(<PricingTable {...defaultProps} />)
-    const compareBtn = screen.getByRole('button', { name: /compare/i })
+    // Use getAllByRole since there are now two compare buttons (Compare + Compare Regions)
+    const compareBtns = screen.getAllByRole('button', { name: /compare/i })
+    // The first is "Compare", the second is "Compare Regions"
+    const compareBtn = compareBtns[0]
     expect(compareBtn).toBeDisabled()
 
     // Click first two data rows (in the body table)
