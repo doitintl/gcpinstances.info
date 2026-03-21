@@ -24,6 +24,7 @@ const CLOUDSQL_BASE_ROWS: { label: string; get: (i: AnyInstance) => string }[] =
   { label: 'Tier', get: (i) => (i as CloudSqlInstance).tier ?? '' },
 ]
 import { ExportCsv } from './ExportCsv'
+import { TooltipIcon } from './TooltipIcon'
 import { ArrowUpDown, ArrowUp, ArrowDown, GitCompare } from 'lucide-react'
 
 interface Props {
@@ -268,7 +269,7 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
     ...CLOUDSQL_COLUMNS.map((col) =>
       columnHelper.accessor((row) => row.pricing[region]?.[col.id as keyof CloudSqlRegionPricing] ?? undefined, {
         id: col.id,
-        header: col.label,
+        header: col.tooltip ? () => <>{col.label}<TooltipIcon text={col.tooltip!} /></> : col.label,
         cell: ({ row }) => (
           <PriceCell value={formatPrice(row.original.pricing[region]?.[col.id as keyof CloudSqlRegionPricing], currency, costPeriod, exchangeRates)} />
         ),

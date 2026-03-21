@@ -15,6 +15,7 @@ import { ALL_COLUMNS } from '../lib/types'
 import { formatPrice, formatMemory, formatVCpus, cn } from '../lib/utils'
 import { CompareDialog } from './CompareDialog'
 import { ExportCsv } from './ExportCsv'
+import { TooltipIcon } from './TooltipIcon'
 import { ArrowUpDown, ArrowUp, ArrowDown, GitCompare } from 'lucide-react'
 
 interface Props {
@@ -245,7 +246,7 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
     ...SPEC_COLS.map((col) =>
       columnHelper.accessor((inst) => (inst as unknown as Record<string, unknown>)[col.id] as string | number | boolean | null, {
         id: col.id,
-        header: col.label,
+        header: col.tooltip ? () => <>{col.label}<TooltipIcon text={col.tooltip!} /></> : col.label,
         cell: ({ getValue }) => {
           const val = getValue()
           if (typeof val === 'boolean') return <span className="text-sm text-gray-700">{val ? 'Yes' : 'No'}</span>
@@ -277,7 +278,7 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
     ...PRICING_COLS.map((col) =>
       columnHelper.accessor((row) => row.pricing[region]?.[col.id as keyof RegionPricing] ?? undefined, {
         id: col.id,
-        header: col.label,
+        header: col.tooltip ? () => <>{col.label}<TooltipIcon text={col.tooltip!} /></> : col.label,
         cell: ({ row }) => (
           <PriceCell value={formatPrice(row.original.pricing[region]?.[col.id as keyof RegionPricing], currency, costPeriod, exchangeRates)} />
         ),

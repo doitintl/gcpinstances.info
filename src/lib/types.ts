@@ -98,6 +98,7 @@ export interface ColumnDef {
   label: string
   defaultVisible: boolean
   group: 'spec' | 'linux' | 'windows' | 'mysql' | 'postgresql' | 'sqlserver'
+  tooltip?: string
 }
 
 export const ALL_COLUMNS: ColumnDef[] = [
@@ -108,19 +109,30 @@ export const ALL_COLUMNS: ColumnDef[] = [
   { id: 'gpuSupport', label: 'GPU support', defaultVisible: false, group: 'spec' },
   { id: 'soleTenantSupport', label: 'Sole tenant support', defaultVisible: false, group: 'spec' },
   { id: 'nestedVirtualizationSupport', label: 'Nested virtualization support', defaultVisible: false, group: 'spec' },
-  { id: 'coremarkScore', label: 'Linux Coremark benchmark', defaultVisible: false, group: 'spec' },
+  { id: 'coremarkScore', label: 'Linux Coremark benchmark', defaultVisible: false, group: 'spec',
+    tooltip: 'CoreMark CPU benchmark — higher = better single-thread performance' },
   // Linux pricing columns
-  { id: 'linuxOnDemand', label: 'Linux On Demand cost', defaultVisible: false, group: 'linux' },
-  { id: 'linuxSud', label: 'Linux SUD cost', defaultVisible: true, group: 'linux' },
-  { id: 'linuxPreemptible', label: 'Linux Preemptible cost', defaultVisible: false, group: 'linux' },
-  { id: 'linuxCud1yr', label: 'Linux 1 year CUD cost', defaultVisible: true, group: 'linux' },
-  { id: 'linuxCud3yr', label: 'Linux 3 year CUD cost', defaultVisible: false, group: 'linux' },
+  { id: 'linuxOnDemand', label: 'Linux On Demand cost', defaultVisible: false, group: 'linux',
+    tooltip: 'Pay-as-you-go pricing, billed per second (1-min minimum)' },
+  { id: 'linuxSud', label: 'Linux SUD cost', defaultVisible: true, group: 'linux',
+    tooltip: 'Sustained Use Discount — automatic discount (up to 30%) for running more than 25% of the month' },
+  { id: 'linuxPreemptible', label: 'Linux Preemptible cost', defaultVisible: false, group: 'linux',
+    tooltip: 'Spot/Preemptible VMs — up to 60-91% off, can be reclaimed with 30s notice' },
+  { id: 'linuxCud1yr', label: 'Linux 1 year CUD cost', defaultVisible: true, group: 'linux',
+    tooltip: 'Committed Use Discount — 37% off for a 1-year commitment' },
+  { id: 'linuxCud3yr', label: 'Linux 3 year CUD cost', defaultVisible: false, group: 'linux',
+    tooltip: 'Committed Use Discount — 55% off for a 3-year commitment' },
   // Windows pricing columns
-  { id: 'windowsOnDemand', label: 'Windows On Demand cost', defaultVisible: false, group: 'windows' },
-  { id: 'windowsSud', label: 'Windows SUD cost', defaultVisible: true, group: 'windows' },
-  { id: 'windowsPreemptible', label: 'Windows Preemptible cost', defaultVisible: false, group: 'windows' },
-  { id: 'windowsCud1yr', label: 'Windows 1 year CUD cost', defaultVisible: true, group: 'windows' },
-  { id: 'windowsCud3yr', label: 'Windows 3 year CUD cost', defaultVisible: false, group: 'windows' },
+  { id: 'windowsOnDemand', label: 'Windows On Demand cost', defaultVisible: false, group: 'windows',
+    tooltip: 'Pay-as-you-go pricing, billed per second (1-min minimum)' },
+  { id: 'windowsSud', label: 'Windows SUD cost', defaultVisible: true, group: 'windows',
+    tooltip: 'Sustained Use Discount — automatic discount (up to 30%) for running more than 25% of the month' },
+  { id: 'windowsPreemptible', label: 'Windows Preemptible cost', defaultVisible: false, group: 'windows',
+    tooltip: 'Spot/Preemptible VMs — up to 60-91% off, can be reclaimed with 30s notice' },
+  { id: 'windowsCud1yr', label: 'Windows 1 year CUD cost', defaultVisible: true, group: 'windows',
+    tooltip: 'Committed Use Discount — 37% off for a 1-year commitment' },
+  { id: 'windowsCud3yr', label: 'Windows 3 year CUD cost', defaultVisible: false, group: 'windows',
+    tooltip: 'Committed Use Discount — 55% off for a 3-year commitment' },
 ]
 
 export const DEFAULT_VISIBLE_COLUMNS: Record<string, boolean> = Object.fromEntries(
@@ -135,12 +147,18 @@ export const PRICING_FIELD_IDS = ALL_COLUMNS
 // ----- Cloud SQL column definitions -----
 
 export const CLOUDSQL_COLUMNS: ColumnDef[] = [
-  { id: 'mysqlZonal',      label: 'MySQL Zonal cost',          defaultVisible: true,  group: 'mysql' },
-  { id: 'mysqlRegional',   label: 'MySQL Regional (HA) cost',  defaultVisible: false, group: 'mysql' },
-  { id: 'postgresZonal',   label: 'PostgreSQL Zonal cost',     defaultVisible: true,  group: 'postgresql' },
-  { id: 'postgresRegional',label: 'PostgreSQL Regional (HA) cost', defaultVisible: false, group: 'postgresql' },
-  { id: 'sqlServerZonal',  label: 'SQL Server Zonal cost',     defaultVisible: false, group: 'sqlserver' },
-  { id: 'sqlServerRegional',label: 'SQL Server Regional (HA) cost', defaultVisible: false, group: 'sqlserver' },
+  { id: 'mysqlZonal',      label: 'MySQL Zonal cost',          defaultVisible: true,  group: 'mysql',
+    tooltip: 'Single-zone (no HA) — lower cost, no automatic failover' },
+  { id: 'mysqlRegional',   label: 'MySQL Regional (HA) cost',  defaultVisible: false, group: 'mysql',
+    tooltip: 'Multi-zone with automatic failover (~2× zonal price)' },
+  { id: 'postgresZonal',   label: 'PostgreSQL Zonal cost',     defaultVisible: true,  group: 'postgresql',
+    tooltip: 'Single-zone (no HA) — lower cost, no automatic failover' },
+  { id: 'postgresRegional',label: 'PostgreSQL Regional (HA) cost', defaultVisible: false, group: 'postgresql',
+    tooltip: 'Multi-zone with automatic failover (~2× zonal price)' },
+  { id: 'sqlServerZonal',  label: 'SQL Server Zonal cost',     defaultVisible: false, group: 'sqlserver',
+    tooltip: 'Single-zone (no HA) — lower cost, no automatic failover' },
+  { id: 'sqlServerRegional',label: 'SQL Server Regional (HA) cost', defaultVisible: false, group: 'sqlserver',
+    tooltip: 'Multi-zone with automatic failover (~2× zonal price)' },
 ]
 
 export const DEFAULT_VISIBLE_CLOUDSQL_COLUMNS: Record<string, boolean> = Object.fromEntries(
