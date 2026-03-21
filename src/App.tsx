@@ -3,6 +3,7 @@ import type { PricingData, CostPeriod, CloudSqlPricingData, ExchangeRatesData } 
 import { CURRENCY_META, CLOUDSQL_COLUMNS } from './lib/types'
 import { getInitialStateFromUrl, syncStateToUrl } from './lib/useUrlState'
 import type { Page } from './lib/useUrlState'
+import { useKeyboardShortcuts } from './lib/useKeyboardShortcuts'
 import { PricingTable } from './components/PricingTable'
 import { FiltersBar } from './components/FiltersBar'
 import { CloudSqlPricingTable } from './components/CloudSqlPricingTable'
@@ -16,6 +17,8 @@ const CURRENCY_KEYS = Object.keys(CURRENCY_META)
 export default function App() {
   // Initialize all filter state from URL on first render
   const [initialState] = useState(getInitialStateFromUrl)
+  const searchInputRef = useRef<HTMLInputElement | null>(null)
+  useKeyboardShortcuts(searchInputRef)
 
   const [page, setPage] = useState<Page>(initialState.page)
   const [data, setData] = useState<PricingData | null>(null)
@@ -271,6 +274,7 @@ export default function App() {
               instanceCount={filteredCloudSqlInstances.length}
               totalCount={cloudSqlData?.instances.length ?? 0}
               columns={CLOUDSQL_COLUMNS}
+              searchInputRef={searchInputRef}
             />
           </div>
           <div className="max-w-screen-2xl mx-auto px-4 pb-8 flex-1 w-full">
@@ -324,6 +328,7 @@ export default function App() {
               onClearFilters={handleClearFilters}
               instanceCount={filteredInstances.length}
               totalCount={data.instances.length}
+              searchInputRef={searchInputRef}
             />
           </div>
 
