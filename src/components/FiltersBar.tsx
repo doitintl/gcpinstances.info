@@ -1,4 +1,5 @@
 import { X, Search, Columns3 } from 'lucide-react'
+import type { RefObject } from 'react'
 import type { CostPeriod, ColumnDef } from '../lib/types'
 import { ALL_COLUMNS } from '../lib/types'
 import { cn } from '../lib/utils'
@@ -24,6 +25,7 @@ interface Props {
   instanceCount: number
   totalCount: number
   columns?: ColumnDef[]
+  searchInputRef?: RefObject<HTMLInputElement | null>
 }
 
 const GROUP_LABELS: Record<string, string> = {
@@ -123,6 +125,7 @@ export function FiltersBar({
   instanceCount,
   totalCount,
   columns = ALL_COLUMNS,
+  searchInputRef,
 }: Props) {
   const groups = Array.from(new Set(columns.map((c) => c.group)))
   const hasFilters = minMemory > 0 || minVCpus > 0 || globalSearch.length > 0
@@ -224,10 +227,11 @@ export function FiltersBar({
           <div className="relative">
             <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
+              ref={searchInputRef}
               type="text"
               value={globalSearch}
               onChange={(e) => setGlobalSearch(e.target.value)}
-              placeholder="Search instances..."
+              placeholder="Search instances... (/)"
               className="pl-8 pr-3 py-1.5 text-sm border border-gray-200 rounded-lg bg-white w-52 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent hover:border-gray-300 transition-colors"
             />
           </div>

@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { X } from 'lucide-react'
 import type { Instance, CostPeriod, RegionPricing, ColumnDef, CloudSqlInstance, CloudSqlRegionPricing } from '../lib/types'
 import { ALL_COLUMNS } from '../lib/types'
@@ -39,6 +40,13 @@ export function CompareDialog({
   columns = ALL_COLUMNS,
   baseRows = CE_BASE_ROWS,
 }: Props) {
+  useEffect(() => {
+    if (!open) return
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
+    document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
+  }, [open, onClose])
+
   if (!open) return null
 
   const pricingCols = columns.filter(
