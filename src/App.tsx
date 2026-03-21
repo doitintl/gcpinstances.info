@@ -300,6 +300,7 @@ export default function App() {
                 currency={currency}
                 visibleColumns={visibleCloudSqlColumns}
                 exchangeRates={exchangeRates}
+                allRegions={activeRegions}
               />
             )}
           </div>
@@ -341,6 +342,7 @@ export default function App() {
               currency={currency}
               visibleColumns={visibleColumns}
               exchangeRates={exchangeRates}
+              allRegions={data.regions}
             />
           </div>
         </>
