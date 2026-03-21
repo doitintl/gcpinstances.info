@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import type { PricingData, CostPeriod, CloudSqlPricingData, ExchangeRatesData } from './lib/types'
-import { CURRENCY_META, CLOUDSQL_COLUMNS } from './lib/types'
+import { CURRENCY_META, CLOUDSQL_COLUMNS_WITH_DERIVED } from './lib/types'
 import { getInitialStateFromUrl, syncStateToUrl } from './lib/useUrlState'
 import type { Page } from './lib/useUrlState'
 import { useKeyboardShortcuts } from './lib/useKeyboardShortcuts'
@@ -273,7 +273,7 @@ export default function App() {
               onClearFilters={handleClearFilters}
               instanceCount={filteredCloudSqlInstances.length}
               totalCount={cloudSqlData?.instances.length ?? 0}
-              columns={CLOUDSQL_COLUMNS}
+              columns={CLOUDSQL_COLUMNS_WITH_DERIVED}
               searchInputRef={searchInputRef}
             />
           </div>

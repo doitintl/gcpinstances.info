@@ -11,7 +11,7 @@ import {
   type ColumnFiltersState,
 } from '@tanstack/react-table'
 import type { CloudSqlInstance, CostPeriod, CloudSqlRegionPricing } from '../lib/types'
-import { CLOUDSQL_COLUMNS } from '../lib/types'
+import { CLOUDSQL_COLUMNS, CLOUDSQL_COLUMNS_WITH_DERIVED, CLOUDSQL_DERIVED_COLUMNS } from '../lib/types'
 import { formatPrice, formatMemory, formatVCpus, cn } from '../lib/utils'
 import { CompareDialog } from './CompareDialog'
 import type { AnyInstance } from './CompareDialog'
@@ -283,11 +283,46 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
         size: 200,
       }),
     ),
+    // Derived columns: $/vCPU and $/GB
+    ...CLOUDSQL_DERIVED_COLUMNS.map((col) => {
+      const isPerVcpu = col.id.endsWith('_perVcpu')
+      const baseId = isPerVcpu ? col.id.slice(0, -8) : col.id.slice(0, -6)
+      return columnHelper.accessor(
+        (row) => {
+          if (row.vCpus === 'shared') return undefined
+          const price = row.pricing[region]?.[baseId as keyof CloudSqlRegionPricing]
+          if (price == null) return undefined
+          const divisor = isPerVcpu ? (row.vCpus as number) : row.memoryGb
+          return divisor > 0 ? price / divisor : undefined
+        },
+        {
+          id: col.id,
+          header: col.tooltip ? () => <>{col.label}<TooltipIcon text={col.tooltip!} /></> : col.label,
+          cell: ({ getValue }) => {
+            const v = getValue()
+            return <PriceCell value={v == null ? 'Unavailable' : formatPrice(v, currency, costPeriod, exchangeRates)} />
+          },
+          filterFn: (row, _colId, filterValue) => {
+            if (!filterValue) return true
+            const v = row.original.vCpus === 'shared' ? undefined : (() => {
+              const price = row.original.pricing[region]?.[baseId as keyof CloudSqlRegionPricing]
+              if (price == null) return undefined
+              const d = isPerVcpu ? (row.original.vCpus as number) : row.original.memoryGb
+              return d > 0 ? price / d : undefined
+            })()
+            const s = v == null ? 'unavailable' : formatPrice(v, currency, costPeriod, exchangeRates).toLowerCase()
+            return s.includes(String(filterValue).toLowerCase())
+          },
+          sortUndefined: 'last',
+          size: 200,
+        },
+      )
+    }),
   ], [region, currency, costPeriod, exchangeRates, toggleRow, selectedRows])
 
   const columnVisibility = useMemo(() => {
     const vis: Record<string, boolean> = {}
-    for (const col of CLOUDSQL_COLUMNS) {
+    for (const col of CLOUDSQL_COLUMNS_WITH_DERIVED) {
       vis[col.id] = visibleColumns[col.id] ?? col.defaultVisible
     }
     return vis

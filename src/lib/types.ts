@@ -97,7 +97,7 @@ export interface ColumnDef {
   id: string
   label: string
   defaultVisible: boolean
-  group: 'spec' | 'linux' | 'windows' | 'mysql' | 'postgresql' | 'sqlserver'
+  group: 'spec' | 'linux' | 'windows' | 'mysql' | 'postgresql' | 'sqlserver' | 'derived'
   tooltip?: string
 }
 
@@ -135,8 +135,29 @@ export const ALL_COLUMNS: ColumnDef[] = [
     tooltip: 'Committed Use Discount — 55% off for a 3-year commitment' },
 ]
 
+// Derived columns: $/vCPU and $/GB for each pricing column
+const BASE_PRICING_COLS = ALL_COLUMNS.filter((c) => c.group === 'linux' || c.group === 'windows')
+export const DERIVED_COLUMNS: ColumnDef[] = BASE_PRICING_COLS.flatMap((col) => [
+  {
+    id: `${col.id}_perVcpu`,
+    label: `${col.label.replace(' cost', '')} $/vCPU`,
+    defaultVisible: false,
+    group: 'derived' as const,
+    tooltip: `${col.label.replace(' cost', '')} price divided by vCPU count`,
+  },
+  {
+    id: `${col.id}_perGb`,
+    label: `${col.label.replace(' cost', '')} $/GB`,
+    defaultVisible: false,
+    group: 'derived' as const,
+    tooltip: `${col.label.replace(' cost', '')} price divided by memory (GB)`,
+  },
+])
+
+export const ALL_COLUMNS_WITH_DERIVED: ColumnDef[] = [...ALL_COLUMNS, ...DERIVED_COLUMNS]
+
 export const DEFAULT_VISIBLE_COLUMNS: Record<string, boolean> = Object.fromEntries(
-  ALL_COLUMNS.map((c) => [c.id, c.defaultVisible]),
+  ALL_COLUMNS_WITH_DERIVED.map((c) => [c.id, c.defaultVisible]),
 )
 
 // Pricing field IDs for use in PricingTable / CompareDialog
@@ -161,6 +182,25 @@ export const CLOUDSQL_COLUMNS: ColumnDef[] = [
     tooltip: 'Multi-zone with automatic failover (~2× zonal price)' },
 ]
 
+export const CLOUDSQL_DERIVED_COLUMNS: ColumnDef[] = CLOUDSQL_COLUMNS.flatMap((col) => [
+  {
+    id: `${col.id}_perVcpu`,
+    label: `${col.label.replace(' cost', '')} $/vCPU`,
+    defaultVisible: false,
+    group: 'derived' as const,
+    tooltip: `${col.label.replace(' cost', '')} price divided by vCPU count`,
+  },
+  {
+    id: `${col.id}_perGb`,
+    label: `${col.label.replace(' cost', '')} $/GB`,
+    defaultVisible: false,
+    group: 'derived' as const,
+    tooltip: `${col.label.replace(' cost', '')} price divided by memory (GB)`,
+  },
+])
+
+export const CLOUDSQL_COLUMNS_WITH_DERIVED: ColumnDef[] = [...CLOUDSQL_COLUMNS, ...CLOUDSQL_DERIVED_COLUMNS]
+
 export const DEFAULT_VISIBLE_CLOUDSQL_COLUMNS: Record<string, boolean> = Object.fromEntries(
-  CLOUDSQL_COLUMNS.map((c) => [c.id, c.defaultVisible]),
+  CLOUDSQL_COLUMNS_WITH_DERIVED.map((c) => [c.id, c.defaultVisible]),
 )
