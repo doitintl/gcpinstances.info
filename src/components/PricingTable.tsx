@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useRef, memo } from 'react'
+import { useState, useMemo, useCallback, useRef, memo, useEffect } from 'react'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import {
   useReactTable,
@@ -125,7 +125,7 @@ function VirtualTable({
               </th>
             ))}
           </tr>
-          <tr className="border-b border-gray-100">
+          <tr className="sticky z-10 border-b border-gray-100 bg-white" style={{ top: '41px' }}>
             {table.getFlatHeaders().map((header) => (
               <th key={`filter-${header.id}`} className="px-3 py-1.5 bg-white">
                 {header.column.getCanFilter() ? (
@@ -201,6 +201,8 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
   const [compareOpen, setCompareOpen] = useState(false)
   const [regionCompareOpen, setRegionCompareOpen] = useState(false)
+  useEffect(() => { setSelectedRows(new Set()) }, [region])
+
   const toggleRow = useCallback((name: string) => {
     setSelectedRows((prev) => {
       const next = new Set(prev)

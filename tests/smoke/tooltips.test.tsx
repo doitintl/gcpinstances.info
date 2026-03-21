@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { PricingTable } from '@/components/PricingTable'
 import { CloudSqlPricingTable } from '@/components/CloudSqlPricingTable'
 import type { Instance, CloudSqlInstance } from '@/lib/types'
@@ -26,23 +26,28 @@ const defaultProps = {
   exchangeRates: defaultExchangeRates,
 }
 
+function hoverAllTooltips() {
+  document.querySelectorAll('th span.ml-1').forEach((el) => fireEvent.mouseEnter(el))
+}
+
 describe('PricingTable tooltips', () => {
   it('renders tooltip text for Linux SUD column header', () => {
     render(<PricingTable {...defaultProps} />)
-    // Tooltip text is rendered in the DOM (hidden via CSS opacity, not conditional rendering)
+    hoverAllTooltips()
     const els = screen.getAllByText(/Sustained Use Discount/)
     expect(els.length).toBeGreaterThan(0)
   })
 
   it('renders tooltip text for Linux CUD 1yr column header', () => {
     render(<PricingTable {...defaultProps} />)
-    // Two CUD tooltips rendered (1yr and 3yr are both listed in this column set via visible)
+    hoverAllTooltips()
     const cudTexts = screen.getAllByText(/37% off for a 1-year commitment/)
     expect(cudTexts.length).toBeGreaterThan(0)
   })
 
   it('renders tooltip text for Windows SUD column header', () => {
     render(<PricingTable {...defaultProps} />)
+    hoverAllTooltips()
     const sudTexts = screen.getAllByText(/Sustained Use Discount/)
     // Should have at least 2: Linux SUD + Windows SUD
     expect(sudTexts.length).toBeGreaterThanOrEqual(2)
@@ -82,6 +87,7 @@ describe('CloudSqlPricingTable tooltips', () => {
         exchangeRates={defaultExchangeRates}
       />,
     )
+    hoverAllTooltips()
     const els = screen.getAllByText(/Single-zone \(no HA\)/)
     expect(els.length).toBeGreaterThan(0)
   })
