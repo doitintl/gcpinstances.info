@@ -1,6 +1,8 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import type { PricingData, CostPeriod, CloudSqlPricingData, ExchangeRatesData } from './lib/types'
-import { CURRENCY_META, DEFAULT_VISIBLE_COLUMNS, DEFAULT_VISIBLE_CLOUDSQL_COLUMNS, CLOUDSQL_COLUMNS } from './lib/types'
+import { CURRENCY_META, CLOUDSQL_COLUMNS } from './lib/types'
+import { getInitialStateFromUrl, syncStateToUrl } from './lib/useUrlState'
+import type { Page } from './lib/useUrlState'
 import { PricingTable } from './components/PricingTable'
 import { FiltersBar } from './components/FiltersBar'
 import { CloudSqlPricingTable } from './components/CloudSqlPricingTable'
@@ -9,18 +11,13 @@ import { trackPageView } from './lib/analytics'
 import { Cloud, ExternalLink, Github, Terminal } from 'lucide-react'
 import { cn } from './lib/utils'
 
-type Page = 'home' | 'cloudsql' | 'mcp-cli'
-
-function getPage(): Page {
-  if (location.hash === '#mcp-cli') return 'mcp-cli'
-  if (location.hash === '#cloudsql') return 'cloudsql'
-  return 'home'
-}
-
 const CURRENCY_KEYS = Object.keys(CURRENCY_META)
 
 export default function App() {
-  const [page, setPage] = useState<Page>(getPage)
+  // Initialize all filter state from URL on first render
+  const [initialState] = useState(getInitialStateFromUrl)
+
+  const [page, setPage] = useState<Page>(initialState.page)
   const [data, setData] = useState<PricingData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -30,23 +27,39 @@ export default function App() {
   const [cloudSqlData, setCloudSqlData] = useState<CloudSqlPricingData | null>(null)
   const [cloudSqlError, setCloudSqlError] = useState<string | null>(null)
   const cloudSqlFetchRef = useRef(false)
-  // Derived: show loading spinner while on Cloud SQL tab before data or error arrives
   const cloudSqlLoading = page === 'cloudsql' && !cloudSqlData && !cloudSqlError
 
-  // Shared filters
-  const [region, setRegion] = useState('us-central1')
-  const [costPeriod, setCostPeriod] = useState<CostPeriod>('hourly')
-  const [currency, setCurrency] = useState('USD')
-  const [minMemory, setMinMemory] = useState(0)
-  const [minVCpus, setMinVCpus] = useState(0)
-  const [globalSearch, setGlobalSearch] = useState('')
+  // Shared filters — initialized from URL
+  const [region, setRegion] = useState(initialState.region)
+  const [costPeriod, setCostPeriod] = useState<CostPeriod>(initialState.costPeriod)
+  const [currency, setCurrency] = useState(initialState.currency)
+  const [minMemory, setMinMemory] = useState(initialState.minMemory)
+  const [minVCpus, setMinVCpus] = useState(initialState.minVCpus)
+  const [globalSearch, setGlobalSearch] = useState(initialState.globalSearch)
 
-  // Per-tab column visibility
-  const [visibleColumns, setVisibleColumns] = useState<Record<string, boolean>>(DEFAULT_VISIBLE_COLUMNS)
-  const [visibleCloudSqlColumns, setVisibleCloudSqlColumns] = useState<Record<string, boolean>>(DEFAULT_VISIBLE_CLOUDSQL_COLUMNS)
+  // Per-tab column visibility — initialized from URL
+  const [visibleColumns, setVisibleColumns] = useState<Record<string, boolean>>(initialState.visibleColumns)
+  const [visibleCloudSqlColumns, setVisibleCloudSqlColumns] = useState<Record<string, boolean>>(initialState.visibleCloudSqlColumns)
+
+  // Sync state to URL whenever any filter changes
+  useEffect(() => {
+    syncStateToUrl(page, { region, costPeriod, currency, minMemory, minVCpus, globalSearch, visibleColumns, visibleCloudSqlColumns })
+  }, [page, region, costPeriod, currency, minMemory, minVCpus, globalSearch, visibleColumns, visibleCloudSqlColumns])
 
   useEffect(() => {
-    const onHashChange = () => setPage(getPage())
+    const onHashChange = () => {
+      // On popstate/hashchange, re-read URL state
+      const urlState = getInitialStateFromUrl()
+      setPage(urlState.page)
+      setRegion(urlState.region)
+      setCostPeriod(urlState.costPeriod)
+      setCurrency(urlState.currency)
+      setMinMemory(urlState.minMemory)
+      setMinVCpus(urlState.minVCpus)
+      setGlobalSearch(urlState.globalSearch)
+      setVisibleColumns(urlState.visibleColumns)
+      setVisibleCloudSqlColumns(urlState.visibleCloudSqlColumns)
+    }
     window.addEventListener('hashchange', onHashChange)
     return () => window.removeEventListener('hashchange', onHashChange)
   }, [])
@@ -57,8 +70,12 @@ export default function App() {
       .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() })
       .then((d: PricingData) => {
         setData(d)
-        if (d.regions.includes('us-central1')) setRegion('us-central1')
-        else if (d.regions.length) setRegion(d.regions[0])
+        // Only override region if the URL-specified region doesn't exist in this dataset
+        setRegion((prev) => {
+          if (d.regions.includes(prev)) return prev
+          if (d.regions.includes('us-central1')) return 'us-central1'
+          return d.regions[0] ?? prev
+        })
       })
 
     const ratesPromise = fetch('/data/exchange-rates.json')
@@ -130,7 +147,6 @@ export default function App() {
     setGlobalSearch('')
   }, [])
 
-  // Active regions depends on which tab is active
   const activeRegions = useMemo(() => {
     if (page === 'cloudsql') return cloudSqlData?.regions ?? data?.regions ?? []
     return data?.regions ?? []
