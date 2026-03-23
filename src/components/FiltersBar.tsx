@@ -1,5 +1,5 @@
 import { X, Search, Columns3 } from 'lucide-react'
-import type { RefObject } from 'react'
+import { useState, useRef, useEffect, type RefObject } from 'react'
 import type { CostPeriod, ColumnDef } from '../lib/types'
 import { ALL_COLUMNS_WITH_DERIVED } from '../lib/types'
 import { cn } from '../lib/utils'
@@ -130,6 +130,19 @@ export function FiltersBar({
 }: Props) {
   const groups = Array.from(new Set(columns.map((c) => c.group)))
   const hasFilters = minMemory > 0 || minVCpus > 0 || globalSearch.length > 0
+  const [colsOpen, setColsOpen] = useState(false)
+  const colsRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!colsOpen) return
+    function handleClick(e: MouseEvent) {
+      if (colsRef.current && !colsRef.current.contains(e.target as Node)) {
+        setColsOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [colsOpen])
 
   return (
     <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 mb-4">
@@ -176,12 +189,15 @@ export function FiltersBar({
         {/* Column visibility */}
         <div className="flex flex-col gap-0.5">
           <label className="text-xs text-gray-500 font-medium">Columns</label>
-          <div className="relative group">
-            <button className="flex items-center gap-1.5 px-2.5 py-1.5 text-sm border border-gray-200 rounded-lg bg-white hover:border-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400">
+          <div className="relative" ref={colsRef}>
+            <button
+              onClick={() => setColsOpen((o) => !o)}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 text-sm border border-gray-200 rounded-lg bg-white hover:border-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
               <Columns3 className="w-4 h-4 text-gray-500" />
               Columns
             </button>
-            <div className="absolute top-full left-0 mt-1 z-50 bg-white border border-gray-200 rounded-xl shadow-lg p-3 min-w-[240px] max-h-[60vh] overflow-y-auto hidden group-focus-within:block group-hover:block">
+            <div className={`absolute top-full left-0 mt-1 z-50 bg-white border border-gray-200 rounded-xl shadow-lg p-3 min-w-[240px] max-h-[60vh] overflow-y-auto ${colsOpen ? 'block' : 'hidden'}`}>
               {groups.map((group) => (
                 <div key={group}>
                   <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide px-2 pt-2 pb-1">
