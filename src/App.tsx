@@ -8,8 +8,9 @@ import { PricingTable } from './components/PricingTable'
 import { FiltersBar } from './components/FiltersBar'
 import { CloudSqlPricingTable } from './components/CloudSqlPricingTable'
 import { McpCliPage } from './components/McpCliPage'
+import { AboutDialog } from './components/AboutDialog'
 import { trackPageView } from './lib/analytics'
-import { Cloud, ExternalLink, Github, Terminal } from 'lucide-react'
+import { Cloud, ExternalLink, Github, Info, Star, Terminal } from 'lucide-react'
 import { cn } from './lib/utils'
 
 const CURRENCY_KEYS = Object.keys(CURRENCY_META)
@@ -39,6 +40,8 @@ export default function App() {
   const [minMemory, setMinMemory] = useState(initialState.minMemory)
   const [minVCpus, setMinVCpus] = useState(initialState.minVCpus)
   const [globalSearch, setGlobalSearch] = useState(initialState.globalSearch)
+
+  const [aboutOpen, setAboutOpen] = useState(false)
 
   // Per-tab column visibility — initialized from URL
   const [visibleColumns, setVisibleColumns] = useState<Record<string, boolean>>(initialState.visibleColumns)
@@ -178,7 +181,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="h-screen bg-gray-50 flex flex-col overflow-hidden">
       {/* Header */}
       <header className="bg-gray-900 text-white">
         <div className="max-w-screen-2xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -277,32 +280,34 @@ export default function App() {
               searchInputRef={searchInputRef}
             />
           </div>
-          <div className="max-w-screen-2xl mx-auto px-4 pb-8 flex-1 w-full">
-            {cloudSqlLoading ? (
-              <div className="flex items-center justify-center py-24">
-                <div className="flex flex-col items-center gap-4 text-gray-500">
-                  <Cloud className="w-10 h-10 animate-pulse text-blue-500" />
-                  <p className="text-base font-medium">Loading Cloud SQL pricing...</p>
+          <div className="flex-1 min-h-0 w-full relative">
+            <div className="absolute inset-0 max-w-screen-2xl mx-auto px-4 pb-4">
+              {cloudSqlLoading ? (
+                <div className="flex items-center justify-center py-24">
+                  <div className="flex flex-col items-center gap-4 text-gray-500">
+                    <Cloud className="w-10 h-10 animate-pulse text-blue-500" />
+                    <p className="text-base font-medium">Loading Cloud SQL pricing...</p>
+                  </div>
                 </div>
-              </div>
-            ) : cloudSqlError ? (
-              <div className="flex items-center justify-center py-24">
-                <div className="text-center">
-                  <p className="text-red-500 font-medium">Failed to load Cloud SQL pricing</p>
-                  <p className="text-gray-400 text-sm mt-1">{cloudSqlError}</p>
+              ) : cloudSqlError ? (
+                <div className="flex items-center justify-center py-24">
+                  <div className="text-center">
+                    <p className="text-red-500 font-medium">Failed to load Cloud SQL pricing</p>
+                    <p className="text-gray-400 text-sm mt-1">{cloudSqlError}</p>
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <CloudSqlPricingTable
-                instances={filteredCloudSqlInstances}
-                region={region}
-                costPeriod={costPeriod}
-                currency={currency}
-                visibleColumns={visibleCloudSqlColumns}
-                exchangeRates={exchangeRates}
-                allRegions={activeRegions}
-              />
-            )}
+              ) : (
+                <CloudSqlPricingTable
+                  instances={filteredCloudSqlInstances}
+                  region={region}
+                  costPeriod={costPeriod}
+                  currency={currency}
+                  visibleColumns={visibleCloudSqlColumns}
+                  exchangeRates={exchangeRates}
+                  allRegions={activeRegions}
+                />
+              )}
+            </div>
           </div>
         </>
       ) : (
@@ -334,66 +339,59 @@ export default function App() {
           </div>
 
           {/* Table */}
-          <div className="max-w-screen-2xl mx-auto px-4 pb-8 flex-1 w-full">
-            <PricingTable
-              instances={filteredInstances}
-              region={region}
-              costPeriod={costPeriod}
-              currency={currency}
-              visibleColumns={visibleColumns}
-              exchangeRates={exchangeRates}
-              allRegions={data.regions}
-            />
+          <div className="flex-1 min-h-0 w-full relative">
+            <div className="absolute inset-0 max-w-screen-2xl mx-auto px-4 pb-4">
+              <PricingTable
+                instances={filteredInstances}
+                region={region}
+                costPeriod={costPeriod}
+                currency={currency}
+                visibleColumns={visibleColumns}
+                exchangeRates={exchangeRates}
+                allRegions={data.regions}
+              />
+            </div>
           </div>
         </>
       )}
 
       {/* Footer */}
       <footer className="bg-gray-900 text-gray-400 border-t border-gray-800">
-        <div className="max-w-screen-2xl mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <img src="/DoitLogo.svg" alt="DoiT" className="h-5" />
-              <span className="text-sm">
-                GCP Instance pricing comparison tool
-              </span>
-            </div>
-            <div className="flex items-center gap-6 text-sm">
-              <a
-                href="https://www.doit.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition-colors inline-flex items-center gap-1"
-              >
-                doit.com
-                <ExternalLink className="w-3 h-3" />
-              </a>
-              <a
-                href="https://www.doit.com/cloud-analytics/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition-colors inline-flex items-center gap-1"
-              >
-                Cloud Analytics
-                <ExternalLink className="w-3 h-3" />
-              </a>
-              <a
-                href="https://github.com/doitintl/gcp-instances"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition-colors inline-flex items-center gap-1"
-              >
-                <Github className="w-4 h-4" />
-                GitHub
-              </a>
-            </div>
+        <div className="max-w-screen-2xl mx-auto px-4 py-2 flex items-center justify-between text-xs">
+          <div className="flex items-center gap-3">
+            <img src="/DoitLogo.svg" alt="DoiT" className="h-4" />
+            <span className="hidden sm:inline text-gray-500">Not affiliated with Google</span>
           </div>
-          <div className="mt-4 pt-4 border-t border-gray-800 text-xs text-gray-500 text-center">
-            This site is not maintained by or affiliated with Google. Data accuracy cannot be guaranteed.
-            Pricing data sourced from the Google Cloud Billing Catalog API.
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setAboutOpen(true)}
+              className="hover:text-white transition-colors inline-flex items-center gap-1"
+            >
+              <Info className="w-3.5 h-3.5" />
+              About
+            </button>
+            <a href="https://www.doit.com/" target="_blank" rel="noopener noreferrer" className="hidden sm:inline-flex items-center gap-1 hover:text-white transition-colors">
+              doit.com
+              <ExternalLink className="w-2.5 h-2.5" />
+            </a>
+            <a
+              href="https://github.com/doitintl/gcpinstances.info"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors inline-flex items-center gap-1.5 border border-gray-600 rounded-full px-2.5 py-0.5 hover:border-gray-400"
+            >
+              <Star className="w-3 h-3" />
+              <Github className="w-3 h-3" />
+              Star on GitHub
+            </a>
           </div>
         </div>
       </footer>
+      <AboutDialog
+        open={aboutOpen}
+        onClose={() => setAboutOpen(false)}
+        formattedDate={formattedDate}
+      />
     </div>
   )
 }

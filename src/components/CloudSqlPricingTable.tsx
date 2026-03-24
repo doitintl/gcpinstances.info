@@ -97,8 +97,7 @@ function VirtualTable({
   return (
     <div
       ref={parentRef}
-      className="overflow-auto rounded-xl border border-gray-200 shadow-sm bg-white"
-      style={{ maxHeight: 'calc(100vh - 280px)' }}
+      className="overflow-auto rounded-xl border border-gray-200 shadow-sm bg-white flex-1 min-h-0"
     >
       <table className="min-w-full text-left border-collapse table-fixed">
         <thead className="sticky top-0 z-10">
@@ -373,7 +372,7 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
   }, [visibleRows, region])
 
   return (
-    <div className="mt-2">
+    <div className="mt-2 h-full flex flex-col min-h-0">
       {/* Action bar */}
       <div className="flex items-center justify-between mb-2 px-1">
         <span className="text-sm text-gray-500">
