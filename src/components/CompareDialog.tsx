@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { X } from 'lucide-react'
-import type { Instance, CostPeriod, RegionPricing, ColumnDef, CloudSqlInstance, CloudSqlRegionPricing } from '../lib/types'
+import type { Instance, CostPeriod, RegionPricing, ColumnDef, CloudSqlInstance, CloudSqlRegionPricing, MemorystoreInstance, MemorystoreRegionPricing } from '../lib/types'
 import { ALL_COLUMNS } from '../lib/types'
 import { formatPrice, formatMemory, formatVCpus } from '../lib/utils'
 
-export type AnyInstance = Instance | CloudSqlInstance
+export type AnyInstance = Instance | CloudSqlInstance | MemorystoreInstance
 
 interface Props {
   open: boolean
@@ -19,9 +19,9 @@ interface Props {
 }
 
 const CE_BASE_ROWS: { label: string; get: (i: AnyInstance) => string }[] = [
-  { label: 'vCPUs', get: (i) => formatVCpus(i.vCpus) },
-  { label: 'Memory', get: (i) => formatMemory(i.memoryGb) },
-  { label: 'Series', get: (i) => i.series },
+  { label: 'vCPUs', get: (i) => formatVCpus((i as Instance).vCpus) },
+  { label: 'Memory', get: (i) => formatMemory((i as Instance).memoryGb) },
+  { label: 'Series', get: (i) => (i as Instance).series ?? '' },
   { label: 'Family', get: (i) => (i as Instance).family ?? '' },
   { label: 'CPU Type', get: (i) => (i as Instance).cpuType ?? 'N/A' },
   { label: 'Local SSD', get: (i) => (i as Instance).localSsd ? 'Yes' : 'No' },
@@ -51,14 +51,15 @@ export function CompareDialog({
 
   const pricingCols = columns.filter(
     (c) => c.group === 'linux' || c.group === 'windows' ||
-           c.group === 'mysql' || c.group === 'postgresql' || c.group === 'sqlserver',
+           c.group === 'mysql' || c.group === 'postgresql' || c.group === 'sqlserver' ||
+           c.group === 'memorystore',
   )
 
   const pricingRows = pricingCols.map((col) => ({
     label: col.label.replace(' cost', ''),
     get: (i: AnyInstance) => {
-      const regionPricing = i.pricing[region] as (RegionPricing & CloudSqlRegionPricing) | undefined
-      return formatPrice(regionPricing?.[col.id as keyof (RegionPricing & CloudSqlRegionPricing)], currency, costPeriod, exchangeRates)
+      const regionPricing = i.pricing[region] as (RegionPricing & CloudSqlRegionPricing & MemorystoreRegionPricing) | undefined
+      return formatPrice(regionPricing?.[col.id as keyof (RegionPricing & CloudSqlRegionPricing & MemorystoreRegionPricing)], currency, costPeriod, exchangeRates)
     },
   }))
 

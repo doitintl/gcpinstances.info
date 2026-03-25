@@ -1,12 +1,13 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
-import type { PricingData, CostPeriod, CloudSqlPricingData, ExchangeRatesData } from './lib/types'
-import { CURRENCY_META, CLOUDSQL_COLUMNS_WITH_DERIVED } from './lib/types'
+import type { PricingData, CostPeriod, CloudSqlPricingData, MemorystorePricingData, ExchangeRatesData } from './lib/types'
+import { CURRENCY_META, CLOUDSQL_COLUMNS_WITH_DERIVED, MEMORYSTORE_COLUMNS_WITH_DERIVED } from './lib/types'
 import { getInitialStateFromUrl, syncStateToUrl } from './lib/useUrlState'
 import type { Page } from './lib/useUrlState'
 import { useKeyboardShortcuts } from './lib/useKeyboardShortcuts'
 import { PricingTable } from './components/PricingTable'
 import { FiltersBar } from './components/FiltersBar'
 import { CloudSqlPricingTable } from './components/CloudSqlPricingTable'
+import { MemorystorePricingTable } from './components/MemorystorePricingTable'
 import { McpCliPage } from './components/McpCliPage'
 import { AboutDialog } from './components/AboutDialog'
 import { trackPageView } from './lib/analytics'
@@ -33,12 +34,19 @@ export default function App() {
   const cloudSqlFetchRef = useRef(false)
   const cloudSqlLoading = page === 'cloudsql' && !cloudSqlData && !cloudSqlError
 
+  // Memorystore data (lazy loaded)
+  const [memorystoreData, setMemorystoreData] = useState<MemorystorePricingData | null>(null)
+  const [memorystoreError, setMemorystoreError] = useState<string | null>(null)
+  const memorystoreFetchRef = useRef(false)
+  const memorystoreLoading = page === 'memorystore' && !memorystoreData && !memorystoreError
+
   // Shared filters — initialized from URL
   const [region, setRegion] = useState(initialState.region)
   const [costPeriod, setCostPeriod] = useState<CostPeriod>(initialState.costPeriod)
   const [currency, setCurrency] = useState(initialState.currency)
   const [minMemory, setMinMemory] = useState(initialState.minMemory)
   const [minVCpus, setMinVCpus] = useState(initialState.minVCpus)
+  const [minCapacityGb, setMinCapacityGb] = useState(initialState.minCapacityGb)
   const [globalSearch, setGlobalSearch] = useState(initialState.globalSearch)
 
   const [aboutOpen, setAboutOpen] = useState(false)
@@ -46,11 +54,12 @@ export default function App() {
   // Per-tab column visibility — initialized from URL
   const [visibleColumns, setVisibleColumns] = useState<Record<string, boolean>>(initialState.visibleColumns)
   const [visibleCloudSqlColumns, setVisibleCloudSqlColumns] = useState<Record<string, boolean>>(initialState.visibleCloudSqlColumns)
+  const [visibleMemorystoreColumns, setVisibleMemorystoreColumns] = useState<Record<string, boolean>>(initialState.visibleMemorystoreColumns)
 
   // Sync state to URL whenever any filter changes
   useEffect(() => {
-    syncStateToUrl(page, { region, costPeriod, currency, minMemory, minVCpus, globalSearch, visibleColumns, visibleCloudSqlColumns })
-  }, [page, region, costPeriod, currency, minMemory, minVCpus, globalSearch, visibleColumns, visibleCloudSqlColumns])
+    syncStateToUrl(page, { region, costPeriod, currency, minMemory, minVCpus, minCapacityGb, globalSearch, visibleColumns, visibleCloudSqlColumns, visibleMemorystoreColumns })
+  }, [page, region, costPeriod, currency, minMemory, minVCpus, minCapacityGb, globalSearch, visibleColumns, visibleCloudSqlColumns, visibleMemorystoreColumns])
 
   useEffect(() => {
     const onHashChange = () => {
@@ -62,9 +71,11 @@ export default function App() {
       setCurrency(urlState.currency)
       setMinMemory(urlState.minMemory)
       setMinVCpus(urlState.minVCpus)
+      setMinCapacityGb(urlState.minCapacityGb)
       setGlobalSearch(urlState.globalSearch)
       setVisibleColumns(urlState.visibleColumns)
       setVisibleCloudSqlColumns(urlState.visibleCloudSqlColumns)
+      setVisibleMemorystoreColumns(urlState.visibleMemorystoreColumns)
     }
     window.addEventListener('hashchange', onHashChange)
     return () => window.removeEventListener('hashchange', onHashChange)
@@ -110,6 +121,22 @@ export default function App() {
       .catch((e) => setCloudSqlError(String(e)))
   }, [page])
 
+  // Lazy load Memorystore pricing on first visit to that tab
+  useEffect(() => {
+    if (page !== 'memorystore' || memorystoreFetchRef.current) return
+    memorystoreFetchRef.current = true
+    fetch('/data/memorystore-pricing.json')
+      .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() })
+      .then((d: MemorystorePricingData) => {
+        setMemorystoreData(d)
+        setRegion((prev) => {
+          if (d.regions.includes(prev)) return prev
+          return d.regions.includes('us-central1') ? 'us-central1' : d.regions[0] ?? prev
+        })
+      })
+      .catch((e) => setMemorystoreError(String(e)))
+  }, [page])
+
   const filteredInstances = useMemo(() => {
     if (!data) return []
     return data.instances.filter((inst) => {
@@ -142,7 +169,21 @@ export default function App() {
     })
   }, [cloudSqlData, minVCpus, minMemory, globalSearch])
 
-  const activeUpdatedAt = page === 'cloudsql' ? cloudSqlData?.updatedAt : data?.updatedAt
+  const filteredMemorystoreInstances = useMemo(() => {
+    if (!memorystoreData) return []
+    return memorystoreData.instances.filter((inst) => {
+      if (minCapacityGb > 0 && inst.capacityGb != null && inst.capacityGb < minCapacityGb) return false
+      if (globalSearch) {
+        const q = globalSearch.toLowerCase()
+        if (!inst.name.toLowerCase().includes(q) &&
+            !inst.product.toLowerCase().includes(q) &&
+            !inst.nodeType.toLowerCase().includes(q)) return false
+      }
+      return true
+    })
+  }, [memorystoreData, minCapacityGb, globalSearch])
+
+  const activeUpdatedAt = page === 'memorystore' ? memorystoreData?.updatedAt : page === 'cloudsql' ? cloudSqlData?.updatedAt : data?.updatedAt
   const formattedDate = useMemo(() => activeUpdatedAt ? new Date(activeUpdatedAt).toLocaleDateString('en-US', {
     year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',
   }) : '', [activeUpdatedAt])
@@ -150,13 +191,15 @@ export default function App() {
   const handleClearFilters = useCallback(() => {
     setMinMemory(0)
     setMinVCpus(0)
+    setMinCapacityGb(0)
     setGlobalSearch('')
   }, [])
 
   const activeRegions = useMemo(() => {
+    if (page === 'memorystore') return memorystoreData?.regions ?? data?.regions ?? []
     if (page === 'cloudsql') return cloudSqlData?.regions ?? data?.regions ?? []
     return data?.regions ?? []
-  }, [page, data, cloudSqlData])
+  }, [page, data, cloudSqlData, memorystoreData])
 
   if (loading) {
     return (
@@ -217,6 +260,18 @@ export default function App() {
               >
                 Cloud SQL
               </a>
+              <a
+                href="#memorystore"
+                onClick={() => trackPageView('memorystore')}
+                className={cn(
+                  'px-3 py-1.5 text-sm rounded-md transition-colors',
+                  page === 'memorystore'
+                    ? 'bg-gray-700 text-white'
+                    : 'text-gray-300 hover:text-white hover:bg-gray-800',
+                )}
+              >
+                Memorystore
+              </a>
             </nav>
           </div>
           <div className="flex items-center gap-4">
@@ -253,6 +308,66 @@ export default function App() {
 
       {page === 'mcp-cli' ? (
         <McpCliPage />
+      ) : page === 'memorystore' ? (
+        <>
+          <div className="max-w-screen-2xl mx-auto px-4 pt-4 w-full">
+            <FiltersBar
+              regions={activeRegions}
+              region={region}
+              setRegion={setRegion}
+              costPeriod={costPeriod}
+              setCostPeriod={setCostPeriod}
+              currency={currency}
+              setCurrency={setCurrency}
+              currencies={CURRENCY_KEYS}
+              minMemory={minMemory}
+              setMinMemory={setMinMemory}
+              minVCpus={minVCpus}
+              setMinVCpus={setMinVCpus}
+              minCapacityGb={minCapacityGb}
+              setMinCapacityGb={setMinCapacityGb}
+              filterMode="memorystore"
+              globalSearch={globalSearch}
+              setGlobalSearch={setGlobalSearch}
+              visibleColumns={visibleMemorystoreColumns}
+              setVisibleColumns={setVisibleMemorystoreColumns}
+              onClearFilters={handleClearFilters}
+              instanceCount={filteredMemorystoreInstances.length}
+              totalCount={memorystoreData?.instances.length ?? 0}
+              columns={MEMORYSTORE_COLUMNS_WITH_DERIVED}
+              searchInputRef={searchInputRef}
+            />
+          </div>
+          <div className="flex-1 min-h-0 w-full relative">
+            <div className="absolute inset-0 max-w-screen-2xl mx-auto px-4 pb-4">
+              {memorystoreLoading ? (
+                <div className="flex items-center justify-center py-24">
+                  <div className="flex flex-col items-center gap-4 text-gray-500">
+                    <Cloud className="w-10 h-10 animate-pulse text-blue-500" />
+                    <p className="text-base font-medium">Loading Memorystore pricing...</p>
+                  </div>
+                </div>
+              ) : memorystoreError ? (
+                <div className="flex items-center justify-center py-24">
+                  <div className="text-center">
+                    <p className="text-red-500 font-medium">Failed to load Memorystore pricing</p>
+                    <p className="text-gray-400 text-sm mt-1">{memorystoreError}</p>
+                  </div>
+                </div>
+              ) : (
+                <MemorystorePricingTable
+                  instances={filteredMemorystoreInstances}
+                  region={region}
+                  costPeriod={costPeriod}
+                  currency={currency}
+                  visibleColumns={visibleMemorystoreColumns}
+                  exchangeRates={exchangeRates}
+                  allRegions={activeRegions}
+                />
+              )}
+            </div>
+          </div>
+        </>
       ) : page === 'cloudsql' ? (
         <>
           <div className="max-w-screen-2xl mx-auto px-4 pt-4 w-full">

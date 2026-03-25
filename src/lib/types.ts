@@ -74,6 +74,18 @@ export interface CloudSqlRegionPricing {
   postgresRegional: number | null
   sqlServerZonal: number | null
   sqlServerRegional: number | null
+  mysqlZonalCud1yr: number | null
+  mysqlZonalCud3yr: number | null
+  mysqlRegionalCud1yr: number | null
+  mysqlRegionalCud3yr: number | null
+  postgresZonalCud1yr: number | null
+  postgresZonalCud3yr: number | null
+  postgresRegionalCud1yr: number | null
+  postgresRegionalCud3yr: number | null
+  sqlServerZonalCud1yr: number | null
+  sqlServerZonalCud3yr: number | null
+  sqlServerRegionalCud1yr: number | null
+  sqlServerRegionalCud3yr: number | null
 }
 
 export interface CloudSqlInstance {
@@ -97,7 +109,7 @@ export interface ColumnDef {
   id: string
   label: string
   defaultVisible: boolean
-  group: 'spec' | 'linux' | 'windows' | 'mysql' | 'postgresql' | 'sqlserver' | 'derived'
+  group: 'spec' | 'linux' | 'windows' | 'mysql' | 'postgresql' | 'sqlserver' | 'memorystore' | 'derived'
   tooltip?: string
 }
 
@@ -180,6 +192,32 @@ export const CLOUDSQL_COLUMNS: ColumnDef[] = [
     tooltip: 'Single-zone (no HA) — lower cost, no automatic failover' },
   { id: 'sqlServerRegional',label: 'SQL Server Regional (HA) cost', defaultVisible: false, group: 'sqlserver',
     tooltip: 'Multi-zone with automatic failover (~2× zonal price)' },
+  // CUD 1-year columns (25% off on-demand)
+  { id: 'mysqlZonalCud1yr',      label: 'MySQL Zonal CUD 1yr',          defaultVisible: false, group: 'mysql',
+    tooltip: '1-year Committed Use Discount — 25% off on-demand (not available for shared-core)' },
+  { id: 'mysqlRegionalCud1yr',   label: 'MySQL Regional CUD 1yr',       defaultVisible: false, group: 'mysql',
+    tooltip: '1-year Committed Use Discount — 25% off on-demand (not available for shared-core)' },
+  { id: 'postgresZonalCud1yr',   label: 'PostgreSQL Zonal CUD 1yr',     defaultVisible: false, group: 'postgresql',
+    tooltip: '1-year Committed Use Discount — 25% off on-demand (not available for shared-core)' },
+  { id: 'postgresRegionalCud1yr',label: 'PostgreSQL Regional CUD 1yr',  defaultVisible: false, group: 'postgresql',
+    tooltip: '1-year Committed Use Discount — 25% off on-demand (not available for shared-core)' },
+  { id: 'sqlServerZonalCud1yr',  label: 'SQL Server Zonal CUD 1yr',     defaultVisible: false, group: 'sqlserver',
+    tooltip: '1-year Committed Use Discount — 25% off on-demand (not available for shared-core)' },
+  { id: 'sqlServerRegionalCud1yr',label: 'SQL Server Regional CUD 1yr', defaultVisible: false, group: 'sqlserver',
+    tooltip: '1-year Committed Use Discount — 25% off on-demand (not available for shared-core)' },
+  // CUD 3-year columns (52% off on-demand)
+  { id: 'mysqlZonalCud3yr',      label: 'MySQL Zonal CUD 3yr',          defaultVisible: false, group: 'mysql',
+    tooltip: '3-year Committed Use Discount — 52% off on-demand (not available for shared-core)' },
+  { id: 'mysqlRegionalCud3yr',   label: 'MySQL Regional CUD 3yr',       defaultVisible: false, group: 'mysql',
+    tooltip: '3-year Committed Use Discount — 52% off on-demand (not available for shared-core)' },
+  { id: 'postgresZonalCud3yr',   label: 'PostgreSQL Zonal CUD 3yr',     defaultVisible: false, group: 'postgresql',
+    tooltip: '3-year Committed Use Discount — 52% off on-demand (not available for shared-core)' },
+  { id: 'postgresRegionalCud3yr',label: 'PostgreSQL Regional CUD 3yr',  defaultVisible: false, group: 'postgresql',
+    tooltip: '3-year Committed Use Discount — 52% off on-demand (not available for shared-core)' },
+  { id: 'sqlServerZonalCud3yr',  label: 'SQL Server Zonal CUD 3yr',     defaultVisible: false, group: 'sqlserver',
+    tooltip: '3-year Committed Use Discount — 52% off on-demand (not available for shared-core)' },
+  { id: 'sqlServerRegionalCud3yr',label: 'SQL Server Regional CUD 3yr', defaultVisible: false, group: 'sqlserver',
+    tooltip: '3-year Committed Use Discount — 52% off on-demand (not available for shared-core)' },
 ]
 
 export const CLOUDSQL_DERIVED_COLUMNS: ColumnDef[] = CLOUDSQL_COLUMNS.flatMap((col) => [
@@ -203,4 +241,46 @@ export const CLOUDSQL_COLUMNS_WITH_DERIVED: ColumnDef[] = [...CLOUDSQL_COLUMNS, 
 
 export const DEFAULT_VISIBLE_CLOUDSQL_COLUMNS: Record<string, boolean> = Object.fromEntries(
   CLOUDSQL_COLUMNS_WITH_DERIVED.map((c) => [c.id, c.defaultVisible]),
+)
+
+// ----- Memorystore types -----
+
+export interface MemorystoreRegionPricing {
+  onDemand: number | null
+  cud1yr: number | null
+  cud3yr: number | null
+}
+
+export interface MemorystoreInstance {
+  name: string
+  product: string         // 'Redis' | 'Redis Cluster' | 'Valkey'
+  nodeType: string        // M1-M5 or node type name
+  capacityGb: number | null
+  vCpus: number | 'shared' | null
+  memoryGb: number | null
+  pricingUnit: string     // 'GiB/h' or 'node/h'
+  pricing: Record<string, MemorystoreRegionPricing>
+}
+
+export interface MemorystorePricingData {
+  updatedAt: string
+  regions: string[]
+  instances: MemorystoreInstance[]
+}
+
+// ----- Memorystore column definitions -----
+
+export const MEMORYSTORE_COLUMNS: ColumnDef[] = [
+  { id: 'onDemand', label: 'On Demand cost', defaultVisible: true, group: 'memorystore',
+    tooltip: 'Pay-as-you-go pricing — per GiB/hour for Redis standalone, per node/hour for Cluster & Valkey' },
+  { id: 'cud1yr', label: 'CUD 1 Year cost', defaultVisible: true, group: 'memorystore',
+    tooltip: 'Committed Use Discount — 20% off for a 1-year commitment (Redis M2-M5 only)' },
+  { id: 'cud3yr', label: 'CUD 3 Year cost', defaultVisible: false, group: 'memorystore',
+    tooltip: 'Committed Use Discount — 40% off for a 3-year commitment (Redis M2-M5 only)' },
+]
+
+export const MEMORYSTORE_COLUMNS_WITH_DERIVED: ColumnDef[] = [...MEMORYSTORE_COLUMNS]
+
+export const DEFAULT_VISIBLE_MEMORYSTORE_COLUMNS: Record<string, boolean> = Object.fromEntries(
+  MEMORYSTORE_COLUMNS_WITH_DERIVED.map((c) => [c.id, c.defaultVisible]),
 )

@@ -13,6 +13,7 @@
     "fetch-pricing": "tsx scripts/fetch-pricing.ts",
     "fetch-cloudsql-pricing": "tsx scripts/fetch-cloudsql-pricing.ts",
     "fetch-exchange-rates": "tsx scripts/fetch-exchange-rates.ts",
+    "fetch-memorystore-pricing": "tsx scripts/fetch-memorystore-pricing.ts",
     "validate": "tsx scripts/validate-pricing.ts"
   },
   "dependencies": {

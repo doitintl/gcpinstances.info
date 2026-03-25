@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { getInitialStateFromUrl, syncStateToUrl } from '@/lib/useUrlState'
-import { DEFAULT_VISIBLE_COLUMNS, DEFAULT_VISIBLE_CLOUDSQL_COLUMNS } from '@/lib/types'
+import { DEFAULT_VISIBLE_COLUMNS, DEFAULT_VISIBLE_CLOUDSQL_COLUMNS, DEFAULT_VISIBLE_MEMORYSTORE_COLUMNS } from '@/lib/types'
 
 function setHash(hash: string) {
   // jsdom location.hash setter strips the leading #
@@ -37,6 +37,8 @@ describe('getInitialStateFromUrl', () => {
     expect(state.globalSearch).toBe('')
     expect(state.visibleColumns).toEqual(DEFAULT_VISIBLE_COLUMNS)
     expect(state.visibleCloudSqlColumns).toEqual(DEFAULT_VISIBLE_CLOUDSQL_COLUMNS)
+    expect(state.visibleMemorystoreColumns).toEqual(DEFAULT_VISIBLE_MEMORYSTORE_COLUMNS)
+    expect(state.minCapacityGb).toBe(0)
   })
 
   it('parses page from hash', () => {
@@ -151,6 +153,8 @@ describe('syncStateToUrl', () => {
       globalSearch: '',
       visibleColumns: DEFAULT_VISIBLE_COLUMNS,
       visibleCloudSqlColumns: DEFAULT_VISIBLE_CLOUDSQL_COLUMNS,
+      visibleMemorystoreColumns: DEFAULT_VISIBLE_MEMORYSTORE_COLUMNS,
+      minCapacityGb: 0,
     })
     expect(calls[0]).toBe('#')
     restore()
@@ -167,6 +171,8 @@ describe('syncStateToUrl', () => {
       globalSearch: '',
       visibleColumns: DEFAULT_VISIBLE_COLUMNS,
       visibleCloudSqlColumns: DEFAULT_VISIBLE_CLOUDSQL_COLUMNS,
+      visibleMemorystoreColumns: DEFAULT_VISIBLE_MEMORYSTORE_COLUMNS,
+      minCapacityGb: 0,
     })
     expect(calls[0]).toContain('region=europe-west1')
     restore()
@@ -183,6 +189,8 @@ describe('syncStateToUrl', () => {
       globalSearch: '',
       visibleColumns: DEFAULT_VISIBLE_COLUMNS,
       visibleCloudSqlColumns: DEFAULT_VISIBLE_CLOUDSQL_COLUMNS,
+      visibleMemorystoreColumns: DEFAULT_VISIBLE_MEMORYSTORE_COLUMNS,
+      minCapacityGb: 0,
     })
     expect(calls[0]).toContain('period=monthly')
     restore()
@@ -199,6 +207,8 @@ describe('syncStateToUrl', () => {
       globalSearch: '',
       visibleColumns: DEFAULT_VISIBLE_COLUMNS,
       visibleCloudSqlColumns: DEFAULT_VISIBLE_CLOUDSQL_COLUMNS,
+      visibleMemorystoreColumns: DEFAULT_VISIBLE_MEMORYSTORE_COLUMNS,
+      minCapacityGb: 0,
     })
     expect(calls[0]).toContain('currency=EUR')
     restore()
@@ -215,6 +225,8 @@ describe('syncStateToUrl', () => {
       globalSearch: '',
       visibleColumns: DEFAULT_VISIBLE_COLUMNS,
       visibleCloudSqlColumns: DEFAULT_VISIBLE_CLOUDSQL_COLUMNS,
+      visibleMemorystoreColumns: DEFAULT_VISIBLE_MEMORYSTORE_COLUMNS,
+      minCapacityGb: 0,
     })
     expect(calls[0]).toContain('minMem=8')
     expect(calls[0]).toContain('minCpu=4')
@@ -232,6 +244,8 @@ describe('syncStateToUrl', () => {
       globalSearch: '',
       visibleColumns: { ...DEFAULT_VISIBLE_COLUMNS, linuxOnDemand: true },
       visibleCloudSqlColumns: DEFAULT_VISIBLE_CLOUDSQL_COLUMNS,
+      visibleMemorystoreColumns: DEFAULT_VISIBLE_MEMORYSTORE_COLUMNS,
+      minCapacityGb: 0,
     })
     expect(calls[0]).toContain('cols=')
     restore()
@@ -248,6 +262,8 @@ describe('syncStateToUrl', () => {
       globalSearch: '',
       visibleColumns: DEFAULT_VISIBLE_COLUMNS,
       visibleCloudSqlColumns: DEFAULT_VISIBLE_CLOUDSQL_COLUMNS,
+      visibleMemorystoreColumns: DEFAULT_VISIBLE_MEMORYSTORE_COLUMNS,
+      minCapacityGb: 0,
     })
     expect(calls[0]).not.toContain('cols=')
     restore()
@@ -260,9 +276,11 @@ describe('syncStateToUrl', () => {
       currency: 'JPY',
       minMemory: 16,
       minVCpus: 4,
+      minCapacityGb: 0,
       globalSearch: 'n2',
       visibleColumns: { ...DEFAULT_VISIBLE_COLUMNS, linuxOnDemand: true, windowsSud: false },
       visibleCloudSqlColumns: DEFAULT_VISIBLE_CLOUDSQL_COLUMNS,
+      visibleMemorystoreColumns: DEFAULT_VISIBLE_MEMORYSTORE_COLUMNS,
     }
 
     // Capture URL set by syncStateToUrl

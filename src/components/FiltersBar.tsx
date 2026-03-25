@@ -17,6 +17,9 @@ interface Props {
   setMinMemory: (n: number) => void
   minVCpus: number
   setMinVCpus: (n: number) => void
+  minCapacityGb?: number
+  setMinCapacityGb?: (n: number) => void
+  filterMode?: 'compute' | 'memorystore'
   globalSearch: string
   setGlobalSearch: (s: string) => void
   visibleColumns: Record<string, boolean>
@@ -35,6 +38,7 @@ const GROUP_LABELS: Record<string, string> = {
   mysql: 'MySQL pricing',
   postgresql: 'PostgreSQL pricing',
   sqlserver: 'SQL Server pricing',
+  memorystore: 'Memorystore pricing',
   derived: 'Cost efficiency',
 }
 
@@ -118,6 +122,9 @@ export function FiltersBar({
   setMinMemory,
   minVCpus,
   setMinVCpus,
+  minCapacityGb,
+  setMinCapacityGb,
+  filterMode = 'compute',
   globalSearch,
   setGlobalSearch,
   visibleColumns,
@@ -129,7 +136,7 @@ export function FiltersBar({
   searchInputRef,
 }: Props) {
   const groups = Array.from(new Set(columns.map((c) => c.group)))
-  const hasFilters = minMemory > 0 || minVCpus > 0 || globalSearch.length > 0
+  const hasFilters = minMemory > 0 || minVCpus > 0 || (minCapacityGb ?? 0) > 0 || globalSearch.length > 0
   const [colsOpen, setColsOpen] = useState(false)
   const colsRef = useRef<HTMLDivElement>(null)
 
@@ -172,19 +179,29 @@ export function FiltersBar({
           options={currencies.map((c) => ({ value: c, label: c }))}
         />
 
-        {/* Min memory */}
-        <NumberInput
-          label="Min memory (GiB)"
-          value={minMemory}
-          onChange={setMinMemory}
-        />
+        {filterMode === 'memorystore' ? (
+          <NumberInput
+            label="Min capacity (GB)"
+            value={minCapacityGb ?? 0}
+            onChange={setMinCapacityGb ?? (() => {})}
+          />
+        ) : (
+          <>
+            {/* Min memory */}
+            <NumberInput
+              label="Min memory (GiB)"
+              value={minMemory}
+              onChange={setMinMemory}
+            />
 
-        {/* Min vCPUs */}
-        <NumberInput
-          label="Min vCPUs"
-          value={minVCpus}
-          onChange={setMinVCpus}
-        />
+            {/* Min vCPUs */}
+            <NumberInput
+              label="Min vCPUs"
+              value={minVCpus}
+              onChange={setMinVCpus}
+            />
+          </>
+        )}
 
         {/* Column visibility */}
         <div className="flex flex-col gap-0.5">

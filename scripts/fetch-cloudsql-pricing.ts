@@ -41,6 +41,13 @@ type DecompKey = string
 
 // ----- Output types (matches src/lib/types.ts) -----
 
+// CUD discount multipliers (from Google Cloud pricing docs)
+// 1-year CUD: 25% off → 0.75 × on-demand
+// 3-year CUD: 52% off → 0.48 × on-demand
+// Shared-core instances (f1-micro, g1-small) have no CUD
+const CUD_1YR_MULTIPLIER = 0.75
+const CUD_3YR_MULTIPLIER = 0.48
+
 interface CloudSqlRegionPricing {
   mysqlZonal: number | null
   mysqlRegional: number | null
@@ -48,6 +55,18 @@ interface CloudSqlRegionPricing {
   postgresRegional: number | null
   sqlServerZonal: number | null
   sqlServerRegional: number | null
+  mysqlZonalCud1yr: number | null
+  mysqlZonalCud3yr: number | null
+  mysqlRegionalCud1yr: number | null
+  mysqlRegionalCud3yr: number | null
+  postgresZonalCud1yr: number | null
+  postgresZonalCud3yr: number | null
+  postgresRegionalCud1yr: number | null
+  postgresRegionalCud3yr: number | null
+  sqlServerZonalCud1yr: number | null
+  sqlServerZonalCud3yr: number | null
+  sqlServerRegionalCud1yr: number | null
+  sqlServerRegionalCud3yr: number | null
 }
 
 interface CloudSqlInstance {
@@ -322,6 +341,11 @@ function buildPricingTable(
         postgresZonal === null && postgresRegional === null
       ) continue
 
+      // Compute CUD prices (not available for shared-core instances)
+      const cudApplies = !isShared
+      const cud = (price: number | null, mult: number) =>
+        cudApplies && price !== null ? Math.round(price * mult * 1e6) / 1e6 : null
+
       pricing[region] = {
         mysqlZonal,
         mysqlRegional,
@@ -329,6 +353,18 @@ function buildPricingTable(
         postgresRegional,
         sqlServerZonal,
         sqlServerRegional,
+        mysqlZonalCud1yr: cud(mysqlZonal, CUD_1YR_MULTIPLIER),
+        mysqlZonalCud3yr: cud(mysqlZonal, CUD_3YR_MULTIPLIER),
+        mysqlRegionalCud1yr: cud(mysqlRegional, CUD_1YR_MULTIPLIER),
+        mysqlRegionalCud3yr: cud(mysqlRegional, CUD_3YR_MULTIPLIER),
+        postgresZonalCud1yr: cud(postgresZonal, CUD_1YR_MULTIPLIER),
+        postgresZonalCud3yr: cud(postgresZonal, CUD_3YR_MULTIPLIER),
+        postgresRegionalCud1yr: cud(postgresRegional, CUD_1YR_MULTIPLIER),
+        postgresRegionalCud3yr: cud(postgresRegional, CUD_3YR_MULTIPLIER),
+        sqlServerZonalCud1yr: cud(sqlServerZonal, CUD_1YR_MULTIPLIER),
+        sqlServerZonalCud3yr: cud(sqlServerZonal, CUD_3YR_MULTIPLIER),
+        sqlServerRegionalCud1yr: cud(sqlServerRegional, CUD_1YR_MULTIPLIER),
+        sqlServerRegionalCud3yr: cud(sqlServerRegional, CUD_3YR_MULTIPLIER),
       }
     }
 

@@ -10,26 +10,36 @@ import {
   type SortingState,
   type ColumnFiltersState,
 } from '@tanstack/react-table'
-import type { CloudSqlInstance, CostPeriod, CloudSqlRegionPricing } from '../lib/types'
-import { CLOUDSQL_COLUMNS, CLOUDSQL_COLUMNS_WITH_DERIVED, CLOUDSQL_DERIVED_COLUMNS } from '../lib/types'
-import { formatPrice, formatMemory, formatVCpus, cn } from '../lib/utils'
+import type { MemorystoreInstance, CostPeriod, MemorystoreRegionPricing } from '../lib/types'
+import { MEMORYSTORE_COLUMNS, MEMORYSTORE_COLUMNS_WITH_DERIVED } from '../lib/types'
+import { formatPrice, cn } from '../lib/utils'
 import { CompareDialog } from './CompareDialog'
 import { RegionCompareDialog } from './RegionCompareDialog'
 import type { AnyInstance } from './CompareDialog'
 
-const CLOUDSQL_BASE_ROWS: { label: string; get: (i: AnyInstance) => string }[] = [
-  { label: 'Edition', get: (i) => (i as CloudSqlInstance).edition ?? '' },
-  { label: 'vCPUs', get: (i) => formatVCpus((i as CloudSqlInstance).vCpus) },
-  { label: 'Memory', get: (i) => formatMemory((i as CloudSqlInstance).memoryGb) },
-  { label: 'Series', get: (i) => (i as CloudSqlInstance).series ?? '' },
-  { label: 'Tier', get: (i) => (i as CloudSqlInstance).tier ?? '' },
+const MEMORYSTORE_BASE_ROWS: { label: string; get: (i: AnyInstance) => string }[] = [
+  { label: 'Product', get: (i) => (i as MemorystoreInstance).product ?? '' },
+  { label: 'Node Type', get: (i) => (i as MemorystoreInstance).nodeType ?? '' },
+  { label: 'Capacity (GB)', get: (i) => {
+    const cap = (i as MemorystoreInstance).capacityGb
+    return cap != null ? `${cap} GB` : 'N/A'
+  }},
+  { label: 'vCPUs', get: (i) => {
+    const v = (i as MemorystoreInstance).vCpus
+    return v === 'shared' ? 'shared' : v != null ? `${v}` : 'N/A'
+  }},
+  { label: 'Memory', get: (i) => {
+    const m = (i as MemorystoreInstance).memoryGb
+    return m != null ? `${m} GiB` : 'N/A'
+  }},
+  { label: 'Pricing Unit', get: (i) => (i as MemorystoreInstance).pricingUnit ?? '' },
 ]
 import { ExportCsv } from './ExportCsv'
 import { TooltipIcon } from './TooltipIcon'
 import { ArrowUpDown, ArrowUp, ArrowDown, GitCompare, MapPin } from 'lucide-react'
 
 interface Props {
-  instances: CloudSqlInstance[]
+  instances: MemorystoreInstance[]
   region: string
   costPeriod: CostPeriod
   currency: string
@@ -38,7 +48,7 @@ interface Props {
   allRegions?: string[]
 }
 
-const columnHelper = createColumnHelper<CloudSqlInstance>()
+const columnHelper = createColumnHelper<MemorystoreInstance>()
 
 function SortIcon({ isSorted }: { isSorted: false | 'asc' | 'desc' }) {
   if (isSorted === 'asc') return <ArrowUp className="w-3 h-3 ml-1 inline-block" />
@@ -80,8 +90,8 @@ function VirtualTable({
   selectedRows,
   toggleRow,
 }: {
-  table: ReturnType<typeof useReactTable<CloudSqlInstance>>
-  visibleRows: ReturnType<ReturnType<typeof useReactTable<CloudSqlInstance>>['getRowModel']>['rows']
+  table: ReturnType<typeof useReactTable<MemorystoreInstance>>
+  visibleRows: ReturnType<ReturnType<typeof useReactTable<MemorystoreInstance>>['getRowModel']>['rows']
   selectedRows: Set<string>
   toggleRow: (name: string) => void
 }) {
@@ -190,7 +200,7 @@ function VirtualTable({
   )
 }
 
-export function CloudSqlPricingTable({ instances, region, costPeriod, currency, visibleColumns, exchangeRates, allRegions = [] }: Props) {
+export function MemorystorePricingTable({ instances, region, costPeriod, currency, visibleColumns, exchangeRates, allRegions = [] }: Props) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
@@ -224,62 +234,84 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
         <span className="font-medium font-mono text-sm text-gray-900">{info.getValue()}</span>
       ),
       filterFn: 'includesString',
-      size: 200,
+      size: 260,
     }),
-    columnHelper.accessor('edition', {
-      header: 'Edition',
+    columnHelper.accessor('product', {
+      header: 'Product',
       cell: (info) => {
-        const edition = info.getValue()
-        const isPlus = edition === 'Enterprise Plus'
+        const product = info.getValue()
+        const colorMap: Record<string, string> = {
+          'Redis': 'bg-red-100 text-red-700',
+          'Redis Cluster': 'bg-orange-100 text-orange-700',
+          'Valkey': 'bg-blue-100 text-blue-700',
+        }
         return (
           <span className={cn(
             'inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium whitespace-nowrap',
-            isPlus
-              ? 'bg-purple-100 text-purple-700'
-              : 'bg-gray-100 text-gray-600',
+            colorMap[product] ?? 'bg-gray-100 text-gray-600',
           )}>
-            {edition}
+            {product}
           </span>
         )
       },
       filterFn: 'includesString',
       enableSorting: false,
-      size: 140,
+      size: 130,
+    }),
+    columnHelper.accessor('nodeType', {
+      header: 'Type',
+      cell: (info) => <span className="text-sm text-gray-700">{info.getValue()}</span>,
+      filterFn: 'includesString',
+      size: 150,
+    }),
+    columnHelper.accessor('capacityGb', {
+      header: 'Capacity (GB)',
+      cell: (info) => {
+        const v = info.getValue()
+        return <span className="text-sm text-gray-700">{v != null ? `${v}` : '—'}</span>
+      },
+      sortUndefined: 'last',
+      size: 110,
     }),
     columnHelper.accessor('vCpus', {
       header: 'vCPUs',
-      cell: (info) => (
-        <span className="text-sm text-gray-700">{formatVCpus(info.getValue())}</span>
-      ),
-      filterFn: (row, _colId, filterValue) => {
-        const vCpus = row.original.vCpus
-        if (typeof vCpus !== 'number') return true
-        return vCpus >= Number(filterValue || 0)
+      cell: (info) => {
+        const v = info.getValue()
+        return <span className="text-sm text-gray-700">{v === 'shared' ? 'shared' : v != null ? `${v}` : '—'}</span>
       },
       sortingFn: (a, b) => {
-        const av = a.original.vCpus === 'shared' ? -1 : a.original.vCpus
-        const bv = b.original.vCpus === 'shared' ? -1 : b.original.vCpus
+        const av = a.original.vCpus === 'shared' ? -1 : a.original.vCpus ?? -2
+        const bv = b.original.vCpus === 'shared' ? -1 : b.original.vCpus ?? -2
         return av - bv
       },
-      size: 90,
+      size: 80,
     }),
     columnHelper.accessor('memoryGb', {
       header: 'Memory',
-      cell: (info) => <span className="text-sm text-gray-700">{formatMemory(info.getValue())}</span>,
-      filterFn: (row, _colId, filterValue) => row.original.memoryGb >= Number(filterValue || 0),
-      size: 110,
+      cell: (info) => {
+        const v = info.getValue()
+        return <span className="text-sm text-gray-700">{v != null ? `${v} GiB` : '—'}</span>
+      },
+      sortUndefined: 'last',
+      size: 100,
+    }),
+    columnHelper.accessor('pricingUnit', {
+      header: 'Unit',
+      cell: (info) => <span className="text-xs text-gray-500">{info.getValue()}</span>,
+      enableSorting: false,
+      size: 80,
     }),
     // Pricing columns
-    ...CLOUDSQL_COLUMNS.map((col) =>
-      columnHelper.accessor((row) => row.pricing[region]?.[col.id as keyof CloudSqlRegionPricing] ?? undefined, {
+    ...MEMORYSTORE_COLUMNS.map((col) =>
+      columnHelper.accessor((row) => row.pricing[region]?.[col.id as keyof MemorystoreRegionPricing] ?? undefined, {
         id: col.id,
         header: col.tooltip ? () => <>{col.label}<TooltipIcon text={col.tooltip!} /></> : col.label,
         cell: ({ row }) => (
-          <PriceCell value={formatPrice(row.original.pricing[region]?.[col.id as keyof CloudSqlRegionPricing], currency, costPeriod, exchangeRates)} />
+          <PriceCell value={formatPrice(row.original.pricing[region]?.[col.id as keyof MemorystoreRegionPricing], currency, costPeriod, exchangeRates)} />
         ),
         filterFn: (row, _colId, filterValue) => {
           if (!filterValue) return true
-          const price = row.original.pricing[region]?.[col.id as keyof CloudSqlRegionPricing]
+          const price = row.original.pricing[region]?.[col.id as keyof MemorystoreRegionPricing]
           const s = formatPrice(price, currency, costPeriod, exchangeRates).toLowerCase()
           return s.includes(String(filterValue).toLowerCase())
         },
@@ -287,46 +319,11 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
         size: 200,
       }),
     ),
-    // Derived columns: $/vCPU and $/GB
-    ...CLOUDSQL_DERIVED_COLUMNS.map((col) => {
-      const isPerVcpu = col.id.endsWith('_perVcpu')
-      const baseId = isPerVcpu ? col.id.slice(0, -8) : col.id.slice(0, -6)
-      return columnHelper.accessor(
-        (row) => {
-          if (row.vCpus === 'shared') return undefined
-          const price = row.pricing[region]?.[baseId as keyof CloudSqlRegionPricing]
-          if (price == null) return undefined
-          const divisor = isPerVcpu ? (row.vCpus as number) : row.memoryGb
-          return divisor > 0 ? price / divisor : undefined
-        },
-        {
-          id: col.id,
-          header: col.tooltip ? () => <>{col.label}<TooltipIcon text={col.tooltip!} /></> : col.label,
-          cell: ({ getValue }) => {
-            const v = getValue()
-            return <PriceCell value={v == null ? 'Unavailable' : formatPrice(v, currency, costPeriod, exchangeRates)} />
-          },
-          filterFn: (row, _colId, filterValue) => {
-            if (!filterValue) return true
-            const v = row.original.vCpus === 'shared' ? undefined : (() => {
-              const price = row.original.pricing[region]?.[baseId as keyof CloudSqlRegionPricing]
-              if (price == null) return undefined
-              const d = isPerVcpu ? (row.original.vCpus as number) : row.original.memoryGb
-              return d > 0 ? price / d : undefined
-            })()
-            const s = v == null ? 'unavailable' : formatPrice(v, currency, costPeriod, exchangeRates).toLowerCase()
-            return s.includes(String(filterValue).toLowerCase())
-          },
-          sortUndefined: 'last',
-          size: 200,
-        },
-      )
-    }),
   ], [region, currency, costPeriod, exchangeRates, toggleRow, selectedRows])
 
   const columnVisibility = useMemo(() => {
     const vis: Record<string, boolean> = {}
-    for (const col of CLOUDSQL_COLUMNS_WITH_DERIVED) {
+    for (const col of MEMORYSTORE_COLUMNS_WITH_DERIVED) {
       vis[col.id] = visibleColumns[col.id] ?? col.defaultVisible
     }
     return vis
@@ -356,29 +353,15 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
       const p = inst.pricing[region] ?? {}
       return [
         inst.name,
-        inst.edition,
-        inst.series,
-        inst.tier,
-        inst.vCpus,
-        inst.memoryGb,
-        p.mysqlZonal ?? '',
-        p.mysqlRegional ?? '',
-        p.postgresZonal ?? '',
-        p.postgresRegional ?? '',
-        p.sqlServerZonal ?? '',
-        p.sqlServerRegional ?? '',
-        p.mysqlZonalCud1yr ?? '',
-        p.mysqlRegionalCud1yr ?? '',
-        p.postgresZonalCud1yr ?? '',
-        p.postgresRegionalCud1yr ?? '',
-        p.sqlServerZonalCud1yr ?? '',
-        p.sqlServerRegionalCud1yr ?? '',
-        p.mysqlZonalCud3yr ?? '',
-        p.mysqlRegionalCud3yr ?? '',
-        p.postgresZonalCud3yr ?? '',
-        p.postgresRegionalCud3yr ?? '',
-        p.sqlServerZonalCud3yr ?? '',
-        p.sqlServerRegionalCud3yr ?? '',
+        inst.product,
+        inst.nodeType,
+        inst.capacityGb ?? '',
+        inst.vCpus ?? '',
+        inst.memoryGb ?? '',
+        inst.pricingUnit,
+        p.onDemand ?? '',
+        p.cud1yr ?? '',
+        p.cud3yr ?? '',
       ]
     })
   }, [visibleRows, region])
@@ -422,8 +405,8 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
             Compare Regions {selectedRows.size > 0 ? `(${selectedRows.size})` : ''}
           </button>
           <ExportCsv
-            filename={`gcp-cloudsql-${region}.csv`}
-            headers={['Instance type', 'Edition', 'Series', 'Tier', 'vCPUs', 'Memory (GiB)', 'MySQL Zonal ($/hr)', 'MySQL Regional ($/hr)', 'PostgreSQL Zonal ($/hr)', 'PostgreSQL Regional ($/hr)', 'SQL Server Zonal ($/hr)', 'SQL Server Regional ($/hr)', 'MySQL Zonal CUD1yr', 'MySQL Regional CUD1yr', 'PostgreSQL Zonal CUD1yr', 'PostgreSQL Regional CUD1yr', 'SQL Server Zonal CUD1yr', 'SQL Server Regional CUD1yr', 'MySQL Zonal CUD3yr', 'MySQL Regional CUD3yr', 'PostgreSQL Zonal CUD3yr', 'PostgreSQL Regional CUD3yr', 'SQL Server Zonal CUD3yr', 'SQL Server Regional CUD3yr']}
+            filename={`gcp-memorystore-${region}.csv`}
+            headers={['Instance type', 'Product', 'Node Type', 'Capacity (GB)', 'vCPUs', 'Memory (GiB)', 'Pricing Unit', 'On Demand ($/unit)', 'CUD 1yr ($/unit)', 'CUD 3yr ($/unit)']}
             getRows={getExportRows}
           />
         </div>
@@ -444,8 +427,8 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
         currency={currency}
         costPeriod={costPeriod}
         exchangeRates={exchangeRates}
-        columns={CLOUDSQL_COLUMNS}
-        baseRows={CLOUDSQL_BASE_ROWS}
+        columns={MEMORYSTORE_COLUMNS}
+        baseRows={MEMORYSTORE_BASE_ROWS}
       />
 
       <RegionCompareDialog
@@ -457,7 +440,7 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
         currency={currency}
         costPeriod={costPeriod}
         exchangeRates={exchangeRates}
-        columns={CLOUDSQL_COLUMNS}
+        columns={MEMORYSTORE_COLUMNS}
       />
     </div>
   )

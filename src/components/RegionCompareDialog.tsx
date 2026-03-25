@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { X, ChevronDown } from 'lucide-react'
-import type { Instance, CloudSqlInstance, CostPeriod, RegionPricing, CloudSqlRegionPricing, ColumnDef } from '../lib/types'
+import type { Instance, CloudSqlInstance, MemorystoreInstance, CostPeriod, RegionPricing, CloudSqlRegionPricing, MemorystoreRegionPricing, ColumnDef } from '../lib/types'
 import { formatPrice, formatMemory, formatVCpus } from '../lib/utils'
 
-type AnyInstance = Instance | CloudSqlInstance
+type AnyInstance = Instance | CloudSqlInstance | MemorystoreInstance
 
 interface Props {
   open: boolean
@@ -22,8 +22,8 @@ function getPricingValue(
   region: string,
   colId: string,
 ): number | null | undefined {
-  const pricing = inst.pricing[region] as (RegionPricing & CloudSqlRegionPricing) | undefined
-  return pricing?.[colId as keyof (RegionPricing & CloudSqlRegionPricing)]
+  const pricing = inst.pricing[region] as (RegionPricing & CloudSqlRegionPricing & MemorystoreRegionPricing) | undefined
+  return pricing?.[colId as keyof (RegionPricing & CloudSqlRegionPricing & MemorystoreRegionPricing)]
 }
 
 export function RegionCompareDialog({
@@ -159,7 +159,7 @@ export function RegionCompareDialog({
                         <td className="py-2 pr-4 pl-2 text-xs text-gray-500 font-medium">vCPUs</td>
                         {selectedRegions.map((r) => (
                           <td key={r} className="py-2 px-4 font-mono text-xs text-gray-700">
-                            {formatVCpus(inst.vCpus)}
+                            {'vCpus' in inst && inst.vCpus != null ? formatVCpus(inst.vCpus as number | 'shared') : '—'}
                           </td>
                         ))}
                       </tr>
@@ -167,7 +167,7 @@ export function RegionCompareDialog({
                         <td className="py-2 pr-4 pl-2 text-xs text-gray-500 font-medium">Memory</td>
                         {selectedRegions.map((r) => (
                           <td key={r} className="py-2 px-4 font-mono text-xs text-gray-700">
-                            {formatMemory(inst.memoryGb)}
+                            {'memoryGb' in inst && inst.memoryGb != null ? formatMemory(inst.memoryGb as number) : '—'}
                           </td>
                         ))}
                       </tr>
