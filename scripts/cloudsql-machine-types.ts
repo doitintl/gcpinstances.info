@@ -10,6 +10,10 @@ export interface CloudSqlMachineType {
 export const CLOUDSQL_MACHINE_TYPES: CloudSqlMachineType[] = [
   // ---- Enterprise edition ----
 
+  // Shared-core legacy instances
+  { name: 'db-f1-micro',       series: 'N1', tier: 'micro',    edition: 'Enterprise', vCpus: 'shared', memoryGb: 0.6 },
+  { name: 'db-g1-small',       series: 'N1', tier: 'small',    edition: 'Enterprise', vCpus: 'shared', memoryGb: 1.7 },
+
   // N1 Standard
   { name: 'db-n1-standard-1',  series: 'N1', tier: 'standard', edition: 'Enterprise', vCpus: 1,  memoryGb: 3.75 },
   { name: 'db-n1-standard-2',  series: 'N1', tier: 'standard', edition: 'Enterprise', vCpus: 2,  memoryGb: 7.5 },
