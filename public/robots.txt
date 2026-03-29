@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gcpinstances.doit.com/sitemap.xml

@@ -12,7 +12,7 @@ import { McpCliPage } from './components/McpCliPage'
 import { AboutDialog } from './components/AboutDialog'
 import { trackPageView } from './lib/analytics'
 import { Cloud, ExternalLink, Github, Info, Star, Terminal } from 'lucide-react'
-import { cn } from './lib/utils'
+import { cn, buildDoitUrl } from './lib/utils'
 
 const CURRENCY_KEYS = Object.keys(CURRENCY_META)
 
@@ -231,7 +231,7 @@ export default function App() {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
               <span className="text-xl font-bold tracking-tight">GCP Instances</span>
-              <span className="text-gray-500 text-sm">powered by</span>
+              <span className="text-gray-600 text-sm">powered by</span>
               <img src="/DoitLogo.svg" alt="DoiT" className="h-5" />
             </div>
             {/* Tab navigation */}
@@ -295,7 +295,7 @@ export default function App() {
         <div className="max-w-screen-2xl mx-auto px-4 py-2 flex items-center justify-center gap-2 text-sm">
           <span>Want to better understand your cloud spend?</span>
           <a
-            href="https://www.doit.com/cloud-analytics/"
+            href={buildDoitUrl('cloud-analytics/', 'cloud-analytics', 'top-banner')}
             target="_blank"
             rel="noopener noreferrer"
             className="font-semibold underline decoration-2 underline-offset-2 hover:text-indigo-100 inline-flex items-center gap-1"
@@ -485,7 +485,7 @@ export default function App() {
               <Info className="w-3.5 h-3.5" />
               About
             </button>
-            <a href="https://www.doit.com/" target="_blank" rel="noopener noreferrer" className="hidden sm:inline-flex items-center gap-1 hover:text-white transition-colors">
+            <a href={buildDoitUrl('', 'brand', 'footer')} target="_blank" rel="noopener noreferrer" className="hidden sm:inline-flex items-center gap-1 hover:text-white transition-colors">
               doit.com
               <ExternalLink className="w-2.5 h-2.5" />
             </a>

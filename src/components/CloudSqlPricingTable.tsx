@@ -49,7 +49,7 @@ function SortIcon({ isSorted }: { isSorted: false | 'asc' | 'desc' }) {
 function PriceCell({ value }: { value: string }) {
   const isUnavailable = value === 'Unavailable'
   return (
-    <span className={cn('font-mono text-sm tabular-nums', isUnavailable && 'text-gray-400 not-italic')}>
+    <span className={cn('font-mono text-sm tabular-nums', isUnavailable && 'text-gray-500 not-italic')}>
       {value}
     </span>
   )
@@ -105,6 +105,7 @@ function VirtualTable({
             {table.getFlatHeaders().map((header) => (
               <th
                 key={header.id}
+                scope="col"
                 className="px-3 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide whitespace-nowrap bg-gray-50"
                 style={{ width: header.getSize() }}
               >

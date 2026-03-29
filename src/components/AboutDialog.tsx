@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { X } from 'lucide-react'
+import { buildDoitUrl } from '../lib/utils'
 
 interface Props {
   open: boolean
@@ -50,7 +51,7 @@ export function AboutDialog({ open, onClose, formattedDate }: Props) {
                 ec2instances.info
               </a>{' '}
               (created by @powdahound). Rewritten and maintained by{' '}
-              <a href="https://www.doit.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+              <a href={buildDoitUrl('', 'brand', 'about-dialog')} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
                 DoiT International
               </a>.
               Contributions are welcome on{' '}

@@ -30,3 +30,14 @@ export function formatVCpus(vCpus: number | 'shared'): string {
   if (vCpus === 'shared') return 'shared'
   return `${vCpus}`
 }
+
+export function buildDoitUrl(path: string, campaign: string, content: string): string {
+  const base = `https://www.doit.com/${path}`.replace(/\/+$/, '/')
+  const params = new URLSearchParams({
+    utm_source: 'gcpinstances',
+    utm_medium: 'referral',
+    utm_campaign: campaign,
+    utm_content: content,
+  })
+  return `${base}?${params}`
+}
