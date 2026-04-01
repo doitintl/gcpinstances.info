@@ -35,8 +35,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     environment: prod
-    env:
-      BASE_PATH: /newversion/
     permissions:
       id-token: write
       contents: read
@@ -63,12 +61,12 @@ jobs:
         run: ls -lah ./dist
 
       - name: Configure AWS credentials
-        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/v3-rewrite')
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/v3-rewrite')
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.IAM_ROLE }}
           aws-region: us-east-1
 
       - name: Deploy to S3
-        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/v3-rewrite')
-        run: aws s3 sync ./dist s3://gcpinstances.doit.com/newversion/ --delete
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/v3-rewrite')
+        run: aws s3 sync ./dist s3://gcpinstances.doit.com/ --delete
