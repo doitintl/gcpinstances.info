@@ -88,14 +88,17 @@ export function CompareDialog({
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {rows.map((row) => (
+              {rows.map((row) => {
+                const values = instances.map((inst) => row.get(inst))
+                const allSame = values.every((v) => v === values[0])
+                return (
                 <tr key={row.label} className="hover:bg-gray-50">
                   <td className="py-2.5 pr-6 text-sm text-gray-500 font-medium">{row.label}</td>
                   {instances.map((inst) => {
                     const val = row.get(inst)
                     const isUnavailable = val === 'Unavailable'
                     return (
-                      <td key={inst.name} className="py-2.5 px-4">
+                      <td key={inst.name} className={`py-2.5 px-4 ${!allSame ? 'bg-amber-50' : ''}`}>
                         <span className={`font-mono text-sm ${isUnavailable ? 'text-gray-400' : 'text-gray-900'}`}>
                           {val}
                         </span>
@@ -103,7 +106,8 @@ export function CompareDialog({
                     )
                   })}
                 </tr>
-              ))}
+                )
+              })}
             </tbody>
           </table>
         </div>
