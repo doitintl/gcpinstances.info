@@ -54,10 +54,10 @@ const TRUTH_TABLE: Array<{
   { name: 'c3-standard-4',  region: 'us-central1', field: 'linuxOnDemand',  expected: 0.201608 },
 
   // ── Preemptible coverage ─────────────────────────────────────────────────
-  { name: 'n1-standard-1',  region: 'us-central1', field: 'linuxPreemptible',   expected: 0.014361 },
-  { name: 'n1-standard-1',  region: 'us-central1', field: 'windowsPreemptible', expected: 0.060361 },
-  { name: 'e2-standard-4',  region: 'us-central1', field: 'linuxPreemptible',   expected: 0.061736 },
-  { name: 't2d-standard-2', region: 'us-central1', field: 'linuxPreemptible',   expected: 0.017648 },
+  { name: 'n1-standard-1',  region: 'us-central1', field: 'linuxPreemptible',   expected: 0.015074 },
+  { name: 'n1-standard-1',  region: 'us-central1', field: 'windowsPreemptible', expected: 0.061074 },
+  { name: 'e2-standard-4',  region: 'us-central1', field: 'linuxPreemptible',   expected: 0.064808 },
+  { name: 't2d-standard-2', region: 'us-central1', field: 'linuxPreemptible',   expected: 0.018540 },
 
   // ── CUD 3yr coverage ─────────────────────────────────────────────────────
   { name: 't2d-standard-1', region: 'us-central1', field: 'linuxCud3yr',    expected: 0.019012 },
