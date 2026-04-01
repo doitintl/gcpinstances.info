@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main, v3-rewrite]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
 
 jobs:
   test:
@@ -72,9 +72,3 @@ jobs:
       - name: Deploy to S3
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/v3-rewrite')
         run: aws s3 sync ./dist s3://gcpinstances.doit.com/newversion/ --delete
-
-        
-      - name: Temporary deploy to S3
-        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/v3-rewrite')
-        run: aws s3 sync ./dist/data/ s3://gcpinstances.doit.com/data/
-        
