@@ -6,6 +6,12 @@ import { formatPrice, formatMemory, formatVCpus } from '../lib/utils'
 
 export type AnyInstance = Instance | CloudSqlInstance | MemorystoreInstance
 
+type CompareRow = {
+  label: string
+  get: (i: AnyInstance) => string
+  compare?: 'higher-better' | 'lower-better'
+}
+
 interface Props {
   open: boolean
   onClose: () => void
@@ -15,12 +21,38 @@ interface Props {
   costPeriod: CostPeriod
   exchangeRates: Record<string, number>
   columns?: ColumnDef[]
-  baseRows?: { label: string; get: (i: AnyInstance) => string }[]
+  baseRows?: CompareRow[]
 }
 
-const CE_BASE_ROWS: { label: string; get: (i: AnyInstance) => string }[] = [
-  { label: 'vCPUs', get: (i) => formatVCpus((i as Instance).vCpus) },
-  { label: 'Memory', get: (i) => formatMemory((i as Instance).memoryGb) },
+function parseNumeric(val: string): number | null {
+  const n = parseFloat(val.replace(/[$,]/g, ''))
+  return isNaN(n) ? null : n
+}
+
+function getCellColor(val: string, values: string[], compare?: 'higher-better' | 'lower-better'): string {
+  if (values.every((v) => v === values[0])) return ''
+
+  const num = parseNumeric(val)
+  const nums = values.map(parseNumeric)
+  if (num === null || nums.some((n) => n === null) || !compare) return 'bg-amber-50'
+
+  const min = Math.min(...(nums as number[]))
+  const max = Math.max(...(nums as number[]))
+  if (min === max) return 'bg-amber-50'
+
+  if (compare === 'lower-better') {
+    if (num === min) return 'bg-green-50'
+    if (num === max) return 'bg-red-50'
+  } else {
+    if (num === max) return 'bg-green-50'
+    if (num === min) return 'bg-red-50'
+  }
+  return 'bg-amber-50'
+}
+
+const CE_BASE_ROWS: CompareRow[] = [
+  { label: 'vCPUs', get: (i) => formatVCpus((i as Instance).vCpus), compare: 'higher-better' },
+  { label: 'Memory', get: (i) => formatMemory((i as Instance).memoryGb), compare: 'higher-better' },
   { label: 'Series', get: (i) => (i as Instance).series ?? '' },
   { label: 'Family', get: (i) => (i as Instance).family ?? '' },
   { label: 'CPU Type', get: (i) => (i as Instance).cpuType ?? 'N/A' },
@@ -55,12 +87,13 @@ export function CompareDialog({
            c.group === 'memorystore',
   )
 
-  const pricingRows = pricingCols.map((col) => ({
+  const pricingRows: CompareRow[] = pricingCols.map((col) => ({
     label: col.label.replace(' cost', ''),
     get: (i: AnyInstance) => {
       const regionPricing = i.pricing[region] as (RegionPricing & CloudSqlRegionPricing & MemorystoreRegionPricing) | undefined
       return formatPrice(regionPricing?.[col.id as keyof (RegionPricing & CloudSqlRegionPricing & MemorystoreRegionPricing)], currency, costPeriod, exchangeRates)
     },
+    compare: 'lower-better' as const,
   }))
 
   const rows = [...baseRows, ...pricingRows]
@@ -90,15 +123,15 @@ export function CompareDialog({
             <tbody className="divide-y divide-gray-100">
               {rows.map((row) => {
                 const values = instances.map((inst) => row.get(inst))
-                const allSame = values.every((v) => v === values[0])
                 return (
                 <tr key={row.label} className="hover:bg-gray-50">
                   <td className="py-2.5 pr-6 text-sm text-gray-500 font-medium">{row.label}</td>
                   {instances.map((inst) => {
                     const val = row.get(inst)
                     const isUnavailable = val === 'Unavailable'
+                    const cellColor = getCellColor(val, values, row.compare)
                     return (
-                      <td key={inst.name} className={`py-2.5 px-4 ${!allSame ? 'bg-amber-50' : ''}`}>
+                      <td key={inst.name} className={`py-2.5 px-4 ${cellColor}`}>
                         <span className={`font-mono text-sm ${isUnavailable ? 'text-gray-400' : 'text-gray-900'}`}>
                           {val}
                         </span>
