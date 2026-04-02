@@ -109,7 +109,7 @@ export interface ColumnDef {
   id: string
   label: string
   defaultVisible: boolean
-  group: 'spec' | 'linux' | 'windows' | 'mysql' | 'postgresql' | 'sqlserver' | 'memorystore' | 'derived'
+  group: 'spec' | 'linux' | 'windows' | 'mysql' | 'postgresql' | 'sqlserver' | 'memorystore' | 'alloydb' | 'derived'
   tooltip?: string
 }
 
@@ -283,4 +283,61 @@ export const MEMORYSTORE_COLUMNS_WITH_DERIVED: ColumnDef[] = [...MEMORYSTORE_COL
 
 export const DEFAULT_VISIBLE_MEMORYSTORE_COLUMNS: Record<string, boolean> = Object.fromEntries(
   MEMORYSTORE_COLUMNS_WITH_DERIVED.map((c) => [c.id, c.defaultVisible]),
+)
+
+// ----- AlloyDB types -----
+
+export interface AlloyDbRegionPricing {
+  onDemand: number | null
+  cud1yr: number | null
+  cud3yr: number | null
+}
+
+export interface AlloyDbInstance {
+  name: string
+  series: string
+  tier: string
+  vCpus: number
+  memoryGb: number
+  pricing: Record<string, AlloyDbRegionPricing>
+}
+
+export interface AlloyDbPricingData {
+  updatedAt: string
+  regions: string[]
+  instances: AlloyDbInstance[]
+}
+
+// ----- AlloyDB column definitions -----
+
+export const ALLOYDB_COLUMNS: ColumnDef[] = [
+  { id: 'onDemand', label: 'On Demand cost', defaultVisible: true, group: 'alloydb',
+    tooltip: 'Pay-as-you-go pricing — per vCPU + per GB RAM per hour' },
+  { id: 'cud1yr', label: 'CUD 1 Year cost', defaultVisible: true, group: 'alloydb',
+    tooltip: 'Committed Use Discount — 25% off for a 1-year commitment' },
+  { id: 'cud3yr', label: 'CUD 3 Year cost', defaultVisible: false, group: 'alloydb',
+    tooltip: 'Committed Use Discount — 52% off for a 3-year commitment' },
+]
+
+export const ALLOYDB_DERIVED_COLUMNS: ColumnDef[] = ALLOYDB_COLUMNS.flatMap((col) => [
+  {
+    id: `${col.id}_perVcpu`,
+    label: `${col.label.replace(' cost', '')} $/vCPU`,
+    defaultVisible: false,
+    group: 'derived' as const,
+    tooltip: `${col.label.replace(' cost', '')} price divided by vCPU count`,
+  },
+  {
+    id: `${col.id}_perGb`,
+    label: `${col.label.replace(' cost', '')} $/GB`,
+    defaultVisible: false,
+    group: 'derived' as const,
+    tooltip: `${col.label.replace(' cost', '')} price divided by memory (GB)`,
+  },
+])
+
+export const ALLOYDB_COLUMNS_WITH_DERIVED: ColumnDef[] = [...ALLOYDB_COLUMNS, ...ALLOYDB_DERIVED_COLUMNS]
+
+export const DEFAULT_VISIBLE_ALLOYDB_COLUMNS: Record<string, boolean> = Object.fromEntries(
+  ALLOYDB_COLUMNS_WITH_DERIVED.map((c) => [c.id, c.defaultVisible]),
 )
