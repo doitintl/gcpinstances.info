@@ -40,7 +40,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Deploy to S3
-        run: aws s3 sync ./dist s3://gcpinstances.doit.com/previews/pr-${{ github.event.pull_request.number }}/ --acl public-read
+        run: aws s3 sync ./dist s3://gcpinstances.doit.com/previews/pr-${{ github.event.pull_request.number }}/
 
       - name: Comment preview URL
         uses: actions/github-script@v7
