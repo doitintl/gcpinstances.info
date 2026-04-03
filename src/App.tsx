@@ -227,54 +227,65 @@ export default function App() {
     <div className="h-screen bg-gray-50 flex flex-col overflow-hidden">
       {/* Header */}
       <header className="bg-gray-900 text-white">
-        <div className="max-w-screen-2xl mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-3">
-              <span className="text-xl font-bold tracking-tight">GCP Instances</span>
-              <span className="text-gray-600 text-sm">powered by</span>
-              <img src="/DoitLogo.svg" alt="DoiT" className="h-5" />
+        <div className="max-w-screen-2xl mx-auto px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
+          {/* Brand + mobile actions */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <span className="text-lg sm:text-xl font-bold tracking-tight whitespace-nowrap">GCP Instances</span>
+              <span className="hidden sm:inline text-gray-600 text-sm">powered by</span>
+              <img src="/DoitLogo.svg" alt="DoiT" className="h-4 sm:h-5" />
             </div>
-            {/* Tab navigation */}
-            <nav className="flex items-center gap-1 ml-2">
-              <a
-                href="#home"
-                onClick={() => trackPageView('home')}
-                className={cn(
-                  'px-3 py-1.5 text-sm rounded-md transition-colors',
-                  page === 'home' || page === 'mcp-cli'
-                    ? 'bg-gray-700 text-white'
-                    : 'text-gray-300 hover:text-white hover:bg-gray-800',
-                )}
-              >
-                Compute Engine
-              </a>
-              <a
-                href="#cloudsql"
-                onClick={() => trackPageView('cloudsql')}
-                className={cn(
-                  'px-3 py-1.5 text-sm rounded-md transition-colors',
-                  page === 'cloudsql'
-                    ? 'bg-gray-700 text-white'
-                    : 'text-gray-300 hover:text-white hover:bg-gray-800',
-                )}
-              >
-                Cloud SQL
-              </a>
-              <a
-                href="#memorystore"
-                onClick={() => trackPageView('memorystore')}
-                className={cn(
-                  'px-3 py-1.5 text-sm rounded-md transition-colors',
-                  page === 'memorystore'
-                    ? 'bg-gray-700 text-white'
-                    : 'text-gray-300 hover:text-white hover:bg-gray-800',
-                )}
-              >
-                Memorystore
-              </a>
-            </nav>
+            {/* Mobile-only: MCP button */}
+            <a
+              href="#mcp-cli"
+              onClick={() => trackPageView('mcp-cli')}
+              className="sm:hidden inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-500 text-white hover:bg-blue-400 transition-colors shadow-sm shadow-blue-500/40"
+            >
+              <Terminal className="w-3 h-3" />
+              MCP &amp; CLI
+            </a>
           </div>
-          <div className="flex items-center gap-4">
+          {/* Tab navigation — scrollable on mobile */}
+          <nav className="flex items-center gap-1 overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0 sm:ml-4">
+            <a
+              href="#home"
+              onClick={() => trackPageView('home')}
+              className={cn(
+                'px-3 py-1.5 text-sm rounded-md transition-colors whitespace-nowrap',
+                page === 'home' || page === 'mcp-cli'
+                  ? 'bg-gray-700 text-white'
+                  : 'text-gray-300 hover:text-white hover:bg-gray-800',
+              )}
+            >
+              Compute Engine
+            </a>
+            <a
+              href="#cloudsql"
+              onClick={() => trackPageView('cloudsql')}
+              className={cn(
+                'px-3 py-1.5 text-sm rounded-md transition-colors whitespace-nowrap',
+                page === 'cloudsql'
+                  ? 'bg-gray-700 text-white'
+                  : 'text-gray-300 hover:text-white hover:bg-gray-800',
+              )}
+            >
+              Cloud SQL
+            </a>
+            <a
+              href="#memorystore"
+              onClick={() => trackPageView('memorystore')}
+              className={cn(
+                'px-3 py-1.5 text-sm rounded-md transition-colors whitespace-nowrap',
+                page === 'memorystore'
+                  ? 'bg-gray-700 text-white'
+                  : 'text-gray-300 hover:text-white hover:bg-gray-800',
+              )}
+            >
+              Memorystore
+            </a>
+          </nav>
+          {/* Desktop-only: last updated + MCP */}
+          <div className="hidden sm:flex items-center gap-4">
             <div className="text-xs text-gray-400">
               Last updated: {formattedDate}
             </div>
