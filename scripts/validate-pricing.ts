@@ -34,8 +34,11 @@ const TRUTH_TABLE: Array<{
   // ── Existing baseline ────────────────────────────────────────────────────
   { name: 'n1-standard-1',  region: 'us-central1', field: 'linuxSud',       expected: 0.03325 },
   { name: 'n1-standard-1',  region: 'us-central1', field: 'windowsSud',     expected: 0.07925 },
-  { name: 'e2-micro',       region: 'us-central1', field: 'linuxSud',       expected: null },
-  { name: 'e2-micro',       region: 'us-central1', field: 'windowsSud',     expected: 0.092 },
+  // Shared-core E2 Linux pricing is derived from the fractional billed vCPU
+  // count (0.25 for e2-micro) and the normal E2 CPU/RAM SKU rates.
+  // E2 has no SUD discount, so linuxSud == linuxOnDemand.
+  { name: 'e2-micro',       region: 'us-central1', field: 'linuxSud',       expected: 0.008376 },
+  { name: 'e2-micro',       region: 'us-central1', field: 'windowsSud',     expected: 0.100376 },
   { name: 'e2-highcpu-2',   region: 'us-central1', field: 'linuxSud',       expected: 0.04947 },
   { name: 'e2-highcpu-2',   region: 'us-central1', field: 'linuxCud1yr',    expected: 0.03117 },
   { name: 'n2d-highcpu-2',  region: 'us-central1', field: 'linuxSud',       expected: 0.0499 },
@@ -86,11 +89,13 @@ const TRUTH_TABLE: Array<{
   { name: 'a2-highgpu-1g',  region: 'us-central1', field: 'linuxPreemptible',expected: 1.80385 },
 
   // ── Shared-core ───────────────────────────────────────────────────────────
-  // e2-small/medium: Linux SUD is null (shared-core without Linux SKU); Windows = license-only
-  { name: 'e2-small',       region: 'us-central1', field: 'linuxSud',       expected: null },
-  { name: 'e2-small',       region: 'us-central1', field: 'windowsSud',     expected: 0.092 },
-  { name: 'e2-medium',      region: 'us-central1', field: 'linuxSud',       expected: null },
-  { name: 'e2-medium',      region: 'us-central1', field: 'windowsSud',     expected: 0.092 },
+  // e2-small/medium: Linux price = billedVcpus × E2 CPU rate + memGb × E2 RAM rate.
+  // billedVcpus = 0.5 for e2-small, 1 for e2-medium. Windows adds the flat
+  // $0.092 license premium for the 1-4 vCPU tier.
+  { name: 'e2-small',       region: 'us-central1', field: 'linuxSud',       expected: 0.016753 },
+  { name: 'e2-small',       region: 'us-central1', field: 'windowsSud',     expected: 0.108753 },
+  { name: 'e2-medium',      region: 'us-central1', field: 'linuxSud',       expected: 0.033506 },
+  { name: 'e2-medium',      region: 'us-central1', field: 'windowsSud',     expected: 0.125506 },
 
   // ── Null-value invariants ─────────────────────────────────────────────────
   // N1 has no CUD SKUs — GCP does not offer committed use for N1
