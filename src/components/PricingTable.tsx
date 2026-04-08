@@ -11,8 +11,8 @@ import {
   type ColumnFiltersState,
 } from '@tanstack/react-table'
 import type { Instance, CostPeriod, RegionPricing } from '../lib/types'
-import { ALL_COLUMNS, ALL_COLUMNS_WITH_DERIVED, DERIVED_COLUMNS } from '../lib/types'
-import { formatPrice, formatMemory, formatVCpus, cn } from '../lib/utils'
+import { ALL_COLUMNS, ALL_COLUMNS_WITH_DERIVED, DERIVED_COLUMNS, COST_MULTIPLIERS } from '../lib/types'
+import { formatPrice, formatMemory, formatVCpus, cn, parseNumericFilter } from '../lib/utils'
 import { CompareDialog } from './CompareDialog'
 import { RegionCompareDialog } from './RegionCompareDialog'
 import { ExportCsv } from './ExportCsv'
@@ -129,12 +129,18 @@ function VirtualTable({
             {table.getFlatHeaders().map((header) => (
               <th key={`filter-${header.id}`} className="px-3 py-1.5 bg-white">
                 {header.column.getCanFilter() ? (
-                  <input
-                    value={(header.column.getFilterValue() as string) ?? ''}
-                    onChange={(e) => header.column.setFilterValue(e.target.value)}
-                    placeholder="Search..."
-                    className="w-full text-xs px-2 py-1 border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400 bg-gray-50"
-                  />
+                  (() => {
+                    const isNumeric = (header.column.columnDef.meta as { numeric?: boolean } | undefined)?.numeric === true
+                    return (
+                      <input
+                        value={(header.column.getFilterValue() as string) ?? ''}
+                        onChange={(e) => header.column.setFilterValue(e.target.value)}
+                        placeholder={isNumeric ? 'e.g. >5, >=2, =4' : 'Search...'}
+                        title={isNumeric ? 'Numeric filter: 5, =5, >5, <5, >=5, <=5, !=5' : undefined}
+                        className="w-full text-xs px-2 py-1 border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400 bg-gray-50"
+                      />
+                    )
+                  })()
                 ) : null}
               </th>
             ))}
@@ -237,26 +243,43 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
         <span className="text-sm text-gray-700">{formatVCpus(info.getValue())}</span>
       ),
       filterFn: (row, _colId, filterValue) => {
+        const expr = String(filterValue ?? '').trim()
+        if (!expr) return true
+        const predicate = parseNumericFilter(expr)
         const vCpus = row.original.vCpus
-        if (typeof vCpus !== 'number') return true
-        return vCpus >= Number(filterValue || 0)
+        if (predicate) {
+          if (typeof vCpus !== 'number') return false
+          return predicate(vCpus)
+        }
+        // Fall back to substring match against the formatted value
+        // (so users can still type "shared" to find shared-core instances).
+        return formatVCpus(vCpus).toLowerCase().includes(expr.toLowerCase())
       },
       sortingFn: (a, b) => {
         const av = a.original.vCpus === 'shared' ? -1 : a.original.vCpus
         const bv = b.original.vCpus === 'shared' ? -1 : b.original.vCpus
         return av - bv
       },
+      meta: { numeric: true },
       size: 90,
     }),
     columnHelper.accessor('memoryGb', {
       header: 'Memory',
       cell: (info) => <span className="text-sm text-gray-700">{formatMemory(info.getValue())}</span>,
-      filterFn: (row, _colId, filterValue) => row.original.memoryGb >= Number(filterValue || 0),
+      filterFn: (row, _colId, filterValue) => {
+        const expr = String(filterValue ?? '').trim()
+        if (!expr) return true
+        const predicate = parseNumericFilter(expr)
+        if (predicate) return predicate(row.original.memoryGb)
+        return formatMemory(row.original.memoryGb).toLowerCase().includes(expr.toLowerCase())
+      },
+      meta: { numeric: true },
       size: 110,
     }),
     // Spec columns
-    ...SPEC_COLS.map((col) =>
-      columnHelper.accessor((inst) => (inst as unknown as Record<string, unknown>)[col.id] as string | number | boolean | null, {
+    ...SPEC_COLS.map((col) => {
+      const isNumericSpec = col.id === 'coremarkScore' || col.id === 'gpuCount'
+      return columnHelper.accessor((inst) => (inst as unknown as Record<string, unknown>)[col.id] as string | number | boolean | null, {
         id: col.id,
         header: col.tooltip ? () => <>{col.label}<TooltipIcon text={col.tooltip!} /></> : col.label,
         cell: ({ getValue }) => {
@@ -266,13 +289,21 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
           return <span className="text-sm text-gray-500">{val != null ? String(val) : 'N/A'}</span>
         },
         filterFn: (row, colId, filterValue) => {
-          if (!filterValue) return true
+          const expr = String(filterValue ?? '').trim()
+          if (!expr) return true
           const val = (row.original as unknown as Record<string, unknown>)[colId]
+          // For numeric spec columns (gpuCount, coremarkScore, …) try the
+          // numeric expression parser first; fall back to substring match
+          // when the input doesn't look like a numeric expression.
+          if (typeof val === 'number') {
+            const predicate = parseNumericFilter(expr)
+            if (predicate) return predicate(val)
+          }
           let s: string
           if (typeof val === 'boolean') s = val ? 'yes' : 'no'
           else if (val == null) s = 'n/a'
           else s = String(val).toLowerCase()
-          return s.includes(String(filterValue).toLowerCase())
+          return s.includes(expr.toLowerCase())
         },
         sortingFn: (a, b, colId) => {
           const av = (a.original as unknown as Record<string, unknown>)[colId]
@@ -283,9 +314,10 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
           return 0
         },
         sortUndefined: 'last',
+        meta: { numeric: isNumericSpec },
         size: 150,
-      }),
-    ),
+      })
+    }),
     // Pricing columns
     ...PRICING_COLS.map((col) =>
       columnHelper.accessor((row) => row.pricing[region]?.[col.id as keyof RegionPricing] ?? undefined, {
@@ -295,12 +327,25 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
           <PriceCell value={formatPrice(row.original.pricing[region]?.[col.id as keyof RegionPricing], currency, costPeriod, exchangeRates)} />
         ),
         filterFn: (row, _colId, filterValue) => {
-          if (!filterValue) return true
-          const price = row.original.pricing[region]?.[col.id as keyof RegionPricing]
-          const s = formatPrice(price, currency, costPeriod, exchangeRates).toLowerCase()
-          return s.includes(String(filterValue).toLowerCase())
+          const expr = String(filterValue ?? '').trim()
+          if (!expr) return true
+          const priceUsd = row.original.pricing[region]?.[col.id as keyof RegionPricing]
+          // Numeric filters compare against the value the user actually
+          // sees on screen — converted to the active currency and time
+          // period — so ">5" is intuitive regardless of how the underlying
+          // USD/hour rate happens to be stored.
+          const predicate = parseNumericFilter(expr)
+          if (predicate) {
+            if (priceUsd == null) return false
+            const rate = exchangeRates[currency] ?? 1
+            const displayed = priceUsd * rate * COST_MULTIPLIERS[costPeriod]
+            return predicate(displayed)
+          }
+          const s = formatPrice(priceUsd, currency, costPeriod, exchangeRates).toLowerCase()
+          return s.includes(expr.toLowerCase())
         },
         sortUndefined: 'last',
+        meta: { numeric: true },
         size: 160,
       }),
     ),
@@ -323,17 +368,26 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
             return <PriceCell value={v == null ? 'Unavailable' : formatPrice(v, currency, costPeriod, exchangeRates)} />
           },
           filterFn: (row, _colId, filterValue) => {
-            if (!filterValue) return true
+            const expr = String(filterValue ?? '').trim()
+            if (!expr) return true
             const v = (row.original.vCpus === 'shared') ? undefined : (() => {
               const price = row.original.pricing[region]?.[parsed.baseId as keyof RegionPricing]
               if (price == null) return undefined
               const d = parsed.metric === 'perVcpu' ? row.original.vCpus as number : row.original.memoryGb
               return d > 0 ? price / d : undefined
             })()
+            const predicate = parseNumericFilter(expr)
+            if (predicate) {
+              if (v == null) return false
+              const rate = exchangeRates[currency] ?? 1
+              const displayed = v * rate * COST_MULTIPLIERS[costPeriod]
+              return predicate(displayed)
+            }
             const s = v == null ? 'unavailable' : formatPrice(v, currency, costPeriod, exchangeRates).toLowerCase()
-            return s.includes(String(filterValue).toLowerCase())
+            return s.includes(expr.toLowerCase())
           },
           sortUndefined: 'last',
+          meta: { numeric: true },
           size: 180,
         },
       )

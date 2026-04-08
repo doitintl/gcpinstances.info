@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { formatPrice, formatMemory, formatVCpus } from '@/lib/utils'
+import { formatPrice, formatMemory, formatVCpus, parseNumericFilter } from '@/lib/utils'
 
 const rates = { USD: 1, EUR: 0.92, GBP: 0.75, JPY: 149.5, AUD: 1.53, CAD: 1.36, DKK: 6.89, NOK: 10.55, SEK: 10.42, CHF: 0.90, ZAR: 18.63, ILS: 3.71 }
 
@@ -80,5 +80,71 @@ describe('formatVCpus', () => {
 
   it('formats shared vCPUs', () => {
     expect(formatVCpus('shared')).toBe('shared')
+  })
+})
+
+describe('parseNumericFilter', () => {
+  it('returns null for empty or non-numeric input', () => {
+    expect(parseNumericFilter('')).toBeNull()
+    expect(parseNumericFilter('   ')).toBeNull()
+    expect(parseNumericFilter('shared')).toBeNull()
+    expect(parseNumericFilter('>')).toBeNull()
+    expect(parseNumericFilter('>=abc')).toBeNull()
+  })
+
+  it('parses bare number as equality at input precision', () => {
+    const p = parseNumericFilter('5')!
+    expect(p(5)).toBe(true)
+    // Rounds to integer precision: 4.5 → 5
+    expect(p(4.5)).toBe(true)
+    expect(p(5.4)).toBe(true)
+    expect(p(4.4)).toBe(false)
+    expect(p(5.5)).toBe(false)
+  })
+
+  it('parses equality with explicit decimals', () => {
+    const p = parseNumericFilter('0.05')!
+    expect(p(0.05)).toBe(true)
+    expect(p(0.054)).toBe(true)
+    expect(p(0.046)).toBe(true)
+    expect(p(0.06)).toBe(false)
+  })
+
+  it('parses > operator', () => {
+    const p = parseNumericFilter('>5')!
+    expect(p(5)).toBe(false)
+    expect(p(5.1)).toBe(true)
+    expect(p(4.9)).toBe(false)
+  })
+
+  it('parses >= operator', () => {
+    const p = parseNumericFilter('>=5')!
+    expect(p(5)).toBe(true)
+    expect(p(4.9)).toBe(false)
+  })
+
+  it('parses < and <= operators', () => {
+    expect(parseNumericFilter('<5')!(5)).toBe(false)
+    expect(parseNumericFilter('<5')!(4.9)).toBe(true)
+    expect(parseNumericFilter('<=5')!(5)).toBe(true)
+  })
+
+  it('parses != and <> operators', () => {
+    expect(parseNumericFilter('!=5')!(5)).toBe(false)
+    expect(parseNumericFilter('!=5')!(4)).toBe(true)
+    expect(parseNumericFilter('<>5')!(5)).toBe(false)
+    expect(parseNumericFilter('<>5')!(4)).toBe(true)
+  })
+
+  it('returns false for null/undefined values', () => {
+    const p = parseNumericFilter('>5')!
+    expect(p(null)).toBe(false)
+    expect(p(undefined)).toBe(false)
+  })
+
+  it('tolerates whitespace around operator', () => {
+    const p = parseNumericFilter('>= 5')!
+    expect(p(5)).toBe(true)
+    expect(p(4)).toBe(false)
   })
 })
