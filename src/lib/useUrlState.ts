@@ -1,9 +1,9 @@
 import type { CostPeriod } from './types'
-import { ALL_COLUMNS_WITH_DERIVED, CLOUDSQL_COLUMNS_WITH_DERIVED, MEMORYSTORE_COLUMNS_WITH_DERIVED, DEFAULT_VISIBLE_COLUMNS, DEFAULT_VISIBLE_CLOUDSQL_COLUMNS, DEFAULT_VISIBLE_MEMORYSTORE_COLUMNS, CURRENCY_META } from './types'
+import { ALL_COLUMNS_WITH_DERIVED, CLOUDSQL_COLUMNS_WITH_DERIVED, MEMORYSTORE_COLUMNS_WITH_DERIVED, ALLOYDB_COLUMNS_WITH_DERIVED, DEFAULT_VISIBLE_COLUMNS, DEFAULT_VISIBLE_CLOUDSQL_COLUMNS, DEFAULT_VISIBLE_MEMORYSTORE_COLUMNS, DEFAULT_VISIBLE_ALLOYDB_COLUMNS, CURRENCY_META } from './types'
 
-export type Page = 'home' | 'cloudsql' | 'memorystore' | 'mcp-cli'
+export type Page = 'home' | 'cloudsql' | 'memorystore' | 'alloydb' | 'mcp-cli'
 
-const VALID_PAGES = new Set<Page>(['home', 'cloudsql', 'memorystore', 'mcp-cli'])
+const VALID_PAGES = new Set<Page>(['home', 'cloudsql', 'memorystore', 'alloydb', 'mcp-cli'])
 const VALID_PERIODS = new Set<CostPeriod>(['hourly', 'monthly', 'yearly'])
 const VALID_CURRENCIES = new Set(Object.keys(CURRENCY_META))
 
@@ -11,10 +11,12 @@ const VALID_CURRENCIES = new Set(Object.keys(CURRENCY_META))
 const DEFAULT_CE_COLS = ALL_COLUMNS_WITH_DERIVED.filter((c) => c.defaultVisible).map((c) => c.id)
 const DEFAULT_SQL_COLS = CLOUDSQL_COLUMNS_WITH_DERIVED.filter((c) => c.defaultVisible).map((c) => c.id)
 const DEFAULT_MS_COLS = MEMORYSTORE_COLUMNS_WITH_DERIVED.filter((c) => c.defaultVisible).map((c) => c.id)
+const DEFAULT_ADB_COLS = ALLOYDB_COLUMNS_WITH_DERIVED.filter((c) => c.defaultVisible).map((c) => c.id)
 
 const ALL_CE_IDS = new Set(ALL_COLUMNS_WITH_DERIVED.map((c) => c.id))
 const ALL_SQL_IDS = new Set(CLOUDSQL_COLUMNS_WITH_DERIVED.map((c) => c.id))
 const ALL_MS_IDS = new Set(MEMORYSTORE_COLUMNS_WITH_DERIVED.map((c) => c.id))
+const ALL_ADB_IDS = new Set(ALLOYDB_COLUMNS_WITH_DERIVED.map((c) => c.id))
 
 export interface UrlState {
   page: Page
@@ -28,6 +30,7 @@ export interface UrlState {
   visibleColumns: Record<string, boolean>
   visibleCloudSqlColumns: Record<string, boolean>
   visibleMemorystoreColumns: Record<string, boolean>
+  visibleAlloyDbColumns: Record<string, boolean>
 }
 
 function colsToRecord(ids: string[], allIds: Set<string>): Record<string, boolean> {
@@ -87,9 +90,14 @@ export function getInitialStateFromUrl(): UrlState {
     ? colsToRecord(msColsParam.split(',').filter((id) => ALL_MS_IDS.has(id)), ALL_MS_IDS)
     : { ...DEFAULT_VISIBLE_MEMORYSTORE_COLUMNS }
 
+  const adbColsParam = params.get('adbcols')
+  const visibleAlloyDbColumns = adbColsParam !== null
+    ? colsToRecord(adbColsParam.split(',').filter((id) => ALL_ADB_IDS.has(id)), ALL_ADB_IDS)
+    : { ...DEFAULT_VISIBLE_ALLOYDB_COLUMNS }
+
   const minCapacityGb = Math.max(0, Number(params.get('minCap') ?? 0) || 0)
 
-  return { page, region, costPeriod, currency, minMemory, minVCpus, minCapacityGb, globalSearch, visibleColumns, visibleCloudSqlColumns, visibleMemorystoreColumns }
+  return { page, region, costPeriod, currency, minMemory, minVCpus, minCapacityGb, globalSearch, visibleColumns, visibleCloudSqlColumns, visibleMemorystoreColumns, visibleAlloyDbColumns }
 }
 
 export function syncStateToUrl(
@@ -118,6 +126,11 @@ export function syncStateToUrl(
   const msVisible = visibleIds(state.visibleMemorystoreColumns)
   if (!setsEqual(msVisible.sort(), [...DEFAULT_MS_COLS].sort())) {
     params.set('mscols', msVisible.join(','))
+  }
+
+  const adbVisible = visibleIds(state.visibleAlloyDbColumns)
+  if (!setsEqual(adbVisible.sort(), [...DEFAULT_ADB_COLS].sort())) {
+    params.set('adbcols', adbVisible.join(','))
   }
 
   if (state.minCapacityGb > 0) params.set('minCap', String(state.minCapacityGb))

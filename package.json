@@ -14,6 +14,7 @@
     "fetch-cloudsql-pricing": "tsx scripts/fetch-cloudsql-pricing.ts",
     "fetch-exchange-rates": "tsx scripts/fetch-exchange-rates.ts",
     "fetch-memorystore-pricing": "tsx scripts/fetch-memorystore-pricing.ts",
+    "fetch-alloydb-pricing": "tsx scripts/fetch-alloydb-pricing.ts",
     "validate": "tsx scripts/validate-pricing.ts"
   },
   "dependencies": {
@@ -51,7 +52,7 @@
     "tailwindcss": "^3.4.19",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.56.1",
-    "vite": "^8.0.0",
+    "vite": "^8.0.7",
     "vitest": "^4.1.0"
   }
 }

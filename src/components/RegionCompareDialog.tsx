@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { X, ChevronDown } from 'lucide-react'
-import type { Instance, CloudSqlInstance, MemorystoreInstance, CostPeriod, RegionPricing, CloudSqlRegionPricing, MemorystoreRegionPricing, ColumnDef } from '../lib/types'
+import type { Instance, CloudSqlInstance, MemorystoreInstance, AlloyDbInstance, CostPeriod, RegionPricing, CloudSqlRegionPricing, MemorystoreRegionPricing, AlloyDbRegionPricing, ColumnDef } from '../lib/types'
 import { formatPrice, formatMemory, formatVCpus } from '../lib/utils'
 
-type AnyInstance = Instance | CloudSqlInstance | MemorystoreInstance
+type AnyInstance = Instance | CloudSqlInstance | MemorystoreInstance | AlloyDbInstance
 
 interface Props {
   open: boolean
@@ -22,7 +22,7 @@ function getPricingValue(
   region: string,
   colId: string,
 ): number | null | undefined {
-  const pricing = inst.pricing[region] as (RegionPricing & CloudSqlRegionPricing & MemorystoreRegionPricing) | undefined
+  const pricing = inst.pricing[region] as (RegionPricing & CloudSqlRegionPricing & MemorystoreRegionPricing & AlloyDbRegionPricing) | undefined
   return pricing?.[colId as keyof (RegionPricing & CloudSqlRegionPricing & MemorystoreRegionPricing)]
 }
 

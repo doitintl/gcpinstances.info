@@ -42,6 +42,11 @@ jobs:
           GOOGLE_CLOUD_API_KEY: ${{ secrets.GOOGLE_CLOUD_API_KEY }}
         run: npm run fetch-memorystore-pricing
 
+      - name: Fetch AlloyDB pricing data
+        env:
+          GOOGLE_CLOUD_API_KEY: ${{ secrets.GOOGLE_CLOUD_API_KEY }}
+        run: npm run fetch-alloydb-pricing
+
       - name: Fetch exchange rates
         run: npm run fetch-exchange-rates
 
@@ -55,7 +60,7 @@ jobs:
         id: changes
         run: |
           CHANGED=false
-          for f in public/data/pricing.json public/data/cloudsql-pricing.json public/data/memorystore-pricing.json public/data/exchange-rates.json; do
+          for f in public/data/pricing.json public/data/cloudsql-pricing.json public/data/memorystore-pricing.json public/data/alloydb-pricing.json public/data/exchange-rates.json; do
             if ! git diff --quiet "$f"; then
               CHANGED=true
             fi
@@ -67,6 +72,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/data/pricing.json public/data/cloudsql-pricing.json public/data/memorystore-pricing.json public/data/exchange-rates.json
+          git add public/data/pricing.json public/data/cloudsql-pricing.json public/data/memorystore-pricing.json public/data/alloydb-pricing.json public/data/exchange-rates.json
           git commit -m "chore: update GCP pricing data [$(date -u +%Y-%m-%d)]"
           git push

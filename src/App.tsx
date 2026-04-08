@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
-import type { PricingData, CostPeriod, CloudSqlPricingData, MemorystorePricingData, ExchangeRatesData } from './lib/types'
-import { CURRENCY_META, CLOUDSQL_COLUMNS_WITH_DERIVED, MEMORYSTORE_COLUMNS_WITH_DERIVED } from './lib/types'
+import type { PricingData, CostPeriod, CloudSqlPricingData, MemorystorePricingData, AlloyDbPricingData, ExchangeRatesData } from './lib/types'
+import { CURRENCY_META, CLOUDSQL_COLUMNS_WITH_DERIVED, MEMORYSTORE_COLUMNS_WITH_DERIVED, ALLOYDB_COLUMNS_WITH_DERIVED } from './lib/types'
 import { getInitialStateFromUrl, syncStateToUrl } from './lib/useUrlState'
 import type { Page } from './lib/useUrlState'
 import { useKeyboardShortcuts } from './lib/useKeyboardShortcuts'
@@ -8,6 +8,7 @@ import { PricingTable } from './components/PricingTable'
 import { FiltersBar } from './components/FiltersBar'
 import { CloudSqlPricingTable } from './components/CloudSqlPricingTable'
 import { MemorystorePricingTable } from './components/MemorystorePricingTable'
+import { AlloyDbPricingTable } from './components/AlloyDbPricingTable'
 import { McpCliPage } from './components/McpCliPage'
 import { AboutDialog } from './components/AboutDialog'
 import { trackPageView } from './lib/analytics'
@@ -40,6 +41,12 @@ export default function App() {
   const memorystoreFetchRef = useRef(false)
   const memorystoreLoading = page === 'memorystore' && !memorystoreData && !memorystoreError
 
+  // AlloyDB data (lazy loaded)
+  const [alloydbData, setAlloydbData] = useState<AlloyDbPricingData | null>(null)
+  const [alloydbError, setAlloydbError] = useState<string | null>(null)
+  const alloydbFetchRef = useRef(false)
+  const alloydbLoading = page === 'alloydb' && !alloydbData && !alloydbError
+
   // Shared filters — initialized from URL
   const [region, setRegion] = useState(initialState.region)
   const [costPeriod, setCostPeriod] = useState<CostPeriod>(initialState.costPeriod)
@@ -55,11 +62,12 @@ export default function App() {
   const [visibleColumns, setVisibleColumns] = useState<Record<string, boolean>>(initialState.visibleColumns)
   const [visibleCloudSqlColumns, setVisibleCloudSqlColumns] = useState<Record<string, boolean>>(initialState.visibleCloudSqlColumns)
   const [visibleMemorystoreColumns, setVisibleMemorystoreColumns] = useState<Record<string, boolean>>(initialState.visibleMemorystoreColumns)
+  const [visibleAlloyDbColumns, setVisibleAlloyDbColumns] = useState<Record<string, boolean>>(initialState.visibleAlloyDbColumns)
 
   // Sync state to URL whenever any filter changes
   useEffect(() => {
-    syncStateToUrl(page, { region, costPeriod, currency, minMemory, minVCpus, minCapacityGb, globalSearch, visibleColumns, visibleCloudSqlColumns, visibleMemorystoreColumns })
-  }, [page, region, costPeriod, currency, minMemory, minVCpus, minCapacityGb, globalSearch, visibleColumns, visibleCloudSqlColumns, visibleMemorystoreColumns])
+    syncStateToUrl(page, { region, costPeriod, currency, minMemory, minVCpus, minCapacityGb, globalSearch, visibleColumns, visibleCloudSqlColumns, visibleMemorystoreColumns, visibleAlloyDbColumns })
+  }, [page, region, costPeriod, currency, minMemory, minVCpus, minCapacityGb, globalSearch, visibleColumns, visibleCloudSqlColumns, visibleMemorystoreColumns, visibleAlloyDbColumns])
 
   useEffect(() => {
     const onHashChange = () => {
@@ -76,6 +84,7 @@ export default function App() {
       setVisibleColumns(urlState.visibleColumns)
       setVisibleCloudSqlColumns(urlState.visibleCloudSqlColumns)
       setVisibleMemorystoreColumns(urlState.visibleMemorystoreColumns)
+      setVisibleAlloyDbColumns(urlState.visibleAlloyDbColumns)
     }
     window.addEventListener('hashchange', onHashChange)
     return () => window.removeEventListener('hashchange', onHashChange)
@@ -137,6 +146,22 @@ export default function App() {
       .catch((e) => setMemorystoreError(String(e)))
   }, [page])
 
+  // Lazy load AlloyDB pricing on first visit to that tab
+  useEffect(() => {
+    if (page !== 'alloydb' || alloydbFetchRef.current) return
+    alloydbFetchRef.current = true
+    fetch('/data/alloydb-pricing.json')
+      .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() })
+      .then((d: AlloyDbPricingData) => {
+        setAlloydbData(d)
+        setRegion((prev) => {
+          if (d.regions.includes(prev)) return prev
+          return d.regions.includes('us-central1') ? 'us-central1' : d.regions[0] ?? prev
+        })
+      })
+      .catch((e) => setAlloydbError(String(e)))
+  }, [page])
+
   const filteredInstances = useMemo(() => {
     if (!data) return []
     return data.instances.filter((inst) => {
@@ -183,7 +208,21 @@ export default function App() {
     })
   }, [memorystoreData, minCapacityGb, globalSearch])
 
-  const activeUpdatedAt = page === 'memorystore' ? memorystoreData?.updatedAt : page === 'cloudsql' ? cloudSqlData?.updatedAt : data?.updatedAt
+  const filteredAlloyDbInstances = useMemo(() => {
+    if (!alloydbData) return []
+    return alloydbData.instances.filter((inst) => {
+      if (inst.vCpus < minVCpus) return false
+      if (inst.memoryGb < minMemory) return false
+      if (globalSearch) {
+        const q = globalSearch.toLowerCase()
+        if (!inst.name.toLowerCase().includes(q) &&
+            !inst.series.toLowerCase().includes(q)) return false
+      }
+      return true
+    })
+  }, [alloydbData, minVCpus, minMemory, globalSearch])
+
+  const activeUpdatedAt = page === 'alloydb' ? alloydbData?.updatedAt : page === 'memorystore' ? memorystoreData?.updatedAt : page === 'cloudsql' ? cloudSqlData?.updatedAt : data?.updatedAt
   const formattedDate = useMemo(() => activeUpdatedAt ? new Date(activeUpdatedAt).toLocaleDateString('en-US', {
     year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',
   }) : '', [activeUpdatedAt])
@@ -196,10 +235,11 @@ export default function App() {
   }, [])
 
   const activeRegions = useMemo(() => {
+    if (page === 'alloydb') return alloydbData?.regions ?? data?.regions ?? []
     if (page === 'memorystore') return memorystoreData?.regions ?? data?.regions ?? []
     if (page === 'cloudsql') return cloudSqlData?.regions ?? data?.regions ?? []
     return data?.regions ?? []
-  }, [page, data, cloudSqlData, memorystoreData])
+  }, [page, data, cloudSqlData, memorystoreData, alloydbData])
 
   if (loading) {
     return (
@@ -283,6 +323,18 @@ export default function App() {
             >
               Memorystore
             </a>
+            <a
+              href="#alloydb"
+              onClick={() => trackPageView('alloydb')}
+              className={cn(
+                'px-3 py-1.5 text-sm rounded-md transition-colors whitespace-nowrap',
+                page === 'alloydb'
+                  ? 'bg-gray-700 text-white'
+                  : 'text-gray-300 hover:text-white hover:bg-gray-800',
+              )}
+            >
+              AlloyDB
+            </a>
           </nav>
           {/* Desktop-only: last updated + MCP */}
           <div className="hidden sm:flex items-center gap-4">
@@ -319,6 +371,63 @@ export default function App() {
 
       {page === 'mcp-cli' ? (
         <McpCliPage />
+      ) : page === 'alloydb' ? (
+        <>
+          <div className="max-w-screen-2xl mx-auto px-4 pt-4 w-full">
+            <FiltersBar
+              regions={activeRegions}
+              region={region}
+              setRegion={setRegion}
+              costPeriod={costPeriod}
+              setCostPeriod={setCostPeriod}
+              currency={currency}
+              setCurrency={setCurrency}
+              currencies={CURRENCY_KEYS}
+              minMemory={minMemory}
+              setMinMemory={setMinMemory}
+              minVCpus={minVCpus}
+              setMinVCpus={setMinVCpus}
+              globalSearch={globalSearch}
+              setGlobalSearch={setGlobalSearch}
+              visibleColumns={visibleAlloyDbColumns}
+              setVisibleColumns={setVisibleAlloyDbColumns}
+              onClearFilters={handleClearFilters}
+              instanceCount={filteredAlloyDbInstances.length}
+              totalCount={alloydbData?.instances.length ?? 0}
+              columns={ALLOYDB_COLUMNS_WITH_DERIVED}
+              searchInputRef={searchInputRef}
+            />
+          </div>
+          <div className="flex-1 min-h-0 w-full relative">
+            <div className="absolute inset-0 max-w-screen-2xl mx-auto px-4 pb-4">
+              {alloydbLoading ? (
+                <div className="flex items-center justify-center py-24">
+                  <div className="flex flex-col items-center gap-4 text-gray-500">
+                    <Cloud className="w-10 h-10 animate-pulse text-blue-500" />
+                    <p className="text-base font-medium">Loading AlloyDB pricing...</p>
+                  </div>
+                </div>
+              ) : alloydbError ? (
+                <div className="flex items-center justify-center py-24">
+                  <div className="text-center">
+                    <p className="text-red-500 font-medium">Failed to load AlloyDB pricing</p>
+                    <p className="text-gray-400 text-sm mt-1">{alloydbError}</p>
+                  </div>
+                </div>
+              ) : (
+                <AlloyDbPricingTable
+                  instances={filteredAlloyDbInstances}
+                  region={region}
+                  costPeriod={costPeriod}
+                  currency={currency}
+                  visibleColumns={visibleAlloyDbColumns}
+                  exchangeRates={exchangeRates}
+                  allRegions={activeRegions}
+                />
+              )}
+            </div>
+          </div>
+        </>
       ) : page === 'memorystore' ? (
         <>
           <div className="max-w-screen-2xl mx-auto px-4 pt-4 w-full">
