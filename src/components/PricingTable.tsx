@@ -364,6 +364,20 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
     [instances, selectedRows],
   )
 
+  // When nothing is selected, default the region-comparison dialog to the
+  // three shared-core E2 machine types so users always have something useful
+  // to look at out of the box.
+  const DEFAULT_REGION_COMPARE_NAMES = ['e2-micro', 'e2-small', 'e2-medium']
+  const regionCompareInstances = useMemo(() => {
+    if (selectedInstances.length > 0) return selectedInstances
+    const byName = new Map(instances.map((i) => [i.name, i]))
+    return DEFAULT_REGION_COMPARE_NAMES
+      .map((name) => byName.get(name))
+      .filter((i): i is Instance => i !== undefined)
+  }, [selectedInstances, instances])
+
+  const DEFAULT_COMPARE_REGIONS = ['us-central1', 'europe-west1', 'asia-southeast1']
+
   const visibleRows = table.getRowModel().rows
 
   const getExportRows = useCallback(() => {
@@ -400,14 +414,12 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
           </button>
           <button
             onClick={() => setRegionCompareOpen(true)}
-            disabled={selectedRows.size < 1}
-            title="Compare selected instances across regions"
-            className={cn(
-              'flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-md border transition-colors',
+            title={
               selectedRows.size >= 1
-                ? 'border-green-600 text-green-600 hover:bg-green-50'
-                : 'border-gray-200 text-gray-400 cursor-not-allowed',
-            )}
+                ? 'Compare selected instances across regions'
+                : 'Compare e2-micro, e2-small, e2-medium across regions'
+            }
+            className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-md border border-green-600 text-green-600 hover:bg-green-50 transition-colors"
           >
             <MapPin className="w-4 h-4" />
             Compare Regions {selectedRows.size > 0 ? `(${selectedRows.size})` : ''}
@@ -441,9 +453,10 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
       <RegionCompareDialog
         open={regionCompareOpen}
         onClose={() => setRegionCompareOpen(false)}
-        instances={selectedInstances}
+        instances={regionCompareInstances}
         allRegions={allRegions}
         initialRegion={region}
+        defaultRegions={DEFAULT_COMPARE_REGIONS}
         currency={currency}
         costPeriod={costPeriod}
         exchangeRates={exchangeRates}

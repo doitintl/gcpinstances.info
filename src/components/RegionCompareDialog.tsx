@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { X, ChevronDown } from 'lucide-react'
 import type { Instance, CloudSqlInstance, MemorystoreInstance, AlloyDbInstance, CostPeriod, RegionPricing, CloudSqlRegionPricing, MemorystoreRegionPricing, AlloyDbRegionPricing, ColumnDef } from '../lib/types'
 import { formatPrice, formatMemory, formatVCpus } from '../lib/utils'
+import { REGION_LOCATIONS } from '../lib/regionLocations'
 
 type AnyInstance = Instance | CloudSqlInstance | MemorystoreInstance | AlloyDbInstance
 
@@ -11,6 +12,12 @@ interface Props {
   instances: AnyInstance[]
   allRegions: string[]
   initialRegion: string
+  /**
+   * Optional default set of regions to pre-select when the dialog opens.
+   * Regions not present in `allRegions` are ignored. If none of the given
+   * regions are available, falls back to `initialRegion`.
+   */
+  defaultRegions?: string[]
   currency: string
   costPeriod: CostPeriod
   exchangeRates: Record<string, number>
@@ -32,18 +39,30 @@ export function RegionCompareDialog({
   instances,
   allRegions,
   initialRegion,
+  defaultRegions,
   currency,
   costPeriod,
   exchangeRates,
   columns,
 }: Props) {
-  const [selectedRegions, setSelectedRegions] = useState<string[]>([initialRegion])
+  // Compute the initial region selection: intersection of `defaultRegions`
+  // with `allRegions`, or `initialRegion` if none of the defaults exist.
+  const resolveInitialSelection = (): string[] => {
+    if (defaultRegions && defaultRegions.length > 0) {
+      const available = defaultRegions.filter((r) => allRegions.includes(r))
+      if (available.length > 0) return available
+    }
+    return [initialRegion]
+  }
+
+  const [selectedRegions, setSelectedRegions] = useState<string[]>(resolveInitialSelection)
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
   // Reset selected regions when dialog opens
   useEffect(() => {
-    if (open) setSelectedRegions([initialRegion])
-  }, [open, initialRegion])
+    if (open) setSelectedRegions(resolveInitialSelection())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, initialRegion, defaultRegions?.join(',')])
 
   // Escape closes dialog
   useEffect(() => {
@@ -93,20 +112,24 @@ export function RegionCompareDialog({
             </button>
             {dropdownOpen && (
               <div className="absolute top-full left-0 mt-1 z-50 bg-white border border-gray-200 rounded-xl shadow-lg p-2 min-w-[220px] max-h-60 overflow-y-auto">
-                {allRegions.map((r) => (
-                  <label
-                    key={r}
-                    className="flex items-center gap-2 px-2 py-1.5 cursor-pointer hover:bg-gray-50 rounded-md"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={selectedRegions.includes(r)}
-                      onChange={() => toggleRegion(r)}
-                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                    />
-                    <span className="text-sm text-gray-700 font-mono">{r}</span>
-                  </label>
-                ))}
+                {allRegions.map((r) => {
+                  const loc = REGION_LOCATIONS[r]
+                  return (
+                    <label
+                      key={r}
+                      className="flex items-center gap-2 px-2 py-1.5 cursor-pointer hover:bg-gray-50 rounded-md"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={selectedRegions.includes(r)}
+                        onChange={() => toggleRegion(r)}
+                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      />
+                      <span className="text-sm text-gray-700 font-mono">{r}</span>
+                      {loc && <span className="text-xs text-gray-400 truncate">{loc}</span>}
+                    </label>
+                  )
+                })}
               </div>
             )}
           </div>
@@ -146,11 +169,19 @@ export function RegionCompareDialog({
                         <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wide py-2 pr-4 pl-2 w-48">
                           Pricing field
                         </th>
-                        {selectedRegions.map((r) => (
-                          <th key={r} className="text-left text-xs font-semibold text-gray-600 uppercase tracking-wide py-2 px-4 font-mono">
-                            {r}
-                          </th>
-                        ))}
+                        {selectedRegions.map((r) => {
+                          const loc = REGION_LOCATIONS[r]
+                          return (
+                            <th key={r} className="text-left text-xs font-semibold text-gray-600 uppercase tracking-wide py-2 px-4 font-mono">
+                              <div>{r}</div>
+                              {loc && (
+                                <div className="text-[10px] font-normal normal-case text-gray-400 tracking-normal mt-0.5">
+                                  {loc}
+                                </div>
+                              )}
+                            </th>
+                          )
+                        })}
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100">
