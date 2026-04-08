@@ -265,7 +265,7 @@ export default function App() {
   }
 
   return (
-    <div className="h-screen bg-gray-50 dark:bg-gray-950 dark:text-gray-100 flex flex-col overflow-hidden transition-colors">
+    <div className="h-[100dvh] bg-gray-50 dark:bg-gray-950 dark:text-gray-100 flex flex-col overflow-hidden transition-colors [@media(max-height:600px)]:h-auto [@media(max-height:600px)]:min-h-[100dvh] [@media(max-height:600px)]:overflow-visible">
       {/* Header */}
       <header className="bg-gray-900 text-white">
         <div className="max-w-screen-2xl mx-auto px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
@@ -403,7 +403,7 @@ export default function App() {
               searchInputRef={searchInputRef}
             />
           </div>
-          <div className="flex-1 min-h-0 w-full relative">
+          <div className="flex-1 min-h-0 w-full relative [@media(max-height:600px)]:flex-none [@media(max-height:600px)]:h-[80vh] [@media(max-height:600px)]:min-h-[420px]">
             <div className="absolute inset-0 max-w-screen-2xl mx-auto px-4 pb-4">
               {alloydbLoading ? (
                 <div className="flex items-center justify-center py-24">
@@ -463,7 +463,7 @@ export default function App() {
               searchInputRef={searchInputRef}
             />
           </div>
-          <div className="flex-1 min-h-0 w-full relative">
+          <div className="flex-1 min-h-0 w-full relative [@media(max-height:600px)]:flex-none [@media(max-height:600px)]:h-[80vh] [@media(max-height:600px)]:min-h-[420px]">
             <div className="absolute inset-0 max-w-screen-2xl mx-auto px-4 pb-4">
               {memorystoreLoading ? (
                 <div className="flex items-center justify-center py-24">
@@ -520,7 +520,7 @@ export default function App() {
               searchInputRef={searchInputRef}
             />
           </div>
-          <div className="flex-1 min-h-0 w-full relative">
+          <div className="flex-1 min-h-0 w-full relative [@media(max-height:600px)]:flex-none [@media(max-height:600px)]:h-[80vh] [@media(max-height:600px)]:min-h-[420px]">
             <div className="absolute inset-0 max-w-screen-2xl mx-auto px-4 pb-4">
               {cloudSqlLoading ? (
                 <div className="flex items-center justify-center py-24">
@@ -579,7 +579,7 @@ export default function App() {
           </div>
 
           {/* Table */}
-          <div className="flex-1 min-h-0 w-full relative">
+          <div className="flex-1 min-h-0 w-full relative [@media(max-height:600px)]:flex-none [@media(max-height:600px)]:h-[80vh] [@media(max-height:600px)]:min-h-[420px]">
             <div className="absolute inset-0 max-w-screen-2xl mx-auto px-4 pb-4">
               <PricingTable
                 instances={filteredInstances}
