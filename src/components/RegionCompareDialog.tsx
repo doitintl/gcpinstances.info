@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { X, ChevronDown } from 'lucide-react'
 import type { Instance, CloudSqlInstance, MemorystoreInstance, AlloyDbInstance, CostPeriod, RegionPricing, CloudSqlRegionPricing, MemorystoreRegionPricing, AlloyDbRegionPricing, ColumnDef } from '../lib/types'
 import { formatPrice, formatMemory, formatVCpus } from '../lib/utils'
@@ -60,12 +60,26 @@ export function RegionCompareDialog({
 
   const [selectedRegions, setSelectedRegions] = useState<string[]>(resolveInitialSelection)
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   // Reset selected regions when dialog opens
   useEffect(() => {
     if (open) setSelectedRegions(resolveInitialSelection())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, initialRegion, defaultRegions?.join(',')])
+
+  // Close the region dropdown when clicking outside of its toggle/panel
+  useEffect(() => {
+    if (!dropdownOpen) return
+    const handler = (e: MouseEvent) => {
+      const target = e.target as Node | null
+      if (dropdownRef.current && target && !dropdownRef.current.contains(target)) {
+        setDropdownOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [dropdownOpen])
 
   // Escape closes dialog
   useEffect(() => {
@@ -103,7 +117,7 @@ export function RegionCompareDialog({
         {/* Region selector */}
         <div className="px-6 py-3 border-b border-gray-100 flex items-center gap-3">
           <span className="text-sm text-gray-500 font-medium">Regions:</span>
-          <div className="relative">
+          <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setDropdownOpen((v) => !v)}
               className="flex items-center gap-1.5 px-3 py-1.5 text-sm border border-gray-200 rounded-lg bg-white hover:border-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
