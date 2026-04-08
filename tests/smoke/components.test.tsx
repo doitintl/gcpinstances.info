@@ -157,10 +157,16 @@ describe('FiltersBar', () => {
     expect(screen.getByPlaceholderText('Search instances... (/)')).toBeTruthy()
   })
 
-  it('calls setRegion when region changes', () => {
+  it('calls setRegion when a region is picked from the combobox', () => {
     render(<FiltersBar {...defaultProps} />)
-    const select = screen.getByLabelText('Region')
-    fireEvent.change(select, { target: { value: 'europe-west1' } })
+    // Open the combobox panel
+    fireEvent.click(screen.getByLabelText('Region'))
+    // Click the europe-west1 option (rendered as a button inside the panel)
+    const option = screen
+      .getAllByRole('button')
+      .find((b) => b.textContent?.includes('europe-west1'))
+    expect(option).toBeTruthy()
+    fireEvent.click(option!)
     expect(defaultProps.setRegion).toHaveBeenCalledWith('europe-west1')
   })
 

@@ -1,7 +1,8 @@
-import { X, Search, Columns3 } from 'lucide-react'
-import { useState, useRef, useEffect, type RefObject } from 'react'
+import { X, Search, Columns3, ChevronDown } from 'lucide-react'
+import { useState, useRef, useEffect, useMemo, type RefObject } from 'react'
 import type { CostPeriod, ColumnDef } from '../lib/types'
 import { ALL_COLUMNS_WITH_DERIVED } from '../lib/types'
+import { REGION_LOCATIONS } from '../lib/regionLocations'
 import { cn } from '../lib/utils'
 
 interface Props {
@@ -81,6 +82,132 @@ function Select({
   )
 }
 
+/**
+ * Searchable single-select for GCP regions. Shows "us-central1 (Iowa, US)"
+ * for each entry and supports keyboard-friendly text filtering on either the
+ * region id or its location.
+ */
+function RegionCombobox({
+  regions,
+  value,
+  onChange,
+}: {
+  regions: string[]
+  value: string
+  onChange: (r: string) => void
+}) {
+  const [open, setOpen] = useState(false)
+  const [query, setQuery] = useState('')
+  const containerRef = useRef<HTMLDivElement>(null)
+  const searchRef = useRef<HTMLInputElement>(null)
+
+  // Close on outside click
+  useEffect(() => {
+    if (!open) return
+    const handler = (e: MouseEvent) => {
+      const target = e.target as Node | null
+      if (containerRef.current && target && !containerRef.current.contains(target)) {
+        setOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [open])
+
+  // Close on Escape; focus search on open
+  useEffect(() => {
+    if (!open) return
+    searchRef.current?.focus()
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
+  }, [open])
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    if (!q) return regions
+    return regions.filter((r) => {
+      if (r.toLowerCase().includes(q)) return true
+      const loc = REGION_LOCATIONS[r]
+      return loc ? loc.toLowerCase().includes(q) : false
+    })
+  }, [regions, query])
+
+  const selectedLabel = value
+  const selectedLoc = REGION_LOCATIONS[value]
+
+  return (
+    <div className="flex flex-col gap-0.5 min-w-[220px]">
+      <label htmlFor="region-combobox" className="text-xs text-gray-500 font-medium">Region</label>
+      <div className="relative" ref={containerRef}>
+        <button
+          id="region-combobox"
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          className="w-full flex items-center justify-between gap-2 px-2.5 py-1.5 text-sm border border-gray-200 rounded-lg bg-white hover:border-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
+        >
+          <span className="truncate text-left">
+            <span className="font-mono">{selectedLabel}</span>
+            {selectedLoc && (
+              <span className="ml-1 text-xs text-gray-400">({selectedLoc})</span>
+            )}
+          </span>
+          <ChevronDown className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+        </button>
+        {open && (
+          <div className="absolute top-full left-0 mt-1 z-50 bg-white border border-gray-200 rounded-xl shadow-lg w-[340px] max-h-80 flex flex-col">
+            <div className="p-2 border-b border-gray-100">
+              <div className="relative">
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+                <input
+                  ref={searchRef}
+                  type="text"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search region or location…"
+                  className="w-full pl-8 pr-2 py-1.5 text-sm border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-400"
+                />
+              </div>
+            </div>
+            <div className="overflow-y-auto p-1">
+              {filtered.length === 0 ? (
+                <div className="px-3 py-4 text-xs text-gray-400 text-center">No regions match.</div>
+              ) : (
+                filtered.map((r) => {
+                  const loc = REGION_LOCATIONS[r]
+                  const isSelected = r === value
+                  return (
+                    <button
+                      key={r}
+                      type="button"
+                      onClick={() => {
+                        onChange(r)
+                        setOpen(false)
+                        setQuery('')
+                      }}
+                      className={cn(
+                        'w-full text-left flex items-baseline gap-1 px-2 py-1.5 rounded-md whitespace-nowrap hover:bg-gray-50',
+                        isSelected && 'bg-blue-50 text-blue-700',
+                      )}
+                    >
+                      <span className="text-sm font-mono">{r}</span>
+                      {loc && (
+                        <span className="text-xs text-gray-400 truncate">({loc})</span>
+                      )}
+                    </button>
+                  )
+                })
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
 function NumberInput({
   value,
   onChange,
@@ -155,12 +282,10 @@ export function FiltersBar({
     <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 mb-4">
       <div className="flex flex-wrap items-end gap-3">
         {/* Region */}
-        <Select
-          label="Region"
+        <RegionCombobox
+          regions={regions}
           value={region}
           onChange={setRegion}
-          options={regions.map((r) => ({ value: r, label: r }))}
-          className="min-w-[140px]"
         />
 
         {/* Cost period */}

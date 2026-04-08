@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
-import { X, ChevronDown } from 'lucide-react'
+import { useState, useEffect, useRef, useMemo } from 'react'
+import { X, ChevronDown, Search } from 'lucide-react'
 import type { Instance, CloudSqlInstance, MemorystoreInstance, AlloyDbInstance, CostPeriod, RegionPricing, CloudSqlRegionPricing, MemorystoreRegionPricing, AlloyDbRegionPricing, ColumnDef } from '../lib/types'
 import { formatPrice, formatMemory, formatVCpus } from '../lib/utils'
 import { REGION_LOCATIONS } from '../lib/regionLocations'
@@ -60,7 +60,9 @@ export function RegionCompareDialog({
 
   const [selectedRegions, setSelectedRegions] = useState<string[]>(resolveInitialSelection)
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [regionQuery, setRegionQuery] = useState('')
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const regionSearchRef = useRef<HTMLInputElement>(null)
 
   // Reset selected regions when dialog opens
   useEffect(() => {
@@ -68,9 +70,15 @@ export function RegionCompareDialog({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, initialRegion, defaultRegions?.join(',')])
 
-  // Close the region dropdown when clicking outside of its toggle/panel
+  // Close the region dropdown when clicking outside of its toggle/panel,
+  // and reset the search query whenever the dropdown closes.
   useEffect(() => {
-    if (!dropdownOpen) return
+    if (!dropdownOpen) {
+      setRegionQuery('')
+      return
+    }
+    // Focus the search input when the panel opens.
+    regionSearchRef.current?.focus()
     const handler = (e: MouseEvent) => {
       const target = e.target as Node | null
       if (dropdownRef.current && target && !dropdownRef.current.contains(target)) {
@@ -80,6 +88,17 @@ export function RegionCompareDialog({
     document.addEventListener('mousedown', handler)
     return () => document.removeEventListener('mousedown', handler)
   }, [dropdownOpen])
+
+  // Filtered region list driven by the in-dropdown search input.
+  const filteredRegions = useMemo(() => {
+    const q = regionQuery.trim().toLowerCase()
+    if (!q) return allRegions
+    return allRegions.filter((r) => {
+      if (r.toLowerCase().includes(q)) return true
+      const loc = REGION_LOCATIONS[r]
+      return loc ? loc.toLowerCase().includes(q) : false
+    })
+  }, [allRegions, regionQuery])
 
   // Escape closes dialog
   useEffect(() => {
@@ -128,25 +147,44 @@ export function RegionCompareDialog({
               <ChevronDown className="w-3.5 h-3.5 text-gray-400" />
             </button>
             {dropdownOpen && (
-              <div className="absolute top-full left-0 mt-1 z-50 bg-white border border-gray-200 rounded-xl shadow-lg p-2 w-[340px] max-h-72 overflow-y-auto">
-                {allRegions.map((r) => {
-                  const loc = REGION_LOCATIONS[r]
-                  return (
-                    <label
-                      key={r}
-                      className="flex items-center gap-2 px-2 py-1.5 cursor-pointer hover:bg-gray-50 rounded-md whitespace-nowrap"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={selectedRegions.includes(r)}
-                        onChange={() => toggleRegion(r)}
-                        className="shrink-0 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                      />
-                      <span className="text-sm text-gray-700 font-mono shrink-0">{r}</span>
-                      {loc && <span className="text-xs text-gray-400 truncate">({loc})</span>}
-                    </label>
-                  )
-                })}
+              <div className="absolute top-full left-0 mt-1 z-50 bg-white border border-gray-200 rounded-xl shadow-lg w-[340px] max-h-80 flex flex-col">
+                <div className="p-2 border-b border-gray-100">
+                  <div className="relative">
+                    <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+                    <input
+                      ref={regionSearchRef}
+                      type="text"
+                      value={regionQuery}
+                      onChange={(e) => setRegionQuery(e.target.value)}
+                      placeholder="Search region or location…"
+                      className="w-full pl-8 pr-2 py-1.5 text-sm border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-400"
+                    />
+                  </div>
+                </div>
+                <div className="overflow-y-auto p-2">
+                  {filteredRegions.length === 0 ? (
+                    <div className="px-2 py-4 text-xs text-gray-400 text-center">No regions match.</div>
+                  ) : (
+                    filteredRegions.map((r) => {
+                      const loc = REGION_LOCATIONS[r]
+                      return (
+                        <label
+                          key={r}
+                          className="flex items-center gap-2 px-2 py-1.5 cursor-pointer hover:bg-gray-50 rounded-md whitespace-nowrap"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={selectedRegions.includes(r)}
+                            onChange={() => toggleRegion(r)}
+                            className="shrink-0 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          />
+                          <span className="text-sm text-gray-700 font-mono shrink-0">{r}</span>
+                          {loc && <span className="text-xs text-gray-400 truncate">({loc})</span>}
+                        </label>
+                      )
+                    })
+                  )}
+                </div>
               </div>
             )}
           </div>
