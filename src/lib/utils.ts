@@ -31,6 +31,56 @@ export function formatVCpus(vCpus: number | 'shared'): string {
   return `${vCpus}`
 }
 
+/**
+ * Parse a numeric filter expression typed by the user into a predicate.
+ *
+ * Supported syntax (whitespace tolerated):
+ *   "5"          → equal to 5
+ *   "=5"         → equal to 5
+ *   ">5"         → strictly greater than 5
+ *   "<5"         → strictly less than 5
+ *   ">=5"        → greater than or equal to 5
+ *   "<=5"        → less than or equal to 5
+ *   "!=5", "<>5" → not equal to 5
+ *
+ * Equality matching is performed at the precision of the user's input — e.g.
+ * "5" rounds the value to 0 decimal places before comparing, "0.05" rounds
+ * to 2 decimal places. This makes equality intuitive for both integer
+ * columns (vCPUs) and floating-point columns (memory, prices).
+ *
+ * Returns `null` when the expression isn't a valid numeric filter, so callers
+ * can fall back to substring matching on the formatted value.
+ */
+export function parseNumericFilter(
+  expr: string,
+): ((value: number | null | undefined) => boolean) | null {
+  const s = expr.trim()
+  if (!s) return null
+  const match = /^(>=|<=|!=|<>|>|<|=)?\s*(-?\d+(?:\.\d+)?)$/.exec(s)
+  if (!match) return null
+  const op = match[1] ?? '='
+  const raw = match[2]
+  const target = Number(raw)
+  if (Number.isNaN(target)) return null
+  const decimals = (raw.split('.')[1] ?? '').length
+  const factor = 10 ** decimals
+  const roundToInputPrecision = (x: number) => Math.round(x * factor) / factor
+
+  return (value) => {
+    if (value == null || Number.isNaN(value)) return false
+    switch (op) {
+      case '=':  return roundToInputPrecision(value) === target
+      case '>':  return value > target
+      case '<':  return value < target
+      case '>=': return value >= target
+      case '<=': return value <= target
+      case '!=':
+      case '<>': return roundToInputPrecision(value) !== target
+      default:   return false
+    }
+  }
+}
+
 export function buildDoitUrl(path: string, campaign: string, content: string): string {
   const base = `https://www.doit.com/${path}`.replace(/\/+$/, '/')
   const params = new URLSearchParams({
