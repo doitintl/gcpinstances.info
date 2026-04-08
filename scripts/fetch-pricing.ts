@@ -348,11 +348,47 @@ function buildPricingTable(
 
       if (spec.vCpus === 'shared') continue
 
-      // Shared-core E2 (micro/small/medium): Linux pricing not available, Windows = license only
+      // Shared-core E2 (micro/small/medium): billed as a fraction of an E2 vCPU
+      // (e2-micro=0.25, e2-small=0.5, e2-medium=1) plus actual memory, using
+      // the same E2 CPU/RAM SKU rates as the full-size E2 instances.
       if (spec.sharedCore) {
-        const wp = calcWindowsLicensePremium(spec.vCpus as number, windowsPerVcpuRate)
-        if (wp > 0) {
-          pricing[region] = { ...nullPricing, windowsOnDemand: round(wp), windowsSud: round(wp), windowsCud1yr: round(wp) }
+        const billedVcpus = spec.billedVcpus ?? 0
+        const memGb = spec.memoryGb
+        const wpShared = calcWindowsLicensePremium(spec.vCpus as number, windowsPerVcpuRate)
+
+        const cpuOD  = getRate(rates, 'E2', 'cpu', region, 'OnDemand',    'linux')
+        const ramOD  = getRate(rates, 'E2', 'ram', region, 'OnDemand',    'linux')
+        const cpuP   = getRate(rates, 'E2', 'cpu', region, 'Preemptible', 'linux')
+        const ramP   = getRate(rates, 'E2', 'ram', region, 'Preemptible', 'linux')
+        const cpuC1  = getRate(rates, 'E2', 'cpu', region, 'Cud1yr',      'linux')
+        const ramC1  = getRate(rates, 'E2', 'ram', region, 'Cud1yr',      'linux')
+        const cpuC3  = getRate(rates, 'E2', 'cpu', region, 'Cud3yr',      'linux')
+        const ramC3  = getRate(rates, 'E2', 'ram', region, 'Cud3yr',      'linux')
+
+        const calc = (cpu: number | null, ram: number | null) =>
+          cpu !== null && ram !== null ? round(billedVcpus * cpu + memGb * ram) : null
+
+        const linuxOD  = calc(cpuOD,  ramOD)
+        const linuxP   = calc(cpuP,   ramP)
+        const linuxC1  = calc(cpuC1,  ramC1)
+        const linuxC3  = calc(cpuC3,  ramC3)
+
+        // E2 series has no SUD — SUD rate equals on-demand
+        const linuxSud = linuxOD
+
+        if (linuxOD !== null || wpShared > 0) {
+          pricing[region] = {
+            linuxOnDemand:       linuxOD,
+            linuxSud:            linuxSud,
+            linuxPreemptible:    linuxP,
+            linuxCud1yr:         linuxC1,
+            linuxCud3yr:         linuxC3,
+            windowsOnDemand:     linuxOD !== null ? round(linuxOD + wpShared) : (wpShared > 0 ? round(wpShared) : null),
+            windowsSud:          linuxSud !== null ? round(linuxSud + wpShared) : (wpShared > 0 ? round(wpShared) : null),
+            windowsPreemptible:  linuxP !== null ? round(linuxP + wpShared) : null,
+            windowsCud1yr:       linuxC1 !== null ? round(linuxC1 + wpShared) : (wpShared > 0 ? round(wpShared) : null),
+            windowsCud3yr:       linuxC3 !== null ? round(linuxC3 + wpShared) : null,
+          }
         }
         continue
       }

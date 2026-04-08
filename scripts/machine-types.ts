@@ -9,6 +9,13 @@ export interface MachineTypeSpec {
   vCpus: number | 'shared'
   memoryGb: number
   sharedCore?: boolean
+  /**
+   * Fractional vCPU count used for billing calculations. Only relevant for
+   * shared-core machine types (e2-micro/small/medium) where the displayed
+   * vCpus reflects the max burstable count but billing is based on a smaller
+   * fractional CPU allocation.
+   */
+  billedVcpus?: number
   cpuType?: string
   localSsd?: boolean
   networkBandwidth?: string  // e.g. "Up to 32 Gbps"
@@ -51,9 +58,9 @@ export const SERIES_SPECS: Record<string, Partial<MachineTypeSpec>> = {
 export const MACHINE_TYPES: MachineTypeSpec[] = [
   // --- E2 General Purpose ---
   // e2-micro/small/medium are burstable shared-core; Linux SUD unavailable, Windows = license only
-  { name: 'e2-micro',      series: 'E2', family: 'General purpose', vCpus: 2,  memoryGb: 1,  sharedCore: true },
-  { name: 'e2-small',      series: 'E2', family: 'General purpose', vCpus: 2,  memoryGb: 2,  sharedCore: true },
-  { name: 'e2-medium',     series: 'E2', family: 'General purpose', vCpus: 2,  memoryGb: 4,  sharedCore: true },
+  { name: 'e2-micro',      series: 'E2', family: 'General purpose', vCpus: 2,  memoryGb: 1,  sharedCore: true, billedVcpus: 0.25 },
+  { name: 'e2-small',      series: 'E2', family: 'General purpose', vCpus: 2,  memoryGb: 2,  sharedCore: true, billedVcpus: 0.5 },
+  { name: 'e2-medium',     series: 'E2', family: 'General purpose', vCpus: 2,  memoryGb: 4,  sharedCore: true, billedVcpus: 1 },
   { name: 'e2-standard-2', series: 'E2', family: 'General purpose', vCpus: 2,  memoryGb: 8 },
   { name: 'e2-standard-4', series: 'E2', family: 'General purpose', vCpus: 4,  memoryGb: 16 },
   { name: 'e2-standard-8', series: 'E2', family: 'General purpose', vCpus: 8,  memoryGb: 32 },

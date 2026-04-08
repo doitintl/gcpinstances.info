@@ -364,6 +364,13 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
     [instances, selectedRows],
   )
 
+  // Compare Regions now reflects exactly the current table selection — no
+  // implicit default. The button is disabled until the user picks at least
+  // one instance so the dialog is never opened with a surprise payload.
+  const regionCompareInstances = selectedInstances
+
+  const DEFAULT_COMPARE_REGIONS = ['us-central1', 'europe-west1', 'asia-southeast1']
+
   const visibleRows = table.getRowModel().rows
 
   const getExportRows = useCallback(() => {
@@ -401,7 +408,11 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
           <button
             onClick={() => setRegionCompareOpen(true)}
             disabled={selectedRows.size < 1}
-            title="Compare selected instances across regions"
+            title={
+              selectedRows.size >= 1
+                ? 'Compare selected instances across regions'
+                : 'Select at least one instance to compare across regions'
+            }
             className={cn(
               'flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-md border transition-colors',
               selectedRows.size >= 1
@@ -441,9 +452,10 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
       <RegionCompareDialog
         open={regionCompareOpen}
         onClose={() => setRegionCompareOpen(false)}
-        instances={selectedInstances}
+        instances={regionCompareInstances}
         allRegions={allRegions}
         initialRegion={region}
+        defaultRegions={DEFAULT_COMPARE_REGIONS}
         currency={currency}
         costPeriod={costPeriod}
         exchangeRates={exchangeRates}
