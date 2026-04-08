@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { X } from 'lucide-react'
-import type { Instance, CostPeriod, RegionPricing, ColumnDef, CloudSqlInstance, CloudSqlRegionPricing, MemorystoreInstance, MemorystoreRegionPricing } from '../lib/types'
+import type { Instance, CostPeriod, RegionPricing, ColumnDef, CloudSqlInstance, CloudSqlRegionPricing, MemorystoreInstance, MemorystoreRegionPricing, AlloyDbInstance, AlloyDbRegionPricing } from '../lib/types'
 import { ALL_COLUMNS } from '../lib/types'
 import { formatPrice, formatMemory, formatVCpus } from '../lib/utils'
 
-export type AnyInstance = Instance | CloudSqlInstance | MemorystoreInstance
+export type AnyInstance = Instance | CloudSqlInstance | MemorystoreInstance | AlloyDbInstance
 
 type CompareRow = {
   label: string
@@ -82,16 +82,14 @@ export function CompareDialog({
   if (!open) return null
 
   const pricingCols = columns.filter(
-    (c) => c.group === 'linux' || c.group === 'windows' ||
-           c.group === 'mysql' || c.group === 'postgresql' || c.group === 'sqlserver' ||
-           c.group === 'memorystore',
+    (c) => c.group !== 'spec' && c.group !== 'derived',
   )
 
   const pricingRows: CompareRow[] = pricingCols.map((col) => ({
     label: col.label.replace(' cost', ''),
     get: (i: AnyInstance) => {
-      const regionPricing = i.pricing[region] as (RegionPricing & CloudSqlRegionPricing & MemorystoreRegionPricing) | undefined
-      return formatPrice(regionPricing?.[col.id as keyof (RegionPricing & CloudSqlRegionPricing & MemorystoreRegionPricing)], currency, costPeriod, exchangeRates)
+      const regionPricing = i.pricing[region] as (RegionPricing & CloudSqlRegionPricing & MemorystoreRegionPricing & AlloyDbRegionPricing) | undefined
+      return formatPrice(regionPricing?.[col.id as keyof (RegionPricing & CloudSqlRegionPricing & MemorystoreRegionPricing & AlloyDbRegionPricing)], currency, costPeriod, exchangeRates)
     },
     compare: 'lower-better' as const,
   }))
