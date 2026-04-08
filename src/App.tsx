@@ -10,6 +10,7 @@ import { CloudSqlPricingTable } from './components/CloudSqlPricingTable'
 import { MemorystorePricingTable } from './components/MemorystorePricingTable'
 import { AlloyDbPricingTable } from './components/AlloyDbPricingTable'
 import { McpCliPage } from './components/McpCliPage'
+import { DarkModeToggle } from './components/DarkModeToggle'
 import { AboutDialog } from './components/AboutDialog'
 import { trackPageView } from './lib/analytics'
 import { Cloud, ExternalLink, Github, Info, Star, Terminal } from 'lucide-react'
@@ -243,8 +244,8 @@ export default function App() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="flex flex-col items-center gap-4 text-gray-500">
+      <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-950">
+        <div className="flex flex-col items-center gap-4 text-gray-500 dark:text-gray-400">
           <Cloud className="w-12 h-12 animate-pulse text-blue-500" />
           <p className="text-lg font-medium">Loading pricing data...</p>
         </div>
@@ -254,17 +255,17 @@ export default function App() {
 
   if (error || !data) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-950">
         <div className="text-center">
           <p className="text-red-500 font-medium">Failed to load pricing data</p>
-          <p className="text-gray-400 text-sm mt-1">{error}</p>
+          <p className="text-gray-400 dark:text-gray-500 text-sm mt-1">{error}</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="h-screen bg-gray-50 flex flex-col overflow-hidden">
+    <div className="h-screen bg-gray-50 dark:bg-gray-950 dark:text-gray-100 flex flex-col overflow-hidden transition-colors">
       {/* Header */}
       <header className="bg-gray-900 text-white">
         <div className="max-w-screen-2xl mx-auto px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
@@ -275,15 +276,18 @@ export default function App() {
               <span className="hidden sm:inline text-gray-600 text-sm">powered by</span>
               <img src="/DoitLogo.svg" alt="DoiT" className="h-4 sm:h-5" />
             </div>
-            {/* Mobile-only: MCP button */}
-            <a
-              href="#mcp-cli"
-              onClick={() => trackPageView('mcp-cli')}
-              className="sm:hidden inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-500 text-white hover:bg-blue-400 transition-colors shadow-sm shadow-blue-500/40"
-            >
-              <Terminal className="w-3 h-3" />
-              MCP &amp; CLI
-            </a>
+            {/* Mobile-only: MCP button + dark mode toggle */}
+            <div className="sm:hidden flex items-center gap-2">
+              <a
+                href="#mcp-cli"
+                onClick={() => trackPageView('mcp-cli')}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-500 text-white hover:bg-blue-400 transition-colors shadow-sm shadow-blue-500/40"
+              >
+                <Terminal className="w-3 h-3" />
+                MCP &amp; CLI
+              </a>
+              <DarkModeToggle />
+            </div>
           </div>
           {/* Tab navigation — scrollable on mobile */}
           <nav className="flex items-center gap-1 overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0 sm:ml-4">
@@ -349,6 +353,7 @@ export default function App() {
               <Terminal className="w-3 h-3" />
               MCP &amp; CLI
             </a>
+            <DarkModeToggle />
           </div>
         </div>
       </header>
@@ -402,7 +407,7 @@ export default function App() {
             <div className="absolute inset-0 max-w-screen-2xl mx-auto px-4 pb-4">
               {alloydbLoading ? (
                 <div className="flex items-center justify-center py-24">
-                  <div className="flex flex-col items-center gap-4 text-gray-500">
+                  <div className="flex flex-col items-center gap-4 text-gray-500 dark:text-gray-400">
                     <Cloud className="w-10 h-10 animate-pulse text-blue-500" />
                     <p className="text-base font-medium">Loading AlloyDB pricing...</p>
                   </div>
@@ -462,7 +467,7 @@ export default function App() {
             <div className="absolute inset-0 max-w-screen-2xl mx-auto px-4 pb-4">
               {memorystoreLoading ? (
                 <div className="flex items-center justify-center py-24">
-                  <div className="flex flex-col items-center gap-4 text-gray-500">
+                  <div className="flex flex-col items-center gap-4 text-gray-500 dark:text-gray-400">
                     <Cloud className="w-10 h-10 animate-pulse text-blue-500" />
                     <p className="text-base font-medium">Loading Memorystore pricing...</p>
                   </div>
@@ -519,7 +524,7 @@ export default function App() {
             <div className="absolute inset-0 max-w-screen-2xl mx-auto px-4 pb-4">
               {cloudSqlLoading ? (
                 <div className="flex items-center justify-center py-24">
-                  <div className="flex flex-col items-center gap-4 text-gray-500">
+                  <div className="flex flex-col items-center gap-4 text-gray-500 dark:text-gray-400">
                     <Cloud className="w-10 h-10 animate-pulse text-blue-500" />
                     <p className="text-base font-medium">Loading Cloud SQL pricing...</p>
                   </div>
@@ -591,7 +596,7 @@ export default function App() {
       )}
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 border-t border-gray-800">
+      <footer className="bg-gray-900 dark:bg-black text-gray-400 border-t border-gray-800 dark:border-gray-900">
         <div className="max-w-screen-2xl mx-auto px-4 py-2 flex items-center justify-between text-xs">
           <div className="flex items-center gap-3">
             <img src="/DoitLogo.svg" alt="DoiT" className="h-4" />

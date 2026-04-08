@@ -59,6 +59,16 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Apply persisted theme before React mounts to avoid a flash of light UI.
+      (function () {
+        try {
+          var t = localStorage.getItem('gcp-instances:theme');
+          if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+          if (t === 'dark') document.documentElement.classList.add('dark');
+        } catch (e) {}
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

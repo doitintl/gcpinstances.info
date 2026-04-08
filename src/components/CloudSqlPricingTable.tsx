@@ -49,7 +49,7 @@ function SortIcon({ isSorted }: { isSorted: false | 'asc' | 'desc' }) {
 function PriceCell({ value }: { value: string }) {
   const isUnavailable = value === 'Unavailable'
   return (
-    <span className={cn('font-mono text-sm tabular-nums', isUnavailable && 'text-gray-500 not-italic')}>
+    <span className={cn('font-mono text-sm tabular-nums dark:text-gray-100', isUnavailable && 'text-gray-500 dark:text-gray-500 not-italic')}>
       {value}
     </span>
   )
@@ -97,21 +97,21 @@ function VirtualTable({
   return (
     <div
       ref={parentRef}
-      className="overflow-auto rounded-xl border border-gray-200 shadow-sm bg-white flex-1 min-h-0"
+      className="overflow-auto rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm bg-white dark:bg-gray-900 flex-1 min-h-0"
     >
       <table className="min-w-full text-left border-collapse table-fixed">
         <thead className="sticky top-0 z-10">
-          <tr className="bg-gray-50 border-b border-gray-200">
+          <tr className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
             {table.getFlatHeaders().map((header) => (
               <th
                 key={header.id}
                 scope="col"
-                className="px-3 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide whitespace-nowrap bg-gray-50"
+                className="px-3 py-3 text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wide whitespace-nowrap bg-gray-50 dark:bg-gray-800"
                 style={{ width: header.getSize() }}
               >
                 {header.isPlaceholder ? null : (
                   <div
-                    className={cn('flex items-center', header.column.getCanSort() && 'cursor-pointer select-none hover:text-gray-900')}
+                    className={cn('flex items-center', header.column.getCanSort() && 'cursor-pointer select-none hover:text-gray-900 dark:hover:text-white')}
                     onClick={header.column.getToggleSortingHandler()}
                   >
                     {flexRender(header.column.columnDef.header, header.getContext())}
@@ -123,15 +123,15 @@ function VirtualTable({
               </th>
             ))}
           </tr>
-          <tr className="sticky z-10 border-b border-gray-100 bg-white" style={{ top: '41px' }}>
+          <tr className="sticky z-10 border-b border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900" style={{ top: '41px' }}>
             {table.getFlatHeaders().map((header) => (
-              <th key={`filter-${header.id}`} className="px-3 py-1.5 bg-white">
+              <th key={`filter-${header.id}`} className="px-3 py-1.5 bg-white dark:bg-gray-900">
                 {header.column.getCanFilter() ? (
                   <input
                     value={(header.column.getFilterValue() as string) ?? ''}
                     onChange={(e) => header.column.setFilterValue(e.target.value)}
                     placeholder="Search..."
-                    className="w-full text-xs px-2 py-1 border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400 bg-gray-50"
+                    className="w-full text-xs px-2 py-1 border border-gray-200 dark:border-gray-700 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400 bg-gray-50 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-500"
                   />
                 ) : null}
               </th>
@@ -141,7 +141,7 @@ function VirtualTable({
         <tbody>
           {visibleRows.length === 0 ? (
             <tr>
-              <td colSpan={table.getFlatHeaders().length} className="px-4 py-12 text-center text-gray-400 text-sm">
+              <td colSpan={table.getFlatHeaders().length} className="px-4 py-12 text-center text-gray-400 dark:text-gray-500 text-sm">
                 No instances match your filters.
               </td>
             </tr>
@@ -159,9 +159,9 @@ function VirtualTable({
                     data-index={virtualRow.index}
                     ref={virtualizer.measureElement}
                     className={cn(
-                      'hover:bg-blue-50 transition-colors cursor-pointer',
-                      idx % 2 === 0 ? 'bg-white' : 'bg-gray-50/50',
-                      selectedRows.has(row.original.name) && 'bg-blue-50 border-l-2 border-l-blue-400',
+                      'hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors cursor-pointer',
+                      idx % 2 === 0 ? 'bg-white dark:bg-gray-900' : 'bg-gray-50/50 dark:bg-gray-800/40',
+                      selectedRows.has(row.original.name) && 'bg-blue-50 dark:bg-blue-900/30 border-l-2 border-l-blue-400',
                     )}
                     onClick={() => toggleRow(row.original.name)}
                   >
@@ -222,7 +222,7 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
     columnHelper.accessor('name', {
       header: 'Instance type',
       cell: (info) => (
-        <span className="font-medium font-mono text-sm text-gray-900">{info.getValue()}</span>
+        <span className="font-medium font-mono text-sm text-gray-900 dark:text-gray-100">{info.getValue()}</span>
       ),
       filterFn: 'includesString',
       size: 200,
@@ -250,7 +250,7 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
     columnHelper.accessor('vCpus', {
       header: 'vCPUs',
       cell: (info) => (
-        <span className="text-sm text-gray-700">{formatVCpus(info.getValue())}</span>
+        <span className="text-sm text-gray-700 dark:text-gray-200">{formatVCpus(info.getValue())}</span>
       ),
       filterFn: (row, _colId, filterValue) => {
         const vCpus = row.original.vCpus
@@ -266,7 +266,7 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
     }),
     columnHelper.accessor('memoryGb', {
       header: 'Memory',
-      cell: (info) => <span className="text-sm text-gray-700">{formatMemory(info.getValue())}</span>,
+      cell: (info) => <span className="text-sm text-gray-700 dark:text-gray-200">{formatMemory(info.getValue())}</span>,
       filterFn: (row, _colId, filterValue) => row.original.memoryGb >= Number(filterValue || 0),
       size: 110,
     }),
@@ -388,10 +388,10 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
     <div className="mt-2 h-full flex flex-col min-h-0">
       {/* Action bar */}
       <div className="flex items-center justify-between mb-2 px-1">
-        <span className="text-sm text-gray-500">
+        <span className="text-sm text-gray-500 dark:text-gray-400">
           {visibleRows.length} instances
           {selectedRows.size > 0 && (
-            <span className="ml-2 text-blue-600 font-medium">({selectedRows.size} selected)</span>
+            <span className="ml-2 text-blue-600 dark:text-blue-400 font-medium">({selectedRows.size} selected)</span>
           )}
         </span>
         <div className="flex items-center gap-2">
