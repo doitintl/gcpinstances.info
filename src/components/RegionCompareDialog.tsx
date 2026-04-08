@@ -46,12 +46,15 @@ export function RegionCompareDialog({
   columns,
 }: Props) {
   // Compute the initial region selection: intersection of `defaultRegions`
-  // with `allRegions`, or `initialRegion` if none of the defaults exist.
+  // with `allRegions`, falling back to a fixed set of three geographically-
+  // spread regions (US, Europe, APAC) and finally to `initialRegion`.
+  const FALLBACK_DEFAULT_REGIONS = ['us-central1', 'europe-west1', 'asia-southeast1']
   const resolveInitialSelection = (): string[] => {
-    if (defaultRegions && defaultRegions.length > 0) {
-      const available = defaultRegions.filter((r) => allRegions.includes(r))
-      if (available.length > 0) return available
-    }
+    const candidates = defaultRegions && defaultRegions.length > 0
+      ? defaultRegions
+      : FALLBACK_DEFAULT_REGIONS
+    const available = candidates.filter((r) => allRegions.includes(r))
+    if (available.length > 0) return available
     return [initialRegion]
   }
 
@@ -111,22 +114,22 @@ export function RegionCompareDialog({
               <ChevronDown className="w-3.5 h-3.5 text-gray-400" />
             </button>
             {dropdownOpen && (
-              <div className="absolute top-full left-0 mt-1 z-50 bg-white border border-gray-200 rounded-xl shadow-lg p-2 min-w-[220px] max-h-60 overflow-y-auto">
+              <div className="absolute top-full left-0 mt-1 z-50 bg-white border border-gray-200 rounded-xl shadow-lg p-2 w-[340px] max-h-72 overflow-y-auto">
                 {allRegions.map((r) => {
                   const loc = REGION_LOCATIONS[r]
                   return (
                     <label
                       key={r}
-                      className="flex items-center gap-2 px-2 py-1.5 cursor-pointer hover:bg-gray-50 rounded-md"
+                      className="flex items-center gap-2 px-2 py-1.5 cursor-pointer hover:bg-gray-50 rounded-md whitespace-nowrap"
                     >
                       <input
                         type="checkbox"
                         checked={selectedRegions.includes(r)}
                         onChange={() => toggleRegion(r)}
-                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        className="shrink-0 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       />
-                      <span className="text-sm text-gray-700 font-mono">{r}</span>
-                      {loc && <span className="text-xs text-gray-400 truncate">{loc}</span>}
+                      <span className="text-sm text-gray-700 font-mono shrink-0">{r}</span>
+                      {loc && <span className="text-xs text-gray-400 truncate">({loc})</span>}
                     </label>
                   )
                 })}
@@ -172,12 +175,12 @@ export function RegionCompareDialog({
                         {selectedRegions.map((r) => {
                           const loc = REGION_LOCATIONS[r]
                           return (
-                            <th key={r} className="text-left text-xs font-semibold text-gray-600 uppercase tracking-wide py-2 px-4 font-mono">
-                              <div>{r}</div>
+                            <th key={r} className="text-left text-xs font-semibold text-gray-600 uppercase tracking-wide py-2 px-4 font-mono whitespace-nowrap">
+                              <span>{r}</span>
                               {loc && (
-                                <div className="text-[10px] font-normal normal-case text-gray-400 tracking-normal mt-0.5">
-                                  {loc}
-                                </div>
+                                <span className="ml-1 text-[10px] font-normal normal-case text-gray-400 tracking-normal">
+                                  ({loc})
+                                </span>
                               )}
                             </th>
                           )

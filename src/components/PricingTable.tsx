@@ -364,17 +364,10 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
     [instances, selectedRows],
   )
 
-  // When nothing is selected, default the region-comparison dialog to the
-  // three shared-core E2 machine types so users always have something useful
-  // to look at out of the box.
-  const DEFAULT_REGION_COMPARE_NAMES = ['e2-micro', 'e2-small', 'e2-medium']
-  const regionCompareInstances = useMemo(() => {
-    if (selectedInstances.length > 0) return selectedInstances
-    const byName = new Map(instances.map((i) => [i.name, i]))
-    return DEFAULT_REGION_COMPARE_NAMES
-      .map((name) => byName.get(name))
-      .filter((i): i is Instance => i !== undefined)
-  }, [selectedInstances, instances])
+  // Compare Regions now reflects exactly the current table selection — no
+  // implicit default. The button is disabled until the user picks at least
+  // one instance so the dialog is never opened with a surprise payload.
+  const regionCompareInstances = selectedInstances
 
   const DEFAULT_COMPARE_REGIONS = ['us-central1', 'europe-west1', 'asia-southeast1']
 
@@ -414,12 +407,18 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
           </button>
           <button
             onClick={() => setRegionCompareOpen(true)}
+            disabled={selectedRows.size < 1}
             title={
               selectedRows.size >= 1
                 ? 'Compare selected instances across regions'
-                : 'Compare e2-micro, e2-small, e2-medium across regions'
+                : 'Select at least one instance to compare across regions'
             }
-            className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-md border border-green-600 text-green-600 hover:bg-green-50 transition-colors"
+            className={cn(
+              'flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-md border transition-colors',
+              selectedRows.size >= 1
+                ? 'border-green-600 text-green-600 hover:bg-green-50'
+                : 'border-gray-200 text-gray-400 cursor-not-allowed',
+            )}
           >
             <MapPin className="w-4 h-4" />
             Compare Regions {selectedRows.size > 0 ? `(${selectedRows.size})` : ''}

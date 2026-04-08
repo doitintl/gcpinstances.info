@@ -45,16 +45,19 @@ describe('pricing.json output', () => {
     expect(pricing?.windowsSud).toBeCloseTo(0.07925, 4)
   })
 
-  it('e2-micro Linux SUD is null (shared-core)', () => {
+  it('e2-micro Linux on-demand is ~$0.00838/hr (0.25 vCPU × E2 rate + 1 GB RAM)', () => {
     const inst = data.instances.find((i) => i.name === 'e2-micro')
     const pricing = inst?.pricing?.['us-central1']
-    expect(pricing?.linuxSud).toBeNull()
+    expect(pricing?.linuxOnDemand).toBeCloseTo(0.00838, 4)
+    // E2 has no sustained-use discount — SUD equals on-demand
+    expect(pricing?.linuxSud).toBe(pricing?.linuxOnDemand)
   })
 
-  it('e2-micro Windows SUD is $0.092 (2 vCPUs × $0.046)', () => {
+  it('e2-micro Windows SUD includes Linux base + $0.092 license (2 vCPUs × $0.046)', () => {
     const inst = data.instances.find((i) => i.name === 'e2-micro')
     const pricing = inst?.pricing?.['us-central1']
-    expect(pricing?.windowsSud).toBeCloseTo(0.092, 3)
+    // Windows = Linux base + fixed Windows license premium for the 1-4 vCPU tier
+    expect(pricing?.windowsSud).toBeCloseTo((pricing?.linuxSud ?? 0) + 0.092, 3)
   })
 
   it('t2a-standard-1 Linux SUD is correct', () => {

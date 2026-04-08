@@ -129,14 +129,17 @@ describe('RegionCompareDialog', () => {
         instances={[instance]}
       />,
     )
-    // Add europe-west1 and asia-east1
+    // Make sure us-central1, europe-west1, and asia-east1 are all checked
+    // (regardless of whatever the dialog picked as its default selection).
     fireEvent.click(screen.getByText(/region.*selected/i))
-    const checkboxes = screen.getAllByRole('checkbox')
+    const checkboxes = screen.getAllByRole('checkbox') as HTMLInputElement[]
+    const targets = ['us-central1', 'europe-west1', 'asia-east1']
     for (const cb of checkboxes) {
       const label = cb.closest('label')
-      if (label?.textContent?.includes('europe-west1') || label?.textContent?.includes('asia-east1')) {
-        fireEvent.click(cb)
-      }
+      const text = label?.textContent ?? ''
+      const matched = targets.find((t) => text.includes(t))
+      if (!matched) continue
+      if (!cb.checked) fireEvent.click(cb)
     }
 
     // us-central1 linuxSud = $0.1430 which is the cheapest (formatPrice uses 4 decimal places)
