@@ -11,8 +11,8 @@ import {
   type ColumnFiltersState,
 } from '@tanstack/react-table'
 import type { AlloyDbInstance, CostPeriod, AlloyDbRegionPricing } from '../lib/types'
-import { ALLOYDB_COLUMNS, ALLOYDB_COLUMNS_WITH_DERIVED, ALLOYDB_DERIVED_COLUMNS } from '../lib/types'
-import { formatPrice, formatMemory, cn } from '../lib/utils'
+import { ALLOYDB_COLUMNS, ALLOYDB_COLUMNS_WITH_DERIVED, ALLOYDB_DERIVED_COLUMNS, COST_MULTIPLIERS } from '../lib/types'
+import { formatPrice, formatMemory, cn, parseNumericFilter } from '../lib/utils'
 import { CompareDialog } from './CompareDialog'
 import { RegionCompareDialog } from './RegionCompareDialog'
 import type { AnyInstance } from './CompareDialog'
@@ -125,12 +125,18 @@ function VirtualTable({
             {table.getFlatHeaders().map((header) => (
               <th key={`filter-${header.id}`} className="px-3 py-1.5 bg-white">
                 {header.column.getCanFilter() ? (
-                  <input
-                    value={(header.column.getFilterValue() as string) ?? ''}
-                    onChange={(e) => header.column.setFilterValue(e.target.value)}
-                    placeholder="Search..."
-                    className="w-full text-xs px-2 py-1 border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400 bg-gray-50"
-                  />
+                  (() => {
+                    const isNumeric = (header.column.columnDef.meta as { numeric?: boolean } | undefined)?.numeric === true
+                    return (
+                      <input
+                        value={(header.column.getFilterValue() as string) ?? ''}
+                        onChange={(e) => header.column.setFilterValue(e.target.value)}
+                        placeholder={isNumeric ? 'e.g. >5, >=2, =4' : 'Search...'}
+                        title={isNumeric ? 'Numeric filter: 5, =5, >5, <5, >=5, <=5, !=5' : undefined}
+                        className="w-full text-xs px-2 py-1 border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400 bg-gray-50"
+                      />
+                    )
+                  })()
                 ) : null}
               </th>
             ))}
@@ -238,14 +244,27 @@ export function AlloyDbPricingTable({ instances, region, costPeriod, currency, v
         <span className="text-sm text-gray-700">{info.getValue()}</span>
       ),
       filterFn: (row, _colId, filterValue) => {
-        return row.original.vCpus >= Number(filterValue || 0)
+        const expr = String(filterValue ?? '').trim()
+        if (!expr) return true
+        const predicate = parseNumericFilter(expr)
+        const vCpus = row.original.vCpus
+        if (predicate) return predicate(vCpus)
+        return String(vCpus).toLowerCase().includes(expr.toLowerCase())
       },
+      meta: { numeric: true },
       size: 90,
     }),
     columnHelper.accessor('memoryGb', {
       header: 'Memory',
       cell: (info) => <span className="text-sm text-gray-700">{formatMemory(info.getValue())}</span>,
-      filterFn: (row, _colId, filterValue) => row.original.memoryGb >= Number(filterValue || 0),
+      filterFn: (row, _colId, filterValue) => {
+        const expr = String(filterValue ?? '').trim()
+        if (!expr) return true
+        const predicate = parseNumericFilter(expr)
+        if (predicate) return predicate(row.original.memoryGb)
+        return formatMemory(row.original.memoryGb).toLowerCase().includes(expr.toLowerCase())
+      },
+      meta: { numeric: true },
       size: 110,
     }),
     // Pricing columns
@@ -257,12 +276,21 @@ export function AlloyDbPricingTable({ instances, region, costPeriod, currency, v
           <PriceCell value={formatPrice(row.original.pricing[region]?.[col.id as keyof AlloyDbRegionPricing], currency, costPeriod, exchangeRates)} />
         ),
         filterFn: (row, _colId, filterValue) => {
-          if (!filterValue) return true
-          const price = row.original.pricing[region]?.[col.id as keyof AlloyDbRegionPricing]
-          const s = formatPrice(price, currency, costPeriod, exchangeRates).toLowerCase()
-          return s.includes(String(filterValue).toLowerCase())
+          const expr = String(filterValue ?? '').trim()
+          if (!expr) return true
+          const priceUsd = row.original.pricing[region]?.[col.id as keyof AlloyDbRegionPricing]
+          const predicate = parseNumericFilter(expr)
+          if (predicate) {
+            if (priceUsd == null) return false
+            const rate = exchangeRates[currency] ?? 1
+            const displayed = priceUsd * rate * COST_MULTIPLIERS[costPeriod]
+            return predicate(displayed)
+          }
+          const s = formatPrice(priceUsd, currency, costPeriod, exchangeRates).toLowerCase()
+          return s.includes(expr.toLowerCase())
         },
         sortUndefined: 'last',
+        meta: { numeric: true },
         size: 200,
       }),
     ),
@@ -285,15 +313,23 @@ export function AlloyDbPricingTable({ instances, region, costPeriod, currency, v
             return <PriceCell value={v == null ? 'Unavailable' : formatPrice(v, currency, costPeriod, exchangeRates)} />
           },
           filterFn: (row, _colId, filterValue) => {
-            if (!filterValue) return true
+            const expr = String(filterValue ?? '').trim()
+            if (!expr) return true
             const price = row.original.pricing[region]?.[baseId as keyof AlloyDbRegionPricing]
-            if (price == null) return false
             const d = isPerVcpu ? row.original.vCpus : row.original.memoryGb
-            const v = d > 0 ? price / d : undefined
+            const v = price != null && d > 0 ? price / d : undefined
+            const predicate = parseNumericFilter(expr)
+            if (predicate) {
+              if (v == null) return false
+              const rate = exchangeRates[currency] ?? 1
+              const displayed = v * rate * COST_MULTIPLIERS[costPeriod]
+              return predicate(displayed)
+            }
             const s = v == null ? 'unavailable' : formatPrice(v, currency, costPeriod, exchangeRates).toLowerCase()
-            return s.includes(String(filterValue).toLowerCase())
+            return s.includes(expr.toLowerCase())
           },
           sortUndefined: 'last',
+          meta: { numeric: true },
           size: 200,
         },
       )

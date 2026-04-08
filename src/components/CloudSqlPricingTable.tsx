@@ -11,8 +11,8 @@ import {
   type ColumnFiltersState,
 } from '@tanstack/react-table'
 import type { CloudSqlInstance, CostPeriod, CloudSqlRegionPricing } from '../lib/types'
-import { CLOUDSQL_COLUMNS, CLOUDSQL_COLUMNS_WITH_DERIVED, CLOUDSQL_DERIVED_COLUMNS } from '../lib/types'
-import { formatPrice, formatMemory, formatVCpus, cn } from '../lib/utils'
+import { CLOUDSQL_COLUMNS, CLOUDSQL_COLUMNS_WITH_DERIVED, CLOUDSQL_DERIVED_COLUMNS, COST_MULTIPLIERS } from '../lib/types'
+import { formatPrice, formatMemory, formatVCpus, cn, parseNumericFilter } from '../lib/utils'
 import { CompareDialog } from './CompareDialog'
 import { RegionCompareDialog } from './RegionCompareDialog'
 import type { AnyInstance } from './CompareDialog'
@@ -127,12 +127,18 @@ function VirtualTable({
             {table.getFlatHeaders().map((header) => (
               <th key={`filter-${header.id}`} className="px-3 py-1.5 bg-white">
                 {header.column.getCanFilter() ? (
-                  <input
-                    value={(header.column.getFilterValue() as string) ?? ''}
-                    onChange={(e) => header.column.setFilterValue(e.target.value)}
-                    placeholder="Search..."
-                    className="w-full text-xs px-2 py-1 border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400 bg-gray-50"
-                  />
+                  (() => {
+                    const isNumeric = (header.column.columnDef.meta as { numeric?: boolean } | undefined)?.numeric === true
+                    return (
+                      <input
+                        value={(header.column.getFilterValue() as string) ?? ''}
+                        onChange={(e) => header.column.setFilterValue(e.target.value)}
+                        placeholder={isNumeric ? 'e.g. >5, >=2, =4' : 'Search...'}
+                        title={isNumeric ? 'Numeric filter: 5, =5, >5, <5, >=5, <=5, !=5' : undefined}
+                        className="w-full text-xs px-2 py-1 border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400 bg-gray-50"
+                      />
+                    )
+                  })()
                 ) : null}
               </th>
             ))}
@@ -253,21 +259,35 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
         <span className="text-sm text-gray-700">{formatVCpus(info.getValue())}</span>
       ),
       filterFn: (row, _colId, filterValue) => {
+        const expr = String(filterValue ?? '').trim()
+        if (!expr) return true
+        const predicate = parseNumericFilter(expr)
         const vCpus = row.original.vCpus
-        if (typeof vCpus !== 'number') return true
-        return vCpus >= Number(filterValue || 0)
+        if (predicate) {
+          if (typeof vCpus !== 'number') return false
+          return predicate(vCpus)
+        }
+        return formatVCpus(vCpus).toLowerCase().includes(expr.toLowerCase())
       },
       sortingFn: (a, b) => {
         const av = a.original.vCpus === 'shared' ? -1 : a.original.vCpus
         const bv = b.original.vCpus === 'shared' ? -1 : b.original.vCpus
         return av - bv
       },
+      meta: { numeric: true },
       size: 90,
     }),
     columnHelper.accessor('memoryGb', {
       header: 'Memory',
       cell: (info) => <span className="text-sm text-gray-700">{formatMemory(info.getValue())}</span>,
-      filterFn: (row, _colId, filterValue) => row.original.memoryGb >= Number(filterValue || 0),
+      filterFn: (row, _colId, filterValue) => {
+        const expr = String(filterValue ?? '').trim()
+        if (!expr) return true
+        const predicate = parseNumericFilter(expr)
+        if (predicate) return predicate(row.original.memoryGb)
+        return formatMemory(row.original.memoryGb).toLowerCase().includes(expr.toLowerCase())
+      },
+      meta: { numeric: true },
       size: 110,
     }),
     // Pricing columns
@@ -279,12 +299,21 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
           <PriceCell value={formatPrice(row.original.pricing[region]?.[col.id as keyof CloudSqlRegionPricing], currency, costPeriod, exchangeRates)} />
         ),
         filterFn: (row, _colId, filterValue) => {
-          if (!filterValue) return true
-          const price = row.original.pricing[region]?.[col.id as keyof CloudSqlRegionPricing]
-          const s = formatPrice(price, currency, costPeriod, exchangeRates).toLowerCase()
-          return s.includes(String(filterValue).toLowerCase())
+          const expr = String(filterValue ?? '').trim()
+          if (!expr) return true
+          const priceUsd = row.original.pricing[region]?.[col.id as keyof CloudSqlRegionPricing]
+          const predicate = parseNumericFilter(expr)
+          if (predicate) {
+            if (priceUsd == null) return false
+            const rate = exchangeRates[currency] ?? 1
+            const displayed = priceUsd * rate * COST_MULTIPLIERS[costPeriod]
+            return predicate(displayed)
+          }
+          const s = formatPrice(priceUsd, currency, costPeriod, exchangeRates).toLowerCase()
+          return s.includes(expr.toLowerCase())
         },
         sortUndefined: 'last',
+        meta: { numeric: true },
         size: 200,
       }),
     ),
@@ -308,17 +337,26 @@ export function CloudSqlPricingTable({ instances, region, costPeriod, currency, 
             return <PriceCell value={v == null ? 'Unavailable' : formatPrice(v, currency, costPeriod, exchangeRates)} />
           },
           filterFn: (row, _colId, filterValue) => {
-            if (!filterValue) return true
+            const expr = String(filterValue ?? '').trim()
+            if (!expr) return true
             const v = row.original.vCpus === 'shared' ? undefined : (() => {
               const price = row.original.pricing[region]?.[baseId as keyof CloudSqlRegionPricing]
               if (price == null) return undefined
               const d = isPerVcpu ? (row.original.vCpus as number) : row.original.memoryGb
               return d > 0 ? price / d : undefined
             })()
+            const predicate = parseNumericFilter(expr)
+            if (predicate) {
+              if (v == null) return false
+              const rate = exchangeRates[currency] ?? 1
+              const displayed = v * rate * COST_MULTIPLIERS[costPeriod]
+              return predicate(displayed)
+            }
             const s = v == null ? 'unavailable' : formatPrice(v, currency, costPeriod, exchangeRates).toLowerCase()
-            return s.includes(String(filterValue).toLowerCase())
+            return s.includes(expr.toLowerCase())
           },
           sortUndefined: 'last',
+          meta: { numeric: true },
           size: 200,
         },
       )
