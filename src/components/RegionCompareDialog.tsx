@@ -124,22 +124,22 @@ export function RegionCompareDialog({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative bg-white rounded-2xl shadow-2xl max-w-5xl w-full mx-4 max-h-[90vh] flex flex-col">
+      <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-5xl w-full mx-4 max-h-[90vh] flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-          <h2 className="text-lg font-semibold text-gray-900">Compare by Region</h2>
-          <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-gray-100 transition-colors text-gray-500">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-800">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Compare by Region</h2>
+          <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-500 dark:text-gray-400">
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Region selector */}
-        <div className="px-6 py-3 border-b border-gray-100 flex items-center gap-3">
-          <span className="text-sm text-gray-500 font-medium">Regions:</span>
+        <div className="px-6 py-3 border-b border-gray-100 dark:border-gray-800 flex items-center gap-3">
+          <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">Regions:</span>
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setDropdownOpen((v) => !v)}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-sm border border-gray-200 rounded-lg bg-white hover:border-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 dark:text-gray-100 hover:border-gray-300 dark:hover:border-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
               {selectedRegions.length === 0
                 ? 'Select regions…'
@@ -147,8 +147,8 @@ export function RegionCompareDialog({
               <ChevronDown className="w-3.5 h-3.5 text-gray-400" />
             </button>
             {dropdownOpen && (
-              <div className="absolute top-full left-0 mt-1 z-50 bg-white border border-gray-200 rounded-xl shadow-lg w-[340px] max-h-80 flex flex-col">
-                <div className="p-2 border-b border-gray-100">
+              <div className="absolute top-full left-0 mt-1 z-50 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg w-[340px] max-h-80 flex flex-col">
+                <div className="p-2 border-b border-gray-100 dark:border-gray-800">
                   <div className="relative">
                     <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
                     <input
@@ -157,7 +157,7 @@ export function RegionCompareDialog({
                       value={regionQuery}
                       onChange={(e) => setRegionQuery(e.target.value)}
                       placeholder="Search region or location…"
-                      className="w-full pl-8 pr-2 py-1.5 text-sm border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-400"
+                      className="w-full pl-8 pr-2 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-400"
                     />
                   </div>
                 </div>
@@ -170,7 +170,7 @@ export function RegionCompareDialog({
                       return (
                         <label
                           key={r}
-                          className="flex items-center gap-2 px-2 py-1.5 cursor-pointer hover:bg-gray-50 rounded-md whitespace-nowrap"
+                          className="flex items-center gap-2 px-2 py-1.5 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md whitespace-nowrap"
                         >
                           <input
                             type="checkbox"
@@ -210,24 +210,24 @@ export function RegionCompareDialog({
         {/* Tables */}
         <div className="overflow-auto flex-1 px-6 py-4 space-y-6">
           {selectedRegions.length === 0 ? (
-            <p className="text-center text-gray-400 text-sm py-12">Select at least one region to compare.</p>
+            <p className="text-center text-gray-400 dark:text-gray-500 text-sm py-12">Select at least one region to compare.</p>
           ) : instances.length === 0 ? (
-            <p className="text-center text-gray-400 text-sm py-12">No instances selected.</p>
+            <p className="text-center text-gray-400 dark:text-gray-500 text-sm py-12">No instances selected.</p>
           ) : (
             instances.map((inst) => {
               return (
                 <div key={inst.name}>
-                  <h3 className="text-sm font-semibold text-gray-800 mb-2 font-mono">{inst.name}</h3>
+                  <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2 font-mono">{inst.name}</h3>
                   <table className="w-full border-collapse text-sm">
                     <thead>
-                      <tr className="bg-gray-50 border-b border-gray-200">
-                        <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wide py-2 pr-4 pl-2 w-48">
+                      <tr className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                        <th className="text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide py-2 pr-4 pl-2 w-48">
                           Pricing field
                         </th>
                         {selectedRegions.map((r) => {
                           const loc = REGION_LOCATIONS[r]
                           return (
-                            <th key={r} className="text-left text-xs font-semibold text-gray-600 uppercase tracking-wide py-2 px-4 font-mono whitespace-nowrap">
+                            <th key={r} className="text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wide py-2 px-4 font-mono whitespace-nowrap">
                               <span>{r}</span>
                               {loc && (
                                 <span className="ml-1 text-[10px] font-normal normal-case text-gray-400 tracking-normal">
@@ -241,18 +241,18 @@ export function RegionCompareDialog({
                     </thead>
                     <tbody className="divide-y divide-gray-100">
                       {/* Spec rows */}
-                      <tr className="hover:bg-gray-50">
-                        <td className="py-2 pr-4 pl-2 text-xs text-gray-500 font-medium">vCPUs</td>
+                      <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                        <td className="py-2 pr-4 pl-2 text-xs text-gray-500 dark:text-gray-400 font-medium">vCPUs</td>
                         {selectedRegions.map((r) => (
-                          <td key={r} className="py-2 px-4 font-mono text-xs text-gray-700">
+                          <td key={r} className="py-2 px-4 font-mono text-xs text-gray-700 dark:text-gray-200">
                             {'vCpus' in inst && inst.vCpus != null ? formatVCpus(inst.vCpus as number | 'shared') : '—'}
                           </td>
                         ))}
                       </tr>
-                      <tr className="hover:bg-gray-50">
-                        <td className="py-2 pr-4 pl-2 text-xs text-gray-500 font-medium">Memory</td>
+                      <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                        <td className="py-2 pr-4 pl-2 text-xs text-gray-500 dark:text-gray-400 font-medium">Memory</td>
                         {selectedRegions.map((r) => (
-                          <td key={r} className="py-2 px-4 font-mono text-xs text-gray-700">
+                          <td key={r} className="py-2 px-4 font-mono text-xs text-gray-700 dark:text-gray-200">
                             {'memoryGb' in inst && inst.memoryGb != null ? formatMemory(inst.memoryGb as number) : '—'}
                           </td>
                         ))}
@@ -266,7 +266,7 @@ export function RegionCompareDialog({
 
                         return (
                           <tr key={col.id} className="hover:bg-gray-50">
-                            <td className="py-2 pr-4 pl-2 text-xs text-gray-500 font-medium">
+                            <td className="py-2 pr-4 pl-2 text-xs text-gray-500 dark:text-gray-400 font-medium">
                               {col.label.replace(' cost', '')}
                             </td>
                             {selectedRegions.map((r, ri) => {
@@ -279,10 +279,10 @@ export function RegionCompareDialog({
                                   key={r}
                                   className={`py-2 px-4 font-mono text-xs ${
                                     isUnavailable
-                                      ? 'text-gray-400'
+                                      ? 'text-gray-400 dark:text-gray-500'
                                       : isMin
-                                        ? 'bg-green-50 text-green-700 font-semibold'
-                                        : 'text-gray-900'
+                                        ? 'bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 font-semibold'
+                                        : 'text-gray-900 dark:text-gray-100'
                                   }`}
                                 >
                                   {formatted}
