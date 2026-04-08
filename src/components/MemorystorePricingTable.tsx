@@ -11,8 +11,8 @@ import {
   type ColumnFiltersState,
 } from '@tanstack/react-table'
 import type { MemorystoreInstance, CostPeriod, MemorystoreRegionPricing } from '../lib/types'
-import { MEMORYSTORE_COLUMNS, MEMORYSTORE_COLUMNS_WITH_DERIVED } from '../lib/types'
-import { formatPrice, cn } from '../lib/utils'
+import { MEMORYSTORE_COLUMNS, MEMORYSTORE_COLUMNS_WITH_DERIVED, COST_MULTIPLIERS } from '../lib/types'
+import { formatPrice, cn, parseNumericFilter } from '../lib/utils'
 import { CompareDialog } from './CompareDialog'
 import { RegionCompareDialog } from './RegionCompareDialog'
 import type { AnyInstance } from './CompareDialog'
@@ -137,12 +137,18 @@ function VirtualTable({
             {table.getFlatHeaders().map((header) => (
               <th key={`filter-${header.id}`} className="px-3 py-1.5 bg-white dark:bg-gray-900">
                 {header.column.getCanFilter() ? (
-                  <input
-                    value={(header.column.getFilterValue() as string) ?? ''}
-                    onChange={(e) => header.column.setFilterValue(e.target.value)}
-                    placeholder="Search..."
-                    className="w-full text-xs px-2 py-1 border border-gray-200 dark:border-gray-700 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400 bg-gray-50 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-500"
-                  />
+                  (() => {
+                    const isNumeric = (header.column.columnDef.meta as { numeric?: boolean } | undefined)?.numeric === true
+                    return (
+                      <input
+                        value={(header.column.getFilterValue() as string) ?? ''}
+                        onChange={(e) => header.column.setFilterValue(e.target.value)}
+                        placeholder={isNumeric ? 'e.g. >5, >=2, =4' : 'Search...'}
+                        title={isNumeric ? 'Numeric filter: 5, =5, >5, <5, >=5, <=5, !=5' : undefined}
+                        className="w-full text-xs px-2 py-1 border border-gray-200 dark:border-gray-700 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400 bg-gray-50 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-500"
+                      />
+                    )
+                  })()
                 ) : null}
               </th>
             ))}
@@ -271,7 +277,20 @@ export function MemorystorePricingTable({ instances, region, costPeriod, currenc
         const v = info.getValue()
         return <span className="text-sm text-gray-700 dark:text-gray-200">{v != null ? `${v}` : '—'}</span>
       },
+      filterFn: (row, _colId, filterValue) => {
+        const expr = String(filterValue ?? '').trim()
+        if (!expr) return true
+        const v = row.original.capacityGb
+        const predicate = parseNumericFilter(expr)
+        if (predicate) {
+          if (v == null) return false
+          return predicate(v)
+        }
+        const s = v == null ? '—' : String(v)
+        return s.toLowerCase().includes(expr.toLowerCase())
+      },
       sortUndefined: 'last',
+      meta: { numeric: true },
       size: 110,
     }),
     columnHelper.accessor('vCpus', {
@@ -280,11 +299,24 @@ export function MemorystorePricingTable({ instances, region, costPeriod, currenc
         const v = info.getValue()
         return <span className="text-sm text-gray-700 dark:text-gray-200">{v === 'shared' ? 'shared' : v != null ? `${v}` : '—'}</span>
       },
+      filterFn: (row, _colId, filterValue) => {
+        const expr = String(filterValue ?? '').trim()
+        if (!expr) return true
+        const v = row.original.vCpus
+        const predicate = parseNumericFilter(expr)
+        if (predicate) {
+          if (typeof v !== 'number') return false
+          return predicate(v)
+        }
+        const s = v === 'shared' ? 'shared' : v == null ? '—' : String(v)
+        return s.toLowerCase().includes(expr.toLowerCase())
+      },
       sortingFn: (a, b) => {
         const av = a.original.vCpus === 'shared' ? -1 : a.original.vCpus ?? -2
         const bv = b.original.vCpus === 'shared' ? -1 : b.original.vCpus ?? -2
         return av - bv
       },
+      meta: { numeric: true },
       size: 80,
     }),
     columnHelper.accessor('memoryGb', {
@@ -293,7 +325,20 @@ export function MemorystorePricingTable({ instances, region, costPeriod, currenc
         const v = info.getValue()
         return <span className="text-sm text-gray-700 dark:text-gray-200">{v != null ? `${v} GiB` : '—'}</span>
       },
+      filterFn: (row, _colId, filterValue) => {
+        const expr = String(filterValue ?? '').trim()
+        if (!expr) return true
+        const v = row.original.memoryGb
+        const predicate = parseNumericFilter(expr)
+        if (predicate) {
+          if (v == null) return false
+          return predicate(v)
+        }
+        const s = v == null ? '—' : `${v} GiB`
+        return s.toLowerCase().includes(expr.toLowerCase())
+      },
       sortUndefined: 'last',
+      meta: { numeric: true },
       size: 100,
     }),
     columnHelper.accessor('pricingUnit', {
@@ -311,12 +356,21 @@ export function MemorystorePricingTable({ instances, region, costPeriod, currenc
           <PriceCell value={formatPrice(row.original.pricing[region]?.[col.id as keyof MemorystoreRegionPricing], currency, costPeriod, exchangeRates)} />
         ),
         filterFn: (row, _colId, filterValue) => {
-          if (!filterValue) return true
-          const price = row.original.pricing[region]?.[col.id as keyof MemorystoreRegionPricing]
-          const s = formatPrice(price, currency, costPeriod, exchangeRates).toLowerCase()
-          return s.includes(String(filterValue).toLowerCase())
+          const expr = String(filterValue ?? '').trim()
+          if (!expr) return true
+          const priceUsd = row.original.pricing[region]?.[col.id as keyof MemorystoreRegionPricing]
+          const predicate = parseNumericFilter(expr)
+          if (predicate) {
+            if (priceUsd == null) return false
+            const rate = exchangeRates[currency] ?? 1
+            const displayed = priceUsd * rate * COST_MULTIPLIERS[costPeriod]
+            return predicate(displayed)
+          }
+          const s = formatPrice(priceUsd, currency, costPeriod, exchangeRates).toLowerCase()
+          return s.includes(expr.toLowerCase())
         },
         sortUndefined: 'last',
+        meta: { numeric: true },
         size: 200,
       }),
     ),
