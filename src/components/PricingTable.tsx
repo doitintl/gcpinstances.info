@@ -232,7 +232,7 @@ export function PricingTable({ instances, region, costPeriod, currency, visibleC
     columnHelper.accessor('name', {
       header: 'Machine type',
       cell: (info) => (
-        <span className="font-medium font-mono text-sm text-gray-900">{info.getValue()}</span>
+        <span className="font-medium font-mono text-sm text-gray-900 dark:text-gray-100">{info.getValue()}</span>
       ),
       filterFn: 'includesString',
       size: 180,
