@@ -56,11 +56,8 @@ const TRUTH_TABLE: Array<{
   { name: 'n2-standard-8',  region: 'us-central1', field: 'linuxOnDemand',  expected: 0.388472 },
   { name: 'c3-standard-4',  region: 'us-central1', field: 'linuxOnDemand',  expected: 0.201608 },
 
-  // ── Preemptible coverage ─────────────────────────────────────────────────
-  { name: 'n1-standard-1',  region: 'us-central1', field: 'linuxPreemptible',   expected: 0.015074 },
-  { name: 'n1-standard-1',  region: 'us-central1', field: 'windowsPreemptible', expected: 0.061074 },
-  { name: 'e2-standard-4',  region: 'us-central1', field: 'linuxPreemptible',   expected: 0.064808 },
-  { name: 't2d-standard-2', region: 'us-central1', field: 'linuxPreemptible',   expected: 0.018540 },
+  // Preemptible/spot prices are volatile (shift multiple times a year) and are
+  // validated by Layer 2 (live API) instead of hardcoded values here.
 
   // ── CUD 3yr coverage ─────────────────────────────────────────────────────
   { name: 't2d-standard-1', region: 'us-central1', field: 'linuxCud3yr',    expected: 0.019012 },
@@ -86,7 +83,6 @@ const TRUTH_TABLE: Array<{
   { name: 'a2-highgpu-1g',  region: 'us-central1', field: 'linuxSud',       expected: 3.673385 },
   { name: 'a2-highgpu-1g',  region: 'us-central1', field: 'linuxCud1yr',    expected: 2.314207 },
   { name: 'a2-highgpu-1g',  region: 'us-central1', field: 'linuxCud3yr',    expected: 1.285709 },
-  { name: 'a2-highgpu-1g',  region: 'us-central1', field: 'linuxPreemptible',expected: 1.80385 },
 
   // ── Shared-core ───────────────────────────────────────────────────────────
   // e2-small/medium: Linux price = billedVcpus × E2 CPU rate + memGb × E2 RAM rate.
