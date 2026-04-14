@@ -5,7 +5,15 @@ import { DEFAULT_VISIBLE_COLUMNS, DEFAULT_VISIBLE_CLOUDSQL_COLUMNS, DEFAULT_VISI
 function setHash(hash: string) {
   // jsdom location.hash setter strips the leading #
   Object.defineProperty(window, 'location', {
-    value: { ...window.location, hash },
+    value: { ...window.location, hash, pathname: '/', search: '' },
+    writable: true,
+    configurable: true,
+  })
+}
+
+function setPath(pathname: string, search = '') {
+  Object.defineProperty(window, 'location', {
+    value: { ...window.location, pathname, search, hash: '' },
     writable: true,
     configurable: true,
   })
@@ -42,7 +50,7 @@ describe('getInitialStateFromUrl', () => {
     expect(state.minCapacityGb).toBe(0)
   })
 
-  it('parses page from hash', () => {
+  it('parses page from hash (legacy)', () => {
     setHash('#cloudsql')
     expect(getInitialStateFromUrl().page).toBe('cloudsql')
 
@@ -51,6 +59,31 @@ describe('getInitialStateFromUrl', () => {
 
     setHash('#home')
     expect(getInitialStateFromUrl().page).toBe('home')
+  })
+
+  it('parses page from pathname', () => {
+    setPath('/cloudsql/')
+    expect(getInitialStateFromUrl().page).toBe('cloudsql')
+
+    setPath('/memorystore/')
+    expect(getInitialStateFromUrl().page).toBe('memorystore')
+
+    setPath('/alloydb/')
+    expect(getInitialStateFromUrl().page).toBe('alloydb')
+
+    setPath('/mcp-cli/')
+    expect(getInitialStateFromUrl().page).toBe('mcp-cli')
+
+    setPath('/')
+    expect(getInitialStateFromUrl().page).toBe('home')
+  })
+
+  it('parses query params from search string (path routing)', () => {
+    setPath('/cloudsql/', '?region=europe-west1&period=monthly')
+    const state = getInitialStateFromUrl()
+    expect(state.page).toBe('cloudsql')
+    expect(state.region).toBe('europe-west1')
+    expect(state.costPeriod).toBe('monthly')
   })
 
   it('falls back to home for unknown page', () => {
@@ -158,7 +191,7 @@ describe('syncStateToUrl', () => {
       visibleAlloyDbColumns: DEFAULT_VISIBLE_ALLOYDB_COLUMNS,
       minCapacityGb: 0,
     })
-    expect(calls[0]).toBe('#')
+    expect(calls[0]).toBe('/')
     restore()
   })
 
@@ -300,10 +333,12 @@ describe('syncStateToUrl', () => {
     syncStateToUrl('home', original)
     history.replaceState = origReplace
 
-    // Parse the captured URL
-    const hashPart = capturedUrl.startsWith('#') ? capturedUrl.slice(1) : capturedUrl
+    // Parse the captured path-based URL (e.g. "/?region=asia-east1&...")
+    const qIdx = capturedUrl.indexOf('?')
+    const pathname = qIdx === -1 ? capturedUrl : capturedUrl.slice(0, qIdx)
+    const search = qIdx === -1 ? '' : capturedUrl.slice(qIdx)
     Object.defineProperty(window, 'location', {
-      value: { ...window.location, hash: '#' + hashPart },
+      value: { ...window.location, pathname, search, hash: '' },
       writable: true,
       configurable: true,
     })
