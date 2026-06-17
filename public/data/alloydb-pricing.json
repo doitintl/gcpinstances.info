@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-16T07:54:49.979Z",
+  "updatedAt": "2026-06-17T07:47:22.536Z",
   "regions": [
     "africa-south1",
     "asia-east1",
@@ -12,6 +12,7 @@
     "asia-southeast1",
     "asia-southeast2",
     "asia-southeast3",
+    "asia-southeast4",
     "australia-southeast1",
     "australia-southeast2",
     "europe-central2",
@@ -268,6 +269,11 @@
           "cud1yr": 0.254565,
           "cud3yr": 0.162922
         },
+        "asia-southeast4": {
+          "onDemand": 0.32756,
+          "cud1yr": 0.24567,
+          "cud3yr": 0.157229
+        },
         "europe-west1": {
           "onDemand": 0.3425,
           "cud1yr": 0.256875,
@@ -506,6 +512,11 @@
           "onDemand": 0.67884,
           "cud1yr": 0.50913,
           "cud3yr": 0.325843
+        },
+        "asia-southeast4": {
+          "onDemand": 0.65512,
+          "cud1yr": 0.49134,
+          "cud3yr": 0.314458
         },
         "europe-west1": {
           "onDemand": 0.685,
@@ -746,6 +757,11 @@
           "cud1yr": 1.01826,
           "cud3yr": 0.651686
         },
+        "asia-southeast4": {
+          "onDemand": 1.31024,
+          "cud1yr": 0.98268,
+          "cud3yr": 0.628915
+        },
         "europe-west1": {
           "onDemand": 1.37,
           "cud1yr": 1.0275,
@@ -984,6 +1000,11 @@
           "onDemand": 2.71536,
           "cud1yr": 2.03652,
           "cud3yr": 1.303373
+        },
+        "asia-southeast4": {
+          "onDemand": 2.62048,
+          "cud1yr": 1.96536,
+          "cud3yr": 1.25783
         },
         "europe-west1": {
           "onDemand": 2.74,
@@ -1224,6 +1245,11 @@
           "cud1yr": 4.07304,
           "cud3yr": 2.606746
         },
+        "asia-southeast4": {
+          "onDemand": 5.24096,
+          "cud1yr": 3.93072,
+          "cud3yr": 2.515661
+        },
         "europe-west1": {
           "onDemand": 5.48,
           "cud1yr": 4.11,
@@ -1462,6 +1488,11 @@
           "onDemand": 10.86144,
           "cud1yr": 8.14608,
           "cud3yr": 5.213491
+        },
+        "asia-southeast4": {
+          "onDemand": 10.48192,
+          "cud1yr": 7.86144,
+          "cud3yr": 5.031322
         },
         "europe-west1": {
           "onDemand": 10.96,
@@ -1702,6 +1733,11 @@
           "cud1yr": 12.21912,
           "cud3yr": 7.820237
         },
+        "asia-southeast4": {
+          "onDemand": 15.72288,
+          "cud1yr": 11.79216,
+          "cud3yr": 7.546982
+        },
         "europe-west1": {
           "onDemand": 16.44,
           "cud1yr": 12.33,
@@ -1940,6 +1976,11 @@
           "onDemand": 19.76928,
           "cud1yr": 14.82696,
           "cud3yr": 9.489254
+        },
+        "asia-southeast4": {
+          "onDemand": 19.07584,
+          "cud1yr": 14.30688,
+          "cud3yr": 9.156403
         },
         "europe-west1": {
           "onDemand": 19.9488,
@@ -2180,6 +2221,11 @@
           "cud1yr": 0.127283,
           "cud3yr": 0.081461
         },
+        "asia-southeast4": {
+          "onDemand": 0.16378,
+          "cud1yr": 0.122835,
+          "cud3yr": 0.078614
+        },
         "europe-west1": {
           "onDemand": 0.17125,
           "cud1yr": 0.128438,
@@ -2418,6 +2464,11 @@
           "onDemand": 0.33942,
           "cud1yr": 0.254565,
           "cud3yr": 0.162922
+        },
+        "asia-southeast4": {
+          "onDemand": 0.32756,
+          "cud1yr": 0.24567,
+          "cud3yr": 0.157229
         },
         "europe-west1": {
           "onDemand": 0.3425,
@@ -2658,6 +2709,11 @@
           "cud1yr": 0.50913,
           "cud3yr": 0.325843
         },
+        "asia-southeast4": {
+          "onDemand": 0.65512,
+          "cud1yr": 0.49134,
+          "cud3yr": 0.314458
+        },
         "europe-west1": {
           "onDemand": 0.685,
           "cud1yr": 0.51375,
@@ -2896,6 +2952,11 @@
           "onDemand": 1.35768,
           "cud1yr": 1.01826,
           "cud3yr": 0.651686
+        },
+        "asia-southeast4": {
+          "onDemand": 1.31024,
+          "cud1yr": 0.98268,
+          "cud3yr": 0.628915
         },
         "europe-west1": {
           "onDemand": 1.37,
@@ -3136,6 +3197,11 @@
           "cud1yr": 2.03652,
           "cud3yr": 1.303373
         },
+        "asia-southeast4": {
+          "onDemand": 2.62048,
+          "cud1yr": 1.96536,
+          "cud3yr": 1.25783
+        },
         "europe-west1": {
           "onDemand": 2.74,
           "cud1yr": 2.055,
@@ -3374,6 +3440,11 @@
           "onDemand": 5.43072,
           "cud1yr": 4.07304,
           "cud3yr": 2.606746
+        },
+        "asia-southeast4": {
+          "onDemand": 5.24096,
+          "cud1yr": 3.93072,
+          "cud3yr": 2.515661
         },
         "europe-west1": {
           "onDemand": 5.48,
@@ -3614,6 +3685,11 @@
           "cud1yr": 6.10956,
           "cud3yr": 3.910118
         },
+        "asia-southeast4": {
+          "onDemand": 7.86144,
+          "cud1yr": 5.89608,
+          "cud3yr": 3.773491
+        },
         "europe-west1": {
           "onDemand": 8.22,
           "cud1yr": 6.165,
@@ -3852,6 +3928,11 @@
           "onDemand": 10.86144,
           "cud1yr": 8.14608,
           "cud3yr": 5.213491
+        },
+        "asia-southeast4": {
+          "onDemand": 10.48192,
+          "cud1yr": 7.86144,
+          "cud3yr": 5.031322
         },
         "europe-west1": {
           "onDemand": 10.96,
@@ -4092,6 +4173,11 @@
           "cud1yr": 9.16434,
           "cud3yr": 5.865178
         },
+        "asia-southeast4": {
+          "onDemand": 11.79216,
+          "cud1yr": 8.84412,
+          "cud3yr": 5.660237
+        },
         "europe-west1": {
           "onDemand": 12.33,
           "cud1yr": 9.2475,
@@ -4330,6 +4416,11 @@
           "onDemand": 0.763,
           "cud1yr": 0.57225,
           "cud3yr": 0.36624
+        },
+        "asia-southeast4": {
+          "onDemand": 0.736,
+          "cud1yr": 0.552,
+          "cud3yr": 0.35328
         },
         "europe-west1": {
           "onDemand": 0.77,
@@ -4570,6 +4661,11 @@
           "cud1yr": 1.1445,
           "cud3yr": 0.73248
         },
+        "asia-southeast4": {
+          "onDemand": 1.472,
+          "cud1yr": 1.104,
+          "cud3yr": 0.70656
+        },
         "europe-west1": {
           "onDemand": 1.54,
           "cud1yr": 1.155,
@@ -4808,6 +4904,11 @@
           "onDemand": 3.052,
           "cud1yr": 2.289,
           "cud3yr": 1.46496
+        },
+        "asia-southeast4": {
+          "onDemand": 2.944,
+          "cud1yr": 2.208,
+          "cud3yr": 1.41312
         },
         "europe-west1": {
           "onDemand": 3.08,
@@ -5048,6 +5149,11 @@
           "cud1yr": 3.4335,
           "cud3yr": 2.19744
         },
+        "asia-southeast4": {
+          "onDemand": 4.416,
+          "cud1yr": 3.312,
+          "cud3yr": 2.11968
+        },
         "europe-west1": {
           "onDemand": 4.62,
           "cud1yr": 3.465,
@@ -5286,6 +5392,11 @@
           "onDemand": 6.104,
           "cud1yr": 4.578,
           "cud3yr": 2.92992
+        },
+        "asia-southeast4": {
+          "onDemand": 5.888,
+          "cud1yr": 4.416,
+          "cud3yr": 2.82624
         },
         "europe-west1": {
           "onDemand": 6.16,
@@ -5526,6 +5637,11 @@
           "cud1yr": 6.867,
           "cud3yr": 4.39488
         },
+        "asia-southeast4": {
+          "onDemand": 8.832,
+          "cud1yr": 6.624,
+          "cud3yr": 4.23936
+        },
         "europe-west1": {
           "onDemand": 9.24,
           "cud1yr": 6.93,
@@ -5764,6 +5880,11 @@
           "onDemand": 18.312,
           "cud1yr": 13.734,
           "cud3yr": 8.78976
+        },
+        "asia-southeast4": {
+          "onDemand": 17.664,
+          "cud1yr": 13.248,
+          "cud3yr": 8.47872
         },
         "europe-west1": {
           "onDemand": 18.48,
@@ -6004,6 +6125,11 @@
           "cud1yr": 20.601,
           "cud3yr": 13.18464
         },
+        "asia-southeast4": {
+          "onDemand": 26.496,
+          "cud1yr": 19.872,
+          "cud3yr": 12.71808
+        },
         "europe-west1": {
           "onDemand": 27.72,
           "cud1yr": 20.79,
@@ -6243,6 +6369,11 @@
           "cud1yr": 27.468,
           "cud3yr": 17.57952
         },
+        "asia-southeast4": {
+          "onDemand": 35.328,
+          "cud1yr": 26.496,
+          "cud3yr": 16.95744
+        },
         "europe-west1": {
           "onDemand": 36.96,
           "cud1yr": 27.72,
@@ -6481,6 +6612,11 @@
           "onDemand": 54.936,
           "cud1yr": 41.202,
           "cud3yr": 26.36928
+        },
+        "asia-southeast4": {
+          "onDemand": 52.992,
+          "cud1yr": 39.744,
+          "cud3yr": 25.43616
         },
         "europe-west1": {
           "onDemand": 55.44,
@@ -6725,6 +6861,11 @@
           "onDemand": 4.1454,
           "cud1yr": 3.10905,
           "cud3yr": 1.989792
+        },
+        "asia-southeast4": {
+          "onDemand": 3.9942,
+          "cud1yr": 2.99565,
+          "cud3yr": 1.917216
         },
         "europe-west1": {
           "onDemand": 4.1874,
@@ -6975,6 +7116,11 @@
           "cud1yr": 4.88565,
           "cud3yr": 3.126816
         },
+        "asia-southeast4": {
+          "onDemand": 6.2766,
+          "cud1yr": 4.70745,
+          "cud3yr": 3.012768
+        },
         "europe-west1": {
           "onDemand": 6.5802,
           "cud1yr": 4.93515,
@@ -7223,6 +7369,11 @@
           "onDemand": 13.0284,
           "cud1yr": 9.7713,
           "cud3yr": 6.253632
+        },
+        "asia-southeast4": {
+          "onDemand": 12.5532,
+          "cud1yr": 9.4149,
+          "cud3yr": 6.025536
         },
         "europe-west1": {
           "onDemand": 13.1604,
@@ -7473,6 +7624,11 @@
           "cud1yr": 19.5426,
           "cud3yr": 12.507264
         },
+        "asia-southeast4": {
+          "onDemand": 25.1064,
+          "cud1yr": 18.8298,
+          "cud3yr": 12.051072
+        },
         "europe-west1": {
           "onDemand": 26.3208,
           "cud1yr": 19.7406,
@@ -7721,6 +7877,11 @@
           "onDemand": 2.3688,
           "cud1yr": 1.7766,
           "cud3yr": 1.137024
+        },
+        "asia-southeast4": {
+          "onDemand": 2.2824,
+          "cud1yr": 1.7118,
+          "cud3yr": 1.095552
         },
         "europe-west1": {
           "onDemand": 2.3928,
@@ -7971,6 +8132,11 @@
           "cud1yr": 3.5532,
           "cud3yr": 2.274048
         },
+        "asia-southeast4": {
+          "onDemand": 4.5648,
+          "cud1yr": 3.4236,
+          "cud3yr": 2.191104
+        },
         "europe-west1": {
           "onDemand": 4.7856,
           "cud1yr": 3.5892,
@@ -8219,6 +8385,11 @@
           "onDemand": 6.5142,
           "cud1yr": 4.88565,
           "cud3yr": 3.126816
+        },
+        "asia-southeast4": {
+          "onDemand": 6.2766,
+          "cud1yr": 4.70745,
+          "cud3yr": 3.012768
         },
         "europe-west1": {
           "onDemand": 6.5802,
@@ -8469,6 +8640,11 @@
           "cud1yr": 7.1064,
           "cud3yr": 4.548096
         },
+        "asia-southeast4": {
+          "onDemand": 9.1296,
+          "cud1yr": 6.8472,
+          "cud3yr": 4.382208
+        },
         "europe-west1": {
           "onDemand": 9.5712,
           "cud1yr": 7.1784,
@@ -8717,6 +8893,11 @@
           "onDemand": 13.0284,
           "cud1yr": 9.7713,
           "cud3yr": 6.253632
+        },
+        "asia-southeast4": {
+          "onDemand": 12.5532,
+          "cud1yr": 9.4149,
+          "cud3yr": 6.025536
         },
         "europe-west1": {
           "onDemand": 13.1604,

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-16T07:54:49.393Z",
+  "updatedAt": "2026-06-17T07:47:21.964Z",
   "regions": [
     "africa-south1",
     "asia-east1",
@@ -12,6 +12,7 @@
     "asia-southeast1",
     "asia-southeast2",
     "asia-southeast3",
+    "asia-southeast4",
     "australia-southeast1",
     "australia-southeast2",
     "europe-central2",
@@ -59,6 +60,11 @@
       "memoryGb": null,
       "pricingUnit": "GiB/h",
       "pricing": {
+        "asia-southeast4": {
+          "onDemand": 0.05145,
+          "cud1yr": null,
+          "cud3yr": null
+        },
         "us-south1": {
           "onDemand": 0.058,
           "cud1yr": null,
@@ -339,6 +345,11 @@
           "onDemand": 0.032,
           "cud1yr": 0.0256,
           "cud3yr": 0.0192
+        },
+        "asia-southeast4": {
+          "onDemand": 0.02835,
+          "cud1yr": 0.02268,
+          "cud3yr": 0.01701
         },
         "asia-northeast2": {
           "onDemand": 0.04,
@@ -731,6 +742,11 @@
           "cud1yr": 0.0256,
           "cud3yr": 0.0192
         },
+        "asia-southeast4": {
+          "onDemand": 0.02415,
+          "cud1yr": 0.01932,
+          "cud3yr": 0.01449
+        },
         "asia-northeast3": {
           "onDemand": 0.032,
           "cud1yr": 0.0256,
@@ -823,6 +839,11 @@
           "cud3yr": 0.0138
         },
         "asia-southeast3": {
+          "onDemand": 0.01995,
+          "cud1yr": 0.01596,
+          "cud3yr": 0.01197
+        },
+        "asia-southeast4": {
           "onDemand": 0.01995,
           "cud1yr": 0.01596,
           "cud3yr": 0.01197
@@ -1168,6 +1189,11 @@
           "cud1yr": 0.0152,
           "cud3yr": 0.0114
         },
+        "asia-southeast4": {
+          "onDemand": 0.0168,
+          "cud1yr": 0.01344,
+          "cud3yr": 0.01008
+        },
         "europe-west1": {
           "onDemand": 0.017,
           "cud1yr": 0.0136,
@@ -1409,6 +1435,11 @@
           "cud1yr": null,
           "cud3yr": null
         },
+        "asia-southeast4": {
+          "onDemand": 0.0672,
+          "cud1yr": null,
+          "cud3yr": null
+        },
         "asia-southeast1": {
           "onDemand": 0.114,
           "cud1yr": null,
@@ -1549,6 +1580,11 @@
           "onDemand": 0.064,
           "cud1yr": 0.0512,
           "cud3yr": 0.0384
+        },
+        "asia-southeast4": {
+          "onDemand": 0.0567,
+          "cud1yr": 0.04536,
+          "cud3yr": 0.03402
         },
         "asia-southeast2": {
           "onDemand": 0.072,
@@ -1816,6 +1852,11 @@
           "cud1yr": 0.0448,
           "cud3yr": 0.0336
         },
+        "asia-southeast4": {
+          "onDemand": 0.0483,
+          "cud1yr": 0.03864,
+          "cud3yr": 0.02898
+        },
         "asia-east1": {
           "onDemand": 0.046,
           "cud1yr": 0.0368,
@@ -2051,6 +2092,11 @@
           "onDemand": 0.047,
           "cud1yr": 0.0376,
           "cud3yr": 0.0282
+        },
+        "asia-southeast4": {
+          "onDemand": 0.03675,
+          "cud1yr": 0.0294,
+          "cud3yr": 0.02205
         },
         "africa-south1": {
           "onDemand": 0.043,
@@ -2388,6 +2434,11 @@
           "cud1yr": 0.0288,
           "cud3yr": 0.0216
         },
+        "asia-southeast4": {
+          "onDemand": 0.0315,
+          "cud1yr": 0.0252,
+          "cud3yr": 0.0189
+        },
         "asia-northeast3": {
           "onDemand": 0.037,
           "cud1yr": 0.0296,
@@ -2469,6 +2520,11 @@
       "memoryGb": 1.5,
       "pricingUnit": "node/h",
       "pricing": {
+        "asia-southeast4": {
+          "onDemand": 0.03339,
+          "cud1yr": null,
+          "cud3yr": null
+        },
         "us-central2": {
           "onDemand": 0.0318,
           "cud1yr": null,
@@ -2767,6 +2823,11 @@
         },
         "africa-south1": {
           "onDemand": 0.1569,
+          "cud1yr": null,
+          "cud3yr": null
+        },
+        "asia-southeast4": {
+          "onDemand": 0.149625,
           "cud1yr": null,
           "cud3yr": null
         },
@@ -3106,6 +3167,11 @@
           "cud1yr": null,
           "cud3yr": null
         },
+        "asia-southeast4": {
+          "onDemand": 0.201915,
+          "cud1yr": null,
+          "cud3yr": null
+        },
         "northamerica-south1": {
           "onDemand": 0.20961,
           "cud1yr": null,
@@ -3239,6 +3305,11 @@
         },
         "me-central2": {
           "onDemand": 1.373,
+          "cud1yr": null,
+          "cud3yr": null
+        },
+        "asia-southeast4": {
+          "onDemand": 0.901005,
           "cud1yr": null,
           "cud3yr": null
         },
@@ -3573,6 +3644,11 @@
           "cud1yr": null,
           "cud3yr": null
         },
+        "asia-southeast4": {
+          "onDemand": 0.03339,
+          "cud1yr": null,
+          "cud3yr": null
+        },
         "southamerica-east1": {
           "onDemand": 0.0505,
           "cud1yr": null,
@@ -3664,6 +3740,11 @@
       "memoryGb": 6.5,
       "pricingUnit": "node/h",
       "pricing": {
+        "asia-southeast4": {
+          "onDemand": 0.149625,
+          "cud1yr": null,
+          "cud3yr": null
+        },
         "europe-west4": {
           "onDemand": 0.1496,
           "cud1yr": null,
@@ -3957,6 +4038,11 @@
         },
         "europe-southwest1": {
           "onDemand": 0.2269,
+          "cud1yr": null,
+          "cud3yr": null
+        },
+        "asia-southeast4": {
+          "onDemand": 0.201915,
           "cud1yr": null,
           "cud3yr": null
         },
@@ -4268,6 +4354,11 @@
         },
         "europe-central2": {
           "onDemand": 1.1056,
+          "cud1yr": null,
+          "cud3yr": null
+        },
+        "asia-southeast4": {
+          "onDemand": 0.901005,
           "cud1yr": null,
           "cud3yr": null
         },
