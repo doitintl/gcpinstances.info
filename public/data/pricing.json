@@ -1773,7 +1773,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 26255,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.067011,
@@ -2307,7 +2307,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 52043,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.134023,
@@ -2841,7 +2841,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 103957,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.268046,
@@ -3375,7 +3375,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 208075,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.536091,
@@ -3909,7 +3909,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 417535,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.072183,
@@ -4443,7 +4443,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 26092,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.04947,
@@ -4977,7 +4977,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 51937,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.09894,
@@ -5511,7 +5511,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 104080,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.197881,
@@ -6045,7 +6045,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 207561,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.395762,
@@ -6579,7 +6579,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 416599,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.791524,
@@ -7113,7 +7113,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 26243,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.0904,
@@ -7647,7 +7647,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 51736,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.180799,
@@ -8181,7 +8181,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 104083,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.361599,
@@ -8715,7 +8715,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 208433,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.723197,
@@ -9249,7 +9249,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 20060,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.0475,
@@ -9759,7 +9759,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 26293,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.095,
@@ -10269,7 +10269,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 52091,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.189999,
@@ -10779,7 +10779,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 104161,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.379998,
@@ -11289,7 +11289,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 208193,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.759996,
@@ -11799,7 +11799,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 414412,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.519992,
@@ -12309,7 +12309,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 812905,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 3.039984,
@@ -12819,7 +12819,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1231358,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 4.559976,
@@ -13329,7 +13329,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 26293,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.118303,
@@ -13839,7 +13839,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 52095,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.236606,
@@ -14349,7 +14349,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 104145,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.473212,
@@ -14859,7 +14859,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 208446,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.946424,
@@ -15369,7 +15369,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 415396,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.892848,
@@ -15879,7 +15879,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 817050,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 3.785696,
@@ -16389,7 +16389,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1233066,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 5.678544,
@@ -16899,7 +16899,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 26348,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.070849,
@@ -17409,7 +17409,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 52108,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.141697,
@@ -17919,7 +17919,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 104238,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.283394,
@@ -18429,7 +18429,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 207968,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.566789,
@@ -18939,7 +18939,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 414526,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.133578,
@@ -19449,7 +19449,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 815329,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.267155,
@@ -19959,7 +19959,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1232561,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 3.400733,
@@ -20469,7 +20469,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 34735,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.097118,
@@ -20979,7 +20979,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 66884,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.194236,
@@ -21489,7 +21489,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 138567,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.388472,
@@ -21999,7 +21999,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 277010,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.776944,
@@ -22509,7 +22509,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 553662,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.553888,
@@ -23019,7 +23019,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 824915,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.330832,
@@ -23529,7 +23529,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1091008,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 3.107776,
@@ -24039,7 +24039,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1365998,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 3.88472,
@@ -24549,7 +24549,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1651980,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 4.661664,
@@ -25059,7 +25059,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 2169248,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 6.215552,
@@ -25569,7 +25569,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 34695,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.131014,
@@ -26079,7 +26079,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 66798,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.262028,
@@ -26589,7 +26589,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 138406,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.524056,
@@ -27099,7 +27099,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 276327,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.048112,
@@ -27609,7 +27609,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 550448,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.096224,
@@ -28119,7 +28119,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 814034,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 3.144336,
@@ -28629,7 +28629,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1097943,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 4.192448,
@@ -29139,7 +29139,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1361752,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 5.24056,
@@ -29649,7 +29649,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1643949,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 6.288672,
@@ -30159,7 +30159,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 2191510,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 7.706976,
@@ -30669,7 +30669,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 34740,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.071696,
@@ -31179,7 +31179,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 66908,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.143392,
@@ -31689,7 +31689,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 138600,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.286784,
@@ -32199,7 +32199,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 276855,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.573568,
@@ -32709,7 +32709,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 550940,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.147136,
@@ -33219,7 +33219,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 822890,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.720704,
@@ -33729,7 +33729,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1100249,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.294272,
@@ -34239,7 +34239,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1377373,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.86784,
@@ -35259,7 +35259,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 41092,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.084492,
@@ -35769,7 +35769,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 80098,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.168984,
@@ -36279,7 +36279,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 163858,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.337968,
@@ -36789,7 +36789,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 327484,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.675936,
@@ -37299,7 +37299,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 651986,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.351872,
@@ -37809,7 +37809,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 967312,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.027808,
@@ -38319,7 +38319,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1162499,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.703744,
@@ -38829,7 +38829,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1425708,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 3.37968,
@@ -39339,7 +39339,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1768996,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 4.055616,
@@ -39849,7 +39849,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 2305562,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 5.407488,
@@ -40359,7 +40359,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 3835775,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 9.463104,
@@ -40869,7 +40869,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 41073,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.11398,
@@ -41379,7 +41379,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 80065,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.22796,
@@ -41889,7 +41889,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 163486,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.45592,
@@ -42399,7 +42399,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 327341,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.91184,
@@ -42909,7 +42909,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 652572,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.82368,
@@ -43419,7 +43419,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 975016,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.73552,
@@ -43929,7 +43929,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1198883,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 3.64736,
@@ -44439,7 +44439,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1794083,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 5.47104,
@@ -44949,7 +44949,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 41112,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.062376,
@@ -45459,7 +45459,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 80173,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.124752,
@@ -45969,7 +45969,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 163935,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.249504,
@@ -46479,7 +46479,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 327122,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.499008,
@@ -46989,7 +46989,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 654523,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.998016,
@@ -47499,7 +47499,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 973067,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.497024,
@@ -48009,7 +48009,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1174712,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.996032,
@@ -48519,7 +48519,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1478174,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.49504,
@@ -49029,7 +49029,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1801312,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.994048,
@@ -50559,7 +50559,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 29363,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.042246,
@@ -51069,7 +51069,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 59889,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.084492,
@@ -51579,7 +51579,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 119587,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.168984,
@@ -52089,7 +52089,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 238534,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.337968,
@@ -52599,7 +52599,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 475405,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.675936,
@@ -53109,7 +53109,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 945524,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.351872,
@@ -53619,7 +53619,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 1395082,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.027808,
@@ -54129,7 +54129,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 1667024,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.53476,
@@ -54639,7 +54639,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 23509,
       "pricing": {
         "europe-west4": {
           "linuxOnDemand": 0.040444,
@@ -54717,7 +54717,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 47054,
       "pricing": {
         "europe-west4": {
           "linuxOnDemand": 0.080888,
@@ -54795,7 +54795,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 94096,
       "pricing": {
         "europe-west4": {
           "linuxOnDemand": 0.161776,
@@ -54873,7 +54873,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 188206,
       "pricing": {
         "europe-west4": {
           "linuxOnDemand": 0.323553,
@@ -54951,7 +54951,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 375477,
       "pricing": {
         "europe-west4": {
           "linuxOnDemand": 0.647105,
@@ -55029,7 +55029,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 748166,
       "pricing": {
         "europe-west4": {
           "linuxOnDemand": 1.294211,
@@ -55107,7 +55107,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 1118158,
       "pricing": {
         "europe-west4": {
           "linuxOnDemand": 1.941316,
@@ -55185,7 +55185,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 73269,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.208808,
@@ -55707,7 +55707,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 146712,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.417616,
@@ -56229,7 +56229,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 292366,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.835232,
@@ -56751,7 +56751,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 531709,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.56606,
@@ -57273,7 +57273,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1060101,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 3.13212,
@@ -57795,7 +57795,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 44674,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.090798,
@@ -58305,7 +58305,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 86943,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.181596,
@@ -58815,7 +58815,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 177921,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.363192,
@@ -59325,7 +59325,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 354249,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.726384,
@@ -59835,7 +59835,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 709399,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.452768,
@@ -60345,7 +60345,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1244451,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.542344,
@@ -60855,7 +60855,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 2299545,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 5.084688,
@@ -61365,7 +61365,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 44678,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.067044,
@@ -61875,7 +61875,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 86953,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.134088,
@@ -62385,7 +62385,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 177774,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.268176,
@@ -62895,7 +62895,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 354771,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.536352,
@@ -63405,7 +63405,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 710036,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.072704,
@@ -63915,7 +63915,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1244008,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.877232,
@@ -64425,7 +64425,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 2299260,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 3.754464,
@@ -64935,7 +64935,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 44649,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.12247,
@@ -65445,7 +65445,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 86956,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.24494,
@@ -65955,7 +65955,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 177882,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.48988,
@@ -66465,7 +66465,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 354656,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.97976,
@@ -66975,7 +66975,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 709754,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.95952,
@@ -67485,7 +67485,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1242783,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 3.42916,
@@ -67995,7 +67995,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 2294226,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 6.85832,
@@ -68505,7 +68505,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 80609,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.201608,
@@ -69027,7 +69027,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 160341,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.403216,
@@ -69549,7 +69549,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 440662,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.108844,
@@ -70071,7 +70071,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 878867,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.217688,
@@ -70593,7 +70593,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1691035,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 4.435376,
@@ -71115,7 +71115,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 3377967,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 8.870752,
@@ -71637,7 +71637,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 80641,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.170104,
@@ -72159,7 +72159,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 160329,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.340208,
@@ -72681,7 +72681,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 441164,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.935572,
@@ -73203,7 +73203,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 880832,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.871144,
@@ -73725,7 +73725,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1696613,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 3.742288,
@@ -74247,7 +74247,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 3388373,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 7.484576,
@@ -74769,7 +74769,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 80742,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.264616,
@@ -75291,7 +75291,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 160478,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.529232,
@@ -75813,7 +75813,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 441229,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.455388,
@@ -76335,7 +76335,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 877637,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.910776,
@@ -76857,7 +76857,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1689147,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 5.821552,
@@ -77379,7 +77379,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 3347332,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 11.643104,
@@ -77901,7 +77901,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 516435,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 5.08206,
@@ -78435,7 +78435,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 1010128,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 10.16412,
@@ -78969,7 +78969,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 2015006,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 20.32824,
@@ -79503,7 +79503,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 1223742,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 7.745664,
@@ -80037,7 +80037,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 556066,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 6.0912,
@@ -80559,7 +80559,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 1101308,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 12.1824,
@@ -81081,7 +81081,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 2190379,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 24.3648,
@@ -81603,7 +81603,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 1094465,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 7.2048,
@@ -82125,7 +82125,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 2182236,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 14.4096,
@@ -82647,7 +82647,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 44377,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.0907,
@@ -83169,7 +83169,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 86569,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.1814,
@@ -83691,7 +83691,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 177655,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.3628,
@@ -84213,7 +84213,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 354249,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.7256,
@@ -84735,7 +84735,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 706433,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.4512,
@@ -85257,7 +85257,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1057781,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.1768,
@@ -85779,7 +85779,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1351294,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.9024,
@@ -86301,7 +86301,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1626413,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 3.628,
@@ -86823,7 +86823,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 44397,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.06946,
@@ -87345,7 +87345,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 86649,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.13892,
@@ -87867,7 +87867,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 177628,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.27784,
@@ -88389,7 +88389,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 354814,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.55568,
@@ -88911,7 +88911,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 707229,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.11136,
@@ -89433,7 +89433,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1058224,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.66704,
@@ -89955,7 +89955,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1351265,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.22272,
@@ -90999,7 +90999,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 44371,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.11902,
@@ -91521,7 +91521,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 86305,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.23804,
@@ -92043,7 +92043,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 177336,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.47608,
@@ -92565,7 +92565,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 354343,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.95216,
@@ -93087,7 +93087,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 704876,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.90432,
@@ -93609,7 +93609,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1027463,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.85648,
@@ -94131,7 +94131,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1256257,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 3.80864,
@@ -94653,7 +94653,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1536069,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 4.7608,
@@ -95175,7 +95175,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 94572,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.181596,
@@ -95721,7 +95721,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 192584,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.363192,
@@ -96267,7 +96267,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 384420,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.726384,
@@ -96813,7 +96813,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 681460,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.36197,
@@ -97359,7 +97359,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1360072,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.72394,
@@ -97905,7 +97905,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 2138141,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 4.08591,
@@ -98451,7 +98451,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 3905736,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 8.17182,
@@ -98997,7 +98997,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 8026988,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 16.34364,
@@ -99543,7 +99543,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 94611,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.149924,
@@ -100089,7 +100089,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 192661,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.299848,
@@ -100635,7 +100635,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 384658,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.599696,
@@ -101181,7 +101181,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 682826,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.12443,
@@ -101727,7 +101727,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1363944,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.24886,
@@ -102273,7 +102273,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 2149508,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 3.37329,
@@ -102819,7 +102819,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 3940383,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 6.74658,
@@ -103365,7 +103365,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 7977725,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 13.49316,
@@ -103911,7 +103911,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 94477,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.24494,
@@ -104457,7 +104457,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 192283,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.48988,
@@ -105003,7 +105003,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 384623,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.97976,
@@ -105549,7 +105549,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 681272,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.83705,
@@ -106095,7 +106095,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1364173,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 3.6741,
@@ -106641,7 +106641,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 2143972,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 5.51115,
@@ -107187,7 +107187,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 3958388,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 11.0223,
@@ -107733,7 +107733,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 8069686,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 22.0446,
@@ -121383,7 +121383,7 @@
       "gpuType": null,
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 2367121,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 4.9236,
@@ -123387,7 +123387,7 @@
       "gpuType": "A100_40GB",
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 1269327,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 29.38708,
@@ -123885,7 +123885,7 @@
       "gpuType": "A100_40GB",
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 1258852,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 55.739504,
@@ -129213,7 +129213,7 @@
       "gpuType": "L4",
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 56273,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.706832,
@@ -129723,7 +129723,7 @@
       "gpuType": "L4",
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 111997,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 0.853624,
@@ -130233,7 +130233,7 @@
       "gpuType": "L4",
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 167604,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.000416,
@@ -130743,7 +130743,7 @@
       "gpuType": "L4",
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 223514,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 1.147208,
@@ -131253,7 +131253,7 @@
       "gpuType": "L4",
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 334411,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.000833,
@@ -131763,7 +131763,7 @@
       "gpuType": "L4",
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 656106,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 4.001665,
@@ -132273,7 +132273,7 @@
       "gpuType": "L4",
       "soleTenantSupport": false,
       "nestedVirtualizationSupport": false,
-      "coremarkScore": null,
+      "coremarkScore": 1249876,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 8.00333,

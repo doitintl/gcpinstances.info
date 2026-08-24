@@ -8,7 +8,7 @@
 import { writeFileSync, mkdirSync } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { MACHINE_TYPES, MACHINE_TYPE_MAP, SERIES_SPECS } from './machine-types.js'
+import { MACHINE_TYPES, MACHINE_TYPE_MAP, SERIES_SPECS, COREMARK_SCORES } from './machine-types.js'
 import { type RawSku, fetchAllSkus, extractPrice, isSpecificRegion } from './billing-api.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -491,7 +491,7 @@ function buildPricingTable(
       gpuType: spec.gpuType ?? null,
       soleTenantSupport: spec.soleTenantSupport ?? seriesDefaults.soleTenantSupport ?? false,
       nestedVirtualizationSupport: spec.nestedVirtualization ?? seriesDefaults.nestedVirtualization ?? false,
-      coremarkScore: spec.coremarkScore ?? null,
+      coremarkScore: spec.coremarkScore ?? COREMARK_SCORES[spec.name] ?? null,
       pricing,
     })
   }

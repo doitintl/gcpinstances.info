@@ -23,7 +23,21 @@ React frontend                     (client-side filtering, sorting, display)
 2. Parses SKU descriptions to extract per-vCPU and per-GiB rates by series, region, and usage type (On Demand, Preemptible, CUD 1yr, CUD 3yr)
 3. Combines rates with machine type specs from `scripts/machine-types.ts` to compute per-instance prices
 4. Adds Windows licensing premium ($0.046/vCPU-hour)
-5. Writes the result to `public/data/pricing.json`
+5. Attaches the Linux CoreMark score for each machine type from `COREMARK_SCORES` in `scripts/machine-types.ts`
+6. Writes the result to `public/data/pricing.json`
+
+### CoreMark scores
+
+CoreMark scores are **not** fetched from an API. Google used to publish them at
+[CoreMark scores of VM instances by family](https://cloud.google.com/compute/docs/coremark-scores-of-vm-instances),
+but retired the score tables from that page in early 2026 — it now only documents how to run
+PerfKitBenchmarker yourself and directs you to your account team to ask about scores.
+
+The values in `COREMARK_SCORES` are therefore a frozen copy of the last published revision
+and cannot be refreshed automatically. Machine types released after that revision (C4, A3,
+the newer A2 GPU shapes) have no published score and render as `N/A`. To add scores for
+those, benchmark them with PerfKitBenchmarker or get numbers from a Google account team,
+then add the entries to `COREMARK_SCORES`.
 
 ## API Key Setup
 
