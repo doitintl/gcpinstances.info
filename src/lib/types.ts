@@ -122,7 +122,7 @@ export const ALL_COLUMNS: ColumnDef[] = [
   { id: 'soleTenantSupport', label: 'Sole tenant support', defaultVisible: false, group: 'spec' },
   { id: 'nestedVirtualizationSupport', label: 'Nested virtualization support', defaultVisible: false, group: 'spec' },
   { id: 'coremarkScore', label: 'Linux Coremark benchmark', defaultVisible: false, group: 'spec',
-    tooltip: 'CoreMark CPU benchmark — higher = better single-thread performance' },
+    tooltip: 'CoreMark CPU benchmark, run with one thread per vCPU — measures total throughput, so it scales with vCPU count. Compare same-size machines; divide by vCPUs for per-core speed. N/A where Google never published a score.' },
   // Linux pricing columns
   { id: 'linuxOnDemand', label: 'Linux On Demand cost', defaultVisible: false, group: 'linux',
     tooltip: 'Pay-as-you-go pricing, billed per second (1-min minimum)' },
