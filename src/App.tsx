@@ -16,6 +16,13 @@ import { trackPageView } from './lib/analytics'
 import { Cloud, ExternalLink, Github, Info, Star, Terminal } from 'lucide-react'
 import { cn, buildDoitUrl } from './lib/utils'
 
+// Data files ship alongside the bundle, so they must be resolved against the
+// configured base path rather than the site root. PR previews are served from
+// /previews/pr-N/, where a root-absolute '/data/...' silently loads production
+// data instead of the build's own — masking any data change under review.
+// import.meta.env.BASE_URL is '/' in production and always ends in a slash.
+const dataUrl = (file: string) => `${import.meta.env.BASE_URL}${file}`
+
 const CURRENCY_KEYS = Object.keys(CURRENCY_META)
 
 export default function App() {
@@ -93,7 +100,7 @@ export default function App() {
 
   // Load Compute Engine pricing and exchange rates on mount (parallel)
   useEffect(() => {
-    const pricingPromise = fetch('/data/pricing.json')
+    const pricingPromise = fetch(dataUrl('data/pricing.json'))
       .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() })
       .then((d: PricingData) => {
         setData(d)
@@ -105,7 +112,7 @@ export default function App() {
         })
       })
 
-    const ratesPromise = fetch('/data/exchange-rates.json')
+    const ratesPromise = fetch(dataUrl('data/exchange-rates.json'))
       .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() })
       .then((d: ExchangeRatesData) => setExchangeRates(d.rates))
       .catch(() => { /* keep default { USD: 1 } */ })
@@ -119,7 +126,7 @@ export default function App() {
   useEffect(() => {
     if (page !== 'cloudsql' || cloudSqlFetchRef.current) return
     cloudSqlFetchRef.current = true
-    fetch('/data/cloudsql-pricing.json')
+    fetch(dataUrl('data/cloudsql-pricing.json'))
       .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() })
       .then((d: CloudSqlPricingData) => {
         setCloudSqlData(d)
@@ -135,7 +142,7 @@ export default function App() {
   useEffect(() => {
     if (page !== 'memorystore' || memorystoreFetchRef.current) return
     memorystoreFetchRef.current = true
-    fetch('/data/memorystore-pricing.json')
+    fetch(dataUrl('data/memorystore-pricing.json'))
       .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() })
       .then((d: MemorystorePricingData) => {
         setMemorystoreData(d)
@@ -151,7 +158,7 @@ export default function App() {
   useEffect(() => {
     if (page !== 'alloydb' || alloydbFetchRef.current) return
     alloydbFetchRef.current = true
-    fetch('/data/alloydb-pricing.json')
+    fetch(dataUrl('data/alloydb-pricing.json'))
       .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() })
       .then((d: AlloyDbPricingData) => {
         setAlloydbData(d)
