@@ -154,6 +154,7 @@ export const MACHINE_TYPES: MachineTypeSpec[] = [
   { name: 'n2d-highmem-32',  series: 'N2D', family: 'General purpose', vCpus: 32,  memoryGb: 256 },
   { name: 'n2d-highmem-48',  series: 'N2D', family: 'General purpose', vCpus: 48,  memoryGb: 384 },
   { name: 'n2d-highmem-64',  series: 'N2D', family: 'General purpose', vCpus: 64,  memoryGb: 512 },
+  { name: 'n2d-highmem-80',  series: 'N2D', family: 'General purpose', vCpus: 80,  memoryGb: 640 },
   { name: 'n2d-highmem-96',  series: 'N2D', family: 'General purpose', vCpus: 96,  memoryGb: 768 },
   { name: 'n2d-highcpu-2',   series: 'N2D', family: 'General purpose', vCpus: 2,   memoryGb: 2 },
   { name: 'n2d-highcpu-4',   series: 'N2D', family: 'General purpose', vCpus: 4,   memoryGb: 4 },
@@ -368,6 +369,7 @@ export const MACHINE_TYPES: MachineTypeSpec[] = [
   { name: 'g2-standard-12', series: 'G2', family: 'Accelerator optimized', vCpus: 12, memoryGb: 48,  gpuCount: 1, gpuType: 'L4' },
   { name: 'g2-standard-16', series: 'G2', family: 'Accelerator optimized', vCpus: 16, memoryGb: 64,  gpuCount: 1, gpuType: 'L4' },
   { name: 'g2-standard-24', series: 'G2', family: 'Accelerator optimized', vCpus: 24, memoryGb: 96,  gpuCount: 2, gpuType: 'L4' },
+  { name: 'g2-standard-32', series: 'G2', family: 'Accelerator optimized', vCpus: 32, memoryGb: 128, gpuCount: 1, gpuType: 'L4' },
   { name: 'g2-standard-48', series: 'G2', family: 'Accelerator optimized', vCpus: 48, memoryGb: 192, gpuCount: 4, gpuType: 'L4' },
   { name: 'g2-standard-96', series: 'G2', family: 'Accelerator optimized', vCpus: 96, memoryGb: 384, gpuCount: 8, gpuType: 'L4' },
 
