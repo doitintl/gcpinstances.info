@@ -384,7 +384,7 @@ export const MACHINE_TYPE_MAP = new Map(MACHINE_TYPES.map((m) => [m.name, m]))
  * Linux CoreMark benchmark scores, keyed by machine type name.
  *
  * Source: Google Cloud, "CoreMark scores of VM instances by family"
- *   https://cloud.google.com/compute/docs/coremark-scores-of-vm-instances
+ *   https://cloud.google.com/compute/docs/coremark-scores-of-vm-instances?hl=ko
  *
  * Each score is the aggregate multi-threaded CoreMark result measured by Google
  * with PerfKitBenchmarker on ubuntu2204, running threads equal to the machine
@@ -392,13 +392,22 @@ export const MACHINE_TYPE_MAP = new Map(MACHINE_TYPES.map((m) => [m.name, m]))
  * throughput, not per-core performance. The CPU platform noted per group is the
  * one Google benchmarked on; the same machine type can land on a newer platform.
  *
- * IMPORTANT: Google retired these tables from the page above in early 2026 — it
- * now only documents how to run PerfKitBenchmarker yourself and directs you to
- * your account team to ask about scores. The values below are frozen from the
- * last published revision (verified identical in the 2025-11-04 and 2025-12-05
- * Internet Archive snapshots) and cannot be refreshed from a public Google
- * source. Machine types released after that revision (C4, A3, the newer A2 GPU
- * shapes) have no published score and are intentionally absent.
+ * IMPORTANT: Google retired these tables from the ENGLISH page in early 2026 —
+ * it now only documents how to run PerfKitBenchmarker yourself and directs you
+ * to your account team to ask about scores. Three localized versions still
+ * serve the full tables and are the live source for this data:
+ *
+ *   ?hl=ko   ?hl=ja   ?hl=zh-cn
+ *
+ * All three were cross-checked against each other and against the last English
+ * revision (2025-12-05 Internet Archive snapshot): 228 machine types, zero
+ * disagreements on any value. Note the URL above is the Korean page on purpose;
+ * dropping ?hl= returns the English page, which no longer has the data.
+ *
+ * These localized pages could be trimmed to match English at any time, so treat
+ * this map as the source of truth and re-check before assuming a refresh is
+ * possible. Machine types released after the last benchmark run (C4, A3, the
+ * newer A2 GPU shapes, shared-core E2) have no published score and are absent.
  */
 export const COREMARK_SCORES: Record<string, number> = {
   // N4 standard VMs — Emerald Rapids
@@ -419,6 +428,7 @@ export const COREMARK_SCORES: Record<string, number> = {
   'n4-highcpu-32': 707229,
   'n4-highcpu-48': 1058224,
   'n4-highcpu-64': 1351265,
+  'n4-highcpu-80': 1651766,
 
   // N4 highmem VMs — Emerald Rapids
   'n4-highmem-2':  44371,
