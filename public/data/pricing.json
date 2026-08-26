@@ -90477,7 +90477,7 @@
       "gpuType": null,
       "soleTenantSupport": true,
       "nestedVirtualizationSupport": true,
-      "coremarkScore": null,
+      "coremarkScore": 1651766,
       "pricing": {
         "us-west8": {
           "linuxOnDemand": 2.7784,
