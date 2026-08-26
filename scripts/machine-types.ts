@@ -710,5 +710,6 @@ export const COREMARK_SCORES: Record<string, number> = {
 
   // N1 shared-core VMs — Skylake
   'f1-micro': 3949,
-  'g1-small': 10191,}
+  'g1-small': 10191,
+}
 
