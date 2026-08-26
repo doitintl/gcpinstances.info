@@ -28,16 +28,29 @@ React frontend                     (client-side filtering, sorting, display)
 
 ### CoreMark scores
 
-CoreMark scores are **not** fetched from an API. Google used to publish them at
-[CoreMark scores of VM instances by family](https://cloud.google.com/compute/docs/coremark-scores-of-vm-instances),
-but retired the score tables from that page in early 2026 — it now only documents how to run
-PerfKitBenchmarker yourself and directs you to your account team to ask about scores.
+CoreMark scores are **not** fetched from an API — they live in `COREMARK_SCORES` in
+`scripts/machine-types.ts`.
 
-The values in `COREMARK_SCORES` are therefore a frozen copy of the last published revision
-and cannot be refreshed automatically. Machine types released after that revision (C4, A3,
-the newer A2 GPU shapes) have no published score and render as `N/A`. To add scores for
-those, benchmark them with PerfKitBenchmarker or get numbers from a Google account team,
-then add the entries to `COREMARK_SCORES`.
+Google retired the score tables from the **English** page in early 2026; it now only
+documents how to run PerfKitBenchmarker yourself. But three localized versions still serve
+the full tables and are the live source for this data:
+
+- [`?hl=ko`](https://cloud.google.com/compute/docs/coremark-scores-of-vm-instances?hl=ko) (Korean)
+- [`?hl=ja`](https://cloud.google.com/compute/docs/coremark-scores-of-vm-instances?hl=ja) (Japanese)
+- [`?hl=zh-cn`](https://cloud.google.com/compute/docs/coremark-scores-of-vm-instances?hl=zh-cn) (Simplified Chinese)
+
+Dropping the `?hl=` parameter gives you the English page, which no longer has the data. All
+other locales tested (de, fr, es, it, pt-br, ru, zh-tw, and others) have also had the tables
+removed.
+
+All three were cross-checked against each other and against the last English revision:
+**228 machine types, zero disagreements on any value.**
+
+These pages could be trimmed to match English at any time, so treat `COREMARK_SCORES` as
+the source of truth rather than assuming a refresh is always possible. Machine types
+released after the last benchmark run (C4, A3, the newer A2 GPU shapes, shared-core E2)
+have no published score and render as `N/A`; to fill those in, benchmark with
+PerfKitBenchmarker or get numbers from a Google account team.
 
 ## API Key Setup
 
