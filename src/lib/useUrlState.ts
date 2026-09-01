@@ -53,14 +53,36 @@ function setsEqual(a: string[], b: string[]): boolean {
   return a.every((v) => bs.has(v))
 }
 
-export function getInitialStateFromUrl(): UrlState {
-  const hash = location.hash.slice(1) // strip leading #
-  const qIdx = hash.indexOf('?')
-  const pagePart = qIdx === -1 ? hash : hash.slice(0, qIdx)
-  const queryPart = qIdx === -1 ? '' : hash.slice(qIdx + 1)
+/** Derive the Page from the current pathname (e.g. "/cloudsql/" → "cloudsql") */
+function pageFromPathname(pathname: string): Page {
+  const segment = pathname.replace(/^\/|\/$/g, '') // strip leading/trailing slashes
+  return VALID_PAGES.has(segment as Page) ? (segment as Page) : 'home'
+}
 
-  const page: Page = VALID_PAGES.has(pagePart as Page) ? (pagePart as Page) : 'home'
-  const params = new URLSearchParams(queryPart)
+export function getInitialStateFromUrl(): UrlState {
+  // Support legacy hash-based URLs by reading from hash if pathname is just "/"
+  let page: Page
+  let params: URLSearchParams
+
+  const pathname = location.pathname
+  const hash = location.hash.slice(1) // strip leading #
+
+  // If we have a meaningful pathname (not just "/"), use it.
+  // Otherwise fall back to hash-based parsing for backward compatibility.
+  if (pathname !== '/' && pathname !== '') {
+    page = pageFromPathname(pathname)
+    params = new URLSearchParams(location.search)
+  } else if (hash) {
+    // Legacy hash URL: parse page + params from hash
+    const qIdx = hash.indexOf('?')
+    const pagePart = qIdx === -1 ? hash : hash.slice(0, qIdx)
+    const queryPart = qIdx === -1 ? '' : hash.slice(qIdx + 1)
+    page = VALID_PAGES.has(pagePart as Page) ? (pagePart as Page) : 'home'
+    params = new URLSearchParams(queryPart)
+  } else {
+    page = 'home'
+    params = new URLSearchParams(location.search)
+  }
 
   const region = params.get('region') ?? 'us-central1'
 
@@ -135,7 +157,7 @@ export function syncStateToUrl(
 
   if (state.minCapacityGb > 0) params.set('minCap', String(state.minCapacityGb))
 
-  const pageStr = page === 'home' ? '' : page
+  const path = page === 'home' ? '/' : `/${page}/`
   const query = params.size > 0 ? '?' + params.toString() : ''
-  history.replaceState(null, '', '#' + pageStr + query)
+  history.replaceState(null, '', path + query)
 }

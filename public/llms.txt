@@ -1,0 +1,73 @@
+# GCP Instances — Pricing Comparison Tool
+
+> A free tool to compare Google Cloud Platform instance types, specifications, and pricing across all regions and commitment tiers. Maintained by DoiT International.
+
+## What This Tool Does
+
+- Compare all Compute Engine VM instance types (N1, N2, N2D, E2, C2, C2D, C3, C3D, M1, M2, M3, A2, A3, G2, and more)
+- Compare Cloud SQL instance types for MySQL, PostgreSQL, and SQL Server
+- Compare Memorystore instance types for Redis and Valkey
+- Compare AlloyDB for PostgreSQL instance types
+- Filter by region, vCPUs, memory, machine family
+- View on-demand, spot/preemptible, and committed use discount (1yr / 3yr) pricing
+- Support for 12 currencies (USD, EUR, GBP, JPY, AUD, CAD, DKK, NOK, SEK, CHF, ZAR, ILS)
+
+## Pricing Data (JSON, updated daily from Google Cloud Billing Catalog API)
+
+- **Compute Engine**: https://gcpinstances.doit.com/data/pricing.json
+- **Cloud SQL**: https://gcpinstances.doit.com/data/cloudsql-pricing.json
+- **Memorystore**: https://gcpinstances.doit.com/data/memorystore-pricing.json
+- **AlloyDB**: https://gcpinstances.doit.com/data/alloydb-pricing.json
+- **Exchange Rates**: https://gcpinstances.doit.com/data/exchange-rates.json
+
+## Data Schema
+
+Each pricing JSON file contains:
+- `updatedAt`: ISO 8601 timestamp of last refresh
+- `regions`: Array of GCP region identifiers (e.g. "us-central1", "europe-west1")
+- `instances`: Array of instance objects with specs and per-region pricing
+
+### Compute Engine Instance Fields
+- `name`: Instance type (e.g. "n2-standard-4")
+- `series`: Machine series (e.g. "N2")
+- `family`: Category (e.g. "General Purpose", "Memory Optimized", "Compute Optimized")
+- `vCpus`: Number of virtual CPUs (number or "shared")
+- `memoryGb`: Memory in GiB
+- `pricing`: Object keyed by region. Each region has:
+  - `linuxOnDemand`, `linuxSud` (Sustained Use Discount), `linuxPreemptible`
+  - `linuxCud1yr`, `linuxCud3yr` (Committed Use Discount)
+  - `windowsOnDemand`, `windowsCud1yr`, `windowsCud3yr`
+  - All values are hourly USD prices (floats)
+
+### Cloud SQL Instance Fields
+- `name`: Instance tier (e.g. "db-n1-standard-4")
+- `vCpus`: Number of virtual CPUs
+- `memoryGb`: Memory in GiB
+- `pricing`: Object keyed by region. Each region has pricing per database engine:
+  - `mysql`, `postgres`, `sqlserver_std`, `sqlserver_ent`, `sqlserver_exp`, `sqlserver_web`
+  - Each engine has `onDemand` and optionally `cud1yr`, `cud3yr` (hourly USD)
+
+### AlloyDB Instance Fields
+- `name`: Instance type (e.g. "db-perf-optimized-N-2")
+- `vCpus`: Number of virtual CPUs
+- `memoryGb`: Memory in GiB
+- `pricing`: Object keyed by region with `onDemand` hourly USD price
+
+### Memorystore Instance Fields
+- `name`: Node type
+- `engine`: "redis" or "valkey"
+- `memorySizeGb`: Cache capacity in GiB
+- `pricing`: Object keyed by region with `onDemand` hourly USD price
+
+## Links
+
+- Website: https://gcpinstances.doit.com
+- Source Code: https://github.com/doitintl/gcpinstances.info
+- DoiT International: https://www.doit.com
+- Inspired by: https://ec2instances.info (AWS equivalent)
+
+## Notes
+
+- This tool is not affiliated with or maintained by Google
+- Pricing data is sourced from the Google Cloud Billing Catalog API and refreshed daily
+- Data accuracy cannot be guaranteed — always verify with official GCP pricing pages
