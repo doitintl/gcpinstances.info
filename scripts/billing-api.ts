@@ -1,3 +1,5 @@
+import { execFileSync } from 'node:child_process'
+
 /**
  * Shared GCP Billing Catalog API utilities.
  * Used by fetch-pricing.ts (Compute Engine) and fetch-cloudsql-pricing.ts (Cloud SQL).
@@ -24,19 +26,38 @@ export interface RawSku {
   }>
 }
 
-export async function fetchAllSkus(baseUrl: string, apiKey: string): Promise<RawSku[]> {
+/** Bearer token from the local gcloud install.
+ *
+ *  The committed API key is IP-restricted, which is correct for CI and useless
+ *  on a laptop — so a developer could not run any of the fetchers locally. With
+ *  this they can, using their own credentials, and CI keeps using the key. */
+export function localAccessToken(): string | null {
+  try {
+    return execFileSync('gcloud', ['auth', 'print-access-token'],
+      { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim() || null
+  } catch {
+    return null
+  }
+}
+
+export async function fetchAllSkus(baseUrl: string, apiKey?: string): Promise<RawSku[]> {
+  const token = apiKey ? null : localAccessToken()
+  if (!apiKey && !token) {
+    throw new Error('No credentials: set GOOGLE_CLOUD_API_KEY or run `gcloud auth login`')
+  }
   const skus: RawSku[] = []
   let pageToken: string | undefined
 
   do {
     const url = new URL(baseUrl)
-    url.searchParams.set('key', apiKey)
+    if (apiKey) url.searchParams.set('key', apiKey)
     url.searchParams.set('pageSize', '5000')
     url.searchParams.set('currencyCode', 'USD')
     if (pageToken) url.searchParams.set('pageToken', pageToken)
 
     console.log(`Fetching SKUs page${pageToken ? ` (token: ${pageToken.slice(0, 20)}...)` : ''}...`)
-    const res = await fetch(url.toString())
+    const res = await fetch(url.toString(),
+      token ? { headers: { Authorization: `Bearer ${token}` } } : undefined)
     if (!res.ok) {
       const body = await res.text()
       throw new Error(`API request failed: ${res.status} ${res.statusText}\n${body}`)
