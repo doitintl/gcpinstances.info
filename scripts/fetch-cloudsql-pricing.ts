@@ -14,12 +14,9 @@ import { CLOUDSQL_MACHINE_TYPES } from './cloudsql-machine-types.js'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
 
+// Either an API key (CI) or local gcloud credentials (a laptop) will do —
+// fetchAllSkus picks whichever is available and fails if neither is.
 const API_KEY = process.env.GOOGLE_CLOUD_API_KEY
-if (!API_KEY) {
-  console.error('Error: GOOGLE_CLOUD_API_KEY environment variable is not set.')
-  console.error('Run: GOOGLE_CLOUD_API_KEY=<key> npm run fetch-cloudsql-pricing')
-  process.exit(1)
-}
 
 const CLOUDSQL_SERVICE_ID = '9662-B51E-5089'
 const BASE_URL = `https://cloudbilling.googleapis.com/v1/services/${CLOUDSQL_SERVICE_ID}/skus`
@@ -106,6 +103,10 @@ function parseSeries(desc: string): string {
   if (/\bN2D\b/i.test(desc)) return 'N2D'
   if (/\bN4\b/i.test(desc)) return 'N4'
   if (/\bC4A\b/i.test(desc)) return 'C4A'
+  // After C4A, or the shorter pattern claims C4A's SKUs. Cloud SQL prices C4
+  // across MySQL, PostgreSQL and SQL Server, zonal and regional — 828 SKUs
+  // that had no branch here and fell through to 'gen2'.
+  if (/\bC4\b/i.test(desc)) return 'C4'
   if (/\bN2\b/i.test(desc)) return 'N2'
   if (/\bN1\b/i.test(desc)) return 'N1'
   return 'gen2'
@@ -388,7 +389,7 @@ function buildPricingTable(
 
 async function main() {
   console.log('Fetching GCP Cloud SQL SKUs...')
-  const skus = await fetchAllSkus(BASE_URL, API_KEY!)
+  const skus = await fetchAllSkus(BASE_URL, API_KEY)
   console.log(`Total SKUs fetched: ${skus.length}`)
 
   console.log('Parsing SKUs...')

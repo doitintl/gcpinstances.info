@@ -68,6 +68,13 @@ export const CLOUDSQL_MACHINE_TYPES: CloudSqlMachineType[] = [
   { name: 'db-perf-optimized-N-128', series: 'N4', tier: 'highmem', edition: 'Enterprise Plus', vCpus: 128, memoryGb: 864 },
 
   // C4A-based (Google Axion / ARM), 8 GB/vCPU
+  // C4 (Enterprise Plus). Google names these db-perf-optimized-C4-N rather than
+  // following the db-<series>-<tier>-<n> shape the rest of the table uses, and
+  // publishes exactly three sizes.
+  // https://docs.cloud.google.com/sql/docs/mysql/machine-series-overview
+  { name: 'db-perf-optimized-C4-2', series: 'C4', tier: 'perf-optimized', edition: 'Enterprise Plus', vCpus: 2, memoryGb: 15 },
+  { name: 'db-perf-optimized-C4-4', series: 'C4', tier: 'perf-optimized', edition: 'Enterprise Plus', vCpus: 4, memoryGb: 31 },
+  { name: 'db-perf-optimized-C4-8', series: 'C4', tier: 'perf-optimized', edition: 'Enterprise Plus', vCpus: 8, memoryGb: 62 },
   { name: 'db-c4a-highmem-2',  series: 'C4A', tier: 'highmem', edition: 'Enterprise Plus', vCpus: 2,  memoryGb: 16 },
   { name: 'db-c4a-highmem-4',  series: 'C4A', tier: 'highmem', edition: 'Enterprise Plus', vCpus: 4,  memoryGb: 32 },
   { name: 'db-c4a-highmem-8',  series: 'C4A', tier: 'highmem', edition: 'Enterprise Plus', vCpus: 8,  memoryGb: 64 },

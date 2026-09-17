@@ -41,15 +41,15 @@ export const ALLOYDB_MACHINE_TYPES: AlloyDbMachineType[] = [
   { name: 'c4-highmem-288-lssd', series: 'C4', tier: 'highmem', vCpus: 288, memoryGb: 2304 },
 
   // Z3 Highmem Standard LSSD
-  { name: 'z3-highmem-14-standardlssd', series: 'Z3', tier: 'highmem', vCpus: 14,  memoryGb: 112 },
-  { name: 'z3-highmem-22-standardlssd', series: 'Z3', tier: 'highmem', vCpus: 22,  memoryGb: 176 },
-  { name: 'z3-highmem-44-standardlssd', series: 'Z3', tier: 'highmem', vCpus: 44,  memoryGb: 352 },
-  { name: 'z3-highmem-88-standardlssd', series: 'Z3', tier: 'highmem', vCpus: 88,  memoryGb: 704 },
+  { name: 'z3-highmem-14-standardlssd', series: 'Z3StandardLssd', tier: 'highmem', vCpus: 14,  memoryGb: 112 },
+  { name: 'z3-highmem-22-standardlssd', series: 'Z3StandardLssd', tier: 'highmem', vCpus: 22,  memoryGb: 176 },
+  { name: 'z3-highmem-44-standardlssd', series: 'Z3StandardLssd', tier: 'highmem', vCpus: 44,  memoryGb: 352 },
+  { name: 'z3-highmem-88-standardlssd', series: 'Z3StandardLssd', tier: 'highmem', vCpus: 88,  memoryGb: 704 },
 
   // Z3 Highmem High LSSD
-  { name: 'z3-highmem-8-highlssd',  series: 'Z3', tier: 'highmem', vCpus: 8,  memoryGb: 64 },
-  { name: 'z3-highmem-16-highlssd', series: 'Z3', tier: 'highmem', vCpus: 16, memoryGb: 128 },
-  { name: 'z3-highmem-22-highlssd', series: 'Z3', tier: 'highmem', vCpus: 22, memoryGb: 176 },
-  { name: 'z3-highmem-32-highlssd', series: 'Z3', tier: 'highmem', vCpus: 32, memoryGb: 256 },
-  { name: 'z3-highmem-44-highlssd', series: 'Z3', tier: 'highmem', vCpus: 44, memoryGb: 352 },
+  { name: 'z3-highmem-8-highlssd',  series: 'Z3HighLssd', tier: 'highmem', vCpus: 8,  memoryGb: 64 },
+  { name: 'z3-highmem-16-highlssd', series: 'Z3HighLssd', tier: 'highmem', vCpus: 16, memoryGb: 128 },
+  { name: 'z3-highmem-22-highlssd', series: 'Z3HighLssd', tier: 'highmem', vCpus: 22, memoryGb: 176 },
+  { name: 'z3-highmem-32-highlssd', series: 'Z3HighLssd', tier: 'highmem', vCpus: 32, memoryGb: 256 },
+  { name: 'z3-highmem-44-highlssd', series: 'Z3HighLssd', tier: 'highmem', vCpus: 44, memoryGb: 352 },
 ]

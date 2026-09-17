@@ -136,6 +136,101 @@ function baseSeries(token: string): string {
   return token.toUpperCase().split('-')[0]
 }
 
+// ── the other three datasets ────────────────────────────────────────────────
+//
+// Compute gets the detailed treatment above because its parser is the one this
+// file can read. For Cloud SQL, AlloyDB and Memorystore the useful question is
+// the end-to-end one: Google prices a machine series, do we ship anything for
+// it? That catches the same failure — Cloud SQL had 828 C4 SKUs and shipped
+// none — without needing to model three more bespoke parseSeries ladders.
+interface Dataset {
+  name: string
+  service: string
+  file: string
+  /** Series Google prices that we deliberately do not ship, and why. */
+  skip: Record<string, string>
+}
+
+// Memorystore for Memcached (9C2E-5AAC-D058) is deliberately absent: Google
+// deprecated it in January 2026, blocks new projects from February 2027 and
+// shuts it down in January 2029, steering users to Valkey — which is covered.
+// Its 184 SKUs price custom per-core and per-GiB rather than fixed nodes, so
+// adding it would mean a second pricing model for a product being switched off.
+// https://docs.cloud.google.com/memorystore/docs/memcached/deprecation/memcached
+const DATASETS: Dataset[] = [
+  { name: 'Cloud SQL', service: '9662-B51E-5089', file: 'cloudsql-pricing.json', skip: {} },
+  { name: 'AlloyDB', service: 'C49F-B7F2-7416', file: 'alloydb-pricing.json', skip: {} },
+  {
+    name: 'Memorystore',
+    service: 'A2B5-E0F1-B0F3',
+    file: 'memorystore-pricing.json',
+    skip: {},
+  },
+]
+
+// Machine series tokens worth looking for. Matched anywhere in a description,
+// because the three services phrase them differently: Cloud SQL writes
+// "Enterprise Plus C4 vCPU", AlloyDB "for Z3 Highmem High LSSD instances".
+const SERIES_TOKENS = [
+  'N1', 'N2D', 'N2', 'N4A', 'N4D', 'N4',
+  'C2D', 'C2', 'C3D', 'C3', 'C4A', 'C4D', 'C4N', 'C4',
+  'M1', 'M2', 'M3', 'M4', 'E2', 'T2A', 'T2D', 'Z3', 'Z4D',
+]
+
+async function checkDataset(d: Dataset): Promise<void> {
+  let shipped: Set<string>
+  try {
+    const data = JSON.parse(
+      readFileSync(fileURLToPath(new URL(`../public/data/${d.file}`, import.meta.url)), 'utf8'),
+    ) as { instances?: { series?: string; pricing?: Record<string, unknown> }[] }
+    // Variant suffixes are stripped so a series split for pricing reasons still
+    // answers for its base name: AlloyDB ships Z3StandardLssd and Z3HighLssd,
+    // and the catalogue calls both Z3.
+    shipped = new Set(
+      (data.instances ?? [])
+        .filter((i) => Object.keys(i.pricing ?? {}).length > 0)
+        .map((i) => (i.series ?? '').toUpperCase().replace(/[^A-Z0-9]/g, ''))
+        .map((sr) => sr.replace(/(STANDARD|HIGH)?LSSD$/, '')))
+  } catch {
+    notes.push(`${d.name}: ${d.file} not readable — skipped`)
+    return
+  }
+
+  const skus = await fetchAllSkus(`https://cloudbilling.googleapis.com/v1/services/${d.service}/skus`, API_KEY)
+  const priced = new Map<string, number>()
+  for (const s of skus) {
+    const desc = s.description ?? ''
+    if (!/\b(vCPU|Core|RAM|Cpu)\b/i.test(desc)) continue
+    for (const t of SERIES_TOKENS) {
+      // First match wins, so the list is ordered longest-first per family and
+      // C4A is never counted as C4.
+      if (new RegExp(`\\b${t}\\b`, 'i').test(desc)) {
+        priced.set(t, (priced.get(t) ?? 0) + 1)
+        break
+      }
+    }
+  }
+
+  const missing = [...priced.entries()]
+    .filter(([t]) => !shipped.has(t) && !(t in d.skip))
+    .sort((a, b) => b[1] - a[1])
+
+  if (missing.length) {
+    problems.push(
+      `${d.name}: ${missing.length} machine series priced by Google with nothing shipped:\n` +
+      missing.map(([t, n]) => `    ${t.padEnd(6)} ${n} SKUs`).join('\n') +
+      `\n  Add a branch to parseSeries in scripts/fetch-${d.file.replace('-pricing.json', '')}-pricing.ts` +
+      ` and specs to scripts/${d.file.replace('-pricing.json', '')}-machine-types.ts.`)
+  } else if (priced.size === 0) {
+    // Not a pass: it means no SKU description carried a series token this knows
+    // about. Memorystore prices by node capacity rather than machine series, so
+    // zero is expected there and the check simply does not apply.
+    console.log(`${d.name}: no machine-series SKUs recognised — not checked`)
+  } else {
+    console.log(`${d.name}: ${priced.size} series priced, all shipped`)
+  }
+}
+
 const problems: string[] = []
 const notes: string[] = []
 
@@ -222,6 +317,9 @@ const retired = [...specSeries].filter((s) => {
 if (retired.length) {
   notes.push(`series with specs but no current vCPU/RAM SKUs: ${retired.sort().join(', ')}`)
 }
+
+for (const d of DATASETS) await checkDataset(d)
+console.log()
 
 for (const n of notes) console.log(`note: ${n}\n`)
 

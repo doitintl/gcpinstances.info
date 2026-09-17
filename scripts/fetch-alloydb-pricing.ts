@@ -17,12 +17,9 @@ import { ALLOYDB_MACHINE_TYPES } from './alloydb-machine-types.js'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
 
+// Either an API key (CI) or local gcloud credentials (a laptop) will do —
+// fetchAllSkus picks whichever is available and fails if neither is.
 const API_KEY = process.env.GOOGLE_CLOUD_API_KEY
-if (!API_KEY) {
-  console.error('Error: GOOGLE_CLOUD_API_KEY environment variable is not set.')
-  console.error('Run: GOOGLE_CLOUD_API_KEY=<key> npm run fetch-alloydb-pricing')
-  process.exit(1)
-}
 
 const ALLOYDB_SERVICE_ID = 'C49F-B7F2-7416'
 const BASE_URL = `https://cloudbilling.googleapis.com/v1/services/${ALLOYDB_SERVICE_ID}/skus`
@@ -70,6 +67,20 @@ interface AlloyDbPricingData {
 function parseSeries(desc: string): string {
   if (/\bC4A\b/i.test(desc)) return 'C4A'
   if (/\bC4\b/i.test(desc)) return 'C4'
+  // Z3 comes in two Local SSD variants that Google prices differently —
+  // "Z3 Highmem Standard LSSD" RAM is $0.0175/GiB-hr against $0.0230 for
+  // "Z3 Highmem High LSSD", a 31% gap. Returning a single 'Z3' for both meant
+  // whichever SKU was parsed last set the rate for all nine instances, so a
+  // standard-LSSD and a high-LSSD shape with identical vCPU and memory came
+  // out at exactly the same price.
+  //
+  // The whitespace is optional because Google is not consistent between the
+  // two resources: RAM reads "Z3 Highmem High LSSD" while vCPU reads
+  // "Z3 HighLSSD". Requiring a space matched only the RAM SKUs, which left
+  // each variant with a memory rate and no CPU rate. Standard is tested first
+  // so "Highmem" in the RAM description cannot claim it.
+  if (/\bZ3\b.*Standard\s*LSSD/i.test(desc)) return 'Z3StandardLssd'
+  if (/\bZ3\b.*High\s*LSSD/i.test(desc)) return 'Z3HighLssd'
   if (/\bZ3\b/i.test(desc)) return 'Z3'
   if (/\bN2\b/i.test(desc)) return 'N2'
   return 'gen2'
@@ -200,7 +211,7 @@ function buildPricingTable(decomp: Map<DecompKey, number>): AlloyDbInstance[] {
 
 async function main() {
   console.log('Fetching GCP AlloyDB SKUs...')
-  const skus = await fetchAllSkus(BASE_URL, API_KEY!)
+  const skus = await fetchAllSkus(BASE_URL, API_KEY)
   console.log(`Total SKUs fetched: ${skus.length}`)
 
   console.log('Parsing SKUs...')
