@@ -25,6 +25,38 @@ const dataUrl = (file: string) => `${import.meta.env.BASE_URL}${file}`
 
 const CURRENCY_KEYS = Object.keys(CURRENCY_META)
 
+function navigateTo(page: Page, setter: (p: Page) => void): void {
+  const path = page === 'home' ? '/' : `/${page}/`
+  history.pushState(null, '', path)
+  setter(page)
+}
+
+const PAGE_TITLES: Record<string, string> = {
+  home: 'GCP Compute Engine Pricing Comparison — All Regions & Instance Types | DoiT',
+  cloudsql: 'GCP Cloud SQL Pricing Comparison — MySQL, PostgreSQL, SQL Server | DoiT',
+  memorystore: 'GCP Memorystore Pricing Comparison — Redis & Valkey | DoiT',
+  alloydb: 'GCP AlloyDB Pricing Comparison — All Regions & Instance Types | DoiT',
+  'mcp-cli': 'GCP Instances MCP & CLI Developer Tools | DoiT',
+}
+
+const PAGE_DESCRIPTIONS: Record<string, string> = {
+  home: 'Compare all Google Cloud Compute Engine VM instance types, specs, and pricing across all regions. Filter by vCPUs, memory, and machine family. On-demand, spot/preemptible, and committed use discount (CUD) pricing.',
+  cloudsql: 'Compare Google Cloud SQL instance types and pricing for MySQL, PostgreSQL, and SQL Server across all regions. On-demand and committed use discount pricing.',
+  memorystore: 'Compare Google Cloud Memorystore instance types and pricing for Redis and Valkey across all regions.',
+  alloydb: 'Compare Google Cloud AlloyDB for PostgreSQL instance types and pricing across all regions.',
+  'mcp-cli': 'Developer tools for GCP instance pricing data: CLI tool, MCP server for AI assistants like Claude, and automation APIs.',
+}
+
+const BASE_URL = 'https://gcpinstances.doit.com'
+
+const PAGE_PATHS: Record<string, string> = {
+  home: '/',
+  cloudsql: '/cloudsql/',
+  memorystore: '/memorystore/',
+  alloydb: '/alloydb/',
+  'mcp-cli': '/mcp-cli/',
+}
+
 export default function App() {
   // Initialize all filter state from URL on first render
   const [initialState] = useState(getInitialStateFromUrl)
@@ -77,9 +109,24 @@ export default function App() {
     syncStateToUrl(page, { region, costPeriod, currency, minMemory, minVCpus, minCapacityGb, globalSearch, visibleColumns, visibleCloudSqlColumns, visibleMemorystoreColumns, visibleAlloyDbColumns })
   }, [page, region, costPeriod, currency, minMemory, minVCpus, minCapacityGb, globalSearch, visibleColumns, visibleCloudSqlColumns, visibleMemorystoreColumns, visibleAlloyDbColumns])
 
+  // Update document head (title, description, canonical, OG tags) when active tab changes
   useEffect(() => {
-    const onHashChange = () => {
-      // On popstate/hashchange, re-read URL state
+    const title = PAGE_TITLES[page] ?? PAGE_TITLES.home
+    const description = PAGE_DESCRIPTIONS[page] ?? PAGE_DESCRIPTIONS.home
+    const url = BASE_URL + (PAGE_PATHS[page] ?? '/')
+    document.title = title
+    document.querySelector('meta[name="description"]')?.setAttribute('content', description)
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href', url)
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', title)
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', description)
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', url)
+    document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', title)
+    document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', description)
+  }, [page])
+
+  useEffect(() => {
+    const onPopState = () => {
+      // On browser back/forward, re-read URL state
       const urlState = getInitialStateFromUrl()
       setPage(urlState.page)
       setRegion(urlState.region)
@@ -94,8 +141,8 @@ export default function App() {
       setVisibleMemorystoreColumns(urlState.visibleMemorystoreColumns)
       setVisibleAlloyDbColumns(urlState.visibleAlloyDbColumns)
     }
-    window.addEventListener('hashchange', onHashChange)
-    return () => window.removeEventListener('hashchange', onHashChange)
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
   }, [])
 
   // Load Compute Engine pricing and exchange rates on mount (parallel)
@@ -286,8 +333,8 @@ export default function App() {
             {/* Mobile-only: MCP button + dark mode toggle */}
             <div className="sm:hidden flex items-center gap-2">
               <a
-                href="#mcp-cli"
-                onClick={() => trackPageView('mcp-cli')}
+                href="/mcp-cli/"
+                onClick={(e) => { e.preventDefault(); navigateTo('mcp-cli', setPage); trackPageView('mcp-cli') }}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-500 text-white hover:bg-blue-400 transition-colors shadow-sm shadow-blue-500/40"
               >
                 <Terminal className="w-3 h-3" />
@@ -299,8 +346,8 @@ export default function App() {
           {/* Tab navigation — scrollable on mobile */}
           <nav className="flex items-center gap-1 overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0 sm:ml-4">
             <a
-              href="#home"
-              onClick={() => trackPageView('home')}
+              href="/"
+              onClick={(e) => { e.preventDefault(); navigateTo('home', setPage); trackPageView('home') }}
               className={cn(
                 'px-3 py-1.5 text-sm rounded-md transition-colors whitespace-nowrap',
                 page === 'home' || page === 'mcp-cli'
@@ -311,8 +358,8 @@ export default function App() {
               Compute Engine
             </a>
             <a
-              href="#cloudsql"
-              onClick={() => trackPageView('cloudsql')}
+              href="/cloudsql/"
+              onClick={(e) => { e.preventDefault(); navigateTo('cloudsql', setPage); trackPageView('cloudsql') }}
               className={cn(
                 'px-3 py-1.5 text-sm rounded-md transition-colors whitespace-nowrap',
                 page === 'cloudsql'
@@ -323,8 +370,8 @@ export default function App() {
               Cloud SQL
             </a>
             <a
-              href="#memorystore"
-              onClick={() => trackPageView('memorystore')}
+              href="/memorystore/"
+              onClick={(e) => { e.preventDefault(); navigateTo('memorystore', setPage); trackPageView('memorystore') }}
               className={cn(
                 'px-3 py-1.5 text-sm rounded-md transition-colors whitespace-nowrap',
                 page === 'memorystore'
@@ -335,8 +382,8 @@ export default function App() {
               Memorystore
             </a>
             <a
-              href="#alloydb"
-              onClick={() => trackPageView('alloydb')}
+              href="/alloydb/"
+              onClick={(e) => { e.preventDefault(); navigateTo('alloydb', setPage); trackPageView('alloydb') }}
               className={cn(
                 'px-3 py-1.5 text-sm rounded-md transition-colors whitespace-nowrap',
                 page === 'alloydb'
@@ -353,8 +400,8 @@ export default function App() {
               Last updated: {formattedDate}
             </div>
             <a
-              href="#mcp-cli"
-              onClick={() => trackPageView('mcp-cli')}
+              href="/mcp-cli/"
+              onClick={(e) => { e.preventDefault(); navigateTo('mcp-cli', setPage); trackPageView('mcp-cli') }}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-500 text-white hover:bg-blue-400 transition-colors shadow-sm shadow-blue-500/40"
             >
               <Terminal className="w-3 h-3" />

@@ -39,7 +39,7 @@ export function McpCliPage() {
         </ul>
 
         <a
-          href="#home"
+          href="/"
           className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
