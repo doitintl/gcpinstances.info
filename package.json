@@ -15,7 +15,9 @@
     "fetch-exchange-rates": "tsx scripts/fetch-exchange-rates.ts",
     "fetch-memorystore-pricing": "tsx scripts/fetch-memorystore-pricing.ts",
     "fetch-alloydb-pricing": "tsx scripts/fetch-alloydb-pricing.ts",
-    "validate": "tsx scripts/validate-pricing.ts"
+    "validate": "tsx scripts/validate-pricing.ts",
+    "check-drift": "tsx scripts/check-drift.ts",
+    "generate-machine-types": "tsx scripts/generate-machine-types.ts"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.3.3",

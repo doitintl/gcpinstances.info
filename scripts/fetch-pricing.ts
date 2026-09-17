@@ -14,12 +14,9 @@ import { type RawSku, fetchAllSkus, extractPrice, isSpecificRegion } from './bil
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
 
+// Either an API key (CI) or local gcloud credentials (a laptop) will do —
+// fetchAllSkus picks whichever is available and fails if neither is.
 const API_KEY = process.env.GOOGLE_CLOUD_API_KEY
-if (!API_KEY) {
-  console.error('Error: GOOGLE_CLOUD_API_KEY environment variable is not set.')
-  console.error('Run: GOOGLE_CLOUD_API_KEY=<key> npm run fetch-pricing')
-  process.exit(1)
-}
 
 const COMPUTE_SERVICE_ID = '6F81-5844-456A'
 const BASE_URL = `https://cloudbilling.googleapis.com/v1/services/${COMPUTE_SERVICE_ID}/skus`
@@ -106,17 +103,37 @@ const SKIP_KEYWORDS_RE = /custom|sole.?tenancy|extended|sole tenancy premium/i
 
 // Series detection patterns — more specific prefixes must come before broader ones.
 // C3D is handled separately before this list (see parseSkus) to avoid C3 matching first.
+// Longest-prefix first: the loop takes the first match, so C4D must be tried
+// before C4 and N4D before N4 or the shorter pattern swallows them. Every series
+// the Cloud Billing catalogue publishes Core/Ram SKUs for needs an entry here —
+// an unmatched description is silently dropped, which is how C4D was absent from
+// the site for months while Google had been selling it. scripts/check-drift.ts
+// fails the build when the catalogue grows a series this list does not know.
 const SERIES_PATTERNS: [RegExp, string][] = [
+  [/^A3Ultra\s+/i,           'A3Ultra'],
+  // Google prices the Mega shape under both names; both feed A3Mega's rates so
+  // a region that has switched spelling still resolves.
+  [/^A3Plus\s+/i,            'A3Mega'],
   [/^A3Mega\s+/i,            'A3Mega'],
   [/^A3\s+/i,               'A3'],
+  [/^A4X\s+/i,              'A4X'],
+  [/^A4\s+/i,               'A4'],
   [/^A2\s+/i,               'A2'],
+  [/^G4\s+/i,              'G4'],
   [/^G2\s+/i,               'G2'],
+  [/^C4A\s+/i,              'C4A'],
+  [/^C4D\s+/i,              'C4D'],
+  [/^C4N\s+/i,              'C4N'],
   [/^C4\s+/i,               'C4'],
+  [/^C3D\s+/i,              'C3D'],
   [/^C3\s+/i,               'C3'],
   [/^C2D\s+/i,              'C2D'],
   [/^C2\s+/i,               'C2'],
   [/^Compute[ -]optimized/i, 'C2'],
+  [/^H4D\s+/i,              'H4D'],
   [/^H3\s+/i,               'H3'],
+  [/^N4A\s+/i,              'N4A'],
+  [/^N4D\s+/i,              'N4D'],
   [/^N4\s+/i,               'N4'],
   [/^N2D\s+/i,              'N2D'],
   [/^N2\s+/i,               'N2'],
@@ -124,15 +141,24 @@ const SERIES_PATTERNS: [RegExp, string][] = [
   [/^E2\s+/i,               'E2'],
   [/^T2D\s+/i,              'T2D'],
   [/^T2A\s+/i,              'T2A'],
+  [/^M4N\s+/i,              'M4N'],
+  [/^M4\s+/i,               'M4'],
   [/^M3\s+/i,               'M3'],
   [/^M2\s+/i,               'M2'],
   [/^M1\s+/i,               'M1'],
+  // The shape is part of the SKU name, not a separate field:
+  // "Z4D-HIGHMEM-HIGHLSSD Instance Ram running in Iowa".
+  [/^Z4D-HIGHMEM-HIGHLSSD\s+/i,     'Z4DHighLssd'],
+  [/^Z4D-HIGHMEM-STANDARDLSSD\s+/i, 'Z4DStandardLssd'],
+  [/^Z3\s+/i,               'Z3'],
+  [/^X4\s+/i,               'X4'],
   [/^Memory[ -]optimized/i,  'M1'],
 ]
 
 // Maps GPU SKU description patterns to canonical GpuType keys (from machine-types.ts).
 // More specific patterns must come before broader ones (e.g. A100 80GB before A100, H100 Mega before H100).
 const GPU_TYPE_PATTERNS: [RegExp, string][] = [
+  [/H200/i,               'H200_141GB'],
   [/A100 80GB/i,          'A100_80GB'],
   [/A100 40GB/i,          'A100_40GB'],
   [/A100/i,               'A100_40GB'],  // fallback for unqualified A100 (most are 40GB)
@@ -503,7 +529,7 @@ function buildPricingTable(
 
 async function main() {
   console.log('Fetching GCP Compute Engine SKUs...')
-  const skus = await fetchAllSkus(BASE_URL, API_KEY!)
+  const skus = await fetchAllSkus(BASE_URL, API_KEY)
   console.log(`Total SKUs fetched: ${skus.length}`)
 
   console.log('Parsing SKUs...')

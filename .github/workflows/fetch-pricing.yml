@@ -57,6 +57,15 @@ jobs:
           SAMPLE_SIZE: 10
         run: npm run validate
 
+      # After the data is built and before it is committed: the check reads the
+      # generated pricing.json, so it can tell "Google prices this series and we
+      # produced nothing for it" — which is what issue #266 was. A green fetch
+      # that quietly drops a whole machine family is the failure this catches.
+      - name: Compare against Google's catalogue
+        env:
+          GOOGLE_CLOUD_API_KEY: ${{ secrets.GOOGLE_CLOUD_API_KEY }}
+        run: npm run check-drift
+
       - name: Check for changes
         id: changes
         run: |
