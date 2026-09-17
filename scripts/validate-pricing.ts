@@ -31,6 +31,35 @@ const TRUTH_TABLE: Array<{
   field: keyof InstanceRegionPricing
   expected: number | null
 }> = [
+  // ── Discount model ───────────────────────────────────────────────────────
+  // These exist because the SUD table was wrong and nothing here noticed: it
+  // held N1/N2/N2D only, so every C2 shape and M1 was shown at full on-demand
+  // in the sustained-use column, overstating them by 25%. The spot-check
+  // against freshly fetched rates cannot catch that — it re-derives from the
+  // same source, so a wrong discount model validates against itself. Each
+  // expectation below is on-demand times the rate Google publishes.
+  // https://docs.cloud.google.com/compute/docs/sustained-use-discounts
+  { name: 'c2-standard-4',   region: 'us-central1', field: 'linuxOnDemand', expected: 0.208808 },
+  { name: 'c2-standard-4',   region: 'us-central1', field: 'linuxSud',      expected: 0.167046 },  // 20%
+  { name: 'm1-ultramem-40',  region: 'us-central1', field: 'linuxOnDemand', expected: 0.818103 },
+  { name: 'm1-ultramem-40',  region: 'us-central1', field: 'linuxSud',      expected: 0.572672 },  // 30%
+  // Series Google does not discount: SUD must equal on-demand, not merely be
+  // present. A stray entry in SUD_DISCOUNT would show up here.
+  { name: 'c4d-standard-8',  region: 'us-central1', field: 'linuxSud',      expected: 0.369991 },
+  { name: 'n4d-standard-4',  region: 'us-central1', field: 'linuxSud',      expected: 0.1694 },
+
+  // ── Families added from the Compute Engine API ───────────────────────────
+  // The fourteen series that were missing entirely had no independent check at
+  // all. Each value was reconstructed by hand from Google's own Core and Ram
+  // SKUs for us-central1 — e.g. c4d-standard-8 is 8 x $0.03270350 +
+  // 31 x $0.00349558 — rather than copied out of the file it is validating.
+  { name: 'c4d-standard-8',  region: 'us-central1', field: 'linuxOnDemand', expected: 0.369991 },
+  { name: 'c4d-standard-4',  region: 'us-central1', field: 'linuxOnDemand', expected: 0.183248 },
+  { name: 'c4a-standard-4',  region: 'us-central1', field: 'linuxOnDemand', expected: 0.1796 },
+  { name: 'n4d-standard-4',  region: 'us-central1', field: 'linuxOnDemand', expected: 0.1694 },
+  { name: 'm4-ultramem-56',  region: 'us-central1', field: 'linuxOnDemand', expected: 7.82375 },
+  { name: 'z3-highmem-88-standardlssd', region: 'us-central1', field: 'linuxOnDemand', expected: 9.054804 },
+
   // ── Existing baseline ────────────────────────────────────────────────────
   { name: 'n1-standard-1',  region: 'us-central1', field: 'linuxSud',       expected: 0.03325 },
   { name: 'n1-standard-1',  region: 'us-central1', field: 'windowsSud',     expected: 0.07925 },

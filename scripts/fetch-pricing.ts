@@ -71,14 +71,30 @@ export interface PricingData {
 }
 
 // ----- SUD (Sustained Use Discount) factors -----
-// SUD applies automatically for N1, N2, N2D series when instances run the whole month.
+//
 // Effective rate for full-month usage = on-demand * (1 - sud_discount).
-// Other series (E2, T2D, T2A, C2, C2D, C3, M*, N4) do not receive SUD.
-// E2 has its own discount model; for simplicity we show on-demand as SUD here.
+//
+// Taken from Google's published list, which is wider than this table used to
+// claim. It previously held N1, N2 and N2D only, alongside a comment asserting
+// that C2 and the M series did not qualify — so every C2 shape and M1 was shown
+// at full on-demand in the sustained-use column, overstating them by 25%.
+//
+//   30%  N1, M1, M2, and the f1-micro / g1-small shared-core types
+//   20%  N2, N2D, C2
+//
+// Series absent from this table get no discount, which is correct for E2 (its
+// own model), T2A, T2D, C3, C4 and N4. C2D is deliberately absent: Google's
+// page lists "all compute-optimized C2 machine types" for the 20% tier and does
+// not name C2D.
+//
+// https://docs.cloud.google.com/compute/docs/sustained-use-discounts
 const SUD_DISCOUNT: Record<string, number> = {
   N1: 0.30,
+  M1: 0.30,
+  M2: 0.30,
   N2: 0.20,
   N2D: 0.20,
+  C2: 0.20,
 }
 
 function getSudRate(series: string, onDemandRate: number): number {

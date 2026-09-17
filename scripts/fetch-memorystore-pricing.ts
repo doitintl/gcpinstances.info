@@ -19,12 +19,9 @@ import { MEMORYSTORE_MACHINE_TYPES } from './memorystore-machine-types.js'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
 
+// Either an API key (CI) or local gcloud credentials (a laptop) will do —
+// fetchAllSkus picks whichever is available and fails if neither is.
 const API_KEY = process.env.GOOGLE_CLOUD_API_KEY
-if (!API_KEY) {
-  console.error('Error: GOOGLE_CLOUD_API_KEY environment variable is not set.')
-  console.error('Run: GOOGLE_CLOUD_API_KEY=<key> npm run fetch-memorystore-pricing')
-  process.exit(1)
-}
 
 // Service IDs from GCP Billing Catalog
 const REDIS_SERVICE_ID = '5AF5-2C11-D467'      // Cloud Memorystore for Redis
@@ -255,11 +252,11 @@ function buildPricingTable(
 
 async function main() {
   console.log('Fetching Memorystore for Redis SKUs...')
-  const redisSkus = await fetchAllSkus(REDIS_BASE_URL, API_KEY!)
+  const redisSkus = await fetchAllSkus(REDIS_BASE_URL, API_KEY)
   console.log(`Total Redis SKUs: ${redisSkus.length}`)
 
   console.log('Fetching Memorystore for Valkey SKUs...')
-  const valkeySkus = await fetchAllSkus(VALKEY_BASE_URL, API_KEY!)
+  const valkeySkus = await fetchAllSkus(VALKEY_BASE_URL, API_KEY)
   console.log(`Total Valkey SKUs: ${valkeySkus.length}`)
 
   console.log('Parsing Redis SKUs...')
