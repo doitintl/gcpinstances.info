@@ -52,9 +52,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Analytics guard
+        run: npm run test:analytics
+
       - name: Build
         env:
           VITE_ANALYTICS_ENDPOINT: ${{ secrets.VITE_ANALYTICS_ENDPOINT }}
+          # Unset on forks and in preview builds, which is deliberate — the
+          # tag is then never loaded and preview traffic stays out of the
+          # property.
+          VITE_GA_MEASUREMENT_ID: ${{ secrets.VITE_GA_MEASUREMENT_ID }}
         run: npm run build
 
       - name: Show build output
