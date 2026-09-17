@@ -52,9 +52,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Analytics guard
-        run: npm run test:analytics
-
       - name: Build
         env:
           VITE_ANALYTICS_ENDPOINT: ${{ secrets.VITE_ANALYTICS_ENDPOINT }}

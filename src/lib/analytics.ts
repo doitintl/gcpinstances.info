@@ -29,8 +29,12 @@ const GA_ID = (import.meta.env.VITE_GA_MEASUREMENT_ID as string | undefined) || 
  *  Preview deploys are served from the production hostname under
  *  /previews/pr-N/, so there is no host to distinguish them by — the path is
  *  the only signal. Without this, every PR preview and every local dev session
- *  would mix into the same property as real traffic. */
-function shouldTrack(): boolean {
+ *  would mix into the same property as real traffic.
+ *
+ *  Exported for tests/unit/analytics.test.ts — this guard is the whole reason
+ *  the tag is loaded from code rather than from index.html, so it is the part
+ *  that has to be right. */
+export function shouldTrack(): boolean {
   if (typeof window === 'undefined') return false
   const { hostname, pathname } = window.location
   if (hostname === 'localhost' || hostname === '127.0.0.1') return false
