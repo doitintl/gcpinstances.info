@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-25T06:10:27.601Z",
+  "updatedAt": "2026-09-26T06:09:26.518Z",
   "regions": [
     "africa-south1",
     "asia-east1",
@@ -181259,6 +181259,18 @@
           "windowsCud1yr": 0.189641,
           "windowsCud3yr": 0.153995
         },
+        "europe-west4": {
+          "linuxOnDemand": 0.162732,
+          "linuxSud": 0.162732,
+          "linuxPreemptible": 0.065095,
+          "linuxCud1yr": 0.102523,
+          "linuxCud3yr": 0.065095,
+          "windowsOnDemand": 0.254732,
+          "windowsSud": 0.254732,
+          "windowsPreemptible": 0.157095,
+          "windowsCud1yr": 0.194523,
+          "windowsCud3yr": 0.157095
+        },
         "us-west1": {
           "linuxOnDemand": 0.154987,
           "linuxSud": 0.154987,
@@ -181336,6 +181348,18 @@
           "windowsPreemptible": 0.30419,
           "windowsCud1yr": 0.383252,
           "windowsCud3yr": 0.31051
+        },
+        "europe-west4": {
+          "linuxOnDemand": 0.33208,
+          "linuxSud": 0.33208,
+          "linuxPreemptible": 0.132836,
+          "linuxCud1yr": 0.209214,
+          "linuxCud3yr": 0.132836,
+          "windowsOnDemand": 0.51608,
+          "windowsSud": 0.51608,
+          "windowsPreemptible": 0.316836,
+          "windowsCud1yr": 0.393214,
+          "windowsCud3yr": 0.316836
         },
         "us-west1": {
           "linuxOnDemand": 0.316275,
@@ -181415,6 +181439,18 @@
           "windowsCud1yr": 0.383252,
           "windowsCud3yr": 0.31051
         },
+        "europe-west4": {
+          "linuxOnDemand": 0.33208,
+          "linuxSud": 0.33208,
+          "linuxPreemptible": 0.132836,
+          "linuxCud1yr": 0.209214,
+          "linuxCud3yr": 0.132836,
+          "windowsOnDemand": 0.51608,
+          "windowsSud": 0.51608,
+          "windowsPreemptible": 0.316836,
+          "windowsCud1yr": 0.393214,
+          "windowsCud3yr": 0.316836
+        },
         "us-west1": {
           "linuxOnDemand": 0.316275,
           "linuxSud": 0.316275,
@@ -181492,6 +181528,18 @@
           "windowsPreemptible": 0.60838,
           "windowsCud1yr": 0.766504,
           "windowsCud3yr": 0.62102
+        },
+        "europe-west4": {
+          "linuxOnDemand": 0.66416,
+          "linuxSud": 0.66416,
+          "linuxPreemptible": 0.265672,
+          "linuxCud1yr": 0.418427,
+          "linuxCud3yr": 0.265672,
+          "windowsOnDemand": 1.03216,
+          "windowsSud": 1.03216,
+          "windowsPreemptible": 0.633672,
+          "windowsCud1yr": 0.786427,
+          "windowsCud3yr": 0.633672
         },
         "us-west1": {
           "linuxOnDemand": 0.63255,
@@ -181571,6 +181619,18 @@
           "windowsCud1yr": 0.766504,
           "windowsCud3yr": 0.62102
         },
+        "europe-west4": {
+          "linuxOnDemand": 0.66416,
+          "linuxSud": 0.66416,
+          "linuxPreemptible": 0.265672,
+          "linuxCud1yr": 0.418427,
+          "linuxCud3yr": 0.265672,
+          "windowsOnDemand": 1.03216,
+          "windowsSud": 1.03216,
+          "windowsPreemptible": 0.633672,
+          "windowsCud1yr": 0.786427,
+          "windowsCud3yr": 0.633672
+        },
         "us-west1": {
           "linuxOnDemand": 0.63255,
           "linuxSud": 0.63255,
@@ -181648,6 +181708,18 @@
           "windowsPreemptible": 1.21676,
           "windowsCud1yr": 1.533008,
           "windowsCud3yr": 1.24204
+        },
+        "europe-west4": {
+          "linuxOnDemand": 1.32832,
+          "linuxSud": 1.32832,
+          "linuxPreemptible": 0.531344,
+          "linuxCud1yr": 0.836854,
+          "linuxCud3yr": 0.531344,
+          "windowsOnDemand": 2.06432,
+          "windowsSud": 2.06432,
+          "windowsPreemptible": 1.267344,
+          "windowsCud1yr": 1.572854,
+          "windowsCud3yr": 1.267344
         },
         "us-west1": {
           "linuxOnDemand": 1.2651,
@@ -181727,6 +181799,18 @@
           "windowsCud1yr": 1.533008,
           "windowsCud3yr": 1.24204
         },
+        "europe-west4": {
+          "linuxOnDemand": 1.32832,
+          "linuxSud": 1.32832,
+          "linuxPreemptible": 0.531344,
+          "linuxCud1yr": 0.836854,
+          "linuxCud3yr": 0.531344,
+          "windowsOnDemand": 2.06432,
+          "windowsSud": 2.06432,
+          "windowsPreemptible": 1.267344,
+          "windowsCud1yr": 1.572854,
+          "windowsCud3yr": 1.267344
+        },
         "us-west1": {
           "linuxOnDemand": 1.2651,
           "linuxSud": 1.2651,
@@ -181804,6 +181888,18 @@
           "windowsPreemptible": 1.82514,
           "windowsCud1yr": 2.299512,
           "windowsCud3yr": 1.86306
+        },
+        "europe-west4": {
+          "linuxOnDemand": 1.99248,
+          "linuxSud": 1.99248,
+          "linuxPreemptible": 0.797016,
+          "linuxCud1yr": 1.255281,
+          "linuxCud3yr": 0.797016,
+          "windowsOnDemand": 3.09648,
+          "windowsSud": 3.09648,
+          "windowsPreemptible": 1.901016,
+          "windowsCud1yr": 2.359281,
+          "windowsCud3yr": 1.901016
         },
         "us-west1": {
           "linuxOnDemand": 1.89765,
@@ -181883,6 +181979,18 @@
           "windowsCud1yr": 2.299512,
           "windowsCud3yr": 1.86306
         },
+        "europe-west4": {
+          "linuxOnDemand": 1.99248,
+          "linuxSud": 1.99248,
+          "linuxPreemptible": 0.797016,
+          "linuxCud1yr": 1.255281,
+          "linuxCud3yr": 0.797016,
+          "windowsOnDemand": 3.09648,
+          "windowsSud": 3.09648,
+          "windowsPreemptible": 1.901016,
+          "windowsCud1yr": 2.359281,
+          "windowsCud3yr": 1.901016
+        },
         "us-west1": {
           "linuxOnDemand": 1.89765,
           "linuxSud": 1.89765,
@@ -181960,6 +182068,18 @@
           "windowsPreemptible": 3.65028,
           "windowsCud1yr": 4.599024,
           "windowsCud3yr": 3.72612
+        },
+        "europe-west4": {
+          "linuxOnDemand": 3.98496,
+          "linuxSud": 3.98496,
+          "linuxPreemptible": 1.594032,
+          "linuxCud1yr": 2.510562,
+          "linuxCud3yr": 1.594032,
+          "windowsOnDemand": 6.19296,
+          "windowsSud": 6.19296,
+          "windowsPreemptible": 3.802032,
+          "windowsCud1yr": 4.718562,
+          "windowsCud3yr": 3.802032
         },
         "us-west1": {
           "linuxOnDemand": 3.7953,
@@ -182039,6 +182159,18 @@
           "windowsCud1yr": 4.599024,
           "windowsCud3yr": 3.72612
         },
+        "europe-west4": {
+          "linuxOnDemand": 3.98496,
+          "linuxSud": 3.98496,
+          "linuxPreemptible": 1.594032,
+          "linuxCud1yr": 2.510562,
+          "linuxCud3yr": 1.594032,
+          "windowsOnDemand": 6.19296,
+          "windowsSud": 6.19296,
+          "windowsPreemptible": 3.802032,
+          "windowsCud1yr": 4.718562,
+          "windowsCud3yr": 3.802032
+        },
         "us-west1": {
           "linuxOnDemand": 3.7953,
           "linuxSud": 3.7953,
@@ -182116,6 +182248,18 @@
           "windowsPreemptible": 7.30056,
           "windowsCud1yr": 9.198048,
           "windowsCud3yr": 7.45224
+        },
+        "europe-west4": {
+          "linuxOnDemand": 7.96992,
+          "linuxSud": 7.96992,
+          "linuxPreemptible": 3.188064,
+          "linuxCud1yr": 5.021124,
+          "linuxCud3yr": 3.188064,
+          "windowsOnDemand": 12.38592,
+          "windowsSud": 12.38592,
+          "windowsPreemptible": 7.604064,
+          "windowsCud1yr": 9.437124,
+          "windowsCud3yr": 7.604064
         },
         "us-west1": {
           "linuxOnDemand": 7.5906,
@@ -182195,6 +182339,18 @@
           "windowsCud1yr": 9.198048,
           "windowsCud3yr": 7.45224
         },
+        "europe-west4": {
+          "linuxOnDemand": 7.96992,
+          "linuxSud": 7.96992,
+          "linuxPreemptible": 3.188064,
+          "linuxCud1yr": 5.021124,
+          "linuxCud3yr": 3.188064,
+          "windowsOnDemand": 12.38592,
+          "windowsSud": 12.38592,
+          "windowsPreemptible": 7.604064,
+          "windowsCud1yr": 9.437124,
+          "windowsCud3yr": 7.604064
+        },
         "us-west1": {
           "linuxOnDemand": 7.5906,
           "linuxSud": 7.5906,
@@ -182272,6 +182428,18 @@
           "windowsPreemptible": 14.60112,
           "windowsCud1yr": 18.396096,
           "windowsCud3yr": 14.90448
+        },
+        "europe-west4": {
+          "linuxOnDemand": 15.93984,
+          "linuxSud": 15.93984,
+          "linuxPreemptible": 6.376128,
+          "linuxCud1yr": 10.042248,
+          "linuxCud3yr": 6.376128,
+          "windowsOnDemand": 24.77184,
+          "windowsSud": 24.77184,
+          "windowsPreemptible": 15.208128,
+          "windowsCud1yr": 18.874248,
+          "windowsCud3yr": 15.208128
         },
         "us-west1": {
           "linuxOnDemand": 15.1812,
@@ -182351,6 +182519,18 @@
           "windowsCud1yr": 18.396096,
           "windowsCud3yr": 14.90448
         },
+        "europe-west4": {
+          "linuxOnDemand": 15.93984,
+          "linuxSud": 15.93984,
+          "linuxPreemptible": 6.376128,
+          "linuxCud1yr": 10.042248,
+          "linuxCud3yr": 6.376128,
+          "windowsOnDemand": 24.77184,
+          "windowsSud": 24.77184,
+          "windowsPreemptible": 15.208128,
+          "windowsCud1yr": 18.874248,
+          "windowsCud3yr": 15.208128
+        },
         "us-west1": {
           "linuxOnDemand": 15.1812,
           "linuxSud": 15.1812,
@@ -182428,6 +182608,18 @@
           "windowsPreemptible": 0.143716,
           "windowsCud1yr": 0.177732,
           "windowsCud3yr": 0.146434
+        },
+        "europe-west4": {
+          "linuxOnDemand": 0.142884,
+          "linuxSud": 0.142884,
+          "linuxPreemptible": 0.057156,
+          "linuxCud1yr": 0.090018,
+          "linuxCud3yr": 0.057156,
+          "windowsOnDemand": 0.234884,
+          "windowsSud": 0.234884,
+          "windowsPreemptible": 0.149156,
+          "windowsCud1yr": 0.182018,
+          "windowsCud3yr": 0.149156
         },
         "us-west1": {
           "linuxOnDemand": 0.136084,
@@ -182507,6 +182699,18 @@
           "windowsCud1yr": 0.355465,
           "windowsCud3yr": 0.292867
         },
+        "europe-west4": {
+          "linuxOnDemand": 0.285768,
+          "linuxSud": 0.285768,
+          "linuxPreemptible": 0.114311,
+          "linuxCud1yr": 0.180037,
+          "linuxCud3yr": 0.114311,
+          "windowsOnDemand": 0.469768,
+          "windowsSud": 0.469768,
+          "windowsPreemptible": 0.298311,
+          "windowsCud1yr": 0.364037,
+          "windowsCud3yr": 0.298311
+        },
         "us-west1": {
           "linuxOnDemand": 0.272168,
           "linuxSud": 0.272168,
@@ -182584,6 +182788,18 @@
           "windowsPreemptible": 0.574864,
           "windowsCud1yr": 0.71093,
           "windowsCud3yr": 0.585734
+        },
+        "europe-west4": {
+          "linuxOnDemand": 0.571536,
+          "linuxSud": 0.571536,
+          "linuxPreemptible": 0.228622,
+          "linuxCud1yr": 0.360074,
+          "linuxCud3yr": 0.228622,
+          "windowsOnDemand": 0.939536,
+          "windowsSud": 0.939536,
+          "windowsPreemptible": 0.596622,
+          "windowsCud1yr": 0.728074,
+          "windowsCud3yr": 0.596622
         },
         "us-west1": {
           "linuxOnDemand": 0.544336,
@@ -182663,6 +182879,18 @@
           "windowsCud1yr": 1.421859,
           "windowsCud3yr": 1.171469
         },
+        "europe-west4": {
+          "linuxOnDemand": 1.143072,
+          "linuxSud": 1.143072,
+          "linuxPreemptible": 0.457245,
+          "linuxCud1yr": 0.720147,
+          "linuxCud3yr": 0.457245,
+          "windowsOnDemand": 1.879072,
+          "windowsSud": 1.879072,
+          "windowsPreemptible": 1.193245,
+          "windowsCud1yr": 1.456147,
+          "windowsCud3yr": 1.193245
+        },
         "us-west1": {
           "linuxOnDemand": 1.088672,
           "linuxSud": 1.088672,
@@ -182740,6 +182968,18 @@
           "windowsPreemptible": 1.724592,
           "windowsCud1yr": 2.132789,
           "windowsCud3yr": 1.757203
+        },
+        "europe-west4": {
+          "linuxOnDemand": 1.714608,
+          "linuxSud": 1.714608,
+          "linuxPreemptible": 0.685867,
+          "linuxCud1yr": 1.080221,
+          "linuxCud3yr": 0.685867,
+          "windowsOnDemand": 2.818608,
+          "windowsSud": 2.818608,
+          "windowsPreemptible": 1.789867,
+          "windowsCud1yr": 2.184221,
+          "windowsCud3yr": 1.789867
         },
         "us-west1": {
           "linuxOnDemand": 1.633008,
@@ -182819,6 +183059,18 @@
           "windowsCud1yr": 4.265578,
           "windowsCud3yr": 3.514406
         },
+        "europe-west4": {
+          "linuxOnDemand": 3.429216,
+          "linuxSud": 3.429216,
+          "linuxPreemptible": 1.371734,
+          "linuxCud1yr": 2.160442,
+          "linuxCud3yr": 1.371734,
+          "windowsOnDemand": 5.637216,
+          "windowsSud": 5.637216,
+          "windowsPreemptible": 3.579734,
+          "windowsCud1yr": 4.368442,
+          "windowsCud3yr": 3.579734
+        },
         "us-west1": {
           "linuxOnDemand": 3.266016,
           "linuxSud": 3.266016,
@@ -182896,6 +183148,18 @@
           "windowsPreemptible": 6.898368,
           "windowsCud1yr": 8.531155,
           "windowsCud3yr": 7.028813
+        },
+        "europe-west4": {
+          "linuxOnDemand": 6.858432,
+          "linuxSud": 6.858432,
+          "linuxPreemptible": 2.743469,
+          "linuxCud1yr": 4.320883,
+          "linuxCud3yr": 2.743469,
+          "windowsOnDemand": 11.274432,
+          "windowsSud": 11.274432,
+          "windowsPreemptible": 7.159469,
+          "windowsCud1yr": 8.736883,
+          "windowsCud3yr": 7.159469
         },
         "us-west1": {
           "linuxOnDemand": 6.532032,
@@ -182975,6 +183239,18 @@
           "windowsCud1yr": 17.06231,
           "windowsCud3yr": 14.057626
         },
+        "europe-west4": {
+          "linuxOnDemand": 13.716864,
+          "linuxSud": 13.716864,
+          "linuxPreemptible": 5.486938,
+          "linuxCud1yr": 8.641766,
+          "linuxCud3yr": 5.486938,
+          "windowsOnDemand": 22.548864,
+          "windowsSud": 22.548864,
+          "windowsPreemptible": 14.318938,
+          "windowsCud1yr": 17.473766,
+          "windowsCud3yr": 14.318938
+        },
         "us-west1": {
           "linuxOnDemand": 13.064064,
           "linuxSud": 13.064064,
@@ -183052,6 +183328,18 @@
           "windowsPreemptible": 0.17005,
           "windowsCud1yr": 0.221398,
           "windowsCud3yr": 0.174158
+        },
+        "europe-west4": {
+          "linuxOnDemand": 0.21566,
+          "linuxSud": 0.21566,
+          "linuxPreemptible": 0.086266,
+          "linuxCud1yr": 0.135868,
+          "linuxCud3yr": 0.086266,
+          "windowsOnDemand": 0.30766,
+          "windowsSud": 0.30766,
+          "windowsPreemptible": 0.178266,
+          "windowsCud1yr": 0.227868,
+          "windowsCud3yr": 0.178266
         },
         "us-west1": {
           "linuxOnDemand": 0.205395,
@@ -183131,6 +183419,18 @@
           "windowsCud1yr": 0.446766,
           "windowsCud3yr": 0.350836
         },
+        "europe-west4": {
+          "linuxOnDemand": 0.437936,
+          "linuxSud": 0.437936,
+          "linuxPreemptible": 0.175178,
+          "linuxCud1yr": 0.275903,
+          "linuxCud3yr": 0.175178,
+          "windowsOnDemand": 0.621936,
+          "windowsSud": 0.621936,
+          "windowsPreemptible": 0.359178,
+          "windowsCud1yr": 0.459903,
+          "windowsCud3yr": 0.359178
+        },
         "us-west1": {
           "linuxOnDemand": 0.417091,
           "linuxSud": 0.417091,
@@ -183208,6 +183508,18 @@
           "windowsPreemptible": 0.342494,
           "windowsCud1yr": 0.446766,
           "windowsCud3yr": 0.350836
+        },
+        "europe-west4": {
+          "linuxOnDemand": 0.437936,
+          "linuxSud": 0.437936,
+          "linuxPreemptible": 0.175178,
+          "linuxCud1yr": 0.275903,
+          "linuxCud3yr": 0.175178,
+          "windowsOnDemand": 0.621936,
+          "windowsSud": 0.621936,
+          "windowsPreemptible": 0.359178,
+          "windowsCud1yr": 0.459903,
+          "windowsCud3yr": 0.359178
         },
         "us-west1": {
           "linuxOnDemand": 0.417091,
@@ -183287,6 +183599,18 @@
           "windowsCud1yr": 0.893531,
           "windowsCud3yr": 0.701673
         },
+        "europe-west4": {
+          "linuxOnDemand": 0.875872,
+          "linuxSud": 0.875872,
+          "linuxPreemptible": 0.350357,
+          "linuxCud1yr": 0.551806,
+          "linuxCud3yr": 0.350357,
+          "windowsOnDemand": 1.243872,
+          "windowsSud": 1.243872,
+          "windowsPreemptible": 0.718357,
+          "windowsCud1yr": 0.919806,
+          "windowsCud3yr": 0.718357
+        },
         "us-west1": {
           "linuxOnDemand": 0.834182,
           "linuxSud": 0.834182,
@@ -183364,6 +183688,18 @@
           "windowsPreemptible": 0.684988,
           "windowsCud1yr": 0.893531,
           "windowsCud3yr": 0.701673
+        },
+        "europe-west4": {
+          "linuxOnDemand": 0.875872,
+          "linuxSud": 0.875872,
+          "linuxPreemptible": 0.350357,
+          "linuxCud1yr": 0.551806,
+          "linuxCud3yr": 0.350357,
+          "windowsOnDemand": 1.243872,
+          "windowsSud": 1.243872,
+          "windowsPreemptible": 0.718357,
+          "windowsCud1yr": 0.919806,
+          "windowsCud3yr": 0.718357
         },
         "us-west1": {
           "linuxOnDemand": 0.834182,
@@ -183443,6 +183779,18 @@
           "windowsCud1yr": 1.787062,
           "windowsCud3yr": 1.403346
         },
+        "europe-west4": {
+          "linuxOnDemand": 1.751744,
+          "linuxSud": 1.751744,
+          "linuxPreemptible": 0.700714,
+          "linuxCud1yr": 1.103612,
+          "linuxCud3yr": 0.700714,
+          "windowsOnDemand": 2.487744,
+          "windowsSud": 2.487744,
+          "windowsPreemptible": 1.436714,
+          "windowsCud1yr": 1.839612,
+          "windowsCud3yr": 1.436714
+        },
         "us-west1": {
           "linuxOnDemand": 1.668364,
           "linuxSud": 1.668364,
@@ -183520,6 +183868,18 @@
           "windowsPreemptible": 1.369976,
           "windowsCud1yr": 1.787062,
           "windowsCud3yr": 1.403346
+        },
+        "europe-west4": {
+          "linuxOnDemand": 1.751744,
+          "linuxSud": 1.751744,
+          "linuxPreemptible": 0.700714,
+          "linuxCud1yr": 1.103612,
+          "linuxCud3yr": 0.700714,
+          "windowsOnDemand": 2.487744,
+          "windowsSud": 2.487744,
+          "windowsPreemptible": 1.436714,
+          "windowsCud1yr": 1.839612,
+          "windowsCud3yr": 1.436714
         },
         "us-west1": {
           "linuxOnDemand": 1.668364,
@@ -183599,6 +183959,18 @@
           "windowsCud1yr": 2.680594,
           "windowsCud3yr": 2.105018
         },
+        "europe-west4": {
+          "linuxOnDemand": 2.627616,
+          "linuxSud": 2.627616,
+          "linuxPreemptible": 1.05107,
+          "linuxCud1yr": 1.655419,
+          "linuxCud3yr": 1.05107,
+          "windowsOnDemand": 3.731616,
+          "windowsSud": 3.731616,
+          "windowsPreemptible": 2.15507,
+          "windowsCud1yr": 2.759419,
+          "windowsCud3yr": 2.15507
+        },
         "us-west1": {
           "linuxOnDemand": 2.502546,
           "linuxSud": 2.502546,
@@ -183676,6 +184048,18 @@
           "windowsPreemptible": 2.054964,
           "windowsCud1yr": 2.680594,
           "windowsCud3yr": 2.105018
+        },
+        "europe-west4": {
+          "linuxOnDemand": 2.627616,
+          "linuxSud": 2.627616,
+          "linuxPreemptible": 1.05107,
+          "linuxCud1yr": 1.655419,
+          "linuxCud3yr": 1.05107,
+          "windowsOnDemand": 3.731616,
+          "windowsSud": 3.731616,
+          "windowsPreemptible": 2.15507,
+          "windowsCud1yr": 2.759419,
+          "windowsCud3yr": 2.15507
         },
         "us-west1": {
           "linuxOnDemand": 2.502546,
@@ -183755,6 +184139,18 @@
           "windowsCud1yr": 5.361187,
           "windowsCud3yr": 4.210037
         },
+        "europe-west4": {
+          "linuxOnDemand": 5.255232,
+          "linuxSud": 5.255232,
+          "linuxPreemptible": 2.102141,
+          "linuxCud1yr": 3.310837,
+          "linuxCud3yr": 2.102141,
+          "windowsOnDemand": 7.463232,
+          "windowsSud": 7.463232,
+          "windowsPreemptible": 4.310141,
+          "windowsCud1yr": 5.518837,
+          "windowsCud3yr": 4.310141
+        },
         "us-west1": {
           "linuxOnDemand": 5.005092,
           "linuxSud": 5.005092,
@@ -183832,6 +184228,18 @@
           "windowsPreemptible": 4.109928,
           "windowsCud1yr": 5.361187,
           "windowsCud3yr": 4.210037
+        },
+        "europe-west4": {
+          "linuxOnDemand": 5.255232,
+          "linuxSud": 5.255232,
+          "linuxPreemptible": 2.102141,
+          "linuxCud1yr": 3.310837,
+          "linuxCud3yr": 2.102141,
+          "windowsOnDemand": 7.463232,
+          "windowsSud": 7.463232,
+          "windowsPreemptible": 4.310141,
+          "windowsCud1yr": 5.518837,
+          "windowsCud3yr": 4.310141
         },
         "us-west1": {
           "linuxOnDemand": 5.005092,
@@ -183911,6 +184319,18 @@
           "windowsCud1yr": 10.722374,
           "windowsCud3yr": 8.420074
         },
+        "europe-west4": {
+          "linuxOnDemand": 10.510464,
+          "linuxSud": 10.510464,
+          "linuxPreemptible": 4.204282,
+          "linuxCud1yr": 6.621674,
+          "linuxCud3yr": 4.204282,
+          "windowsOnDemand": 14.926464,
+          "windowsSud": 14.926464,
+          "windowsPreemptible": 8.620282,
+          "windowsCud1yr": 11.037674,
+          "windowsCud3yr": 8.620282
+        },
         "us-west1": {
           "linuxOnDemand": 10.010184,
           "linuxSud": 10.010184,
@@ -183988,6 +184408,18 @@
           "windowsPreemptible": 8.219856,
           "windowsCud1yr": 10.722374,
           "windowsCud3yr": 8.420074
+        },
+        "europe-west4": {
+          "linuxOnDemand": 10.510464,
+          "linuxSud": 10.510464,
+          "linuxPreemptible": 4.204282,
+          "linuxCud1yr": 6.621674,
+          "linuxCud3yr": 4.204282,
+          "windowsOnDemand": 14.926464,
+          "windowsSud": 14.926464,
+          "windowsPreemptible": 8.620282,
+          "windowsCud1yr": 11.037674,
+          "windowsCud3yr": 8.620282
         },
         "us-west1": {
           "linuxOnDemand": 10.010184,
@@ -184067,6 +184499,18 @@
           "windowsCud1yr": 21.444749,
           "windowsCud3yr": 16.840147
         },
+        "europe-west4": {
+          "linuxOnDemand": 21.020928,
+          "linuxSud": 21.020928,
+          "linuxPreemptible": 8.408563,
+          "linuxCud1yr": 13.243349,
+          "linuxCud3yr": 8.408563,
+          "windowsOnDemand": 29.852928,
+          "windowsSud": 29.852928,
+          "windowsPreemptible": 17.240563,
+          "windowsCud1yr": 22.075349,
+          "windowsCud3yr": 17.240563
+        },
         "us-west1": {
           "linuxOnDemand": 20.020368,
           "linuxSud": 20.020368,
@@ -184144,6 +184588,18 @@
           "windowsPreemptible": 16.439712,
           "windowsCud1yr": 21.444749,
           "windowsCud3yr": 16.840147
+        },
+        "europe-west4": {
+          "linuxOnDemand": 21.020928,
+          "linuxSud": 21.020928,
+          "linuxPreemptible": 8.408563,
+          "linuxCud1yr": 13.243349,
+          "linuxCud3yr": 8.408563,
+          "windowsOnDemand": 29.852928,
+          "windowsSud": 29.852928,
+          "windowsPreemptible": 17.240563,
+          "windowsCud1yr": 22.075349,
+          "windowsCud3yr": 17.240563
         },
         "us-west1": {
           "linuxOnDemand": 20.020368,
