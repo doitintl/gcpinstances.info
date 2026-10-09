@@ -6,7 +6,7 @@
  * and succeeded every morning. It simply re-derived the same eighteen families
  * each time, because a SKU has to clear two hand-maintained gates to appear:
  *
- *   1. SERIES_PATTERNS in fetch-pricing.ts — an unmatched description is dropped
+ *   1. SERIES_PATTERNS in sku-parse.ts — an unmatched description is dropped
  *   2. MACHINE_TYPES in machine-types.ts   — no spec means nothing to price
  *
  * Neither gate announces itself when it is out of date, so the failure mode is a
@@ -116,7 +116,7 @@ function seriesInCatalogue(descriptions: string[]): Map<string, number> {
  *  alias as missing for ever.
  */
 function parserPrefixes(): Map<string, Set<string>> {
-  const src = readFileSync(fileURLToPath(new URL('./fetch-pricing.ts', import.meta.url)), 'utf8')
+  const src = readFileSync(fileURLToPath(new URL('./sku-parse.ts', import.meta.url)), 'utf8')
   const start = src.indexOf('const SERIES_PATTERNS')
   const block = src.slice(start, src.indexOf('\n]', start))
   const out = new Map<string, Set<string>>()

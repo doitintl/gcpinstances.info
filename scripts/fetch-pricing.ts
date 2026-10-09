@@ -9,7 +9,7 @@ import { writeFileSync, mkdirSync } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath, pathToFileURL } from 'url'
 import { MACHINE_TYPES, MACHINE_TYPE_MAP, SERIES_SPECS, COREMARK_SCORES } from './machine-types.js'
-import { type RawSku, fetchAllSkus, extractPrice, isSpecificRegion } from './billing-api.js'
+import { fetchAllSkus } from './billing-api.js'
 import {
   parseSkus, type PriceKey, type ResourceRate, type WindowsLicense, type GpuRateKey, type GpuRate,
 } from './sku-parse.js'
@@ -298,9 +298,17 @@ async function main() {
   console.log(`Total SKUs fetched: ${skus.length}`)
 
   console.log('Parsing SKUs...')
-  const { rates, gpuRates, windowsLicenses } = parseSkus(skus)
+  const { rates, gpuRates, windowsLicenses, conflicts, specialModeOnly } = parseSkus(skus)
   console.log(`Parsed ${rates.size} resource rates, ${gpuRates.size} GPU rates`)
   console.log(`Windows licenses: ${windowsLicenses.length}`)
+  // Not failures: places where the catalogue itself is ambiguous, shown so a human can look.
+  if (specialModeOnly.length) {
+    console.warn(`::warning::${specialModeOnly.length} rates come from a calendar-mode/DWS/reserved SKU because Google lists no ordinary on-demand SKU for them`)
+  }
+  if (conflicts.length) {
+    console.warn(`::warning::${conflicts.length} rate keys have two ordinary SKUs at different prices (the lower is used):`)
+    for (const c of conflicts) console.warn(`  ${c.key}: ` + c.candidates.map((x) => `${x.price} "${x.description}"`).join(' | '))
+  }
 
   console.log('Building pricing table...')
   const instances = buildPricingTable(rates, gpuRates, windowsLicenses)

@@ -19,6 +19,8 @@ export interface ResourceRate {
   usageType: 'OnDemand' | 'Cud1yr' | 'Cud3yr' | 'Preemptible'
   os: 'linux' | 'windows'
   pricePerUnit: number  // USD per vCPU-hour or per GiB-hour
+  /** Calendar-mode / DWS / flex-start SKU: used only when no ordinary SKU exists (see preferCandidate). */
+  special?: boolean
 }
 
 
@@ -95,7 +97,8 @@ export const GPU_TYPE_PATTERNS: [RegExp, string][] = [
   [/A100 80GB/i,          'A100_80GB'],
   [/A100 40GB/i,          'A100_40GB'],
   [/A100/i,               'A100_40GB'],  // fallback for unqualified A100 (most are 40GB)
-  [/H100.*Mega|Mega.*H100/i, 'H100_MEGA_80GB'],
+  // Google lists the Mega GPU as 'Mega' in some SKUs and 'Plus' in others (the machine is A3Plus too).
+  [/H100.*\b(?:Mega|Plus)\b|\b(?:Mega|Plus)\b.*H100/i, 'H100_MEGA_80GB'],
   [/H100/i,               'H100_80GB'],
   [/\bL4\b/i,             'L4'],
   [/B200/i,               'B200'],
@@ -108,6 +111,52 @@ export function matchGpuType(description: string): string | null {
   return null
 }
 
+/**
+ * SKUs for how a machine is bought or scheduled, not for what it costs to run on demand:
+ * calendar-mode and DWS (Dynamic Workload Scheduler) reservations, defined-duration and
+ * flex-start capacity. Google tags several of them usageType "OnDemand" and describes them
+ * like the ordinary SKU with a prefix or suffix, so without this they compete with the real
+ * on-demand price for the same key. For the H100 Mega GPU in us-central1 the catalogue held
+ * only two such SKUs next to the real one, which is how a3-megagpu-8g came out at about half
+ * its real price, and at a different price on days Google listed them in another order.
+ */
+/**
+ * Usage types that are prices this site publishes. Anything else is skipped, not defaulted to
+ * on-demand, which is what used to happen: a generic 'Commit' SKU (a 5-year term, e.g.
+ * "Commitment v1: N4A Core in Johannesburg for 5 Years") and the 'CmtCudPremium' surcharges
+ * were filed under on-demand, and whichever came first in the catalogue won.
+ */
+export const PUBLISHED_USAGE_TYPES = new Set(['OnDemand', 'Preemptible', 'Commit1Yr', 'Commit3Yr'])
+
+/**
+ * Surcharges that sit on top of a base rate, not rates of their own: "Memory Optimized Upgrade
+ * Premium for …", "Sole Tenancy Premium for …", "Committed Use Discount Premium for …". The
+ * M1 upgrade premium is cheaper than the base SKU and shares its series, resource and region,
+ * so it used to compete with it. The base alone prices m1-ultramem-40 at $6.29/hr in
+ * us-central1 against Google's published ~$6.30; adding the premium would give $7.11.
+ */
+export const ADD_ON_SKU_RE = /\bpremium for\b/i
+
+export const SPECIAL_MODE_RE = /calendar mode|\bDWS\b|defined duration|flex[- ]?start|^reserved\b/i
+export function isSpecialModeSku(description: string): boolean {
+  return SPECIAL_MODE_RE.test(description)
+}
+
+/**
+ * Which of two SKUs for the same key to keep: independent of the order Google returns them in.
+ * An ordinary SKU always beats a special-mode one; between equals the lower price wins (what the
+ * old comment here promised: "keep the first (lowest) rate", which kept the first, not the
+ * lowest). A different order can no longer change a price.
+ */
+export function preferCandidate(
+  existing: { price: number; special: boolean } | undefined,
+  candidate: { price: number; special: boolean },
+): boolean {
+  if (!existing) return true
+  if (existing.special !== candidate.special) return existing.special
+  return candidate.price < existing.price
+}
+
 // GPU rates keyed as `${gpuType}:${region}:${usageType}` → price per GPU-hour
 export type GpuRateKey = string
 
@@ -116,16 +165,32 @@ export interface GpuRate {
   region: string
   usageType: ResourceRate['usageType']
   pricePerGpu: number
+  special?: boolean
 }
+
+/** A key two ordinary SKUs both claim, at different prices: the parser still picks one, deterministically, but a person should look. */
+/** Keys whose only SKU is a calendar-mode / DWS / reserved one: Google lists no ordinary on-demand price, so that one is shown. */
+export type SpecialModeOnlyKey = string
+
+export interface SkuConflict { key: string; candidates: { price: number; description: string }[] }
 
 export function parseSkus(skus: RawSku[]): {
   rates: Map<PriceKey, ResourceRate>
   gpuRates: Map<GpuRateKey, GpuRate>
   windowsLicenses: WindowsLicense[]
+  conflicts: SkuConflict[]
+  specialModeOnly: SpecialModeOnlyKey[]
 } {
   const rates = new Map<PriceKey, ResourceRate>()
   const gpuRates = new Map<GpuRateKey, GpuRate>()
   const windowsLicenses: WindowsLicense[] = []
+  const candidatesByKey = new Map<string, { price: number; description: string }[]>()
+  const noteCandidate = (key: string, price: number, description: string, special: boolean) => {
+    if (special) return
+    const list = candidatesByKey.get(key) ?? []
+    if (!list.some((c) => c.price === price)) list.push({ price, description })
+    candidatesByKey.set(key, list)
+  }
 
   for (const sku of skus) {
     const { category, description, serviceRegions } = sku
@@ -157,6 +222,8 @@ export function parseSkus(skus: RawSku[]): {
 
     const rg = category.resourceGroup
     const usageType = category.usageType
+    if (!PUBLISHED_USAGE_TYPES.has(usageType) || ADD_ON_SKU_RE.test(description)) continue
+    const special = isSpecialModeSku(description)
 
     // --- GPU SKUs (resourceGroup 'GPU') ---
     // Price is per GPU-hour; keyed by gpu type + region + usage type
@@ -168,15 +235,19 @@ export function parseSkus(skus: RawSku[]): {
       if (!regions.length) continue
 
       let parsedUsageType: ResourceRate['usageType']
-      if (usageType === 'Preemptible') parsedUsageType = 'Preemptible'
+      // Some spot SKUs carry usageType OnDemand and say so only in the description (the A4 B200
+      // 'Spot Preemptible' slice), which put a spot price next to the on-demand one.
+      if (usageType === 'Preemptible' || /\bspot\b|\bpreemptible\b/i.test(description)) parsedUsageType = 'Preemptible'
       else if (usageType === 'Commit1Yr') parsedUsageType = 'Cud1yr'
       else if (usageType === 'Commit3Yr') parsedUsageType = 'Cud3yr'
       else parsedUsageType = 'OnDemand'
 
       for (const region of regions) {
         const key: GpuRateKey = `${gpuType}:${region}:${parsedUsageType}`
-        if (!gpuRates.has(key)) {
-          gpuRates.set(key, { gpuType, region, usageType: parsedUsageType, pricePerGpu: price })
+        noteCandidate('gpu:' + key, price, description, special)
+        const prev = gpuRates.get(key)
+        if (preferCandidate(prev && { price: prev.pricePerGpu, special: !!prev.special }, { price, special })) {
+          gpuRates.set(key, { gpuType, region, usageType: parsedUsageType, pricePerGpu: price, special })
         }
       }
       continue
@@ -240,12 +311,19 @@ export function parseSkus(skus: RawSku[]): {
 
     for (const region of regions) {
       const key: PriceKey = `${series}:${resource}:${region}:${parsedUsageType}:${os}`
-      // Keep the first (lowest) rate in case of duplicates
-      if (!rates.has(key)) {
-        rates.set(key, { series, resource, region, usageType: parsedUsageType, os, pricePerUnit: price })
+      noteCandidate(key, price, description, special)
+      const prev = rates.get(key)
+      if (preferCandidate(prev && { price: prev.pricePerUnit, special: !!prev.special }, { price, special })) {
+        rates.set(key, { series, resource, region, usageType: parsedUsageType, os, pricePerUnit: price, special })
       }
     }
   }
 
-  return { rates, gpuRates, windowsLicenses }
+  const conflicts: SkuConflict[] = []
+  for (const [key, candidates] of candidatesByKey) if (candidates.length > 1) conflicts.push({ key, candidates })
+  const specialModeOnly: SpecialModeOnlyKey[] = [
+    ...[...rates].filter(([, r]) => r.special).map(([k]) => k),
+    ...[...gpuRates].filter(([, r]) => r.special).map(([k]) => 'gpu:' + k),
+  ].sort()
+  return { rates, gpuRates, windowsLicenses, conflicts, specialModeOnly }
 }
