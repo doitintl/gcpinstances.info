@@ -11,7 +11,8 @@
 import { readFileSync } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { extractPrice, isSpecificRegion } from './billing-api.js'
+import { extractPrice } from './billing-api.js'
+import { parseSkus } from './sku-parse.js'
 import type { RawSku } from './billing-api.js'
 import type { InstancePricing, PricingData, InstanceRegionPricing } from './fetch-pricing.js'
 
@@ -104,46 +105,6 @@ const TRUTH_TABLE: Array<{
 // SUD (Sustained Use Discount) factors — must match fetch-pricing.ts
 const SUD_DISCOUNT: Record<string, number> = { N1: 0.30, N2: 0.20, N2D: 0.20 }
 
-// Series detection patterns (same order as fetch-pricing.ts to avoid C3/C3D mismatches)
-const SERIES_PATTERNS: [RegExp, string][] = [
-  [/^A3Mega\s+/i, 'A3Mega'],
-  [/^A3\s+/i,     'A3'],
-  [/^A2\s+/i,     'A2'],
-  [/^G2\s+/i,     'G2'],
-  [/^C4\s+/i,     'C4'],
-  [/^C3D\s+/i,    'C3D'],
-  [/^C3\s+/i,     'C3'],
-  [/^C2D\s+/i,    'C2D'],
-  [/^C2\s+/i,     'C2'],
-  [/^Compute[ -]optimized/i, 'C2'],
-  [/^H3\s+/i,     'H3'],
-  [/^N4\s+/i,     'N4'],
-  [/^N2D\s+/i,    'N2D'],
-  [/^N2\s+/i,     'N2'],
-  [/^N1\s+/i,     'N1'],
-  [/^E2\s+/i,     'E2'],
-  [/^T2D\s+/i,    'T2D'],
-  [/^T2A\s+/i,    'T2A'],
-  [/^M3\s+/i,     'M3'],
-  [/^M2\s+/i,     'M2'],
-  [/^M1\s+/i,     'M1'],
-  [/^Memory[ -]optimized/i, 'M1'],
-]
-
-// GPU model patterns (same as fetch-pricing.ts)
-const GPU_TYPE_PATTERNS: [RegExp, string][] = [
-  [/A100 80GB/i,              'A100_80GB'],
-  [/A100 40GB/i,              'A100_40GB'],
-  [/A100/i,                   'A100_40GB'],
-  [/H100.*Mega|Mega.*H100/i,  'H100_MEGA_80GB'],
-  [/H100/i,                   'H100_80GB'],
-  [/\bL4\b/i,                 'L4'],
-  [/B200/i,                   'B200'],
-]
-
-const CPU_RE   = /\bcore\b|\bcpu\b/i
-const RAM_RE   = /\bram\b|\bmemory\b/i
-const SKIP_RE  = /custom|sole.?tenancy|extended/i
 
 // ── Rates map types ────────────────────────────────────────────────────────
 
@@ -159,18 +120,22 @@ interface ParsedRates {
   windowsPerVcpuRate: number
 }
 
-// ── Helper: build rates map from raw SKUs (mirrors parseSkus in fetch-pricing.ts) ──
+// ── Helper: build rates map from raw SKUs ──
+//
+// Parsed by the same code the fetch uses (scripts/sku-parse.ts). This used to be a hand-copied
+// "mirror" of it, and the copy drifted: it never learned the A3Plus spelling, kept its own
+// first-seen-wins rule, and so a check meant to catch a wrong price could disagree with the
+// fetch for reasons that had nothing to do with prices. Only the Windows licence rate, which
+// the fetch handles differently, is still worked out here.
 
 function buildRatesMap(skus: RawSku[]): ParsedRates {
-  const rates: RatesMap = new Map()
-  const gpuRates: GpuRates = new Map()
+  const parsed = parseSkus(skus)
+  const rates: RatesMap = new Map([...parsed.rates].map(([k, r]) => [k, r.pricePerUnit] as [string, number]))
+  const gpuRates: GpuRates = new Map([...parsed.gpuRates].map(([k, r]) => [k, r.pricePerGpu] as [string, number]))
   let windowsPerVcpuRate = 0
 
   for (const sku of skus) {
-    const { category, description, serviceRegions } = sku
-    const price = extractPrice(sku)
-    if (price === null || price === 0) continue
-
+    const { category, description } = sku
     // Windows license (global, per-vCPU standard rate)
     // Prefer the Standard edition SKU; fall back to first seen — mirrors fetch-pricing.ts logic.
     if (
@@ -178,77 +143,15 @@ function buildRatesMap(skus: RawSku[]): ParsedRates {
       description.toLowerCase().includes('licensing fee for windows') &&
       /\bon\s+vm\b/i.test(description)
     ) {
+      const price = extractPrice(sku)
+      if (price === null || price === 0) continue
       if (windowsPerVcpuRate === 0 || description.toLowerCase().includes('standard')) {
         windowsPerVcpuRate = price
       }
-      continue
-    }
-
-    if (category.resourceFamily !== 'Compute') continue
-
-    const rg = category.resourceGroup
-
-    // GPU SKUs
-    if (rg === 'GPU') {
-      let gpuType: string | null = null
-      for (const [pat, type] of GPU_TYPE_PATTERNS) {
-        if (pat.test(description)) { gpuType = type; break }
-      }
-      if (!gpuType) continue
-
-      const usageType = mapUsageType(category.usageType, description)
-      for (const region of serviceRegions.filter(isSpecificRegion)) {
-        const key = `${gpuType}:${region}:${usageType}`
-        if (!gpuRates.has(key)) gpuRates.set(key, price)
-      }
-      continue
-    }
-
-    if (rg !== 'CPU' && rg !== 'RAM' && rg !== 'N1Standard') continue
-
-    const usageType = mapUsageType(category.usageType, description)
-    const os: 'linux' | 'windows' = description.toLowerCase().includes('windows') ? 'windows' : 'linux'
-
-    // Strip per-type prefixes before series matching (same as fetch-pricing.ts)
-    const cleanDesc = description
-      .replace(/^Commit[13]Yr:\s*/i, '')
-      .replace(/^Commitment\s+v\d+:\s*/i, '')
-      .replace(/^Spot\s+Preemptible\s+/i, '')
-      .replace(/^DWS\s+[^:]+:\s*/i, '')
-      .replace(/^Reserved\s+/i, '')
-
-    if (SKIP_RE.test(cleanDesc)) continue
-
-    const isCpu = CPU_RE.test(cleanDesc)
-    const isRam = RAM_RE.test(cleanDesc)
-    if (!isCpu && !isRam) continue
-    const resource = isCpu ? 'cpu' : 'ram'
-
-    let series: string | null = null
-    if (/^C3D\s+/i.test(cleanDesc)) {
-      series = 'C3D'
-    } else {
-      for (const [pattern, s] of SERIES_PATTERNS) {
-        if (pattern.test(cleanDesc)) { series = s; break }
-      }
-    }
-    if (!series) continue
-
-    for (const region of serviceRegions.filter(isSpecificRegion)) {
-      const key = `${series}:${resource}:${region}:${usageType}:${os}`
-      if (!rates.has(key)) rates.set(key, price)
     }
   }
 
   return { rates, gpuRates, windowsPerVcpuRate }
-}
-
-function mapUsageType(raw: string, description = ''): UsageType {
-  if (raw === 'Preemptible') return 'Preemptible'
-  const desc = description.toLowerCase()
-  if (raw === 'Commit1Yr' || desc.includes('commit1yr')) return 'Cud1yr'
-  if (raw === 'Commit3Yr' || desc.includes('commit3yr')) return 'Cud3yr'
-  return 'OnDemand'
 }
 
 function getRate(rates: RatesMap, series: string, resource: 'cpu' | 'ram', region: string, usageType: UsageType, os: 'linux' | 'windows' = 'linux'): number | null {
