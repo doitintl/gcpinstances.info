@@ -4,15 +4,15 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GCP Instance Pricing Comparison — Compute Engine, Cloud SQL, Memorystore | DoiT</title>
-    <meta name="description" content="Compare GCP instance types, specs and pricing across all regions. Filter by vCPUs, memory, family. Compute Engine, Cloud SQL and Memorystore pricing in one place." />
-    <meta name="keywords" content="GCP pricing, Google Cloud instances, Compute Engine pricing, Cloud SQL pricing, Memorystore pricing, instance comparison, cloud cost optimization" />
+    <title>GCP Instance Pricing Comparison — Compute Engine, Cloud SQL, AlloyDB, Memorystore | DoiT</title>
+    <meta name="description" content="Compare GCP instance types, specs and pricing across all regions. Filter by vCPUs, memory, family. Compute Engine, Cloud SQL, AlloyDB and Memorystore pricing in one place." />
+    <meta name="keywords" content="GCP pricing, Google Cloud instances, Compute Engine pricing, Cloud SQL pricing, AlloyDB pricing, Memorystore pricing, instance comparison, cloud cost optimization" />
     <link rel="canonical" href="https://gcpinstances.doit.com/" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="GCP Instance Pricing Comparison | DoiT" />
-    <meta property="og:description" content="Compare GCP instance types, specs and pricing across all regions. Filter by vCPUs, memory, family. Compute Engine, Cloud SQL and Memorystore pricing in one place." />
+    <meta property="og:description" content="Compare GCP instance types, specs and pricing across all regions. Filter by vCPUs, memory, family. Compute Engine, Cloud SQL, AlloyDB and Memorystore pricing in one place." />
     <meta property="og:url" content="https://gcpinstances.doit.com/" />
     <meta property="og:image" content="https://gcpinstances.doit.com/og-image.png" />
     <meta property="og:site_name" content="GCP Instances" />
@@ -20,22 +20,113 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="GCP Instance Pricing Comparison | DoiT" />
-    <meta name="twitter:description" content="Compare GCP instance types, specs and pricing across all regions. Filter by vCPUs, memory, family." />
+    <meta name="twitter:description" content="Compare GCP instance types, specs and pricing across all regions. Filter by vCPUs, memory, family. Compute Engine, Cloud SQL, AlloyDB and Memorystore." />
     <meta name="twitter:image" content="https://gcpinstances.doit.com/og-image.png" />
 
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "GCP Instances",
-      "description": "Compare GCP instance types, specs and pricing across all regions",
-      "url": "https://gcpinstances.doit.com/",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Any",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-      "creator": { "@type": "Organization", "name": "DoiT International", "url": "https://www.doit.com" }
-    }
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "GCP Instances",
+        "description": "Compare GCP instance types, specs and pricing across all regions. Covers Compute Engine, Cloud SQL, AlloyDB, and Memorystore.",
+        "url": "https://gcpinstances.doit.com/",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "creator": { "@type": "Organization", "name": "DoiT International", "url": "https://www.doit.com" },
+        "sameAs": "https://github.com/doitintl/gcpinstances.info",
+        "featureList": [
+          "Compare Compute Engine VM pricing across all regions",
+          "Compare Cloud SQL pricing for MySQL, PostgreSQL, and SQL Server",
+          "Compare AlloyDB for PostgreSQL pricing",
+          "Compare Memorystore pricing for Redis and Valkey",
+          "On-demand, spot, and committed use discount pricing",
+          "12 currency support",
+          "CSV export",
+          "Shareable filter URLs"
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "GCP Instances",
+        "url": "https://gcpinstances.doit.com/",
+        "description": "Free GCP instance pricing comparison tool by DoiT International",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://gcpinstances.doit.com/#home?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Dataset",
+        "name": "Google Cloud Compute Engine Pricing Data",
+        "description": "Comprehensive pricing for all Compute Engine VM instance types across all GCP regions. Includes on-demand, spot/preemptible, sustained use discount (SUD), and 1-year and 3-year committed use discount (CUD) pricing for Linux and Windows. Updated daily from the Google Cloud Billing Catalog API.",
+        "url": "https://gcpinstances.doit.com/data/pricing.json",
+        "isAccessibleForFree": true,
+        "creator": { "@type": "Organization", "name": "DoiT International", "url": "https://www.doit.com" },
+        "distribution": {
+          "@type": "DataDownload",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://gcpinstances.doit.com/data/pricing.json"
+        },
+        "temporalCoverage": "2024/..",
+        "spatialCoverage": "Global (all GCP regions)",
+        "keywords": ["GCP", "Compute Engine", "VM pricing", "Google Cloud", "instance types"]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Dataset",
+        "name": "Google Cloud SQL Pricing Data",
+        "description": "Pricing for all Cloud SQL instance types across all GCP regions, covering MySQL, PostgreSQL, SQL Server Standard, Enterprise, Express, and Web editions. Updated daily.",
+        "url": "https://gcpinstances.doit.com/data/cloudsql-pricing.json",
+        "isAccessibleForFree": true,
+        "creator": { "@type": "Organization", "name": "DoiT International", "url": "https://www.doit.com" },
+        "distribution": {
+          "@type": "DataDownload",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://gcpinstances.doit.com/data/cloudsql-pricing.json"
+        },
+        "temporalCoverage": "2024/..",
+        "keywords": ["Cloud SQL", "MySQL pricing", "PostgreSQL pricing", "SQL Server pricing", "Google Cloud"]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Dataset",
+        "name": "Google Cloud AlloyDB Pricing Data",
+        "description": "Pricing for all AlloyDB for PostgreSQL instance types across all GCP regions. Updated daily.",
+        "url": "https://gcpinstances.doit.com/data/alloydb-pricing.json",
+        "isAccessibleForFree": true,
+        "creator": { "@type": "Organization", "name": "DoiT International", "url": "https://www.doit.com" },
+        "distribution": {
+          "@type": "DataDownload",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://gcpinstances.doit.com/data/alloydb-pricing.json"
+        },
+        "temporalCoverage": "2024/..",
+        "keywords": ["AlloyDB", "PostgreSQL pricing", "Google Cloud", "managed database"]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Dataset",
+        "name": "Google Cloud Memorystore Pricing Data",
+        "description": "Pricing for all Memorystore instance types (Redis, Valkey) across all GCP regions. Updated daily.",
+        "url": "https://gcpinstances.doit.com/data/memorystore-pricing.json",
+        "isAccessibleForFree": true,
+        "creator": { "@type": "Organization", "name": "DoiT International", "url": "https://www.doit.com" },
+        "distribution": {
+          "@type": "DataDownload",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://gcpinstances.doit.com/data/memorystore-pricing.json"
+        },
+        "temporalCoverage": "2024/..",
+        "keywords": ["Memorystore", "Redis pricing", "Valkey pricing", "Google Cloud", "managed cache"]
+      }
+    ]
     </script>
 
     <!-- AWS CloudWatch RUM -->
@@ -58,6 +149,27 @@
     </script>
   </head>
   <body>
+    <noscript>
+      <div style="max-width:860px;margin:2rem auto;padding:1.5rem 2rem;font-family:system-ui,sans-serif;color:#111;">
+        <h1 style="font-size:1.75rem;margin-bottom:0.5rem;">GCP Instance Pricing Comparison</h1>
+        <p style="font-size:1rem;color:#444;margin-bottom:1.5rem;">A free tool by <a href="https://www.doit.com" style="color:#4f46e5;">DoiT International</a> to compare Google Cloud Platform instance types, specifications, and pricing across all regions and commitment tiers.</p>
+        <h2 style="font-size:1.25rem;margin-bottom:0.75rem;">Products Covered</h2>
+        <ul style="line-height:1.9;padding-left:1.25rem;margin-bottom:1.5rem;">
+          <li><strong>Compute Engine</strong> — Compare all VM instance families (N1, N2, N2D, E2, C2, C2D, C3, C3D, M1, M2, M3, A2, A3, G2) with on-demand, spot/preemptible, and committed use discount (1yr / 3yr) pricing across all GCP regions.</li>
+          <li><strong>Cloud SQL</strong> — Compare managed database instance types and pricing for MySQL, PostgreSQL, and SQL Server (Standard, Enterprise, Express, Web editions).</li>
+          <li><strong>AlloyDB</strong> — Compare AlloyDB for PostgreSQL instance types and pricing.</li>
+          <li><strong>Memorystore</strong> — Compare managed Redis and Valkey instance types and pricing.</li>
+        </ul>
+        <h2 style="font-size:1.25rem;margin-bottom:0.75rem;">Pricing Data (JSON, updated daily)</h2>
+        <ul style="line-height:1.9;padding-left:1.25rem;margin-bottom:1.5rem;">
+          <li><a href="/data/pricing.json">Compute Engine pricing</a></li>
+          <li><a href="/data/cloudsql-pricing.json">Cloud SQL pricing</a></li>
+          <li><a href="/data/alloydb-pricing.json">AlloyDB pricing</a></li>
+          <li><a href="/data/memorystore-pricing.json">Memorystore pricing</a></li>
+        </ul>
+        <p style="color:#666;font-size:0.875rem;">This application requires JavaScript to display the interactive pricing tables. Please enable JavaScript in your browser. Data sourced from the <a href="https://cloud.google.com/billing/docs/reference/rest">Google Cloud Billing Catalog API</a>. Not affiliated with Google.</p>
+      </div>
+    </noscript>
     <div id="root"></div>
     <script>
       // Apply persisted theme before React mounts to avoid a flash of light UI.
@@ -67,6 +179,20 @@
           if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
           if (t === 'dark') document.documentElement.classList.add('dark');
         } catch (e) {}
+      })();
+    </script>
+    <!-- Redirect legacy hash-based URLs to path-based URLs -->
+    <script>
+      (function () {
+        var hash = location.hash.slice(1); // e.g. "cloudsql?region=us-east1"
+        if (!hash) return;
+        var parts = hash.split('?');
+        var page = parts[0];
+        var validPages = { cloudsql: 1, memorystore: 1, alloydb: 1, 'mcp-cli': 1 };
+        if (validPages[page]) {
+          var query = parts[1] ? '?' + parts[1] : '';
+          history.replaceState(null, '', '/' + page + '/' + query);
+        }
       })();
     </script>
     <script type="module" src="/src/main.tsx"></script>
