@@ -150,6 +150,7 @@ const SERIES_PATTERNS: [RegExp, string][] = [
   // "Z4D-HIGHMEM-HIGHLSSD Instance Ram running in Iowa".
   [/^Z4D-HIGHMEM-HIGHLSSD\s+/i,     'Z4DHighLssd'],
   [/^Z4D-HIGHMEM-STANDARDLSSD\s+/i, 'Z4DStandardLssd'],
+  [/^Z4M\s+/i,              'Z4M'],
   [/^Z3\s+/i,               'Z3'],
   [/^X4\s+/i,               'X4'],
   [/^Memory[ -]optimized/i,  'M1'],
