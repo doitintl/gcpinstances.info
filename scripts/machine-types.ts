@@ -67,6 +67,7 @@ export const SERIES_SPECS: Record<string, Partial<MachineTypeSpec>> = {
   M4N: { cpuType: 'Intel Xeon 6 (Granite Rapids)',  localSsd: false, gpuSupport: false, soleTenantSupport: true,  nestedVirtualization: false },
   X4:  { cpuType: 'Intel Sapphire Rapids',          localSsd: false, gpuSupport: false, soleTenantSupport: true,  nestedVirtualization: false },
   Z3:  { cpuType: 'Intel Sapphire Rapids',          localSsd: true,  gpuSupport: false, soleTenantSupport: false, nestedVirtualization: false },
+  Z4M: { cpuType: 'Intel Xeon 5th gen (Emerald Rapids)', localSsd: true, gpuSupport: false, soleTenantSupport: true, nestedVirtualization: false },
   // Google prices the two Local SSD variants separately
   // (Z4D-HIGHMEM-STANDARDLSSD and Z4D-HIGHMEM-HIGHLSSD), so they are distinct
   // series here — one shared Z4D would bill the high-LSSD shapes at the
@@ -631,6 +632,12 @@ export const MACHINE_TYPES: MachineTypeSpec[] = [
   { name: 'z4d-highmem-64-highlssd',       series: 'Z4DHighLssd', family: 'Storage optimized', vCpus:  64, memoryGb: 504 },
   { name: 'z4d-highmem-96-highlssd',       series: 'Z4DHighLssd', family: 'Storage optimized', vCpus:  96, memoryGb: 756 },
   { name: 'z4d-highmem-192-highlssd',      series: 'Z4DHighLssd', family: 'Storage optimized', vCpus: 192, memoryGb: 1512 },
+  // --- Z4M (Storage optimized) — 5 types from the Compute Engine API ---
+  { name: 'z4m-highmem-16',        series: 'Z4M', family: 'Storage optimized', vCpus:  16, memoryGb: 122 },
+  { name: 'z4m-highmem-32',        series: 'Z4M', family: 'Storage optimized', vCpus:  32, memoryGb: 244 },
+  { name: 'z4m-highmem-48',        series: 'Z4M', family: 'Storage optimized', vCpus:  48, memoryGb: 366 },
+  { name: 'z4m-highmem-192',       series: 'Z4M', family: 'Storage optimized', vCpus: 192, memoryGb: 1488 },
+  { name: 'z4m-highmem-192-metal', series: 'Z4M', family: 'Storage optimized', vCpus: 192, memoryGb: 1536 },
   // --- M2 (Memory optimized) — 6 types from the Compute Engine API, 4 already defined ---
   { name: 'm2-ultramem2x-96',  series: 'M2', family: 'Memory optimized', vCpus:  96, memoryGb: 1250 },
   { name: 'm2-ultramemx-96',   series: 'M2', family: 'Memory optimized', vCpus:  96, memoryGb: 600 },
