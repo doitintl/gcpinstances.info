@@ -72,6 +72,17 @@ export default function App() {
   const [visibleMemorystoreColumns, setVisibleMemorystoreColumns] = useState<Record<string, boolean>>(initialState.visibleMemorystoreColumns)
   const [visibleAlloyDbColumns, setVisibleAlloyDbColumns] = useState<Record<string, boolean>>(initialState.visibleAlloyDbColumns)
 
+  // Report the page whenever it changes, including the first render.
+  //
+  // trackPageView was only ever called from the tab click handlers, so a direct
+  // visit to /#cloudsql, a browser back or forward, and the initial landing
+  // page all went uncounted. Driving it from the state the URL already syncs
+  // to catches every one of those, and is what a single-page app has to do for
+  // GA4 — there is no document load between tabs for the tag to notice.
+  useEffect(() => {
+    trackPageView(page)
+  }, [page])
+
   // Sync state to URL whenever any filter changes
   useEffect(() => {
     syncStateToUrl(page, { region, costPeriod, currency, minMemory, minVCpus, minCapacityGb, globalSearch, visibleColumns, visibleCloudSqlColumns, visibleMemorystoreColumns, visibleAlloyDbColumns })
@@ -287,7 +298,6 @@ export default function App() {
             <div className="sm:hidden flex items-center gap-2">
               <a
                 href="#mcp-cli"
-                onClick={() => trackPageView('mcp-cli')}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-500 text-white hover:bg-blue-400 transition-colors shadow-sm shadow-blue-500/40"
               >
                 <Terminal className="w-3 h-3" />
@@ -300,7 +310,6 @@ export default function App() {
           <nav className="flex items-center gap-1 overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0 sm:ml-4">
             <a
               href="#home"
-              onClick={() => trackPageView('home')}
               className={cn(
                 'px-3 py-1.5 text-sm rounded-md transition-colors whitespace-nowrap',
                 page === 'home' || page === 'mcp-cli'
@@ -312,7 +321,6 @@ export default function App() {
             </a>
             <a
               href="#cloudsql"
-              onClick={() => trackPageView('cloudsql')}
               className={cn(
                 'px-3 py-1.5 text-sm rounded-md transition-colors whitespace-nowrap',
                 page === 'cloudsql'
@@ -324,7 +332,6 @@ export default function App() {
             </a>
             <a
               href="#memorystore"
-              onClick={() => trackPageView('memorystore')}
               className={cn(
                 'px-3 py-1.5 text-sm rounded-md transition-colors whitespace-nowrap',
                 page === 'memorystore'
@@ -336,7 +343,6 @@ export default function App() {
             </a>
             <a
               href="#alloydb"
-              onClick={() => trackPageView('alloydb')}
               className={cn(
                 'px-3 py-1.5 text-sm rounded-md transition-colors whitespace-nowrap',
                 page === 'alloydb'
@@ -354,7 +360,6 @@ export default function App() {
             </div>
             <a
               href="#mcp-cli"
-              onClick={() => trackPageView('mcp-cli')}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-500 text-white hover:bg-blue-400 transition-colors shadow-sm shadow-blue-500/40"
             >
               <Terminal className="w-3 h-3" />
