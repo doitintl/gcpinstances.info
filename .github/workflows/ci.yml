@@ -5,6 +5,9 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
+    # The daily pricing refresh opens and merges a data-only PR within seconds, so its runs never
+    # get to start and show as failed. Nothing there is code to test.
+    paths-ignore: ['public/data/**']
 
 jobs:
   test:
