@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-15T06:10:25.434Z",
+  "updatedAt": "2026-10-18T06:25:26.000Z",
   "regions": [
     "africa-south1",
     "asia-east1",
@@ -211246,6 +211246,276 @@
           "windowsPreemptible": 13.457328,
           "windowsCud1yr": 16.69572,
           "windowsCud3yr": 13.920336
+        }
+      }
+    },
+    {
+      "name": "z4m-highmem-16",
+      "series": "Z4M",
+      "family": "Storage optimized",
+      "vCpus": 16,
+      "memoryGb": 122,
+      "cpuType": "Intel Xeon 5th gen (Emerald Rapids)",
+      "localSsd": true,
+      "networkPerformance": null,
+      "gpuSupport": false,
+      "gpuCount": null,
+      "gpuType": null,
+      "soleTenantSupport": true,
+      "nestedVirtualizationSupport": false,
+      "coremarkScore": null,
+      "pricing": {
+        "us-central1": {
+          "linuxOnDemand": 1.034836,
+          "linuxSud": 1.034836,
+          "linuxPreemptible": 0.413934,
+          "linuxCud1yr": 0.703684,
+          "linuxCud3yr": 0.455325,
+          "windowsOnDemand": 1.770836,
+          "windowsSud": 1.770836,
+          "windowsPreemptible": 1.149934,
+          "windowsCud1yr": 1.439684,
+          "windowsCud3yr": 1.191325
+        },
+        "us-east4": {
+          "linuxOnDemand": 1.034836,
+          "linuxSud": 1.034836,
+          "linuxPreemptible": 0.413934,
+          "linuxCud1yr": 0.703684,
+          "linuxCud3yr": 0.455325,
+          "windowsOnDemand": 1.770836,
+          "windowsSud": 1.770836,
+          "windowsPreemptible": 1.149934,
+          "windowsCud1yr": 1.439684,
+          "windowsCud3yr": 1.191325
+        },
+        "europe-north1": {
+          "linuxOnDemand": 1.139454,
+          "linuxSud": 1.139454,
+          "linuxPreemptible": 0.455788,
+          "linuxCud1yr": 0.774823,
+          "linuxCud3yr": 0.501362,
+          "windowsOnDemand": 1.875454,
+          "windowsSud": 1.875454,
+          "windowsPreemptible": 1.191788,
+          "windowsCud1yr": 1.510823,
+          "windowsCud3yr": 1.237362
+        }
+      }
+    },
+    {
+      "name": "z4m-highmem-32",
+      "series": "Z4M",
+      "family": "Storage optimized",
+      "vCpus": 32,
+      "memoryGb": 244,
+      "cpuType": "Intel Xeon 5th gen (Emerald Rapids)",
+      "localSsd": true,
+      "networkPerformance": null,
+      "gpuSupport": false,
+      "gpuCount": null,
+      "gpuType": null,
+      "soleTenantSupport": true,
+      "nestedVirtualizationSupport": false,
+      "coremarkScore": null,
+      "pricing": {
+        "us-central1": {
+          "linuxOnDemand": 2.069672,
+          "linuxSud": 2.069672,
+          "linuxPreemptible": 0.827869,
+          "linuxCud1yr": 1.407367,
+          "linuxCud3yr": 0.910651,
+          "windowsOnDemand": 3.541672,
+          "windowsSud": 3.541672,
+          "windowsPreemptible": 2.299869,
+          "windowsCud1yr": 2.879367,
+          "windowsCud3yr": 2.382651
+        },
+        "us-east4": {
+          "linuxOnDemand": 2.069672,
+          "linuxSud": 2.069672,
+          "linuxPreemptible": 0.827869,
+          "linuxCud1yr": 1.407367,
+          "linuxCud3yr": 0.910651,
+          "windowsOnDemand": 3.541672,
+          "windowsSud": 3.541672,
+          "windowsPreemptible": 2.299869,
+          "windowsCud1yr": 2.879367,
+          "windowsCud3yr": 2.382651
+        },
+        "europe-north1": {
+          "linuxOnDemand": 2.278908,
+          "linuxSud": 2.278908,
+          "linuxPreemptible": 0.911576,
+          "linuxCud1yr": 1.549645,
+          "linuxCud3yr": 1.002724,
+          "windowsOnDemand": 3.750908,
+          "windowsSud": 3.750908,
+          "windowsPreemptible": 2.383576,
+          "windowsCud1yr": 3.021645,
+          "windowsCud3yr": 2.474724
+        }
+      }
+    },
+    {
+      "name": "z4m-highmem-48",
+      "series": "Z4M",
+      "family": "Storage optimized",
+      "vCpus": 48,
+      "memoryGb": 366,
+      "cpuType": "Intel Xeon 5th gen (Emerald Rapids)",
+      "localSsd": true,
+      "networkPerformance": null,
+      "gpuSupport": false,
+      "gpuCount": null,
+      "gpuType": null,
+      "soleTenantSupport": true,
+      "nestedVirtualizationSupport": false,
+      "coremarkScore": null,
+      "pricing": {
+        "us-central1": {
+          "linuxOnDemand": 3.104508,
+          "linuxSud": 3.104508,
+          "linuxPreemptible": 1.241803,
+          "linuxCud1yr": 2.111051,
+          "linuxCud3yr": 1.365976,
+          "windowsOnDemand": 5.312508,
+          "windowsSud": 5.312508,
+          "windowsPreemptible": 3.449803,
+          "windowsCud1yr": 4.319051,
+          "windowsCud3yr": 3.573976
+        },
+        "us-east4": {
+          "linuxOnDemand": 3.104508,
+          "linuxSud": 3.104508,
+          "linuxPreemptible": 1.241803,
+          "linuxCud1yr": 2.111051,
+          "linuxCud3yr": 1.365976,
+          "windowsOnDemand": 5.312508,
+          "windowsSud": 5.312508,
+          "windowsPreemptible": 3.449803,
+          "windowsCud1yr": 4.319051,
+          "windowsCud3yr": 3.573976
+        },
+        "europe-north1": {
+          "linuxOnDemand": 3.418361,
+          "linuxSud": 3.418361,
+          "linuxPreemptible": 1.367365,
+          "linuxCud1yr": 2.324468,
+          "linuxCud3yr": 1.504087,
+          "windowsOnDemand": 5.626361,
+          "windowsSud": 5.626361,
+          "windowsPreemptible": 3.575365,
+          "windowsCud1yr": 4.532468,
+          "windowsCud3yr": 3.712087
+        }
+      }
+    },
+    {
+      "name": "z4m-highmem-192",
+      "series": "Z4M",
+      "family": "Storage optimized",
+      "vCpus": 192,
+      "memoryGb": 1488,
+      "cpuType": "Intel Xeon 5th gen (Emerald Rapids)",
+      "localSsd": true,
+      "networkPerformance": null,
+      "gpuSupport": false,
+      "gpuCount": null,
+      "gpuType": null,
+      "soleTenantSupport": true,
+      "nestedVirtualizationSupport": false,
+      "coremarkScore": null,
+      "pricing": {
+        "us-central1": {
+          "linuxOnDemand": 12.512544,
+          "linuxSud": 12.512544,
+          "linuxPreemptible": 5.005018,
+          "linuxCud1yr": 8.50847,
+          "linuxCud3yr": 5.50549,
+          "windowsOnDemand": 21.344544,
+          "windowsSud": 21.344544,
+          "windowsPreemptible": 13.837018,
+          "windowsCud1yr": 17.34047,
+          "windowsCud3yr": 14.33749
+        },
+        "us-east4": {
+          "linuxOnDemand": 12.512544,
+          "linuxSud": 12.512544,
+          "linuxPreemptible": 5.005018,
+          "linuxCud1yr": 8.50847,
+          "linuxCud3yr": 5.50549,
+          "windowsOnDemand": 21.344544,
+          "windowsSud": 21.344544,
+          "windowsPreemptible": 13.837018,
+          "windowsCud1yr": 17.34047,
+          "windowsCud3yr": 14.33749
+        },
+        "europe-north1": {
+          "linuxOnDemand": 13.777512,
+          "linuxSud": 13.777512,
+          "linuxPreemptible": 5.511086,
+          "linuxCud1yr": 9.368635,
+          "linuxCud3yr": 6.062136,
+          "windowsOnDemand": 22.609512,
+          "windowsSud": 22.609512,
+          "windowsPreemptible": 14.343086,
+          "windowsCud1yr": 18.200635,
+          "windowsCud3yr": 14.894136
+        }
+      }
+    },
+    {
+      "name": "z4m-highmem-192-metal",
+      "series": "Z4M",
+      "family": "Storage optimized",
+      "vCpus": 192,
+      "memoryGb": 1536,
+      "cpuType": "Intel Xeon 5th gen (Emerald Rapids)",
+      "localSsd": true,
+      "networkPerformance": null,
+      "gpuSupport": false,
+      "gpuCount": null,
+      "gpuType": null,
+      "soleTenantSupport": true,
+      "nestedVirtualizationSupport": false,
+      "coremarkScore": null,
+      "pricing": {
+        "us-central1": {
+          "linuxOnDemand": 12.701568,
+          "linuxSud": 12.701568,
+          "linuxPreemptible": 5.080627,
+          "linuxCud1yr": 8.637005,
+          "linuxCud3yr": 5.588659,
+          "windowsOnDemand": 21.533568,
+          "windowsSud": 21.533568,
+          "windowsPreemptible": 13.912627,
+          "windowsCud1yr": 17.469005,
+          "windowsCud3yr": 14.420659
+        },
+        "us-east4": {
+          "linuxOnDemand": 12.701568,
+          "linuxSud": 12.701568,
+          "linuxPreemptible": 5.080627,
+          "linuxCud1yr": 8.637005,
+          "linuxCud3yr": 5.588659,
+          "windowsOnDemand": 21.533568,
+          "windowsSud": 21.533568,
+          "windowsPreemptible": 13.912627,
+          "windowsCud1yr": 17.469005,
+          "windowsCud3yr": 14.420659
+        },
+        "europe-north1": {
+          "linuxOnDemand": 13.985645,
+          "linuxSud": 13.985645,
+          "linuxPreemptible": 5.594342,
+          "linuxCud1yr": 9.510163,
+          "linuxCud3yr": 6.153715,
+          "windowsOnDemand": 22.817645,
+          "windowsSud": 22.817645,
+          "windowsPreemptible": 14.426342,
+          "windowsCud1yr": 18.342163,
+          "windowsCud3yr": 14.985715
         }
       }
     },
