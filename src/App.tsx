@@ -272,10 +272,10 @@ export default function App() {
   }
 
   return (
-    <div className="h-[100dvh] bg-gray-50 dark:bg-gray-950 dark:text-gray-100 flex flex-col overflow-hidden transition-colors [@media(max-height:600px)]:h-auto [@media(max-height:600px)]:min-h-[100dvh] [@media(max-height:600px)]:overflow-visible">
+    <div className="h-dvh bg-gray-50 dark:bg-gray-950 dark:text-gray-100 flex flex-col overflow-hidden transition-colors [@media(max-height:600px)]:h-auto [@media(max-height:600px)]:min-h-dvh [@media(max-height:600px)]:overflow-visible">
       {/* Header */}
       <header className="bg-gray-900 text-white">
-        <div className="max-w-screen-2xl mx-auto px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
+        <div className="max-w-(--breakpoint-2xl) mx-auto px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
           {/* Brand + mobile actions */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 sm:gap-3">
@@ -288,7 +288,7 @@ export default function App() {
               <a
                 href="#mcp-cli"
                 onClick={() => trackPageView('mcp-cli')}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-500 text-white hover:bg-blue-400 transition-colors shadow-sm shadow-blue-500/40"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-500 text-white hover:bg-blue-400 transition-colors shadow-xs shadow-blue-500/40"
               >
                 <Terminal className="w-3 h-3" />
                 MCP &amp; CLI
@@ -355,7 +355,7 @@ export default function App() {
             <a
               href="#mcp-cli"
               onClick={() => trackPageView('mcp-cli')}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-500 text-white hover:bg-blue-400 transition-colors shadow-sm shadow-blue-500/40"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-500 text-white hover:bg-blue-400 transition-colors shadow-xs shadow-blue-500/40"
             >
               <Terminal className="w-3 h-3" />
               MCP &amp; CLI
@@ -367,7 +367,7 @@ export default function App() {
 
       {/* CTA Banner */}
       <div className="bg-indigo-600 text-white">
-        <div className="max-w-screen-2xl mx-auto px-4 py-2 flex items-center justify-center gap-2 text-sm">
+        <div className="max-w-(--breakpoint-2xl) mx-auto px-4 py-2 flex items-center justify-center gap-2 text-sm">
           <span>Want to better understand your cloud spend?</span>
           <a
             href={buildDoitUrl('cloud-analytics/', 'cloud-analytics', 'top-banner')}
@@ -385,7 +385,7 @@ export default function App() {
         <McpCliPage />
       ) : page === 'alloydb' ? (
         <>
-          <div className="max-w-screen-2xl mx-auto px-4 pt-4 w-full">
+          <div className="max-w-(--breakpoint-2xl) mx-auto px-4 pt-4 w-full">
             <FiltersBar
               regions={activeRegions}
               region={region}
@@ -411,7 +411,7 @@ export default function App() {
             />
           </div>
           <div className="flex-1 min-h-0 w-full relative [@media(max-height:600px)]:flex-none [@media(max-height:600px)]:h-[80vh] [@media(max-height:600px)]:min-h-[420px]">
-            <div className="absolute inset-0 max-w-screen-2xl mx-auto px-4 pb-4">
+            <div className="absolute inset-0 max-w-(--breakpoint-2xl) mx-auto px-4 pb-4">
               {alloydbLoading ? (
                 <div className="flex items-center justify-center py-24">
                   <div className="flex flex-col items-center gap-4 text-gray-500 dark:text-gray-400">
@@ -442,7 +442,7 @@ export default function App() {
         </>
       ) : page === 'memorystore' ? (
         <>
-          <div className="max-w-screen-2xl mx-auto px-4 pt-4 w-full">
+          <div className="max-w-(--breakpoint-2xl) mx-auto px-4 pt-4 w-full">
             <FiltersBar
               regions={activeRegions}
               region={region}
@@ -471,7 +471,7 @@ export default function App() {
             />
           </div>
           <div className="flex-1 min-h-0 w-full relative [@media(max-height:600px)]:flex-none [@media(max-height:600px)]:h-[80vh] [@media(max-height:600px)]:min-h-[420px]">
-            <div className="absolute inset-0 max-w-screen-2xl mx-auto px-4 pb-4">
+            <div className="absolute inset-0 max-w-(--breakpoint-2xl) mx-auto px-4 pb-4">
               {memorystoreLoading ? (
                 <div className="flex items-center justify-center py-24">
                   <div className="flex flex-col items-center gap-4 text-gray-500 dark:text-gray-400">
@@ -502,7 +502,7 @@ export default function App() {
         </>
       ) : page === 'cloudsql' ? (
         <>
-          <div className="max-w-screen-2xl mx-auto px-4 pt-4 w-full">
+          <div className="max-w-(--breakpoint-2xl) mx-auto px-4 pt-4 w-full">
             <FiltersBar
               regions={activeRegions}
               region={region}
@@ -528,7 +528,7 @@ export default function App() {
             />
           </div>
           <div className="flex-1 min-h-0 w-full relative [@media(max-height:600px)]:flex-none [@media(max-height:600px)]:h-[80vh] [@media(max-height:600px)]:min-h-[420px]">
-            <div className="absolute inset-0 max-w-screen-2xl mx-auto px-4 pb-4">
+            <div className="absolute inset-0 max-w-(--breakpoint-2xl) mx-auto px-4 pb-4">
               {cloudSqlLoading ? (
                 <div className="flex items-center justify-center py-24">
                   <div className="flex flex-col items-center gap-4 text-gray-500 dark:text-gray-400">
@@ -560,7 +560,7 @@ export default function App() {
       ) : (
         <>
           {/* Filters */}
-          <div className="max-w-screen-2xl mx-auto px-4 pt-4 w-full">
+          <div className="max-w-(--breakpoint-2xl) mx-auto px-4 pt-4 w-full">
             <FiltersBar
               regions={data.regions}
               region={region}
@@ -587,7 +587,7 @@ export default function App() {
 
           {/* Table */}
           <div className="flex-1 min-h-0 w-full relative [@media(max-height:600px)]:flex-none [@media(max-height:600px)]:h-[80vh] [@media(max-height:600px)]:min-h-[420px]">
-            <div className="absolute inset-0 max-w-screen-2xl mx-auto px-4 pb-4">
+            <div className="absolute inset-0 max-w-(--breakpoint-2xl) mx-auto px-4 pb-4">
               <PricingTable
                 instances={filteredInstances}
                 region={region}
@@ -604,7 +604,7 @@ export default function App() {
 
       {/* Footer */}
       <footer className="bg-gray-900 dark:bg-black text-gray-400 border-t border-gray-800 dark:border-gray-900">
-        <div className="max-w-screen-2xl mx-auto px-4 py-2 flex items-center justify-between text-xs">
+        <div className="max-w-(--breakpoint-2xl) mx-auto px-4 py-2 flex items-center justify-between text-xs">
           <div className="flex items-center gap-3">
             <img src="/DoitLogo.svg" alt="DoiT" className="h-4" />
             <span className="hidden sm:inline text-gray-500">Not affiliated with Google</span>
