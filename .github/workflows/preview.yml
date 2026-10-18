@@ -3,6 +3,7 @@ name: PR Preview
 on:
   pull_request:
     types: [opened, synchronize, reopened, edited, ready_for_review]
+    paths-ignore: ['public/data/**']   # the daily data PR is merged within seconds; see ci.yml
 
 permissions:
   id-token: write
