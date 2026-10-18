@@ -123,7 +123,7 @@ export function RegionCompareDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-xs" onClick={onClose} />
       <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-5xl w-full mx-4 max-h-[90vh] flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-800">
@@ -139,7 +139,7 @@ export function RegionCompareDialog({
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setDropdownOpen((v) => !v)}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 dark:text-gray-100 hover:border-gray-300 dark:hover:border-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 dark:text-gray-100 hover:border-gray-300 dark:hover:border-gray-600 transition-colors focus:outline-hidden focus:ring-2 focus:ring-blue-400"
             >
               {selectedRegions.length === 0
                 ? 'Select regions…'
@@ -157,7 +157,7 @@ export function RegionCompareDialog({
                       value={regionQuery}
                       onChange={(e) => setRegionQuery(e.target.value)}
                       placeholder="Search region or location…"
-                      className="w-full pl-8 pr-2 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-400"
+                      className="w-full pl-8 pr-2 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-500 focus:outline-hidden focus:ring-1 focus:ring-blue-400"
                     />
                   </div>
                 </div>
@@ -176,7 +176,7 @@ export function RegionCompareDialog({
                             type="checkbox"
                             checked={selectedRegions.includes(r)}
                             onChange={() => toggleRegion(r)}
-                            className="shrink-0 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                            className="shrink-0 rounded-sm border-gray-300 text-blue-600 focus:ring-blue-500"
                           />
                           <span className="text-sm text-gray-700 font-mono shrink-0">{r}</span>
                           {loc && <span className="text-xs text-gray-400 truncate">({loc})</span>}

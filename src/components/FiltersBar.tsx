@@ -70,7 +70,7 @@ function Select({
         id={id}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="px-2.5 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent cursor-pointer hover:border-gray-300 dark:hover:border-gray-600 transition-colors min-w-[120px]"
+        className="px-2.5 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 dark:text-gray-100 focus:outline-hidden focus:ring-2 focus:ring-blue-400 focus:border-transparent cursor-pointer hover:border-gray-300 dark:hover:border-gray-600 transition-colors min-w-[120px]"
       >
         {options.map((o) => (
           <option key={o.value} value={o.value}>
@@ -146,7 +146,7 @@ function RegionCombobox({
           id="region-combobox"
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="w-full flex items-center justify-between gap-2 px-2.5 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 dark:text-gray-100 hover:border-gray-300 dark:hover:border-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="w-full flex items-center justify-between gap-2 px-2.5 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 dark:text-gray-100 hover:border-gray-300 dark:hover:border-gray-600 transition-colors focus:outline-hidden focus:ring-2 focus:ring-blue-400"
         >
           <span className="truncate text-left">
             <span className="font-mono">{selectedLabel}</span>
@@ -167,7 +167,7 @@ function RegionCombobox({
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search region or location…"
-                  className="w-full pl-8 pr-2 py-1.5 text-sm border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-400"
+                  className="w-full pl-8 pr-2 py-1.5 text-sm border border-gray-200 rounded-md bg-white focus:outline-hidden focus:ring-1 focus:ring-blue-400"
                 />
               </div>
             </div>
@@ -230,7 +230,7 @@ function NumberInput({
         value={value || ''}
         onChange={(e) => onChange(Number(e.target.value))}
         placeholder={placeholder ?? '0'}
-        className="w-24 px-2.5 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
+        className="w-24 px-2.5 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 dark:text-gray-100 focus:outline-hidden focus:ring-2 focus:ring-blue-400 focus:border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
       />
     </div>
   )
@@ -279,7 +279,7 @@ export function FiltersBar({
   }, [colsOpen])
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm p-4 mb-4">
+    <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-xs p-4 mb-4">
       <div className="flex flex-wrap items-end gap-3">
         {/* Region */}
         <RegionCombobox
@@ -334,7 +334,7 @@ export function FiltersBar({
           <div className="relative" ref={colsRef}>
             <button
               onClick={() => setColsOpen((o) => !o)}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 dark:text-gray-100 hover:border-gray-300 dark:hover:border-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 dark:text-gray-100 hover:border-gray-300 dark:hover:border-gray-600 transition-colors focus:outline-hidden focus:ring-2 focus:ring-blue-400"
             >
               <Columns3 className="w-4 h-4 text-gray-500" />
               Columns
@@ -353,7 +353,7 @@ export function FiltersBar({
                         onChange={(e) =>
                           setVisibleColumns({ ...visibleColumns, [col.id]: e.target.checked })
                         }
-                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        className="rounded-sm border-gray-300 text-blue-600 focus:ring-blue-500"
                       />
                       <span className="text-sm text-gray-700 dark:text-gray-200">{col.label}</span>
                     </label>
@@ -391,7 +391,7 @@ export function FiltersBar({
               value={globalSearch}
               onChange={(e) => setGlobalSearch(e.target.value)}
               placeholder="Search instances... (/)"
-              className="pl-8 pr-3 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 dark:text-gray-100 w-52 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
+              className="pl-8 pr-3 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 dark:text-gray-100 w-52 focus:outline-hidden focus:ring-2 focus:ring-blue-400 focus:border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
             />
           </div>
         </div>

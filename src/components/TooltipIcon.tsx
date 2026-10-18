@@ -21,7 +21,7 @@ export function TooltipIcon({ text }: Props) {
       <Info className="w-3 h-3 text-gray-400 hover:text-gray-600 cursor-help" />
       {pos && (
         <span
-          className="pointer-events-none fixed z-[9999] w-56 rounded-lg bg-gray-900 px-2.5 py-2 text-xs text-white leading-relaxed shadow-lg"
+          className="pointer-events-none fixed z-9999 w-56 rounded-lg bg-gray-900 px-2.5 py-2 text-xs text-white leading-relaxed shadow-lg"
           style={{
             bottom: window.innerHeight - pos.top + 6,
             left: pos.left,

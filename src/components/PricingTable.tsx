@@ -68,7 +68,7 @@ const RowCheckbox = memo(function RowCheckbox({ name, isSelected, toggle }: {
       type="checkbox"
       checked={isSelected}
       onChange={handleChange}
-      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+      className="rounded-sm border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
       aria-label={`Select ${name}`}
     />
   )
@@ -99,7 +99,7 @@ function VirtualTable({
   return (
     <div
       ref={parentRef}
-      className="overflow-auto rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm bg-white dark:bg-gray-900 flex-1 min-h-0"
+      className="overflow-auto rounded-xl border border-gray-200 dark:border-gray-800 shadow-xs bg-white dark:bg-gray-900 flex-1 min-h-0"
     >
       <table className="min-w-full text-left border-collapse table-fixed">
         <thead className="sticky top-0 z-10">
@@ -137,7 +137,7 @@ function VirtualTable({
                         onChange={(e) => header.column.setFilterValue(e.target.value)}
                         placeholder={isNumeric ? 'e.g. >5, >=2, =4' : 'Search...'}
                         title={isNumeric ? 'Numeric filter: 5, =5, >5, <5, >=5, <=5, !=5' : undefined}
-                        className="w-full text-xs px-2 py-1 border border-gray-200 dark:border-gray-700 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400 bg-gray-50 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-500"
+                        className="w-full text-xs px-2 py-1 border border-gray-200 dark:border-gray-700 rounded-md focus:outline-hidden focus:ring-1 focus:ring-blue-400 bg-gray-50 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-500"
                       />
                     )
                   })()
