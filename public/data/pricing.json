@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-28T06:07:51.720Z",
+  "updatedAt": "2026-10-29T06:07:37.199Z",
   "regions": [
     "africa-south1",
     "asia-east1",
@@ -221039,6 +221039,18 @@
           "windowsCud1yr": 0.59676,
           "windowsCud3yr": 0.480468
         },
+        "southamerica-east1": {
+          "linuxOnDemand": 0.60422,
+          "linuxSud": 0.60422,
+          "linuxPreemptible": 0.24186,
+          "linuxCud1yr": 0.41694,
+          "linuxCud3yr": 0.2658,
+          "windowsOnDemand": 0.88022,
+          "windowsSud": 0.88022,
+          "windowsPreemptible": 0.51786,
+          "windowsCud1yr": 0.69294,
+          "windowsCud3yr": 0.5418
+        },
         "asia-southeast1": {
           "linuxOnDemand": 0.50712,
           "linuxSud": 0.50712,
@@ -221332,6 +221344,18 @@
           "windowsPreemptible": 0.919935,
           "windowsCud1yr": 1.197975,
           "windowsCud3yr": 0.963774
+        },
+        "southamerica-east1": {
+          "linuxOnDemand": 1.21683,
+          "linuxSud": 1.21683,
+          "linuxPreemptible": 0.48708,
+          "linuxCud1yr": 0.83967,
+          "linuxCud3yr": 0.53529,
+          "windowsOnDemand": 1.76883,
+          "windowsSud": 1.76883,
+          "windowsPreemptible": 1.03908,
+          "windowsCud1yr": 1.39167,
+          "windowsCud3yr": 1.08729
         },
         "asia-southeast1": {
           "linuxOnDemand": 1.021284,
@@ -221627,6 +221651,18 @@
           "windowsCud1yr": 2.39595,
           "windowsCud3yr": 1.927548
         },
+        "southamerica-east1": {
+          "linuxOnDemand": 2.43366,
+          "linuxSud": 2.43366,
+          "linuxPreemptible": 0.97416,
+          "linuxCud1yr": 1.67934,
+          "linuxCud3yr": 1.07058,
+          "windowsOnDemand": 3.53766,
+          "windowsSud": 3.53766,
+          "windowsPreemptible": 2.07816,
+          "windowsCud1yr": 2.78334,
+          "windowsCud3yr": 2.17458
+        },
         "asia-southeast1": {
           "linuxOnDemand": 2.042568,
           "linuxSud": 2.042568,
@@ -221920,6 +221956,18 @@
           "windowsPreemptible": 3.67974,
           "windowsCud1yr": 4.7919,
           "windowsCud3yr": 3.855096
+        },
+        "southamerica-east1": {
+          "linuxOnDemand": 4.86732,
+          "linuxSud": 4.86732,
+          "linuxPreemptible": 1.94832,
+          "linuxCud1yr": 3.35868,
+          "linuxCud3yr": 2.14116,
+          "windowsOnDemand": 7.07532,
+          "windowsSud": 7.07532,
+          "windowsPreemptible": 4.15632,
+          "windowsCud1yr": 5.56668,
+          "windowsCud3yr": 4.34916
         },
         "asia-southeast1": {
           "linuxOnDemand": 4.085136,
@@ -222215,6 +222263,18 @@
           "windowsCud1yr": 9.5838,
           "windowsCud3yr": 7.710192
         },
+        "southamerica-east1": {
+          "linuxOnDemand": 9.73464,
+          "linuxSud": 9.73464,
+          "linuxPreemptible": 3.89664,
+          "linuxCud1yr": 6.71736,
+          "linuxCud3yr": 4.28232,
+          "windowsOnDemand": 14.15064,
+          "windowsSud": 14.15064,
+          "windowsPreemptible": 8.31264,
+          "windowsCud1yr": 11.13336,
+          "windowsCud3yr": 8.69832
+        },
         "asia-southeast1": {
           "linuxOnDemand": 8.170272,
           "linuxSud": 8.170272,
@@ -222509,6 +222569,18 @@
           "windowsCud1yr": 19.1676,
           "windowsCud3yr": 15.420384
         },
+        "southamerica-east1": {
+          "linuxOnDemand": 19.46928,
+          "linuxSud": 19.46928,
+          "linuxPreemptible": 7.79328,
+          "linuxCud1yr": 13.43472,
+          "linuxCud3yr": 8.56464,
+          "windowsOnDemand": 28.30128,
+          "windowsSud": 28.30128,
+          "windowsPreemptible": 16.62528,
+          "windowsCud1yr": 22.26672,
+          "windowsCud3yr": 17.39664
+        },
         "asia-southeast1": {
           "linuxOnDemand": 16.340544,
           "linuxSud": 16.340544,
@@ -222802,6 +222874,18 @@
           "windowsPreemptible": 29.43792,
           "windowsCud1yr": 38.3352,
           "windowsCud3yr": 30.840768
+        },
+        "southamerica-east1": {
+          "linuxOnDemand": 38.93856,
+          "linuxSud": 38.93856,
+          "linuxPreemptible": 15.58656,
+          "linuxCud1yr": 26.86944,
+          "linuxCud3yr": 17.12928,
+          "windowsOnDemand": 56.60256,
+          "windowsSud": 56.60256,
+          "windowsPreemptible": 33.25056,
+          "windowsCud1yr": 44.53344,
+          "windowsCud3yr": 34.79328
         },
         "asia-southeast1": {
           "linuxOnDemand": 32.681088,
