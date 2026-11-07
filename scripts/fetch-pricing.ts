@@ -7,7 +7,7 @@
 
 import { writeFileSync, mkdirSync } from 'fs'
 import { join, dirname } from 'path'
-import { fileURLToPath } from 'url'
+import { fileURLToPath, pathToFileURL } from 'url'
 import { MACHINE_TYPES, MACHINE_TYPE_MAP, SERIES_SPECS, COREMARK_SCORES } from './machine-types.js'
 import { type RawSku, fetchAllSkus, extractPrice, isSpecificRegion } from './billing-api.js'
 
@@ -22,9 +22,9 @@ const COMPUTE_SERVICE_ID = '6F81-5844-456A'
 const BASE_URL = `https://cloudbilling.googleapis.com/v1/services/${COMPUTE_SERVICE_ID}/skus`
 
 // Keyed as `${series}:${resource}:${region}:${usageType}:${os}`
-type PriceKey = string
+export type PriceKey = string
 
-interface ResourceRate {
+export interface ResourceRate {
   series: string
   resource: 'cpu' | 'ram'
   region: string
@@ -81,7 +81,7 @@ const SUD_DISCOUNT: Record<string, number> = {
   N2D: 0.20,
 }
 
-function getSudRate(series: string, onDemandRate: number): number {
+export function getSudRate(series: string, onDemandRate: number): number {
   const discount = SUD_DISCOUNT[series] ?? 0
   return onDemandRate * (1 - discount)
 }
@@ -90,7 +90,7 @@ function getSudRate(series: string, onDemandRate: number): number {
 
 // Windows license pricing is per-vCPU-hour with tiers:
 // tier1: 1-4 vCPUs (per-instance rate), tier2: 5+ vCPUs (per-vCPU rate)
-interface WindowsLicense {
+export interface WindowsLicense {
   region: string  // empty string = global
   tier1Price: number  // flat rate for 1-4 vCPU instances (per hour total)
   tier2Price: number  // per-vCPU rate for 5+ vCPU instances
@@ -177,16 +177,16 @@ function matchGpuType(description: string): string | null {
 }
 
 // GPU rates keyed as `${gpuType}:${region}:${usageType}` → price per GPU-hour
-type GpuRateKey = string
+export type GpuRateKey = string
 
-interface GpuRate {
+export interface GpuRate {
   gpuType: string
   region: string
   usageType: ResourceRate['usageType']
   pricePerGpu: number
 }
 
-function parseSkus(skus: RawSku[]): {
+export function parseSkus(skus: RawSku[]): {
   rates: Map<PriceKey, ResourceRate>
   gpuRates: Map<GpuRateKey, GpuRate>
   windowsLicenses: WindowsLicense[]
@@ -320,7 +320,7 @@ function parseSkus(skus: RawSku[]): {
 
 // ----- Price calculation -----
 
-function getRate(
+export function getRate(
   rates: Map<PriceKey, ResourceRate>,
   series: string,
   resource: 'cpu' | 'ram',
@@ -332,11 +332,11 @@ function getRate(
   return rates.get(key)?.pricePerUnit ?? null
 }
 
-function calcWindowsLicensePremium(vCpus: number, perVcpuRate: number): number {
+export function calcWindowsLicensePremium(vCpus: number, perVcpuRate: number): number {
   return perVcpuRate * vCpus
 }
 
-function getGpuRate(
+export function getGpuRate(
   gpuRates: Map<GpuRateKey, GpuRate>,
   gpuType: string,
   region: string,
@@ -570,7 +570,11 @@ async function main() {
   console.log(`Machine types with data: ${instances.length}/${found}`)
 }
 
-main().catch((err) => {
-  console.error(err)
-  process.exit(1)
-})
+// Only run the fetch when this file is the entry point (tsx scripts/fetch-pricing.ts).
+// validate-pricing.ts imports the parser/getters above and must not trigger a fetch.
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((err) => {
+    console.error(err)
+    process.exit(1)
+  })
+}
