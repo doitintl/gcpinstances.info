@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-13T06:06:38.012Z",
+  "updatedAt": "2026-11-14T06:05:51.161Z",
   "regions": [
     "africa-south1",
     "asia-east1",
@@ -160,9 +160,9 @@
           "cud3yr": 0.239098
         },
         "us-central1": {
-          "onDemand": 0.31136,
-          "cud1yr": 0.23352,
-          "cud3yr": 0.149453
+          "onDemand": 0.6396,
+          "cud1yr": 0.4797,
+          "cud3yr": 0.307008
         },
         "australia-southeast2": {
           "onDemand": 0.40476,
@@ -404,9 +404,9 @@
           "cud3yr": 0.478195
         },
         "us-central1": {
-          "onDemand": 0.62272,
-          "cud1yr": 0.46704,
-          "cud3yr": 0.298906
+          "onDemand": 1.2792,
+          "cud1yr": 0.9594,
+          "cud3yr": 0.614016
         },
         "australia-southeast2": {
           "onDemand": 0.80952,
@@ -648,9 +648,9 @@
           "cud3yr": 0.95639
         },
         "us-central1": {
-          "onDemand": 1.24544,
-          "cud1yr": 0.93408,
-          "cud3yr": 0.597811
+          "onDemand": 2.5584,
+          "cud1yr": 1.9188,
+          "cud3yr": 1.228032
         },
         "australia-southeast2": {
           "onDemand": 1.61904,
@@ -892,9 +892,9 @@
           "cud3yr": 1.912781
         },
         "us-central1": {
-          "onDemand": 2.49088,
-          "cud1yr": 1.86816,
-          "cud3yr": 1.195622
+          "onDemand": 5.1168,
+          "cud1yr": 3.8376,
+          "cud3yr": 2.456064
         },
         "australia-southeast2": {
           "onDemand": 3.23808,
@@ -1136,9 +1136,9 @@
           "cud3yr": 3.825562
         },
         "us-central1": {
-          "onDemand": 4.98176,
-          "cud1yr": 3.73632,
-          "cud3yr": 2.391245
+          "onDemand": 10.2336,
+          "cud1yr": 7.6752,
+          "cud3yr": 4.912128
         },
         "australia-southeast2": {
           "onDemand": 6.47616,
@@ -1380,9 +1380,9 @@
           "cud3yr": 7.651123
         },
         "us-central1": {
-          "onDemand": 9.96352,
-          "cud1yr": 7.47264,
-          "cud3yr": 4.78249
+          "onDemand": 20.4672,
+          "cud1yr": 15.3504,
+          "cud3yr": 9.824256
         },
         "australia-southeast2": {
           "onDemand": 12.95232,
@@ -1624,9 +1624,9 @@
           "cud3yr": 11.476685
         },
         "us-central1": {
-          "onDemand": 14.94528,
-          "cud1yr": 11.20896,
-          "cud3yr": 7.173734
+          "onDemand": 30.7008,
+          "cud1yr": 23.0256,
+          "cud3yr": 14.736384
         },
         "australia-southeast2": {
           "onDemand": 19.42848,
@@ -1868,9 +1868,9 @@
           "cud3yr": 13.92599
         },
         "us-central1": {
-          "onDemand": 18.13504,
-          "cud1yr": 13.60128,
-          "cud3yr": 8.704819
+          "onDemand": 37.6384,
+          "cud1yr": 28.2288,
+          "cud3yr": 18.066432
         },
         "australia-southeast2": {
           "onDemand": 23.57504,
@@ -2112,9 +2112,9 @@
           "cud3yr": 0.119549
         },
         "us-central1": {
-          "onDemand": 0.15568,
-          "cud1yr": 0.11676,
-          "cud3yr": 0.074726
+          "onDemand": 0.3198,
+          "cud1yr": 0.23985,
+          "cud3yr": 0.153504
         },
         "australia-southeast2": {
           "onDemand": 0.20238,
@@ -2356,9 +2356,9 @@
           "cud3yr": 0.239098
         },
         "us-central1": {
-          "onDemand": 0.31136,
-          "cud1yr": 0.23352,
-          "cud3yr": 0.149453
+          "onDemand": 0.6396,
+          "cud1yr": 0.4797,
+          "cud3yr": 0.307008
         },
         "australia-southeast2": {
           "onDemand": 0.40476,
@@ -2600,9 +2600,9 @@
           "cud3yr": 0.478195
         },
         "us-central1": {
-          "onDemand": 0.62272,
-          "cud1yr": 0.46704,
-          "cud3yr": 0.298906
+          "onDemand": 1.2792,
+          "cud1yr": 0.9594,
+          "cud3yr": 0.614016
         },
         "australia-southeast2": {
           "onDemand": 0.80952,
@@ -2844,9 +2844,9 @@
           "cud3yr": 0.95639
         },
         "us-central1": {
-          "onDemand": 1.24544,
-          "cud1yr": 0.93408,
-          "cud3yr": 0.597811
+          "onDemand": 2.5584,
+          "cud1yr": 1.9188,
+          "cud3yr": 1.228032
         },
         "australia-southeast2": {
           "onDemand": 1.61904,
@@ -3088,9 +3088,9 @@
           "cud3yr": 1.912781
         },
         "us-central1": {
-          "onDemand": 2.49088,
-          "cud1yr": 1.86816,
-          "cud3yr": 1.195622
+          "onDemand": 5.1168,
+          "cud1yr": 3.8376,
+          "cud3yr": 2.456064
         },
         "australia-southeast2": {
           "onDemand": 3.23808,
@@ -3332,9 +3332,9 @@
           "cud3yr": 3.825562
         },
         "us-central1": {
-          "onDemand": 4.98176,
-          "cud1yr": 3.73632,
-          "cud3yr": 2.391245
+          "onDemand": 10.2336,
+          "cud1yr": 7.6752,
+          "cud3yr": 4.912128
         },
         "australia-southeast2": {
           "onDemand": 6.47616,
@@ -3576,9 +3576,9 @@
           "cud3yr": 5.738342
         },
         "us-central1": {
-          "onDemand": 7.47264,
-          "cud1yr": 5.60448,
-          "cud3yr": 3.586867
+          "onDemand": 15.3504,
+          "cud1yr": 11.5128,
+          "cud3yr": 7.368192
         },
         "australia-southeast2": {
           "onDemand": 9.71424,
@@ -3820,9 +3820,9 @@
           "cud3yr": 7.651123
         },
         "us-central1": {
-          "onDemand": 9.96352,
-          "cud1yr": 7.47264,
-          "cud3yr": 4.78249
+          "onDemand": 20.4672,
+          "cud1yr": 15.3504,
+          "cud3yr": 9.824256
         },
         "australia-southeast2": {
           "onDemand": 12.95232,
@@ -4064,9 +4064,9 @@
           "cud3yr": 8.607514
         },
         "us-central1": {
-          "onDemand": 11.20896,
-          "cud1yr": 8.40672,
-          "cud3yr": 5.380301
+          "onDemand": 23.0256,
+          "cud1yr": 17.2692,
+          "cud3yr": 11.052288
         },
         "australia-southeast2": {
           "onDemand": 14.57136,
