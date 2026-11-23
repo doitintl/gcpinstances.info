@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-22T06:06:08.900Z",
+  "updatedAt": "2026-11-23T06:10:04.797Z",
   "regions": [
     "africa-south1",
     "asia-east1",
@@ -443,6 +443,26 @@
           "mysqlRegional": 0.0315,
           "postgresZonal": 0.0158,
           "postgresRegional": 0.0315,
+          "sqlServerZonal": null,
+          "sqlServerRegional": null,
+          "mysqlZonalCud1yr": null,
+          "mysqlZonalCud3yr": null,
+          "mysqlRegionalCud1yr": null,
+          "mysqlRegionalCud3yr": null,
+          "postgresZonalCud1yr": null,
+          "postgresZonalCud3yr": null,
+          "postgresRegionalCud1yr": null,
+          "postgresRegionalCud3yr": null,
+          "sqlServerZonalCud1yr": null,
+          "sqlServerZonalCud3yr": null,
+          "sqlServerRegionalCud1yr": null,
+          "sqlServerRegionalCud3yr": null
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 0.011025,
+          "mysqlRegional": 0.02205,
+          "postgresZonal": 0.011025,
+          "postgresRegional": 0.02205,
           "sqlServerZonal": null,
           "sqlServerRegional": null,
           "mysqlZonalCud1yr": null,
@@ -1388,6 +1408,26 @@
           "sqlServerRegionalCud1yr": null,
           "sqlServerRegionalCud3yr": null
         },
+        "asia-southeast4": {
+          "mysqlZonal": 0.03675,
+          "mysqlRegional": 0.0735,
+          "postgresZonal": 0.03675,
+          "postgresRegional": 0.0735,
+          "sqlServerZonal": null,
+          "sqlServerRegional": null,
+          "mysqlZonalCud1yr": null,
+          "mysqlZonalCud3yr": null,
+          "mysqlRegionalCud1yr": null,
+          "mysqlRegionalCud3yr": null,
+          "postgresZonalCud1yr": null,
+          "postgresZonalCud3yr": null,
+          "postgresRegionalCud1yr": null,
+          "postgresRegionalCud3yr": null,
+          "sqlServerZonalCud1yr": null,
+          "sqlServerZonalCud3yr": null,
+          "sqlServerRegionalCud1yr": null,
+          "sqlServerRegionalCud3yr": null
+        },
         "europe-west6": {
           "mysqlZonal": 0.0455,
           "mysqlRegional": 0.091,
@@ -2318,6 +2358,26 @@
           "sqlServerRegionalCud1yr": 0.207562,
           "sqlServerRegionalCud3yr": 0.13284
         },
+        "asia-southeast4": {
+          "mysqlZonal": 0.07098,
+          "mysqlRegional": 0.141855,
+          "postgresZonal": 0.070928,
+          "postgresRegional": 0.193725,
+          "sqlServerZonal": 0.096863,
+          "sqlServerRegional": 0.254888,
+          "mysqlZonalCud1yr": 0.053235,
+          "mysqlZonalCud3yr": 0.03407,
+          "mysqlRegionalCud1yr": 0.106391,
+          "mysqlRegionalCud3yr": 0.06809,
+          "postgresZonalCud1yr": 0.053196,
+          "postgresZonalCud3yr": 0.034045,
+          "postgresRegionalCud1yr": 0.145294,
+          "postgresRegionalCud3yr": 0.092988,
+          "sqlServerZonalCud1yr": 0.072647,
+          "sqlServerZonalCud3yr": 0.046494,
+          "sqlServerRegionalCud1yr": 0.191166,
+          "sqlServerRegionalCud3yr": 0.122346
+        },
         "europe-west6": {
           "mysqlZonal": 0.0878,
           "mysqlRegional": 0.1756,
@@ -2837,26 +2897,6 @@
           "sqlServerZonalCud3yr": 0.058548,
           "sqlServerRegionalCud1yr": 0.157425,
           "sqlServerRegionalCud3yr": 0.100752
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 0.104108,
-          "mysqlRegional": 0.208425,
-          "postgresZonal": 0.104108,
-          "postgresRegional": 0.208425,
-          "sqlServerZonal": 0.104108,
-          "sqlServerRegional": 0.208425,
-          "mysqlZonalCud1yr": 0.078081,
-          "mysqlZonalCud3yr": 0.049972,
-          "mysqlRegionalCud1yr": 0.156319,
-          "mysqlRegionalCud3yr": 0.100044,
-          "postgresZonalCud1yr": 0.078081,
-          "postgresZonalCud3yr": 0.049972,
-          "postgresRegionalCud1yr": 0.156319,
-          "postgresRegionalCud3yr": 0.100044,
-          "sqlServerZonalCud1yr": 0.078081,
-          "sqlServerZonalCud3yr": 0.049972,
-          "sqlServerRegionalCud1yr": 0.156319,
-          "sqlServerRegionalCud3yr": 0.100044
         }
       }
     },
@@ -3267,6 +3307,26 @@
           "sqlServerZonalCud3yr": 0.12708,
           "sqlServerRegionalCud1yr": 0.415125,
           "sqlServerRegionalCud3yr": 0.26568
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 0.141855,
+          "mysqlRegional": 0.28371,
+          "postgresZonal": 0.141855,
+          "postgresRegional": 0.38745,
+          "sqlServerZonal": 0.193725,
+          "sqlServerRegional": 0.509775,
+          "mysqlZonalCud1yr": 0.106391,
+          "mysqlZonalCud3yr": 0.06809,
+          "mysqlRegionalCud1yr": 0.212783,
+          "mysqlRegionalCud3yr": 0.136181,
+          "postgresZonalCud1yr": 0.106391,
+          "postgresZonalCud3yr": 0.06809,
+          "postgresRegionalCud1yr": 0.290588,
+          "postgresRegionalCud3yr": 0.185976,
+          "sqlServerZonalCud1yr": 0.145294,
+          "sqlServerZonalCud3yr": 0.092988,
+          "sqlServerRegionalCud1yr": 0.382331,
+          "sqlServerRegionalCud3yr": 0.244692
         },
         "europe-west6": {
           "mysqlZonal": 0.1756,
@@ -3787,26 +3847,6 @@
           "sqlServerZonalCud3yr": 0.117096,
           "sqlServerRegionalCud1yr": 0.31485,
           "sqlServerRegionalCud3yr": 0.201504
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 0.208215,
-          "mysqlRegional": 0.41685,
-          "postgresZonal": 0.208215,
-          "postgresRegional": 0.41685,
-          "sqlServerZonal": 0.208215,
-          "sqlServerRegional": 0.41685,
-          "mysqlZonalCud1yr": 0.156161,
-          "mysqlZonalCud3yr": 0.099943,
-          "mysqlRegionalCud1yr": 0.312638,
-          "mysqlRegionalCud3yr": 0.200088,
-          "postgresZonalCud1yr": 0.156161,
-          "postgresZonalCud3yr": 0.099943,
-          "postgresRegionalCud1yr": 0.312638,
-          "postgresRegionalCud3yr": 0.200088,
-          "sqlServerZonalCud1yr": 0.156161,
-          "sqlServerZonalCud3yr": 0.099943,
-          "sqlServerRegionalCud1yr": 0.312638,
-          "sqlServerRegionalCud3yr": 0.200088
         }
       }
     },
@@ -4217,6 +4257,26 @@
           "sqlServerZonalCud3yr": 0.25416,
           "sqlServerRegionalCud1yr": 0.83025,
           "sqlServerRegionalCud3yr": 0.53136
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 0.28371,
+          "mysqlRegional": 0.56742,
+          "postgresZonal": 0.28371,
+          "postgresRegional": 0.7749,
+          "sqlServerZonal": 0.38745,
+          "sqlServerRegional": 1.01955,
+          "mysqlZonalCud1yr": 0.212783,
+          "mysqlZonalCud3yr": 0.136181,
+          "mysqlRegionalCud1yr": 0.425565,
+          "mysqlRegionalCud3yr": 0.272362,
+          "postgresZonalCud1yr": 0.212783,
+          "postgresZonalCud3yr": 0.136181,
+          "postgresRegionalCud1yr": 0.581175,
+          "postgresRegionalCud3yr": 0.371952,
+          "sqlServerZonalCud1yr": 0.290588,
+          "sqlServerZonalCud3yr": 0.185976,
+          "sqlServerRegionalCud1yr": 0.764663,
+          "sqlServerRegionalCud3yr": 0.489384
         },
         "europe-west6": {
           "mysqlZonal": 0.3513,
@@ -4737,26 +4797,6 @@
           "sqlServerZonalCud3yr": 0.234192,
           "sqlServerRegionalCud1yr": 0.6297,
           "sqlServerRegionalCud3yr": 0.403008
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 0.41643,
-          "mysqlRegional": 0.8337,
-          "postgresZonal": 0.41643,
-          "postgresRegional": 0.8337,
-          "sqlServerZonal": 0.41643,
-          "sqlServerRegional": 0.8337,
-          "mysqlZonalCud1yr": 0.312323,
-          "mysqlZonalCud3yr": 0.199886,
-          "mysqlRegionalCud1yr": 0.625275,
-          "mysqlRegionalCud3yr": 0.400176,
-          "postgresZonalCud1yr": 0.312323,
-          "postgresZonalCud3yr": 0.199886,
-          "postgresRegionalCud1yr": 0.625275,
-          "postgresRegionalCud3yr": 0.400176,
-          "sqlServerZonalCud1yr": 0.312323,
-          "sqlServerZonalCud3yr": 0.199886,
-          "sqlServerRegionalCud1yr": 0.625275,
-          "sqlServerRegionalCud3yr": 0.400176
         }
       }
     },
@@ -5167,6 +5207,26 @@
           "sqlServerZonalCud3yr": 0.50832,
           "sqlServerRegionalCud1yr": 1.6605,
           "sqlServerRegionalCud3yr": 1.06272
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 0.56742,
+          "mysqlRegional": 1.13484,
+          "postgresZonal": 0.56742,
+          "postgresRegional": 1.5498,
+          "sqlServerZonal": 0.7749,
+          "sqlServerRegional": 2.0391,
+          "mysqlZonalCud1yr": 0.425565,
+          "mysqlZonalCud3yr": 0.272362,
+          "mysqlRegionalCud1yr": 0.85113,
+          "mysqlRegionalCud3yr": 0.544723,
+          "postgresZonalCud1yr": 0.425565,
+          "postgresZonalCud3yr": 0.272362,
+          "postgresRegionalCud1yr": 1.16235,
+          "postgresRegionalCud3yr": 0.743904,
+          "sqlServerZonalCud1yr": 0.581175,
+          "sqlServerZonalCud3yr": 0.371952,
+          "sqlServerRegionalCud1yr": 1.529325,
+          "sqlServerRegionalCud3yr": 0.978768
         },
         "europe-west6": {
           "mysqlZonal": 0.7025,
@@ -5687,26 +5747,6 @@
           "sqlServerZonalCud3yr": 0.468384,
           "sqlServerRegionalCud1yr": 1.2594,
           "sqlServerRegionalCud3yr": 0.806016
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 0.83286,
-          "mysqlRegional": 1.6674,
-          "postgresZonal": 0.83286,
-          "postgresRegional": 1.6674,
-          "sqlServerZonal": 0.83286,
-          "sqlServerRegional": 1.6674,
-          "mysqlZonalCud1yr": 0.624645,
-          "mysqlZonalCud3yr": 0.399773,
-          "mysqlRegionalCud1yr": 1.25055,
-          "mysqlRegionalCud3yr": 0.800352,
-          "postgresZonalCud1yr": 0.624645,
-          "postgresZonalCud3yr": 0.399773,
-          "postgresRegionalCud1yr": 1.25055,
-          "postgresRegionalCud3yr": 0.800352,
-          "sqlServerZonalCud1yr": 0.624645,
-          "sqlServerZonalCud3yr": 0.399773,
-          "sqlServerRegionalCud1yr": 1.25055,
-          "sqlServerRegionalCud3yr": 0.800352
         }
       }
     },
@@ -6117,6 +6157,26 @@
           "sqlServerZonalCud3yr": 1.01664,
           "sqlServerRegionalCud1yr": 3.321,
           "sqlServerRegionalCud3yr": 2.12544
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 1.13526,
+          "mysqlRegional": 2.270415,
+          "postgresZonal": 1.13484,
+          "postgresRegional": 3.0996,
+          "sqlServerZonal": 1.5498,
+          "sqlServerRegional": 4.0782,
+          "mysqlZonalCud1yr": 0.851445,
+          "mysqlZonalCud3yr": 0.544925,
+          "mysqlRegionalCud1yr": 1.702811,
+          "mysqlRegionalCud3yr": 1.089799,
+          "postgresZonalCud1yr": 0.85113,
+          "postgresZonalCud3yr": 0.544723,
+          "postgresRegionalCud1yr": 2.3247,
+          "postgresRegionalCud3yr": 1.487808,
+          "sqlServerZonalCud1yr": 1.16235,
+          "sqlServerZonalCud3yr": 0.743904,
+          "sqlServerRegionalCud1yr": 3.05865,
+          "sqlServerRegionalCud3yr": 1.957536
         },
         "europe-west6": {
           "mysqlZonal": 1.4055,
@@ -6637,26 +6697,6 @@
           "sqlServerZonalCud3yr": 0.936768,
           "sqlServerRegionalCud1yr": 2.5188,
           "sqlServerRegionalCud3yr": 1.612032
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 1.66572,
-          "mysqlRegional": 3.3348,
-          "postgresZonal": 1.66572,
-          "postgresRegional": 3.3348,
-          "sqlServerZonal": 1.66572,
-          "sqlServerRegional": 3.3348,
-          "mysqlZonalCud1yr": 1.24929,
-          "mysqlZonalCud3yr": 0.799546,
-          "mysqlRegionalCud1yr": 2.5011,
-          "mysqlRegionalCud3yr": 1.600704,
-          "postgresZonalCud1yr": 1.24929,
-          "postgresZonalCud3yr": 0.799546,
-          "postgresRegionalCud1yr": 2.5011,
-          "postgresRegionalCud3yr": 1.600704,
-          "sqlServerZonalCud1yr": 1.24929,
-          "sqlServerZonalCud3yr": 0.799546,
-          "sqlServerRegionalCud1yr": 2.5011,
-          "sqlServerRegionalCud3yr": 1.600704
         }
       }
     },
@@ -7067,6 +7107,26 @@
           "sqlServerZonalCud3yr": 2.03328,
           "sqlServerRegionalCud1yr": 6.642,
           "sqlServerRegionalCud3yr": 4.25088
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 2.2701000000000002,
+          "mysqlRegional": 4.540095,
+          "postgresZonal": 2.26968,
+          "postgresRegional": 6.1992,
+          "sqlServerZonal": 3.0996,
+          "sqlServerRegional": 8.1564,
+          "mysqlZonalCud1yr": 1.702575,
+          "mysqlZonalCud3yr": 1.089648,
+          "mysqlRegionalCud1yr": 3.405071,
+          "mysqlRegionalCud3yr": 2.179246,
+          "postgresZonalCud1yr": 1.70226,
+          "postgresZonalCud3yr": 1.089446,
+          "postgresRegionalCud1yr": 4.6494,
+          "postgresRegionalCud3yr": 2.975616,
+          "sqlServerZonalCud1yr": 2.3247,
+          "sqlServerZonalCud3yr": 1.487808,
+          "sqlServerRegionalCud1yr": 6.1173,
+          "sqlServerRegionalCud3yr": 3.915072
         },
         "europe-west6": {
           "mysqlZonal": 2.8105,
@@ -7587,26 +7647,6 @@
           "sqlServerZonalCud3yr": 1.873536,
           "sqlServerRegionalCud1yr": 5.0376,
           "sqlServerRegionalCud3yr": 3.224064
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 3.33144,
-          "mysqlRegional": 6.6696,
-          "postgresZonal": 3.33144,
-          "postgresRegional": 6.6696,
-          "sqlServerZonal": 3.33144,
-          "sqlServerRegional": 6.6696,
-          "mysqlZonalCud1yr": 2.49858,
-          "mysqlZonalCud3yr": 1.599091,
-          "mysqlRegionalCud1yr": 5.0022,
-          "mysqlRegionalCud3yr": 3.201408,
-          "postgresZonalCud1yr": 2.49858,
-          "postgresZonalCud3yr": 1.599091,
-          "postgresRegionalCud1yr": 5.0022,
-          "postgresRegionalCud3yr": 3.201408,
-          "sqlServerZonalCud1yr": 2.49858,
-          "sqlServerZonalCud3yr": 1.599091,
-          "sqlServerRegionalCud1yr": 5.0022,
-          "sqlServerRegionalCud3yr": 3.201408
         }
       }
     },
@@ -8017,6 +8057,26 @@
           "sqlServerZonalCud3yr": 4.06656,
           "sqlServerRegionalCud1yr": 13.284,
           "sqlServerRegionalCud3yr": 8.50176
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 4.540095,
+          "mysqlRegional": 9.08019,
+          "postgresZonal": 4.53936,
+          "postgresRegional": 12.3984,
+          "sqlServerZonal": 6.1992,
+          "sqlServerRegional": 16.3128,
+          "mysqlZonalCud1yr": 3.405071,
+          "mysqlZonalCud3yr": 2.179246,
+          "mysqlRegionalCud1yr": 6.810143,
+          "mysqlRegionalCud3yr": 4.358491,
+          "postgresZonalCud1yr": 3.40452,
+          "postgresZonalCud3yr": 2.178893,
+          "postgresRegionalCud1yr": 9.2988,
+          "postgresRegionalCud3yr": 5.951232,
+          "sqlServerZonalCud1yr": 4.6494,
+          "sqlServerZonalCud3yr": 2.975616,
+          "sqlServerRegionalCud1yr": 12.2346,
+          "sqlServerRegionalCud3yr": 7.830144
         },
         "europe-west6": {
           "mysqlZonal": 5.6211,
@@ -8537,26 +8597,6 @@
           "sqlServerZonalCud3yr": 3.747072,
           "sqlServerRegionalCud1yr": 10.0752,
           "sqlServerRegionalCud3yr": 6.448128
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 6.66288,
-          "mysqlRegional": 13.3392,
-          "postgresZonal": 6.66288,
-          "postgresRegional": 13.3392,
-          "sqlServerZonal": 6.66288,
-          "sqlServerRegional": 13.3392,
-          "mysqlZonalCud1yr": 4.99716,
-          "mysqlZonalCud3yr": 3.198182,
-          "mysqlRegionalCud1yr": 10.0044,
-          "mysqlRegionalCud3yr": 6.402816,
-          "postgresZonalCud1yr": 4.99716,
-          "postgresZonalCud3yr": 3.198182,
-          "postgresRegionalCud1yr": 10.0044,
-          "postgresRegionalCud3yr": 6.402816,
-          "sqlServerZonalCud1yr": 4.99716,
-          "sqlServerZonalCud3yr": 3.198182,
-          "sqlServerRegionalCud1yr": 10.0044,
-          "sqlServerRegionalCud3yr": 6.402816
         }
       }
     },
@@ -8967,6 +9007,26 @@
           "sqlServerZonalCud3yr": 6.09984,
           "sqlServerRegionalCud1yr": 19.926,
           "sqlServerRegionalCud3yr": 12.75264
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 6.810195,
+          "mysqlRegional": 13.620284999999999,
+          "postgresZonal": 6.80904,
+          "postgresRegional": 18.5976,
+          "sqlServerZonal": 9.2988,
+          "sqlServerRegional": 24.4692,
+          "mysqlZonalCud1yr": 5.107646,
+          "mysqlZonalCud3yr": 3.268894,
+          "mysqlRegionalCud1yr": 10.215214,
+          "mysqlRegionalCud3yr": 6.537737,
+          "postgresZonalCud1yr": 5.10678,
+          "postgresZonalCud3yr": 3.268339,
+          "postgresRegionalCud1yr": 13.9482,
+          "postgresRegionalCud3yr": 8.926848,
+          "sqlServerZonalCud1yr": 6.9741,
+          "sqlServerZonalCud3yr": 4.463424,
+          "sqlServerRegionalCud1yr": 18.3519,
+          "sqlServerRegionalCud3yr": 11.745216
         },
         "europe-west6": {
           "mysqlZonal": 8.4316,
@@ -9487,26 +9547,6 @@
           "sqlServerZonalCud3yr": 5.620608,
           "sqlServerRegionalCud1yr": 15.1128,
           "sqlServerRegionalCud3yr": 9.672192
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 9.99432,
-          "mysqlRegional": 20.0088,
-          "postgresZonal": 9.99432,
-          "postgresRegional": 20.0088,
-          "sqlServerZonal": 9.99432,
-          "sqlServerRegional": 20.0088,
-          "mysqlZonalCud1yr": 7.49574,
-          "mysqlZonalCud3yr": 4.797274,
-          "mysqlRegionalCud1yr": 15.0066,
-          "mysqlRegionalCud3yr": 9.604224,
-          "postgresZonalCud1yr": 7.49574,
-          "postgresZonalCud3yr": 4.797274,
-          "postgresRegionalCud1yr": 15.0066,
-          "postgresRegionalCud3yr": 9.604224,
-          "sqlServerZonalCud1yr": 7.49574,
-          "sqlServerZonalCud3yr": 4.797274,
-          "sqlServerRegionalCud1yr": 15.0066,
-          "sqlServerRegionalCud3yr": 9.604224
         }
       }
     },
@@ -9917,6 +9957,26 @@
           "sqlServerZonalCud3yr": 0.163248,
           "sqlServerRegionalCud1yr": 0.54135,
           "sqlServerRegionalCud3yr": 0.346464
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 0.184905,
+          "mysqlRegional": 0.369705,
+          "postgresZonal": 0.18228,
+          "postgresRegional": 0.50526,
+          "sqlServerZonal": 0.25263,
+          "sqlServerRegional": 0.69573,
+          "mysqlZonalCud1yr": 0.138679,
+          "mysqlZonalCud3yr": 0.088754,
+          "mysqlRegionalCud1yr": 0.277279,
+          "mysqlRegionalCud3yr": 0.177458,
+          "postgresZonalCud1yr": 0.13671,
+          "postgresZonalCud3yr": 0.087494,
+          "postgresRegionalCud1yr": 0.378945,
+          "postgresRegionalCud3yr": 0.242525,
+          "sqlServerZonalCud1yr": 0.189473,
+          "sqlServerZonalCud3yr": 0.121262,
+          "sqlServerRegionalCud1yr": 0.521797,
+          "sqlServerRegionalCud3yr": 0.33395
         },
         "europe-west6": {
           "mysqlZonal": 0.2289,
@@ -10437,26 +10497,6 @@
           "sqlServerZonalCud3yr": 0.168048,
           "sqlServerRegionalCud1yr": 0.40395,
           "sqlServerRegionalCud3yr": 0.258528
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 0.26712,
-          "mysqlRegional": 0.53466,
-          "postgresZonal": 0.26712,
-          "postgresRegional": 0.53466,
-          "sqlServerZonal": 0.26712,
-          "sqlServerRegional": 0.53466,
-          "mysqlZonalCud1yr": 0.20034,
-          "mysqlZonalCud3yr": 0.128218,
-          "mysqlRegionalCud1yr": 0.400995,
-          "mysqlRegionalCud3yr": 0.256637,
-          "postgresZonalCud1yr": 0.20034,
-          "postgresZonalCud3yr": 0.128218,
-          "postgresRegionalCud1yr": 0.400995,
-          "postgresRegionalCud3yr": 0.256637,
-          "sqlServerZonalCud1yr": 0.20034,
-          "sqlServerZonalCud3yr": 0.128218,
-          "sqlServerRegionalCud1yr": 0.400995,
-          "sqlServerRegionalCud3yr": 0.256637
         }
       }
     },
@@ -10867,6 +10907,26 @@
           "sqlServerZonalCud3yr": 0.326496,
           "sqlServerRegionalCud1yr": 1.0827,
           "sqlServerRegionalCud3yr": 0.692928
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 0.369705,
+          "mysqlRegional": 0.73941,
+          "postgresZonal": 0.36456,
+          "postgresRegional": 1.01052,
+          "sqlServerZonal": 0.50526,
+          "sqlServerRegional": 1.39146,
+          "mysqlZonalCud1yr": 0.277279,
+          "mysqlZonalCud3yr": 0.177458,
+          "mysqlRegionalCud1yr": 0.554558,
+          "mysqlRegionalCud3yr": 0.354917,
+          "postgresZonalCud1yr": 0.27342,
+          "postgresZonalCud3yr": 0.174989,
+          "postgresRegionalCud1yr": 0.75789,
+          "postgresRegionalCud3yr": 0.48505,
+          "sqlServerZonalCud1yr": 0.378945,
+          "sqlServerZonalCud3yr": 0.242525,
+          "sqlServerRegionalCud1yr": 1.043595,
+          "sqlServerRegionalCud3yr": 0.667901
         },
         "europe-west6": {
           "mysqlZonal": 0.4577,
@@ -11387,26 +11447,6 @@
           "sqlServerZonalCud3yr": 0.336096,
           "sqlServerRegionalCud1yr": 0.8079,
           "sqlServerRegionalCud3yr": 0.517056
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 0.53424,
-          "mysqlRegional": 1.06932,
-          "postgresZonal": 0.53424,
-          "postgresRegional": 1.06932,
-          "sqlServerZonal": 0.53424,
-          "sqlServerRegional": 1.06932,
-          "mysqlZonalCud1yr": 0.40068,
-          "mysqlZonalCud3yr": 0.256435,
-          "mysqlRegionalCud1yr": 0.80199,
-          "mysqlRegionalCud3yr": 0.513274,
-          "postgresZonalCud1yr": 0.40068,
-          "postgresZonalCud3yr": 0.256435,
-          "postgresRegionalCud1yr": 0.80199,
-          "postgresRegionalCud3yr": 0.513274,
-          "sqlServerZonalCud1yr": 0.40068,
-          "sqlServerZonalCud3yr": 0.256435,
-          "sqlServerRegionalCud1yr": 0.80199,
-          "sqlServerRegionalCud3yr": 0.513274
         }
       }
     },
@@ -11817,6 +11857,26 @@
           "sqlServerZonalCud3yr": 0.652992,
           "sqlServerRegionalCud1yr": 2.1654,
           "sqlServerRegionalCud3yr": 1.385856
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 0.73941,
+          "mysqlRegional": 1.47882,
+          "postgresZonal": 0.72912,
+          "postgresRegional": 2.02104,
+          "sqlServerZonal": 1.01052,
+          "sqlServerRegional": 2.78292,
+          "mysqlZonalCud1yr": 0.554558,
+          "mysqlZonalCud3yr": 0.354917,
+          "mysqlRegionalCud1yr": 1.109115,
+          "mysqlRegionalCud3yr": 0.709834,
+          "postgresZonalCud1yr": 0.54684,
+          "postgresZonalCud3yr": 0.349978,
+          "postgresRegionalCud1yr": 1.51578,
+          "postgresRegionalCud3yr": 0.970099,
+          "sqlServerZonalCud1yr": 0.75789,
+          "sqlServerZonalCud3yr": 0.48505,
+          "sqlServerRegionalCud1yr": 2.08719,
+          "sqlServerRegionalCud3yr": 1.335802
         },
         "europe-west6": {
           "mysqlZonal": 0.9155,
@@ -12337,26 +12397,6 @@
           "sqlServerZonalCud3yr": 0.672192,
           "sqlServerRegionalCud1yr": 1.6158,
           "sqlServerRegionalCud3yr": 1.034112
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 1.06848,
-          "mysqlRegional": 2.13864,
-          "postgresZonal": 1.06848,
-          "postgresRegional": 2.13864,
-          "sqlServerZonal": 1.06848,
-          "sqlServerRegional": 2.13864,
-          "mysqlZonalCud1yr": 0.80136,
-          "mysqlZonalCud3yr": 0.51287,
-          "mysqlRegionalCud1yr": 1.60398,
-          "mysqlRegionalCud3yr": 1.026547,
-          "postgresZonalCud1yr": 0.80136,
-          "postgresZonalCud3yr": 0.51287,
-          "postgresRegionalCud1yr": 1.60398,
-          "postgresRegionalCud3yr": 1.026547,
-          "sqlServerZonalCud1yr": 0.80136,
-          "sqlServerZonalCud3yr": 0.51287,
-          "sqlServerRegionalCud1yr": 1.60398,
-          "sqlServerRegionalCud3yr": 1.026547
         }
       }
     },
@@ -12767,6 +12807,26 @@
           "sqlServerZonalCud3yr": 1.305984,
           "sqlServerRegionalCud1yr": 4.3308,
           "sqlServerRegionalCud3yr": 2.771712
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 1.47882,
+          "mysqlRegional": 2.95764,
+          "postgresZonal": 1.45824,
+          "postgresRegional": 4.04208,
+          "sqlServerZonal": 2.02104,
+          "sqlServerRegional": 5.56584,
+          "mysqlZonalCud1yr": 1.109115,
+          "mysqlZonalCud3yr": 0.709834,
+          "mysqlRegionalCud1yr": 2.21823,
+          "mysqlRegionalCud3yr": 1.419667,
+          "postgresZonalCud1yr": 1.09368,
+          "postgresZonalCud3yr": 0.699955,
+          "postgresRegionalCud1yr": 3.03156,
+          "postgresRegionalCud3yr": 1.940198,
+          "sqlServerZonalCud1yr": 1.51578,
+          "sqlServerZonalCud3yr": 0.970099,
+          "sqlServerRegionalCud1yr": 4.17438,
+          "sqlServerRegionalCud3yr": 2.671603
         },
         "europe-west6": {
           "mysqlZonal": 1.8309,
@@ -13287,26 +13347,6 @@
           "sqlServerZonalCud3yr": 1.344384,
           "sqlServerRegionalCud1yr": 3.2316,
           "sqlServerRegionalCud3yr": 2.068224
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 2.13696,
-          "mysqlRegional": 4.27728,
-          "postgresZonal": 2.13696,
-          "postgresRegional": 4.27728,
-          "sqlServerZonal": 2.13696,
-          "sqlServerRegional": 4.27728,
-          "mysqlZonalCud1yr": 1.60272,
-          "mysqlZonalCud3yr": 1.025741,
-          "mysqlRegionalCud1yr": 3.20796,
-          "mysqlRegionalCud3yr": 2.053094,
-          "postgresZonalCud1yr": 1.60272,
-          "postgresZonalCud3yr": 1.025741,
-          "postgresRegionalCud1yr": 3.20796,
-          "postgresRegionalCud3yr": 2.053094,
-          "sqlServerZonalCud1yr": 1.60272,
-          "sqlServerZonalCud3yr": 1.025741,
-          "sqlServerRegionalCud1yr": 3.20796,
-          "sqlServerRegionalCud3yr": 2.053094
         }
       }
     },
@@ -13717,6 +13757,26 @@
           "sqlServerZonalCud3yr": 2.611968,
           "sqlServerRegionalCud1yr": 8.6616,
           "sqlServerRegionalCud3yr": 5.543424
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 2.95764,
+          "mysqlRegional": 5.91528,
+          "postgresZonal": 2.91648,
+          "postgresRegional": 8.08416,
+          "sqlServerZonal": 4.04208,
+          "sqlServerRegional": 11.13168,
+          "mysqlZonalCud1yr": 2.21823,
+          "mysqlZonalCud3yr": 1.419667,
+          "mysqlRegionalCud1yr": 4.43646,
+          "mysqlRegionalCud3yr": 2.839334,
+          "postgresZonalCud1yr": 2.18736,
+          "postgresZonalCud3yr": 1.39991,
+          "postgresRegionalCud1yr": 6.06312,
+          "postgresRegionalCud3yr": 3.880397,
+          "sqlServerZonalCud1yr": 3.03156,
+          "sqlServerZonalCud3yr": 1.940198,
+          "sqlServerRegionalCud1yr": 8.34876,
+          "sqlServerRegionalCud3yr": 5.343206
         },
         "europe-west6": {
           "mysqlZonal": 3.6618,
@@ -14237,26 +14297,6 @@
           "sqlServerZonalCud3yr": 2.688768,
           "sqlServerRegionalCud1yr": 6.4632,
           "sqlServerRegionalCud3yr": 4.136448
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 4.27392,
-          "mysqlRegional": 8.55456,
-          "postgresZonal": 4.27392,
-          "postgresRegional": 8.55456,
-          "sqlServerZonal": 4.27392,
-          "sqlServerRegional": 8.55456,
-          "mysqlZonalCud1yr": 3.20544,
-          "mysqlZonalCud3yr": 2.051482,
-          "mysqlRegionalCud1yr": 6.41592,
-          "mysqlRegionalCud3yr": 4.106189,
-          "postgresZonalCud1yr": 3.20544,
-          "postgresZonalCud3yr": 2.051482,
-          "postgresRegionalCud1yr": 6.41592,
-          "postgresRegionalCud3yr": 4.106189,
-          "sqlServerZonalCud1yr": 3.20544,
-          "sqlServerZonalCud3yr": 2.051482,
-          "sqlServerRegionalCud1yr": 6.41592,
-          "sqlServerRegionalCud3yr": 4.106189
         }
       }
     },
@@ -14667,6 +14707,26 @@
           "sqlServerZonalCud3yr": 5.223936,
           "sqlServerRegionalCud1yr": 17.3232,
           "sqlServerRegionalCud3yr": 11.086848
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 5.91528,
+          "mysqlRegional": 11.83056,
+          "postgresZonal": 5.83296,
+          "postgresRegional": 16.16832,
+          "sqlServerZonal": 8.08416,
+          "sqlServerRegional": 22.26336,
+          "mysqlZonalCud1yr": 4.43646,
+          "mysqlZonalCud3yr": 2.839334,
+          "mysqlRegionalCud1yr": 8.87292,
+          "mysqlRegionalCud3yr": 5.678669,
+          "postgresZonalCud1yr": 4.37472,
+          "postgresZonalCud3yr": 2.799821,
+          "postgresRegionalCud1yr": 12.12624,
+          "postgresRegionalCud3yr": 7.760794,
+          "sqlServerZonalCud1yr": 6.06312,
+          "sqlServerZonalCud3yr": 3.880397,
+          "sqlServerRegionalCud1yr": 16.69752,
+          "sqlServerRegionalCud3yr": 10.686413
         },
         "europe-west6": {
           "mysqlZonal": 7.3237,
@@ -15187,26 +15247,6 @@
           "sqlServerZonalCud3yr": 5.377536,
           "sqlServerRegionalCud1yr": 12.9264,
           "sqlServerRegionalCud3yr": 8.272896
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 8.54784,
-          "mysqlRegional": 17.10912,
-          "postgresZonal": 8.54784,
-          "postgresRegional": 17.10912,
-          "sqlServerZonal": 8.54784,
-          "sqlServerRegional": 17.10912,
-          "mysqlZonalCud1yr": 6.41088,
-          "mysqlZonalCud3yr": 4.102963,
-          "mysqlRegionalCud1yr": 12.83184,
-          "mysqlRegionalCud3yr": 8.212378,
-          "postgresZonalCud1yr": 6.41088,
-          "postgresZonalCud3yr": 4.102963,
-          "postgresRegionalCud1yr": 12.83184,
-          "postgresRegionalCud3yr": 8.212378,
-          "sqlServerZonalCud1yr": 6.41088,
-          "sqlServerZonalCud3yr": 4.102963,
-          "sqlServerRegionalCud1yr": 12.83184,
-          "sqlServerRegionalCud3yr": 8.212378
         }
       }
     },
@@ -15617,6 +15657,26 @@
           "sqlServerZonalCud3yr": 7.835904,
           "sqlServerRegionalCud1yr": 25.9848,
           "sqlServerRegionalCud3yr": 16.630272
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 8.87292,
+          "mysqlRegional": 17.74584,
+          "postgresZonal": 8.74944,
+          "postgresRegional": 24.25248,
+          "sqlServerZonal": 12.12624,
+          "sqlServerRegional": 33.39504,
+          "mysqlZonalCud1yr": 6.65469,
+          "mysqlZonalCud3yr": 4.259002,
+          "mysqlRegionalCud1yr": 13.30938,
+          "mysqlRegionalCud3yr": 8.518003,
+          "postgresZonalCud1yr": 6.56208,
+          "postgresZonalCud3yr": 4.199731,
+          "postgresRegionalCud1yr": 18.18936,
+          "postgresRegionalCud3yr": 11.64119,
+          "sqlServerZonalCud1yr": 9.09468,
+          "sqlServerZonalCud3yr": 5.820595,
+          "sqlServerRegionalCud1yr": 25.04628,
+          "sqlServerRegionalCud3yr": 16.029619
         },
         "europe-west6": {
           "mysqlZonal": 10.9855,
@@ -16137,26 +16197,6 @@
           "sqlServerZonalCud3yr": 8.066304,
           "sqlServerRegionalCud1yr": 19.3896,
           "sqlServerRegionalCud3yr": 12.409344
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 12.82176,
-          "mysqlRegional": 25.66368,
-          "postgresZonal": 12.82176,
-          "postgresRegional": 25.66368,
-          "sqlServerZonal": 12.82176,
-          "sqlServerRegional": 25.66368,
-          "mysqlZonalCud1yr": 9.61632,
-          "mysqlZonalCud3yr": 6.154445,
-          "mysqlRegionalCud1yr": 19.24776,
-          "mysqlRegionalCud3yr": 12.318566,
-          "postgresZonalCud1yr": 9.61632,
-          "postgresZonalCud3yr": 6.154445,
-          "postgresRegionalCud1yr": 19.24776,
-          "postgresRegionalCud3yr": 12.318566,
-          "sqlServerZonalCud1yr": 9.61632,
-          "sqlServerZonalCud3yr": 6.154445,
-          "sqlServerRegionalCud1yr": 19.24776,
-          "sqlServerRegionalCud3yr": 12.318566
         }
       }
     },
@@ -16567,6 +16607,26 @@
           "sqlServerZonalCud3yr": 0.130368,
           "sqlServerRegionalCud1yr": 0.4266,
           "sqlServerRegionalCud3yr": 0.273024
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 0.20433,
+          "mysqlRegional": 0.378,
+          "postgresZonal": 0.14553,
+          "postgresRegional": 0.39816,
+          "sqlServerZonal": 0.19908,
+          "sqlServerRegional": 0.52668,
+          "mysqlZonalCud1yr": 0.153248,
+          "mysqlZonalCud3yr": 0.098078,
+          "mysqlRegionalCud1yr": 0.2835,
+          "mysqlRegionalCud3yr": 0.18144,
+          "postgresZonalCud1yr": 0.109148,
+          "postgresZonalCud3yr": 0.069854,
+          "postgresRegionalCud1yr": 0.29862,
+          "postgresRegionalCud3yr": 0.191117,
+          "sqlServerZonalCud1yr": 0.14931,
+          "sqlServerZonalCud3yr": 0.095558,
+          "sqlServerRegionalCud1yr": 0.39501,
+          "sqlServerRegionalCud3yr": 0.252806
         },
         "europe-west6": {
           "mysqlZonal": 0.21348,
@@ -17087,26 +17147,6 @@
           "sqlServerZonalCud3yr": 0.121728,
           "sqlServerRegionalCud1yr": 0.32295,
           "sqlServerRegionalCud3yr": 0.206688
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 0.21357,
-          "mysqlRegional": 0.42756,
-          "postgresZonal": 0.21357,
-          "postgresRegional": 0.42756,
-          "sqlServerZonal": 0.21357,
-          "sqlServerRegional": 0.42756,
-          "mysqlZonalCud1yr": 0.160178,
-          "mysqlZonalCud3yr": 0.102514,
-          "mysqlRegionalCud1yr": 0.32067,
-          "mysqlRegionalCud3yr": 0.205229,
-          "postgresZonalCud1yr": 0.160178,
-          "postgresZonalCud3yr": 0.102514,
-          "postgresRegionalCud1yr": 0.32067,
-          "postgresRegionalCud3yr": 0.205229,
-          "sqlServerZonalCud1yr": 0.160178,
-          "sqlServerZonalCud3yr": 0.102514,
-          "sqlServerRegionalCud1yr": 0.32067,
-          "sqlServerRegionalCud3yr": 0.205229
         }
       }
     },
@@ -17517,6 +17557,26 @@
           "sqlServerZonalCud3yr": 0.260736,
           "sqlServerRegionalCud1yr": 0.8532,
           "sqlServerRegionalCud3yr": 0.546048
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 0.40866,
+          "mysqlRegional": 0.756,
+          "postgresZonal": 0.29106,
+          "postgresRegional": 0.79632,
+          "sqlServerZonal": 0.39816,
+          "sqlServerRegional": 1.05336,
+          "mysqlZonalCud1yr": 0.306495,
+          "mysqlZonalCud3yr": 0.196157,
+          "mysqlRegionalCud1yr": 0.567,
+          "mysqlRegionalCud3yr": 0.36288,
+          "postgresZonalCud1yr": 0.218295,
+          "postgresZonalCud3yr": 0.139709,
+          "postgresRegionalCud1yr": 0.59724,
+          "postgresRegionalCud3yr": 0.382234,
+          "sqlServerZonalCud1yr": 0.29862,
+          "sqlServerZonalCud3yr": 0.191117,
+          "sqlServerRegionalCud1yr": 0.79002,
+          "sqlServerRegionalCud3yr": 0.505613
         },
         "europe-west6": {
           "mysqlZonal": 0.42696,
@@ -18037,26 +18097,6 @@
           "sqlServerZonalCud3yr": 0.243456,
           "sqlServerRegionalCud1yr": 0.6459,
           "sqlServerRegionalCud3yr": 0.413376
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 0.42714,
-          "mysqlRegional": 0.85512,
-          "postgresZonal": 0.42714,
-          "postgresRegional": 0.85512,
-          "sqlServerZonal": 0.42714,
-          "sqlServerRegional": 0.85512,
-          "mysqlZonalCud1yr": 0.320355,
-          "mysqlZonalCud3yr": 0.205027,
-          "mysqlRegionalCud1yr": 0.64134,
-          "mysqlRegionalCud3yr": 0.410458,
-          "postgresZonalCud1yr": 0.320355,
-          "postgresZonalCud3yr": 0.205027,
-          "postgresRegionalCud1yr": 0.64134,
-          "postgresRegionalCud3yr": 0.410458,
-          "sqlServerZonalCud1yr": 0.320355,
-          "sqlServerZonalCud3yr": 0.205027,
-          "sqlServerRegionalCud1yr": 0.64134,
-          "sqlServerRegionalCud3yr": 0.410458
         }
       }
     },
@@ -18467,6 +18507,26 @@
           "sqlServerZonalCud3yr": 0.521472,
           "sqlServerRegionalCud1yr": 1.7064,
           "sqlServerRegionalCud3yr": 1.092096
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 0.81732,
+          "mysqlRegional": 1.512,
+          "postgresZonal": 0.58212,
+          "postgresRegional": 1.59264,
+          "sqlServerZonal": 0.79632,
+          "sqlServerRegional": 2.10672,
+          "mysqlZonalCud1yr": 0.61299,
+          "mysqlZonalCud3yr": 0.392314,
+          "mysqlRegionalCud1yr": 1.134,
+          "mysqlRegionalCud3yr": 0.72576,
+          "postgresZonalCud1yr": 0.43659,
+          "postgresZonalCud3yr": 0.279418,
+          "postgresRegionalCud1yr": 1.19448,
+          "postgresRegionalCud3yr": 0.764467,
+          "sqlServerZonalCud1yr": 0.59724,
+          "sqlServerZonalCud3yr": 0.382234,
+          "sqlServerRegionalCud1yr": 1.58004,
+          "sqlServerRegionalCud3yr": 1.011226
         },
         "europe-west6": {
           "mysqlZonal": 0.85392,
@@ -18987,26 +19047,6 @@
           "sqlServerZonalCud3yr": 0.486912,
           "sqlServerRegionalCud1yr": 1.2918,
           "sqlServerRegionalCud3yr": 0.826752
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 0.85428,
-          "mysqlRegional": 1.71024,
-          "postgresZonal": 0.85428,
-          "postgresRegional": 1.71024,
-          "sqlServerZonal": 0.85428,
-          "sqlServerRegional": 1.71024,
-          "mysqlZonalCud1yr": 0.64071,
-          "mysqlZonalCud3yr": 0.410054,
-          "mysqlRegionalCud1yr": 1.28268,
-          "mysqlRegionalCud3yr": 0.820915,
-          "postgresZonalCud1yr": 0.64071,
-          "postgresZonalCud3yr": 0.410054,
-          "postgresRegionalCud1yr": 1.28268,
-          "postgresRegionalCud3yr": 0.820915,
-          "sqlServerZonalCud1yr": 0.64071,
-          "sqlServerZonalCud3yr": 0.410054,
-          "sqlServerRegionalCud1yr": 1.28268,
-          "sqlServerRegionalCud3yr": 0.820915
         }
       }
     },
@@ -19417,6 +19457,26 @@
           "sqlServerZonalCud3yr": 1.042944,
           "sqlServerRegionalCud1yr": 3.4128,
           "sqlServerRegionalCud3yr": 2.184192
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 1.63464,
+          "mysqlRegional": 3.024,
+          "postgresZonal": 1.16424,
+          "postgresRegional": 3.18528,
+          "sqlServerZonal": 1.59264,
+          "sqlServerRegional": 4.21344,
+          "mysqlZonalCud1yr": 1.22598,
+          "mysqlZonalCud3yr": 0.784627,
+          "mysqlRegionalCud1yr": 2.268,
+          "mysqlRegionalCud3yr": 1.45152,
+          "postgresZonalCud1yr": 0.87318,
+          "postgresZonalCud3yr": 0.558835,
+          "postgresRegionalCud1yr": 2.38896,
+          "postgresRegionalCud3yr": 1.528934,
+          "sqlServerZonalCud1yr": 1.19448,
+          "sqlServerZonalCud3yr": 0.764467,
+          "sqlServerRegionalCud1yr": 3.16008,
+          "sqlServerRegionalCud3yr": 2.022451
         },
         "europe-west6": {
           "mysqlZonal": 1.70784,
@@ -19937,26 +19997,6 @@
           "sqlServerZonalCud3yr": 0.973824,
           "sqlServerRegionalCud1yr": 2.5836,
           "sqlServerRegionalCud3yr": 1.653504
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 1.70856,
-          "mysqlRegional": 3.42048,
-          "postgresZonal": 1.70856,
-          "postgresRegional": 3.42048,
-          "sqlServerZonal": 1.70856,
-          "sqlServerRegional": 3.42048,
-          "mysqlZonalCud1yr": 1.28142,
-          "mysqlZonalCud3yr": 0.820109,
-          "mysqlRegionalCud1yr": 2.56536,
-          "mysqlRegionalCud3yr": 1.64183,
-          "postgresZonalCud1yr": 1.28142,
-          "postgresZonalCud3yr": 0.820109,
-          "postgresRegionalCud1yr": 2.56536,
-          "postgresRegionalCud3yr": 1.64183,
-          "sqlServerZonalCud1yr": 1.28142,
-          "sqlServerZonalCud3yr": 0.820109,
-          "sqlServerRegionalCud1yr": 2.56536,
-          "sqlServerRegionalCud3yr": 1.64183
         }
       }
     },
@@ -20367,6 +20407,26 @@
           "sqlServerZonalCud3yr": 2.085888,
           "sqlServerRegionalCud1yr": 6.8256,
           "sqlServerRegionalCud3yr": 4.368384
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 3.26928,
+          "mysqlRegional": 6.048,
+          "postgresZonal": 2.32848,
+          "postgresRegional": 6.37056,
+          "sqlServerZonal": 3.18528,
+          "sqlServerRegional": 8.42688,
+          "mysqlZonalCud1yr": 2.45196,
+          "mysqlZonalCud3yr": 1.569254,
+          "mysqlRegionalCud1yr": 4.536,
+          "mysqlRegionalCud3yr": 2.90304,
+          "postgresZonalCud1yr": 1.74636,
+          "postgresZonalCud3yr": 1.11767,
+          "postgresRegionalCud1yr": 4.77792,
+          "postgresRegionalCud3yr": 3.057869,
+          "sqlServerZonalCud1yr": 2.38896,
+          "sqlServerZonalCud3yr": 1.528934,
+          "sqlServerRegionalCud1yr": 6.32016,
+          "sqlServerRegionalCud3yr": 4.044902
         },
         "europe-west6": {
           "mysqlZonal": 3.41568,
@@ -20887,26 +20947,6 @@
           "sqlServerZonalCud3yr": 1.947648,
           "sqlServerRegionalCud1yr": 5.1672,
           "sqlServerRegionalCud3yr": 3.307008
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 3.41712,
-          "mysqlRegional": 6.84096,
-          "postgresZonal": 3.41712,
-          "postgresRegional": 6.84096,
-          "sqlServerZonal": 3.41712,
-          "sqlServerRegional": 6.84096,
-          "mysqlZonalCud1yr": 2.56284,
-          "mysqlZonalCud3yr": 1.640218,
-          "mysqlRegionalCud1yr": 5.13072,
-          "mysqlRegionalCud3yr": 3.283661,
-          "postgresZonalCud1yr": 2.56284,
-          "postgresZonalCud3yr": 1.640218,
-          "postgresRegionalCud1yr": 5.13072,
-          "postgresRegionalCud3yr": 3.283661,
-          "sqlServerZonalCud1yr": 2.56284,
-          "sqlServerZonalCud3yr": 1.640218,
-          "sqlServerRegionalCud1yr": 5.13072,
-          "sqlServerRegionalCud3yr": 3.283661
         }
       }
     },
@@ -21317,6 +21357,26 @@
           "sqlServerZonalCud3yr": 3.128832,
           "sqlServerRegionalCud1yr": 10.2384,
           "sqlServerRegionalCud3yr": 6.552576
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 4.90392,
+          "mysqlRegional": 9.072,
+          "postgresZonal": 3.49272,
+          "postgresRegional": 9.55584,
+          "sqlServerZonal": 4.77792,
+          "sqlServerRegional": 12.64032,
+          "mysqlZonalCud1yr": 3.67794,
+          "mysqlZonalCud3yr": 2.353882,
+          "mysqlRegionalCud1yr": 6.804,
+          "mysqlRegionalCud3yr": 4.35456,
+          "postgresZonalCud1yr": 2.61954,
+          "postgresZonalCud3yr": 1.676506,
+          "postgresRegionalCud1yr": 7.16688,
+          "postgresRegionalCud3yr": 4.586803,
+          "sqlServerZonalCud1yr": 3.58344,
+          "sqlServerZonalCud3yr": 2.293402,
+          "sqlServerRegionalCud1yr": 9.48024,
+          "sqlServerRegionalCud3yr": 6.067354
         },
         "europe-west6": {
           "mysqlZonal": 5.12352,
@@ -21837,26 +21897,6 @@
           "sqlServerZonalCud3yr": 2.921472,
           "sqlServerRegionalCud1yr": 7.7508,
           "sqlServerRegionalCud3yr": 4.960512
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 5.12568,
-          "mysqlRegional": 10.26144,
-          "postgresZonal": 5.12568,
-          "postgresRegional": 10.26144,
-          "sqlServerZonal": 5.12568,
-          "sqlServerRegional": 10.26144,
-          "mysqlZonalCud1yr": 3.84426,
-          "mysqlZonalCud3yr": 2.460326,
-          "mysqlRegionalCud1yr": 7.69608,
-          "mysqlRegionalCud3yr": 4.925491,
-          "postgresZonalCud1yr": 3.84426,
-          "postgresZonalCud3yr": 2.460326,
-          "postgresRegionalCud1yr": 7.69608,
-          "postgresRegionalCud3yr": 4.925491,
-          "sqlServerZonalCud1yr": 3.84426,
-          "sqlServerZonalCud3yr": 2.460326,
-          "sqlServerRegionalCud1yr": 7.69608,
-          "sqlServerRegionalCud3yr": 4.925491
         }
       }
     },
@@ -22267,6 +22307,26 @@
           "sqlServerZonalCud3yr": 4.171776,
           "sqlServerRegionalCud1yr": 13.6512,
           "sqlServerRegionalCud3yr": 8.736768
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 6.53856,
+          "mysqlRegional": 12.096,
+          "postgresZonal": 4.65696,
+          "postgresRegional": 12.74112,
+          "sqlServerZonal": 6.37056,
+          "sqlServerRegional": 16.85376,
+          "mysqlZonalCud1yr": 4.90392,
+          "mysqlZonalCud3yr": 3.138509,
+          "mysqlRegionalCud1yr": 9.072,
+          "mysqlRegionalCud3yr": 5.80608,
+          "postgresZonalCud1yr": 3.49272,
+          "postgresZonalCud3yr": 2.235341,
+          "postgresRegionalCud1yr": 9.55584,
+          "postgresRegionalCud3yr": 6.115738,
+          "sqlServerZonalCud1yr": 4.77792,
+          "sqlServerZonalCud3yr": 3.057869,
+          "sqlServerRegionalCud1yr": 12.64032,
+          "sqlServerRegionalCud3yr": 8.089805
         },
         "europe-west6": {
           "mysqlZonal": 6.83136,
@@ -22787,26 +22847,6 @@
           "sqlServerZonalCud3yr": 3.895296,
           "sqlServerRegionalCud1yr": 10.3344,
           "sqlServerRegionalCud3yr": 6.614016
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 6.83424,
-          "mysqlRegional": 13.68192,
-          "postgresZonal": 6.83424,
-          "postgresRegional": 13.68192,
-          "sqlServerZonal": 6.83424,
-          "sqlServerRegional": 13.68192,
-          "mysqlZonalCud1yr": 5.12568,
-          "mysqlZonalCud3yr": 3.280435,
-          "mysqlRegionalCud1yr": 10.26144,
-          "mysqlRegionalCud3yr": 6.567322,
-          "postgresZonalCud1yr": 5.12568,
-          "postgresZonalCud3yr": 3.280435,
-          "postgresRegionalCud1yr": 10.26144,
-          "postgresRegionalCud3yr": 6.567322,
-          "sqlServerZonalCud1yr": 5.12568,
-          "sqlServerZonalCud3yr": 3.280435,
-          "sqlServerRegionalCud1yr": 10.26144,
-          "sqlServerRegionalCud3yr": 6.567322
         }
       }
     },
@@ -23217,6 +23257,26 @@
           "sqlServerZonalCud3yr": 5.21472,
           "sqlServerRegionalCud1yr": 17.064,
           "sqlServerRegionalCud3yr": 10.92096
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 8.1732,
+          "mysqlRegional": 15.12,
+          "postgresZonal": 5.8212,
+          "postgresRegional": 15.9264,
+          "sqlServerZonal": 7.9632,
+          "sqlServerRegional": 21.0672,
+          "mysqlZonalCud1yr": 6.1299,
+          "mysqlZonalCud3yr": 3.923136,
+          "mysqlRegionalCud1yr": 11.34,
+          "mysqlRegionalCud3yr": 7.2576,
+          "postgresZonalCud1yr": 4.3659,
+          "postgresZonalCud3yr": 2.794176,
+          "postgresRegionalCud1yr": 11.9448,
+          "postgresRegionalCud3yr": 7.644672,
+          "sqlServerZonalCud1yr": 5.9724,
+          "sqlServerZonalCud3yr": 3.822336,
+          "sqlServerRegionalCud1yr": 15.8004,
+          "sqlServerRegionalCud3yr": 10.112256
         },
         "europe-west6": {
           "mysqlZonal": 8.5392,
@@ -23737,26 +23797,6 @@
           "sqlServerZonalCud3yr": 4.86912,
           "sqlServerRegionalCud1yr": 12.918,
           "sqlServerRegionalCud3yr": 8.26752
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 8.5428,
-          "mysqlRegional": 17.1024,
-          "postgresZonal": 8.5428,
-          "postgresRegional": 17.1024,
-          "sqlServerZonal": 8.5428,
-          "sqlServerRegional": 17.1024,
-          "mysqlZonalCud1yr": 6.4071,
-          "mysqlZonalCud3yr": 4.100544,
-          "mysqlRegionalCud1yr": 12.8268,
-          "mysqlRegionalCud3yr": 8.209152,
-          "postgresZonalCud1yr": 6.4071,
-          "postgresZonalCud3yr": 4.100544,
-          "postgresRegionalCud1yr": 12.8268,
-          "postgresRegionalCud3yr": 8.209152,
-          "sqlServerZonalCud1yr": 6.4071,
-          "sqlServerZonalCud3yr": 4.100544,
-          "sqlServerRegionalCud1yr": 12.8268,
-          "sqlServerRegionalCud3yr": 8.209152
         }
       }
     },
@@ -24167,6 +24207,26 @@
           "sqlServerZonalCud3yr": 0.182976,
           "sqlServerRegionalCud1yr": 0.6102,
           "sqlServerRegionalCud3yr": 0.390528
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 0.28077,
+          "mysqlRegional": 0.5292,
+          "postgresZonal": 0.20433,
+          "postgresRegional": 0.56952,
+          "sqlServerZonal": 0.28476,
+          "sqlServerRegional": 0.79716,
+          "mysqlZonalCud1yr": 0.210578,
+          "mysqlZonalCud3yr": 0.13477,
+          "mysqlRegionalCud1yr": 0.3969,
+          "mysqlRegionalCud3yr": 0.254016,
+          "postgresZonalCud1yr": 0.153248,
+          "postgresZonalCud3yr": 0.098078,
+          "postgresRegionalCud1yr": 0.42714,
+          "postgresRegionalCud3yr": 0.27337,
+          "sqlServerZonalCud1yr": 0.21357,
+          "sqlServerZonalCud3yr": 0.136685,
+          "sqlServerRegionalCud1yr": 0.59787,
+          "sqlServerRegionalCud3yr": 0.382637
         },
         "europe-west6": {
           "mysqlZonal": 0.31956,
@@ -24687,26 +24747,6 @@
           "sqlServerZonalCud3yr": 0.19584,
           "sqlServerRegionalCud1yr": 0.45255,
           "sqlServerRegionalCud3yr": 0.289632
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 0.29925,
-          "mysqlRegional": 0.59892,
-          "postgresZonal": 0.29925,
-          "postgresRegional": 0.59892,
-          "sqlServerZonal": 0.29925,
-          "sqlServerRegional": 0.59892,
-          "mysqlZonalCud1yr": 0.224438,
-          "mysqlZonalCud3yr": 0.14364,
-          "mysqlRegionalCud1yr": 0.44919,
-          "mysqlRegionalCud3yr": 0.287482,
-          "postgresZonalCud1yr": 0.224438,
-          "postgresZonalCud3yr": 0.14364,
-          "postgresRegionalCud1yr": 0.44919,
-          "postgresRegionalCud3yr": 0.287482,
-          "sqlServerZonalCud1yr": 0.224438,
-          "sqlServerZonalCud3yr": 0.14364,
-          "sqlServerRegionalCud1yr": 0.44919,
-          "sqlServerRegionalCud3yr": 0.287482
         }
       }
     },
@@ -25117,6 +25157,26 @@
           "sqlServerZonalCud3yr": 0.365952,
           "sqlServerRegionalCud1yr": 1.2204,
           "sqlServerRegionalCud3yr": 0.781056
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 0.56154,
+          "mysqlRegional": 1.0584,
+          "postgresZonal": 0.40866,
+          "postgresRegional": 1.13904,
+          "sqlServerZonal": 0.56952,
+          "sqlServerRegional": 1.59432,
+          "mysqlZonalCud1yr": 0.421155,
+          "mysqlZonalCud3yr": 0.269539,
+          "mysqlRegionalCud1yr": 0.7938,
+          "mysqlRegionalCud3yr": 0.508032,
+          "postgresZonalCud1yr": 0.306495,
+          "postgresZonalCud3yr": 0.196157,
+          "postgresRegionalCud1yr": 0.85428,
+          "postgresRegionalCud3yr": 0.546739,
+          "sqlServerZonalCud1yr": 0.42714,
+          "sqlServerZonalCud3yr": 0.27337,
+          "sqlServerRegionalCud1yr": 1.19574,
+          "sqlServerRegionalCud3yr": 0.765274
         },
         "europe-west6": {
           "mysqlZonal": 0.63912,
@@ -25637,26 +25697,6 @@
           "sqlServerZonalCud3yr": 0.39168,
           "sqlServerRegionalCud1yr": 0.9051,
           "sqlServerRegionalCud3yr": 0.579264
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 0.5985,
-          "mysqlRegional": 1.19784,
-          "postgresZonal": 0.5985,
-          "postgresRegional": 1.19784,
-          "sqlServerZonal": 0.5985,
-          "sqlServerRegional": 1.19784,
-          "mysqlZonalCud1yr": 0.448875,
-          "mysqlZonalCud3yr": 0.28728,
-          "mysqlRegionalCud1yr": 0.89838,
-          "mysqlRegionalCud3yr": 0.574963,
-          "postgresZonalCud1yr": 0.448875,
-          "postgresZonalCud3yr": 0.28728,
-          "postgresRegionalCud1yr": 0.89838,
-          "postgresRegionalCud3yr": 0.574963,
-          "sqlServerZonalCud1yr": 0.448875,
-          "sqlServerZonalCud3yr": 0.28728,
-          "sqlServerRegionalCud1yr": 0.89838,
-          "sqlServerRegionalCud3yr": 0.574963
         }
       }
     },
@@ -26067,6 +26107,26 @@
           "sqlServerZonalCud3yr": 0.731904,
           "sqlServerRegionalCud1yr": 2.4408,
           "sqlServerRegionalCud3yr": 1.562112
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 1.12308,
+          "mysqlRegional": 2.1168,
+          "postgresZonal": 0.81732,
+          "postgresRegional": 2.27808,
+          "sqlServerZonal": 1.13904,
+          "sqlServerRegional": 3.18864,
+          "mysqlZonalCud1yr": 0.84231,
+          "mysqlZonalCud3yr": 0.539078,
+          "mysqlRegionalCud1yr": 1.5876,
+          "mysqlRegionalCud3yr": 1.016064,
+          "postgresZonalCud1yr": 0.61299,
+          "postgresZonalCud3yr": 0.392314,
+          "postgresRegionalCud1yr": 1.70856,
+          "postgresRegionalCud3yr": 1.093478,
+          "sqlServerZonalCud1yr": 0.85428,
+          "sqlServerZonalCud3yr": 0.546739,
+          "sqlServerRegionalCud1yr": 2.39148,
+          "sqlServerRegionalCud3yr": 1.530547
         },
         "europe-west6": {
           "mysqlZonal": 1.27824,
@@ -26587,26 +26647,6 @@
           "sqlServerZonalCud3yr": 0.78336,
           "sqlServerRegionalCud1yr": 1.8102,
           "sqlServerRegionalCud3yr": 1.158528
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 1.197,
-          "mysqlRegional": 2.39568,
-          "postgresZonal": 1.197,
-          "postgresRegional": 2.39568,
-          "sqlServerZonal": 1.197,
-          "sqlServerRegional": 2.39568,
-          "mysqlZonalCud1yr": 0.89775,
-          "mysqlZonalCud3yr": 0.57456,
-          "mysqlRegionalCud1yr": 1.79676,
-          "mysqlRegionalCud3yr": 1.149926,
-          "postgresZonalCud1yr": 0.89775,
-          "postgresZonalCud3yr": 0.57456,
-          "postgresRegionalCud1yr": 1.79676,
-          "postgresRegionalCud3yr": 1.149926,
-          "sqlServerZonalCud1yr": 0.89775,
-          "sqlServerZonalCud3yr": 0.57456,
-          "sqlServerRegionalCud1yr": 1.79676,
-          "sqlServerRegionalCud3yr": 1.149926
         }
       }
     },
@@ -27017,6 +27057,26 @@
           "sqlServerZonalCud3yr": 1.463808,
           "sqlServerRegionalCud1yr": 4.8816,
           "sqlServerRegionalCud3yr": 3.124224
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 2.24616,
+          "mysqlRegional": 4.2336,
+          "postgresZonal": 1.63464,
+          "postgresRegional": 4.55616,
+          "sqlServerZonal": 2.27808,
+          "sqlServerRegional": 6.37728,
+          "mysqlZonalCud1yr": 1.68462,
+          "mysqlZonalCud3yr": 1.078157,
+          "mysqlRegionalCud1yr": 3.1752,
+          "mysqlRegionalCud3yr": 2.032128,
+          "postgresZonalCud1yr": 1.22598,
+          "postgresZonalCud3yr": 0.784627,
+          "postgresRegionalCud1yr": 3.41712,
+          "postgresRegionalCud3yr": 2.186957,
+          "sqlServerZonalCud1yr": 1.70856,
+          "sqlServerZonalCud3yr": 1.093478,
+          "sqlServerRegionalCud1yr": 4.78296,
+          "sqlServerRegionalCud3yr": 3.061094
         },
         "europe-west6": {
           "mysqlZonal": 2.55648,
@@ -27537,26 +27597,6 @@
           "sqlServerZonalCud3yr": 1.56672,
           "sqlServerRegionalCud1yr": 3.6204,
           "sqlServerRegionalCud3yr": 2.317056
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 2.394,
-          "mysqlRegional": 4.79136,
-          "postgresZonal": 2.394,
-          "postgresRegional": 4.79136,
-          "sqlServerZonal": 2.394,
-          "sqlServerRegional": 4.79136,
-          "mysqlZonalCud1yr": 1.7955,
-          "mysqlZonalCud3yr": 1.14912,
-          "mysqlRegionalCud1yr": 3.59352,
-          "mysqlRegionalCud3yr": 2.299853,
-          "postgresZonalCud1yr": 1.7955,
-          "postgresZonalCud3yr": 1.14912,
-          "postgresRegionalCud1yr": 3.59352,
-          "postgresRegionalCud3yr": 2.299853,
-          "sqlServerZonalCud1yr": 1.7955,
-          "sqlServerZonalCud3yr": 1.14912,
-          "sqlServerRegionalCud1yr": 3.59352,
-          "sqlServerRegionalCud3yr": 2.299853
         }
       }
     },
@@ -27967,6 +28007,26 @@
           "sqlServerZonalCud3yr": 2.927616,
           "sqlServerRegionalCud1yr": 9.7632,
           "sqlServerRegionalCud3yr": 6.248448
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 4.49232,
+          "mysqlRegional": 8.4672,
+          "postgresZonal": 3.26928,
+          "postgresRegional": 9.11232,
+          "sqlServerZonal": 4.55616,
+          "sqlServerRegional": 12.75456,
+          "mysqlZonalCud1yr": 3.36924,
+          "mysqlZonalCud3yr": 2.156314,
+          "mysqlRegionalCud1yr": 6.3504,
+          "mysqlRegionalCud3yr": 4.064256,
+          "postgresZonalCud1yr": 2.45196,
+          "postgresZonalCud3yr": 1.569254,
+          "postgresRegionalCud1yr": 6.83424,
+          "postgresRegionalCud3yr": 4.373914,
+          "sqlServerZonalCud1yr": 3.41712,
+          "sqlServerZonalCud3yr": 2.186957,
+          "sqlServerRegionalCud1yr": 9.56592,
+          "sqlServerRegionalCud3yr": 6.122189
         },
         "europe-west6": {
           "mysqlZonal": 5.11296,
@@ -28487,26 +28547,6 @@
           "sqlServerZonalCud3yr": 3.13344,
           "sqlServerRegionalCud1yr": 7.2408,
           "sqlServerRegionalCud3yr": 4.634112
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 4.788,
-          "mysqlRegional": 9.58272,
-          "postgresZonal": 4.788,
-          "postgresRegional": 9.58272,
-          "sqlServerZonal": 4.788,
-          "sqlServerRegional": 9.58272,
-          "mysqlZonalCud1yr": 3.591,
-          "mysqlZonalCud3yr": 2.29824,
-          "mysqlRegionalCud1yr": 7.18704,
-          "mysqlRegionalCud3yr": 4.599706,
-          "postgresZonalCud1yr": 3.591,
-          "postgresZonalCud3yr": 2.29824,
-          "postgresRegionalCud1yr": 7.18704,
-          "postgresRegionalCud3yr": 4.599706,
-          "sqlServerZonalCud1yr": 3.591,
-          "sqlServerZonalCud3yr": 2.29824,
-          "sqlServerRegionalCud1yr": 7.18704,
-          "sqlServerRegionalCud3yr": 4.599706
         }
       }
     },
@@ -28917,6 +28957,26 @@
           "sqlServerZonalCud3yr": 4.391424,
           "sqlServerRegionalCud1yr": 14.6448,
           "sqlServerRegionalCud3yr": 9.372672
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 6.73848,
+          "mysqlRegional": 12.7008,
+          "postgresZonal": 4.90392,
+          "postgresRegional": 13.66848,
+          "sqlServerZonal": 6.83424,
+          "sqlServerRegional": 19.13184,
+          "mysqlZonalCud1yr": 5.05386,
+          "mysqlZonalCud3yr": 3.23447,
+          "mysqlRegionalCud1yr": 9.5256,
+          "mysqlRegionalCud3yr": 6.096384,
+          "postgresZonalCud1yr": 3.67794,
+          "postgresZonalCud3yr": 2.353882,
+          "postgresRegionalCud1yr": 10.25136,
+          "postgresRegionalCud3yr": 6.56087,
+          "sqlServerZonalCud1yr": 5.12568,
+          "sqlServerZonalCud3yr": 3.280435,
+          "sqlServerRegionalCud1yr": 14.34888,
+          "sqlServerRegionalCud3yr": 9.183283
         },
         "europe-west6": {
           "mysqlZonal": 7.66944,
@@ -29437,26 +29497,6 @@
           "sqlServerZonalCud3yr": 4.70016,
           "sqlServerRegionalCud1yr": 10.8612,
           "sqlServerRegionalCud3yr": 6.951168
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 7.182,
-          "mysqlRegional": 14.37408,
-          "postgresZonal": 7.182,
-          "postgresRegional": 14.37408,
-          "sqlServerZonal": 7.182,
-          "sqlServerRegional": 14.37408,
-          "mysqlZonalCud1yr": 5.3865,
-          "mysqlZonalCud3yr": 3.44736,
-          "mysqlRegionalCud1yr": 10.78056,
-          "mysqlRegionalCud3yr": 6.899558,
-          "postgresZonalCud1yr": 5.3865,
-          "postgresZonalCud3yr": 3.44736,
-          "postgresRegionalCud1yr": 10.78056,
-          "postgresRegionalCud3yr": 6.899558,
-          "sqlServerZonalCud1yr": 5.3865,
-          "sqlServerZonalCud3yr": 3.44736,
-          "sqlServerRegionalCud1yr": 10.78056,
-          "sqlServerRegionalCud3yr": 6.899558
         }
       }
     },
@@ -29867,6 +29907,26 @@
           "sqlServerZonalCud3yr": 5.855232,
           "sqlServerRegionalCud1yr": 19.5264,
           "sqlServerRegionalCud3yr": 12.496896
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 8.98464,
+          "mysqlRegional": 16.9344,
+          "postgresZonal": 6.53856,
+          "postgresRegional": 18.22464,
+          "sqlServerZonal": 9.11232,
+          "sqlServerRegional": 25.50912,
+          "mysqlZonalCud1yr": 6.73848,
+          "mysqlZonalCud3yr": 4.312627,
+          "mysqlRegionalCud1yr": 12.7008,
+          "mysqlRegionalCud3yr": 8.128512,
+          "postgresZonalCud1yr": 4.90392,
+          "postgresZonalCud3yr": 3.138509,
+          "postgresRegionalCud1yr": 13.66848,
+          "postgresRegionalCud3yr": 8.747827,
+          "sqlServerZonalCud1yr": 6.83424,
+          "sqlServerZonalCud3yr": 4.373914,
+          "sqlServerRegionalCud1yr": 19.13184,
+          "sqlServerRegionalCud3yr": 12.244378
         },
         "europe-west6": {
           "mysqlZonal": 10.22592,
@@ -30387,26 +30447,6 @@
           "sqlServerZonalCud3yr": 6.26688,
           "sqlServerRegionalCud1yr": 14.4816,
           "sqlServerRegionalCud3yr": 9.268224
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 9.576,
-          "mysqlRegional": 19.16544,
-          "postgresZonal": 9.576,
-          "postgresRegional": 19.16544,
-          "sqlServerZonal": 9.576,
-          "sqlServerRegional": 19.16544,
-          "mysqlZonalCud1yr": 7.182,
-          "mysqlZonalCud3yr": 4.59648,
-          "mysqlRegionalCud1yr": 14.37408,
-          "mysqlRegionalCud3yr": 9.199411,
-          "postgresZonalCud1yr": 7.182,
-          "postgresZonalCud3yr": 4.59648,
-          "postgresRegionalCud1yr": 14.37408,
-          "postgresRegionalCud3yr": 9.199411,
-          "sqlServerZonalCud1yr": 7.182,
-          "sqlServerZonalCud3yr": 4.59648,
-          "sqlServerRegionalCud1yr": 14.37408,
-          "sqlServerRegionalCud3yr": 9.199411
         }
       }
     },
@@ -30817,6 +30857,26 @@
           "sqlServerZonalCud3yr": 7.31904,
           "sqlServerRegionalCud1yr": 24.408,
           "sqlServerRegionalCud3yr": 15.62112
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 11.2308,
+          "mysqlRegional": 21.168,
+          "postgresZonal": 8.1732,
+          "postgresRegional": 22.7808,
+          "sqlServerZonal": 11.3904,
+          "sqlServerRegional": 31.8864,
+          "mysqlZonalCud1yr": 8.4231,
+          "mysqlZonalCud3yr": 5.390784,
+          "mysqlRegionalCud1yr": 15.876,
+          "mysqlRegionalCud3yr": 10.16064,
+          "postgresZonalCud1yr": 6.1299,
+          "postgresZonalCud3yr": 3.923136,
+          "postgresRegionalCud1yr": 17.0856,
+          "postgresRegionalCud3yr": 10.934784,
+          "sqlServerZonalCud1yr": 8.5428,
+          "sqlServerZonalCud3yr": 5.467392,
+          "sqlServerRegionalCud1yr": 23.9148,
+          "sqlServerRegionalCud3yr": 15.305472
         },
         "europe-west6": {
           "mysqlZonal": 12.7824,
@@ -31337,26 +31397,6 @@
           "sqlServerZonalCud3yr": 7.8336,
           "sqlServerRegionalCud1yr": 18.102,
           "sqlServerRegionalCud3yr": 11.58528
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 11.97,
-          "mysqlRegional": 23.9568,
-          "postgresZonal": 11.97,
-          "postgresRegional": 23.9568,
-          "sqlServerZonal": 11.97,
-          "sqlServerRegional": 23.9568,
-          "mysqlZonalCud1yr": 8.9775,
-          "mysqlZonalCud3yr": 5.7456,
-          "mysqlRegionalCud1yr": 17.9676,
-          "mysqlRegionalCud3yr": 11.499264,
-          "postgresZonalCud1yr": 8.9775,
-          "postgresZonalCud3yr": 5.7456,
-          "postgresRegionalCud1yr": 17.9676,
-          "postgresRegionalCud3yr": 11.499264,
-          "sqlServerZonalCud1yr": 8.9775,
-          "sqlServerZonalCud3yr": 5.7456,
-          "sqlServerRegionalCud1yr": 17.9676,
-          "sqlServerRegionalCud3yr": 11.499264
         }
       }
     },
@@ -31767,6 +31807,26 @@
           "sqlServerZonalCud3yr": 0.140112,
           "sqlServerRegionalCud1yr": 0.43785,
           "sqlServerRegionalCud3yr": 0.280224
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 0.20433,
+          "mysqlRegional": 0.40866,
+          "postgresZonal": 0.20433,
+          "postgresRegional": 0.40866,
+          "sqlServerZonal": 0.20433,
+          "sqlServerRegional": 0.40866,
+          "mysqlZonalCud1yr": 0.153248,
+          "mysqlZonalCud3yr": 0.098078,
+          "mysqlRegionalCud1yr": 0.306495,
+          "mysqlRegionalCud3yr": 0.196157,
+          "postgresZonalCud1yr": 0.153248,
+          "postgresZonalCud3yr": 0.098078,
+          "postgresRegionalCud1yr": 0.306495,
+          "postgresRegionalCud3yr": 0.196157,
+          "sqlServerZonalCud1yr": 0.153248,
+          "sqlServerZonalCud3yr": 0.098078,
+          "sqlServerRegionalCud1yr": 0.306495,
+          "sqlServerRegionalCud3yr": 0.196157
         },
         "europe-west6": {
           "mysqlZonal": 0.25298,
@@ -32287,26 +32347,6 @@
           "sqlServerZonalCud3yr": 0.11209,
           "sqlServerRegionalCud1yr": 0.35028,
           "sqlServerRegionalCud3yr": 0.224179
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 0.29925,
-          "mysqlRegional": 0.59892,
-          "postgresZonal": 0.29925,
-          "postgresRegional": 0.59892,
-          "sqlServerZonal": 0.29925,
-          "sqlServerRegional": 0.59892,
-          "mysqlZonalCud1yr": 0.224438,
-          "mysqlZonalCud3yr": 0.14364,
-          "mysqlRegionalCud1yr": 0.44919,
-          "mysqlRegionalCud3yr": 0.287482,
-          "postgresZonalCud1yr": 0.224438,
-          "postgresZonalCud3yr": 0.14364,
-          "postgresRegionalCud1yr": 0.44919,
-          "postgresRegionalCud3yr": 0.287482,
-          "sqlServerZonalCud1yr": 0.224438,
-          "sqlServerZonalCud3yr": 0.14364,
-          "sqlServerRegionalCud1yr": 0.44919,
-          "sqlServerRegionalCud3yr": 0.287482
         }
       }
     },
@@ -32717,6 +32757,26 @@
           "sqlServerZonalCud3yr": 0.280224,
           "sqlServerRegionalCud1yr": 0.8757,
           "sqlServerRegionalCud3yr": 0.560448
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 0.40866,
+          "mysqlRegional": 0.81732,
+          "postgresZonal": 0.40866,
+          "postgresRegional": 0.81732,
+          "sqlServerZonal": 0.40866,
+          "sqlServerRegional": 0.81732,
+          "mysqlZonalCud1yr": 0.306495,
+          "mysqlZonalCud3yr": 0.196157,
+          "mysqlRegionalCud1yr": 0.61299,
+          "mysqlRegionalCud3yr": 0.392314,
+          "postgresZonalCud1yr": 0.306495,
+          "postgresZonalCud3yr": 0.196157,
+          "postgresRegionalCud1yr": 0.61299,
+          "postgresRegionalCud3yr": 0.392314,
+          "sqlServerZonalCud1yr": 0.306495,
+          "sqlServerZonalCud3yr": 0.196157,
+          "sqlServerRegionalCud1yr": 0.61299,
+          "sqlServerRegionalCud3yr": 0.392314
         },
         "europe-west6": {
           "mysqlZonal": 0.50596,
@@ -33237,26 +33297,6 @@
           "sqlServerZonalCud3yr": 0.224179,
           "sqlServerRegionalCud1yr": 0.70056,
           "sqlServerRegionalCud3yr": 0.448358
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 0.5985,
-          "mysqlRegional": 1.19784,
-          "postgresZonal": 0.5985,
-          "postgresRegional": 1.19784,
-          "sqlServerZonal": 0.5985,
-          "sqlServerRegional": 1.19784,
-          "mysqlZonalCud1yr": 0.448875,
-          "mysqlZonalCud3yr": 0.28728,
-          "mysqlRegionalCud1yr": 0.89838,
-          "mysqlRegionalCud3yr": 0.574963,
-          "postgresZonalCud1yr": 0.448875,
-          "postgresZonalCud3yr": 0.28728,
-          "postgresRegionalCud1yr": 0.89838,
-          "postgresRegionalCud3yr": 0.574963,
-          "sqlServerZonalCud1yr": 0.448875,
-          "sqlServerZonalCud3yr": 0.28728,
-          "sqlServerRegionalCud1yr": 0.89838,
-          "sqlServerRegionalCud3yr": 0.574963
         }
       }
     },
@@ -33667,6 +33707,26 @@
           "sqlServerZonalCud3yr": 0.560448,
           "sqlServerRegionalCud1yr": 1.7514,
           "sqlServerRegionalCud3yr": 1.120896
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 0.81732,
+          "mysqlRegional": 1.63464,
+          "postgresZonal": 0.81732,
+          "postgresRegional": 1.63464,
+          "sqlServerZonal": 0.81732,
+          "sqlServerRegional": 1.63464,
+          "mysqlZonalCud1yr": 0.61299,
+          "mysqlZonalCud3yr": 0.392314,
+          "mysqlRegionalCud1yr": 1.22598,
+          "mysqlRegionalCud3yr": 0.784627,
+          "postgresZonalCud1yr": 0.61299,
+          "postgresZonalCud3yr": 0.392314,
+          "postgresRegionalCud1yr": 1.22598,
+          "postgresRegionalCud3yr": 0.784627,
+          "sqlServerZonalCud1yr": 0.61299,
+          "sqlServerZonalCud3yr": 0.392314,
+          "sqlServerRegionalCud1yr": 1.22598,
+          "sqlServerRegionalCud3yr": 0.784627
         },
         "europe-west6": {
           "mysqlZonal": 1.01192,
@@ -34187,26 +34247,6 @@
           "sqlServerZonalCud3yr": 0.448358,
           "sqlServerRegionalCud1yr": 1.40112,
           "sqlServerRegionalCud3yr": 0.896717
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 1.197,
-          "mysqlRegional": 2.39568,
-          "postgresZonal": 1.197,
-          "postgresRegional": 2.39568,
-          "sqlServerZonal": 1.197,
-          "sqlServerRegional": 2.39568,
-          "mysqlZonalCud1yr": 0.89775,
-          "mysqlZonalCud3yr": 0.57456,
-          "mysqlRegionalCud1yr": 1.79676,
-          "mysqlRegionalCud3yr": 1.149926,
-          "postgresZonalCud1yr": 0.89775,
-          "postgresZonalCud3yr": 0.57456,
-          "postgresRegionalCud1yr": 1.79676,
-          "postgresRegionalCud3yr": 1.149926,
-          "sqlServerZonalCud1yr": 0.89775,
-          "sqlServerZonalCud3yr": 0.57456,
-          "sqlServerRegionalCud1yr": 1.79676,
-          "sqlServerRegionalCud3yr": 1.149926
         }
       }
     },
@@ -34617,6 +34657,26 @@
           "sqlServerZonalCud3yr": 1.120896,
           "sqlServerRegionalCud1yr": 3.5028,
           "sqlServerRegionalCud3yr": 2.241792
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 1.63464,
+          "mysqlRegional": 3.26928,
+          "postgresZonal": 1.63464,
+          "postgresRegional": 3.26928,
+          "sqlServerZonal": 1.63464,
+          "sqlServerRegional": 3.26928,
+          "mysqlZonalCud1yr": 1.22598,
+          "mysqlZonalCud3yr": 0.784627,
+          "mysqlRegionalCud1yr": 2.45196,
+          "mysqlRegionalCud3yr": 1.569254,
+          "postgresZonalCud1yr": 1.22598,
+          "postgresZonalCud3yr": 0.784627,
+          "postgresRegionalCud1yr": 2.45196,
+          "postgresRegionalCud3yr": 1.569254,
+          "sqlServerZonalCud1yr": 1.22598,
+          "sqlServerZonalCud3yr": 0.784627,
+          "sqlServerRegionalCud1yr": 2.45196,
+          "sqlServerRegionalCud3yr": 1.569254
         },
         "europe-west6": {
           "mysqlZonal": 2.02384,
@@ -35137,26 +35197,6 @@
           "sqlServerZonalCud3yr": 0.896717,
           "sqlServerRegionalCud1yr": 2.80224,
           "sqlServerRegionalCud3yr": 1.793434
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 2.394,
-          "mysqlRegional": 4.79136,
-          "postgresZonal": 2.394,
-          "postgresRegional": 4.79136,
-          "sqlServerZonal": 2.394,
-          "sqlServerRegional": 4.79136,
-          "mysqlZonalCud1yr": 1.7955,
-          "mysqlZonalCud3yr": 1.14912,
-          "mysqlRegionalCud1yr": 3.59352,
-          "mysqlRegionalCud3yr": 2.299853,
-          "postgresZonalCud1yr": 1.7955,
-          "postgresZonalCud3yr": 1.14912,
-          "postgresRegionalCud1yr": 3.59352,
-          "postgresRegionalCud3yr": 2.299853,
-          "sqlServerZonalCud1yr": 1.7955,
-          "sqlServerZonalCud3yr": 1.14912,
-          "sqlServerRegionalCud1yr": 3.59352,
-          "sqlServerRegionalCud3yr": 2.299853
         }
       }
     },
@@ -35567,6 +35607,26 @@
           "sqlServerZonalCud3yr": 2.241792,
           "sqlServerRegionalCud1yr": 7.0056,
           "sqlServerRegionalCud3yr": 4.483584
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 3.26928,
+          "mysqlRegional": 6.53856,
+          "postgresZonal": 3.26928,
+          "postgresRegional": 6.53856,
+          "sqlServerZonal": 3.26928,
+          "sqlServerRegional": 6.53856,
+          "mysqlZonalCud1yr": 2.45196,
+          "mysqlZonalCud3yr": 1.569254,
+          "mysqlRegionalCud1yr": 4.90392,
+          "mysqlRegionalCud3yr": 3.138509,
+          "postgresZonalCud1yr": 2.45196,
+          "postgresZonalCud3yr": 1.569254,
+          "postgresRegionalCud1yr": 4.90392,
+          "postgresRegionalCud3yr": 3.138509,
+          "sqlServerZonalCud1yr": 2.45196,
+          "sqlServerZonalCud3yr": 1.569254,
+          "sqlServerRegionalCud1yr": 4.90392,
+          "sqlServerRegionalCud3yr": 3.138509
         },
         "europe-west6": {
           "mysqlZonal": 4.04768,
@@ -36087,26 +36147,6 @@
           "sqlServerZonalCud3yr": 1.793434,
           "sqlServerRegionalCud1yr": 5.60448,
           "sqlServerRegionalCud3yr": 3.586867
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 4.788,
-          "mysqlRegional": 9.58272,
-          "postgresZonal": 4.788,
-          "postgresRegional": 9.58272,
-          "sqlServerZonal": 4.788,
-          "sqlServerRegional": 9.58272,
-          "mysqlZonalCud1yr": 3.591,
-          "mysqlZonalCud3yr": 2.29824,
-          "mysqlRegionalCud1yr": 7.18704,
-          "mysqlRegionalCud3yr": 4.599706,
-          "postgresZonalCud1yr": 3.591,
-          "postgresZonalCud3yr": 2.29824,
-          "postgresRegionalCud1yr": 7.18704,
-          "postgresRegionalCud3yr": 4.599706,
-          "sqlServerZonalCud1yr": 3.591,
-          "sqlServerZonalCud3yr": 2.29824,
-          "sqlServerRegionalCud1yr": 7.18704,
-          "sqlServerRegionalCud3yr": 4.599706
         }
       }
     },
@@ -36517,6 +36557,26 @@
           "sqlServerZonalCud3yr": 3.362688,
           "sqlServerRegionalCud1yr": 10.5084,
           "sqlServerRegionalCud3yr": 6.725376
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 4.90392,
+          "mysqlRegional": 9.80784,
+          "postgresZonal": 4.90392,
+          "postgresRegional": 9.80784,
+          "sqlServerZonal": 4.90392,
+          "sqlServerRegional": 9.80784,
+          "mysqlZonalCud1yr": 3.67794,
+          "mysqlZonalCud3yr": 2.353882,
+          "mysqlRegionalCud1yr": 7.35588,
+          "mysqlRegionalCud3yr": 4.707763,
+          "postgresZonalCud1yr": 3.67794,
+          "postgresZonalCud3yr": 2.353882,
+          "postgresRegionalCud1yr": 7.35588,
+          "postgresRegionalCud3yr": 4.707763,
+          "sqlServerZonalCud1yr": 3.67794,
+          "sqlServerZonalCud3yr": 2.353882,
+          "sqlServerRegionalCud1yr": 7.35588,
+          "sqlServerRegionalCud3yr": 4.707763
         },
         "europe-west6": {
           "mysqlZonal": 6.07152,
@@ -37037,26 +37097,6 @@
           "sqlServerZonalCud3yr": 2.69015,
           "sqlServerRegionalCud1yr": 8.40672,
           "sqlServerRegionalCud3yr": 5.380301
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 7.182,
-          "mysqlRegional": 14.37408,
-          "postgresZonal": 7.182,
-          "postgresRegional": 14.37408,
-          "sqlServerZonal": 7.182,
-          "sqlServerRegional": 14.37408,
-          "mysqlZonalCud1yr": 5.3865,
-          "mysqlZonalCud3yr": 3.44736,
-          "mysqlRegionalCud1yr": 10.78056,
-          "mysqlRegionalCud3yr": 6.899558,
-          "postgresZonalCud1yr": 5.3865,
-          "postgresZonalCud3yr": 3.44736,
-          "postgresRegionalCud1yr": 10.78056,
-          "postgresRegionalCud3yr": 6.899558,
-          "sqlServerZonalCud1yr": 5.3865,
-          "sqlServerZonalCud3yr": 3.44736,
-          "sqlServerRegionalCud1yr": 10.78056,
-          "sqlServerRegionalCud3yr": 6.899558
         }
       }
     },
@@ -37467,6 +37507,26 @@
           "sqlServerZonalCud3yr": 4.483584,
           "sqlServerRegionalCud1yr": 14.0112,
           "sqlServerRegionalCud3yr": 8.967168
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 6.53856,
+          "mysqlRegional": 13.07712,
+          "postgresZonal": 6.53856,
+          "postgresRegional": 13.07712,
+          "sqlServerZonal": 6.53856,
+          "sqlServerRegional": 13.07712,
+          "mysqlZonalCud1yr": 4.90392,
+          "mysqlZonalCud3yr": 3.138509,
+          "mysqlRegionalCud1yr": 9.80784,
+          "mysqlRegionalCud3yr": 6.277018,
+          "postgresZonalCud1yr": 4.90392,
+          "postgresZonalCud3yr": 3.138509,
+          "postgresRegionalCud1yr": 9.80784,
+          "postgresRegionalCud3yr": 6.277018,
+          "sqlServerZonalCud1yr": 4.90392,
+          "sqlServerZonalCud3yr": 3.138509,
+          "sqlServerRegionalCud1yr": 9.80784,
+          "sqlServerRegionalCud3yr": 6.277018
         },
         "europe-west6": {
           "mysqlZonal": 8.09536,
@@ -37987,26 +38047,6 @@
           "sqlServerZonalCud3yr": 3.586867,
           "sqlServerRegionalCud1yr": 11.20896,
           "sqlServerRegionalCud3yr": 7.173734
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 9.576,
-          "mysqlRegional": 19.16544,
-          "postgresZonal": 9.576,
-          "postgresRegional": 19.16544,
-          "sqlServerZonal": 9.576,
-          "sqlServerRegional": 19.16544,
-          "mysqlZonalCud1yr": 7.182,
-          "mysqlZonalCud3yr": 4.59648,
-          "mysqlRegionalCud1yr": 14.37408,
-          "mysqlRegionalCud3yr": 9.199411,
-          "postgresZonalCud1yr": 7.182,
-          "postgresZonalCud3yr": 4.59648,
-          "postgresRegionalCud1yr": 14.37408,
-          "postgresRegionalCud3yr": 9.199411,
-          "sqlServerZonalCud1yr": 7.182,
-          "sqlServerZonalCud3yr": 4.59648,
-          "sqlServerRegionalCud1yr": 14.37408,
-          "sqlServerRegionalCud3yr": 9.199411
         }
       }
     },
@@ -38417,6 +38457,26 @@
           "sqlServerZonalCud3yr": 5.60448,
           "sqlServerRegionalCud1yr": 17.514,
           "sqlServerRegionalCud3yr": 11.20896
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 8.1732,
+          "mysqlRegional": 16.3464,
+          "postgresZonal": 8.1732,
+          "postgresRegional": 16.3464,
+          "sqlServerZonal": 8.1732,
+          "sqlServerRegional": 16.3464,
+          "mysqlZonalCud1yr": 6.1299,
+          "mysqlZonalCud3yr": 3.923136,
+          "mysqlRegionalCud1yr": 12.2598,
+          "mysqlRegionalCud3yr": 7.846272,
+          "postgresZonalCud1yr": 6.1299,
+          "postgresZonalCud3yr": 3.923136,
+          "postgresRegionalCud1yr": 12.2598,
+          "postgresRegionalCud3yr": 7.846272,
+          "sqlServerZonalCud1yr": 6.1299,
+          "sqlServerZonalCud3yr": 3.923136,
+          "sqlServerRegionalCud1yr": 12.2598,
+          "sqlServerRegionalCud3yr": 7.846272
         },
         "europe-west6": {
           "mysqlZonal": 10.1192,
@@ -38937,26 +38997,6 @@
           "sqlServerZonalCud3yr": 4.483584,
           "sqlServerRegionalCud1yr": 14.0112,
           "sqlServerRegionalCud3yr": 8.967168
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 11.97,
-          "mysqlRegional": 23.9568,
-          "postgresZonal": 11.97,
-          "postgresRegional": 23.9568,
-          "sqlServerZonal": 11.97,
-          "sqlServerRegional": 23.9568,
-          "mysqlZonalCud1yr": 8.9775,
-          "mysqlZonalCud3yr": 5.7456,
-          "mysqlRegionalCud1yr": 17.9676,
-          "mysqlRegionalCud3yr": 11.499264,
-          "postgresZonalCud1yr": 8.9775,
-          "postgresZonalCud3yr": 5.7456,
-          "postgresRegionalCud1yr": 17.9676,
-          "postgresRegionalCud3yr": 11.499264,
-          "sqlServerZonalCud1yr": 8.9775,
-          "sqlServerZonalCud3yr": 5.7456,
-          "sqlServerRegionalCud1yr": 17.9676,
-          "sqlServerRegionalCud3yr": 11.499264
         }
       }
     },
@@ -39367,6 +39407,26 @@
           "sqlServerZonalCud3yr": 6.725376,
           "sqlServerRegionalCud1yr": 21.0168,
           "sqlServerRegionalCud3yr": 13.450752
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 9.80784,
+          "mysqlRegional": 19.61568,
+          "postgresZonal": 9.80784,
+          "postgresRegional": 19.61568,
+          "sqlServerZonal": 9.80784,
+          "sqlServerRegional": 19.61568,
+          "mysqlZonalCud1yr": 7.35588,
+          "mysqlZonalCud3yr": 4.707763,
+          "mysqlRegionalCud1yr": 14.71176,
+          "mysqlRegionalCud3yr": 9.415526,
+          "postgresZonalCud1yr": 7.35588,
+          "postgresZonalCud3yr": 4.707763,
+          "postgresRegionalCud1yr": 14.71176,
+          "postgresRegionalCud3yr": 9.415526,
+          "sqlServerZonalCud1yr": 7.35588,
+          "sqlServerZonalCud3yr": 4.707763,
+          "sqlServerRegionalCud1yr": 14.71176,
+          "sqlServerRegionalCud3yr": 9.415526
         },
         "europe-west6": {
           "mysqlZonal": 12.14304,
@@ -39887,26 +39947,6 @@
           "sqlServerZonalCud3yr": 5.380301,
           "sqlServerRegionalCud1yr": 16.81344,
           "sqlServerRegionalCud3yr": 10.760602
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 14.364,
-          "mysqlRegional": 28.74816,
-          "postgresZonal": 14.364,
-          "postgresRegional": 28.74816,
-          "sqlServerZonal": 14.364,
-          "sqlServerRegional": 28.74816,
-          "mysqlZonalCud1yr": 10.773,
-          "mysqlZonalCud3yr": 6.89472,
-          "mysqlRegionalCud1yr": 21.56112,
-          "mysqlRegionalCud3yr": 13.799117,
-          "postgresZonalCud1yr": 10.773,
-          "postgresZonalCud3yr": 6.89472,
-          "postgresRegionalCud1yr": 21.56112,
-          "postgresRegionalCud3yr": 13.799117,
-          "sqlServerZonalCud1yr": 10.773,
-          "sqlServerZonalCud3yr": 6.89472,
-          "sqlServerRegionalCud1yr": 21.56112,
-          "sqlServerRegionalCud3yr": 13.799117
         }
       }
     },
@@ -40317,6 +40357,26 @@
           "sqlServerZonalCud3yr": 8.160768,
           "sqlServerRegionalCud1yr": 25.5024,
           "sqlServerRegionalCud3yr": 16.321536
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 11.90112,
+          "mysqlRegional": 23.80224,
+          "postgresZonal": 11.90112,
+          "postgresRegional": 23.80224,
+          "sqlServerZonal": 11.90112,
+          "sqlServerRegional": 23.80224,
+          "mysqlZonalCud1yr": 8.92584,
+          "mysqlZonalCud3yr": 5.712538,
+          "mysqlRegionalCud1yr": 17.85168,
+          "mysqlRegionalCud3yr": 11.425075,
+          "postgresZonalCud1yr": 8.92584,
+          "postgresZonalCud3yr": 5.712538,
+          "postgresRegionalCud1yr": 17.85168,
+          "postgresRegionalCud3yr": 11.425075,
+          "sqlServerZonalCud1yr": 8.92584,
+          "sqlServerZonalCud3yr": 5.712538,
+          "sqlServerRegionalCud1yr": 17.85168,
+          "sqlServerRegionalCud3yr": 11.425075
         },
         "europe-west6": {
           "mysqlZonal": 14.73472,
@@ -40837,26 +40897,6 @@
           "sqlServerZonalCud3yr": 6.528614,
           "sqlServerRegionalCud1yr": 20.40192,
           "sqlServerRegionalCud3yr": 13.057229
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 17.4384,
-          "mysqlRegional": 34.90368,
-          "postgresZonal": 17.4384,
-          "postgresRegional": 34.90368,
-          "sqlServerZonal": 17.4384,
-          "sqlServerRegional": 34.90368,
-          "mysqlZonalCud1yr": 13.0788,
-          "mysqlZonalCud3yr": 8.370432,
-          "mysqlRegionalCud1yr": 26.17776,
-          "mysqlRegionalCud3yr": 16.753766,
-          "postgresZonalCud1yr": 13.0788,
-          "postgresZonalCud3yr": 8.370432,
-          "postgresRegionalCud1yr": 26.17776,
-          "postgresRegionalCud3yr": 16.753766,
-          "sqlServerZonalCud1yr": 13.0788,
-          "sqlServerZonalCud3yr": 8.370432,
-          "sqlServerRegionalCud1yr": 26.17776,
-          "sqlServerRegionalCud3yr": 16.753766
         }
       }
     },
@@ -41267,6 +41307,26 @@
           "sqlServerZonalCud3yr": 0.182976,
           "sqlServerRegionalCud1yr": 0.6102,
           "sqlServerRegionalCud3yr": 0.390528
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 0.27909,
+          "mysqlRegional": 0.5292,
+          "postgresZonal": 0.2646,
+          "postgresRegional": 0.5292,
+          "sqlServerZonal": 0.28476,
+          "sqlServerRegional": 0.79716,
+          "mysqlZonalCud1yr": 0.209318,
+          "mysqlZonalCud3yr": 0.133963,
+          "mysqlRegionalCud1yr": 0.3969,
+          "mysqlRegionalCud3yr": 0.254016,
+          "postgresZonalCud1yr": 0.19845,
+          "postgresZonalCud3yr": 0.127008,
+          "postgresRegionalCud1yr": 0.3969,
+          "postgresRegionalCud3yr": 0.254016,
+          "sqlServerZonalCud1yr": 0.21357,
+          "sqlServerZonalCud3yr": 0.136685,
+          "sqlServerRegionalCud1yr": 0.59787,
+          "sqlServerRegionalCud3yr": 0.382637
         },
         "europe-west6": {
           "mysqlZonal": 0.2946,
@@ -41787,26 +41847,6 @@
           "sqlServerZonalCud3yr": 0.19584,
           "sqlServerRegionalCud1yr": 0.45255,
           "sqlServerRegionalCud3yr": 0.289632
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 0.29925,
-          "mysqlRegional": 0.59892,
-          "postgresZonal": 0.29925,
-          "postgresRegional": 0.59892,
-          "sqlServerZonal": 0.29925,
-          "sqlServerRegional": 0.59892,
-          "mysqlZonalCud1yr": 0.224438,
-          "mysqlZonalCud3yr": 0.14364,
-          "mysqlRegionalCud1yr": 0.44919,
-          "mysqlRegionalCud3yr": 0.287482,
-          "postgresZonalCud1yr": 0.224438,
-          "postgresZonalCud3yr": 0.14364,
-          "postgresRegionalCud1yr": 0.44919,
-          "postgresRegionalCud3yr": 0.287482,
-          "sqlServerZonalCud1yr": 0.224438,
-          "sqlServerZonalCud3yr": 0.14364,
-          "sqlServerRegionalCud1yr": 0.44919,
-          "sqlServerRegionalCud3yr": 0.287482
         }
       }
     },
@@ -42217,6 +42257,26 @@
           "sqlServerZonalCud3yr": 0.365952,
           "sqlServerRegionalCud1yr": 1.2204,
           "sqlServerRegionalCud3yr": 0.781056
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 0.55818,
+          "mysqlRegional": 1.0584,
+          "postgresZonal": 0.5292,
+          "postgresRegional": 1.0584,
+          "sqlServerZonal": 0.56952,
+          "sqlServerRegional": 1.59432,
+          "mysqlZonalCud1yr": 0.418635,
+          "mysqlZonalCud3yr": 0.267926,
+          "mysqlRegionalCud1yr": 0.7938,
+          "mysqlRegionalCud3yr": 0.508032,
+          "postgresZonalCud1yr": 0.3969,
+          "postgresZonalCud3yr": 0.254016,
+          "postgresRegionalCud1yr": 0.7938,
+          "postgresRegionalCud3yr": 0.508032,
+          "sqlServerZonalCud1yr": 0.42714,
+          "sqlServerZonalCud3yr": 0.27337,
+          "sqlServerRegionalCud1yr": 1.19574,
+          "sqlServerRegionalCud3yr": 0.765274
         },
         "europe-west6": {
           "mysqlZonal": 0.5892,
@@ -42737,26 +42797,6 @@
           "sqlServerZonalCud3yr": 0.39168,
           "sqlServerRegionalCud1yr": 0.9051,
           "sqlServerRegionalCud3yr": 0.579264
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 0.5985,
-          "mysqlRegional": 1.19784,
-          "postgresZonal": 0.5985,
-          "postgresRegional": 1.19784,
-          "sqlServerZonal": 0.5985,
-          "sqlServerRegional": 1.19784,
-          "mysqlZonalCud1yr": 0.448875,
-          "mysqlZonalCud3yr": 0.28728,
-          "mysqlRegionalCud1yr": 0.89838,
-          "mysqlRegionalCud3yr": 0.574963,
-          "postgresZonalCud1yr": 0.448875,
-          "postgresZonalCud3yr": 0.28728,
-          "postgresRegionalCud1yr": 0.89838,
-          "postgresRegionalCud3yr": 0.574963,
-          "sqlServerZonalCud1yr": 0.448875,
-          "sqlServerZonalCud3yr": 0.28728,
-          "sqlServerRegionalCud1yr": 0.89838,
-          "sqlServerRegionalCud3yr": 0.574963
         }
       }
     },
@@ -43167,6 +43207,26 @@
           "sqlServerZonalCud3yr": 0.731904,
           "sqlServerRegionalCud1yr": 2.4408,
           "sqlServerRegionalCud3yr": 1.562112
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 1.11636,
+          "mysqlRegional": 2.1168,
+          "postgresZonal": 1.0584,
+          "postgresRegional": 2.1168,
+          "sqlServerZonal": 1.13904,
+          "sqlServerRegional": 3.18864,
+          "mysqlZonalCud1yr": 0.83727,
+          "mysqlZonalCud3yr": 0.535853,
+          "mysqlRegionalCud1yr": 1.5876,
+          "mysqlRegionalCud3yr": 1.016064,
+          "postgresZonalCud1yr": 0.7938,
+          "postgresZonalCud3yr": 0.508032,
+          "postgresRegionalCud1yr": 1.5876,
+          "postgresRegionalCud3yr": 1.016064,
+          "sqlServerZonalCud1yr": 0.85428,
+          "sqlServerZonalCud3yr": 0.546739,
+          "sqlServerRegionalCud1yr": 2.39148,
+          "sqlServerRegionalCud3yr": 1.530547
         },
         "europe-west6": {
           "mysqlZonal": 1.1784,
@@ -43687,26 +43747,6 @@
           "sqlServerZonalCud3yr": 0.78336,
           "sqlServerRegionalCud1yr": 1.8102,
           "sqlServerRegionalCud3yr": 1.158528
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 1.197,
-          "mysqlRegional": 2.39568,
-          "postgresZonal": 1.197,
-          "postgresRegional": 2.39568,
-          "sqlServerZonal": 1.197,
-          "sqlServerRegional": 2.39568,
-          "mysqlZonalCud1yr": 0.89775,
-          "mysqlZonalCud3yr": 0.57456,
-          "mysqlRegionalCud1yr": 1.79676,
-          "mysqlRegionalCud3yr": 1.149926,
-          "postgresZonalCud1yr": 0.89775,
-          "postgresZonalCud3yr": 0.57456,
-          "postgresRegionalCud1yr": 1.79676,
-          "postgresRegionalCud3yr": 1.149926,
-          "sqlServerZonalCud1yr": 0.89775,
-          "sqlServerZonalCud3yr": 0.57456,
-          "sqlServerRegionalCud1yr": 1.79676,
-          "sqlServerRegionalCud3yr": 1.149926
         }
       }
     },
@@ -44117,6 +44157,26 @@
           "sqlServerZonalCud3yr": 1.463808,
           "sqlServerRegionalCud1yr": 4.8816,
           "sqlServerRegionalCud3yr": 3.124224
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 2.23272,
+          "mysqlRegional": 4.2336,
+          "postgresZonal": 2.1168,
+          "postgresRegional": 4.2336,
+          "sqlServerZonal": 2.27808,
+          "sqlServerRegional": 6.37728,
+          "mysqlZonalCud1yr": 1.67454,
+          "mysqlZonalCud3yr": 1.071706,
+          "mysqlRegionalCud1yr": 3.1752,
+          "mysqlRegionalCud3yr": 2.032128,
+          "postgresZonalCud1yr": 1.5876,
+          "postgresZonalCud3yr": 1.016064,
+          "postgresRegionalCud1yr": 3.1752,
+          "postgresRegionalCud3yr": 2.032128,
+          "sqlServerZonalCud1yr": 1.70856,
+          "sqlServerZonalCud3yr": 1.093478,
+          "sqlServerRegionalCud1yr": 4.78296,
+          "sqlServerRegionalCud3yr": 3.061094
         },
         "europe-west6": {
           "mysqlZonal": 2.3568,
@@ -44637,26 +44697,6 @@
           "sqlServerZonalCud3yr": 1.56672,
           "sqlServerRegionalCud1yr": 3.6204,
           "sqlServerRegionalCud3yr": 2.317056
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 2.394,
-          "mysqlRegional": 4.79136,
-          "postgresZonal": 2.394,
-          "postgresRegional": 4.79136,
-          "sqlServerZonal": 2.394,
-          "sqlServerRegional": 4.79136,
-          "mysqlZonalCud1yr": 1.7955,
-          "mysqlZonalCud3yr": 1.14912,
-          "mysqlRegionalCud1yr": 3.59352,
-          "mysqlRegionalCud3yr": 2.299853,
-          "postgresZonalCud1yr": 1.7955,
-          "postgresZonalCud3yr": 1.14912,
-          "postgresRegionalCud1yr": 3.59352,
-          "postgresRegionalCud3yr": 2.299853,
-          "sqlServerZonalCud1yr": 1.7955,
-          "sqlServerZonalCud3yr": 1.14912,
-          "sqlServerRegionalCud1yr": 3.59352,
-          "sqlServerRegionalCud3yr": 2.299853
         }
       }
     },
@@ -45067,6 +45107,26 @@
           "sqlServerZonalCud3yr": 2.927616,
           "sqlServerRegionalCud1yr": 9.7632,
           "sqlServerRegionalCud3yr": 6.248448
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 4.46544,
+          "mysqlRegional": 8.4672,
+          "postgresZonal": 4.2336,
+          "postgresRegional": 8.4672,
+          "sqlServerZonal": 4.55616,
+          "sqlServerRegional": 12.75456,
+          "mysqlZonalCud1yr": 3.34908,
+          "mysqlZonalCud3yr": 2.143411,
+          "mysqlRegionalCud1yr": 6.3504,
+          "mysqlRegionalCud3yr": 4.064256,
+          "postgresZonalCud1yr": 3.1752,
+          "postgresZonalCud3yr": 2.032128,
+          "postgresRegionalCud1yr": 6.3504,
+          "postgresRegionalCud3yr": 4.064256,
+          "sqlServerZonalCud1yr": 3.41712,
+          "sqlServerZonalCud3yr": 2.186957,
+          "sqlServerRegionalCud1yr": 9.56592,
+          "sqlServerRegionalCud3yr": 6.122189
         },
         "europe-west6": {
           "mysqlZonal": 4.7136,
@@ -45587,26 +45647,6 @@
           "sqlServerZonalCud3yr": 3.13344,
           "sqlServerRegionalCud1yr": 7.2408,
           "sqlServerRegionalCud3yr": 4.634112
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 4.788,
-          "mysqlRegional": 9.58272,
-          "postgresZonal": 4.788,
-          "postgresRegional": 9.58272,
-          "sqlServerZonal": 4.788,
-          "sqlServerRegional": 9.58272,
-          "mysqlZonalCud1yr": 3.591,
-          "mysqlZonalCud3yr": 2.29824,
-          "mysqlRegionalCud1yr": 7.18704,
-          "mysqlRegionalCud3yr": 4.599706,
-          "postgresZonalCud1yr": 3.591,
-          "postgresZonalCud3yr": 2.29824,
-          "postgresRegionalCud1yr": 7.18704,
-          "postgresRegionalCud3yr": 4.599706,
-          "sqlServerZonalCud1yr": 3.591,
-          "sqlServerZonalCud3yr": 2.29824,
-          "sqlServerRegionalCud1yr": 7.18704,
-          "sqlServerRegionalCud3yr": 4.599706
         }
       }
     },
@@ -46017,6 +46057,26 @@
           "sqlServerZonalCud3yr": 4.391424,
           "sqlServerRegionalCud1yr": 14.6448,
           "sqlServerRegionalCud3yr": 9.372672
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 6.69816,
+          "mysqlRegional": 12.7008,
+          "postgresZonal": 6.3504,
+          "postgresRegional": 12.7008,
+          "sqlServerZonal": 6.83424,
+          "sqlServerRegional": 19.13184,
+          "mysqlZonalCud1yr": 5.02362,
+          "mysqlZonalCud3yr": 3.215117,
+          "mysqlRegionalCud1yr": 9.5256,
+          "mysqlRegionalCud3yr": 6.096384,
+          "postgresZonalCud1yr": 4.7628,
+          "postgresZonalCud3yr": 3.048192,
+          "postgresRegionalCud1yr": 9.5256,
+          "postgresRegionalCud3yr": 6.096384,
+          "sqlServerZonalCud1yr": 5.12568,
+          "sqlServerZonalCud3yr": 3.280435,
+          "sqlServerRegionalCud1yr": 14.34888,
+          "sqlServerRegionalCud3yr": 9.183283
         },
         "europe-west6": {
           "mysqlZonal": 7.0704,
@@ -46537,26 +46597,6 @@
           "sqlServerZonalCud3yr": 4.70016,
           "sqlServerRegionalCud1yr": 10.8612,
           "sqlServerRegionalCud3yr": 6.951168
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 7.182,
-          "mysqlRegional": 14.37408,
-          "postgresZonal": 7.182,
-          "postgresRegional": 14.37408,
-          "sqlServerZonal": 7.182,
-          "sqlServerRegional": 14.37408,
-          "mysqlZonalCud1yr": 5.3865,
-          "mysqlZonalCud3yr": 3.44736,
-          "mysqlRegionalCud1yr": 10.78056,
-          "mysqlRegionalCud3yr": 6.899558,
-          "postgresZonalCud1yr": 5.3865,
-          "postgresZonalCud3yr": 3.44736,
-          "postgresRegionalCud1yr": 10.78056,
-          "postgresRegionalCud3yr": 6.899558,
-          "sqlServerZonalCud1yr": 5.3865,
-          "sqlServerZonalCud3yr": 3.44736,
-          "sqlServerRegionalCud1yr": 10.78056,
-          "sqlServerRegionalCud3yr": 6.899558
         }
       }
     },
@@ -46967,6 +47007,26 @@
           "sqlServerZonalCud3yr": 5.855232,
           "sqlServerRegionalCud1yr": 19.5264,
           "sqlServerRegionalCud3yr": 12.496896
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 8.93088,
+          "mysqlRegional": 16.9344,
+          "postgresZonal": 8.4672,
+          "postgresRegional": 16.9344,
+          "sqlServerZonal": 9.11232,
+          "sqlServerRegional": 25.50912,
+          "mysqlZonalCud1yr": 6.69816,
+          "mysqlZonalCud3yr": 4.286822,
+          "mysqlRegionalCud1yr": 12.7008,
+          "mysqlRegionalCud3yr": 8.128512,
+          "postgresZonalCud1yr": 6.3504,
+          "postgresZonalCud3yr": 4.064256,
+          "postgresRegionalCud1yr": 12.7008,
+          "postgresRegionalCud3yr": 8.128512,
+          "sqlServerZonalCud1yr": 6.83424,
+          "sqlServerZonalCud3yr": 4.373914,
+          "sqlServerRegionalCud1yr": 19.13184,
+          "sqlServerRegionalCud3yr": 12.244378
         },
         "europe-west6": {
           "mysqlZonal": 9.4272,
@@ -47487,26 +47547,6 @@
           "sqlServerZonalCud3yr": 6.26688,
           "sqlServerRegionalCud1yr": 14.4816,
           "sqlServerRegionalCud3yr": 9.268224
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 9.576,
-          "mysqlRegional": 19.16544,
-          "postgresZonal": 9.576,
-          "postgresRegional": 19.16544,
-          "sqlServerZonal": 9.576,
-          "sqlServerRegional": 19.16544,
-          "mysqlZonalCud1yr": 7.182,
-          "mysqlZonalCud3yr": 4.59648,
-          "mysqlRegionalCud1yr": 14.37408,
-          "mysqlRegionalCud3yr": 9.199411,
-          "postgresZonalCud1yr": 7.182,
-          "postgresZonalCud3yr": 4.59648,
-          "postgresRegionalCud1yr": 14.37408,
-          "postgresRegionalCud3yr": 9.199411,
-          "sqlServerZonalCud1yr": 7.182,
-          "sqlServerZonalCud3yr": 4.59648,
-          "sqlServerRegionalCud1yr": 14.37408,
-          "sqlServerRegionalCud3yr": 9.199411
         }
       }
     },
@@ -47917,6 +47957,26 @@
           "sqlServerZonalCud3yr": 6.587136,
           "sqlServerRegionalCud1yr": 21.9672,
           "sqlServerRegionalCud3yr": 14.059008
+        },
+        "asia-southeast4": {
+          "mysqlZonal": 10.04724,
+          "mysqlRegional": 19.0512,
+          "postgresZonal": 9.5256,
+          "postgresRegional": 19.0512,
+          "sqlServerZonal": 10.25136,
+          "sqlServerRegional": 28.69776,
+          "mysqlZonalCud1yr": 7.53543,
+          "mysqlZonalCud3yr": 4.822675,
+          "mysqlRegionalCud1yr": 14.2884,
+          "mysqlRegionalCud3yr": 9.144576,
+          "postgresZonalCud1yr": 7.1442,
+          "postgresZonalCud3yr": 4.572288,
+          "postgresRegionalCud1yr": 14.2884,
+          "postgresRegionalCud3yr": 9.144576,
+          "sqlServerZonalCud1yr": 7.68852,
+          "sqlServerZonalCud3yr": 4.920653,
+          "sqlServerRegionalCud1yr": 21.52332,
+          "sqlServerRegionalCud3yr": 13.774925
         },
         "europe-west6": {
           "mysqlZonal": 10.6056,
@@ -48437,26 +48497,6 @@
           "sqlServerZonalCud3yr": 7.05024,
           "sqlServerRegionalCud1yr": 16.2918,
           "sqlServerRegionalCud3yr": 10.426752
-        },
-        "asia-southeast4": {
-          "mysqlZonal": 10.773,
-          "mysqlRegional": 21.56112,
-          "postgresZonal": 10.773,
-          "postgresRegional": 21.56112,
-          "sqlServerZonal": 10.773,
-          "sqlServerRegional": 21.56112,
-          "mysqlZonalCud1yr": 8.07975,
-          "mysqlZonalCud3yr": 5.17104,
-          "mysqlRegionalCud1yr": 16.17084,
-          "mysqlRegionalCud3yr": 10.349338,
-          "postgresZonalCud1yr": 8.07975,
-          "postgresZonalCud3yr": 5.17104,
-          "postgresRegionalCud1yr": 16.17084,
-          "postgresRegionalCud3yr": 10.349338,
-          "sqlServerZonalCud1yr": 8.07975,
-          "sqlServerZonalCud3yr": 5.17104,
-          "sqlServerRegionalCud1yr": 16.17084,
-          "sqlServerRegionalCud3yr": 10.349338
         }
       }
     }
